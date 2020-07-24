@@ -1,0 +1,6 @@
+framework module Pods_GetStars {
+  umbrella header "Pods-GetStars-umbrella.h"
+
+  export *
+  module * { export * }
+}
