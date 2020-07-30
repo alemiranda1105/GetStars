@@ -42,7 +42,7 @@ struct SignUpView: View {
     
     private func checkDate() -> Bool {
         let actualY = Calendar.current.component(.year, from: Date())
-        if (Int(year)! < 1900 || Int(year)! > actualY - 18) {
+        if (Int(year)! < 1900 || Int(year)! > actualY - 1) {
             self.error = "Fecha incorrecta"
             return false
         }
@@ -95,6 +95,29 @@ struct SignUpView: View {
         return false
     }
     
+    private func checkAge() -> Int {
+        let actualY = Calendar.current.component(.year, from: Date())
+        let actualM = Calendar.current.component(.month, from: Date())
+        let actualD = Calendar.current.component(.day, from: Date())
+        
+        if actualY > Int(year)! {
+            if actualM < Int(month)! {
+                return actualY - Int(year)! - 1
+            } else if actualM > Int(month)! {
+                return actualY - Int(year)! - 1
+            } else {
+                if actualD > Int(day)! {
+                    return actualY - Int(year)!
+                } else {
+                    return actualY - Int(year)! - 1
+                }
+            }
+        }
+        
+        return 0
+        
+    }
+    
     func signUp() {
         if (name == "" || lastName == "") {
             error = "Introduzca correctamente los datos"
@@ -109,7 +132,7 @@ struct SignUpView: View {
         if !checkDate(){ return }
         
         self.birthDate = self.day + "/" +  self.month + "/" + self.year
-        let age: Int = Calendar.current.component(.year, from: Date()) - Int(year)!
+        let age: Int = checkAge()
         
         if !checkPass(){ return }
         

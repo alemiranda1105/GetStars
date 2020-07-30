@@ -24,45 +24,22 @@ struct TabBarView: View {
             ZStack {
                 
                 if self.index == 0 {
-                    VStack {
-                        Button(action: { }){
-                            Text("¡PÁSATE AL PRO").font(.system(size: 18, weight: .bold))
-                            
-                        }.frame(minWidth: 0, maxWidth: .infinity)
-                            .padding(14)
-                            .background(RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.init("gris"))
-                            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-                            .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5))
-                            .foregroundColor(Color.black)
-                        Spacer()
-                        
-                    }.padding(.top, 20).padding(.horizontal, 32)//.border(Color.black.opacity(0.75), width: 0.25)
+                    HomeView()
                     
                 } else if self.index == 1 {
-                    VStack {
-                        Text("Búsqueda")
-                    }
+                    SearchView()
+                    
                 } else if self.index == 2 {
-                    VStack {
-                        Text("Compra y sorteos")
-                    }
+                    BuyDrawView()
+                    
                 } else if self.index == 3 {
-                    VStack {
-                        Text("Perfil")
-                        Text("Hola \((self.session.data?.getName()) ?? "Error")")
-                        
-                        Button(action: { self.session.signOut() } ){
-                            Text("Cierra sesión")
-                        }
-                    }
+                    ProfileView().environmentObject(self.session)
+                    
                 } else {
-                    VStack {
-                        CreateAutograph()
-                    }
+                    CreateAutograph()
+                    
                 }
-                
-            }.padding(.bottom, -8)
+            }
             
             Spacer()
             
@@ -138,13 +115,34 @@ struct BarraNavegacionView: View {
                 
             }.foregroundColor(Color.black.opacity(self.index == 3 ? 1 : 0.2))
         }
-        .padding(.horizontal, 16).padding(.vertical, 8)
+        .padding(.horizontal, 16)
         .background(Color.white)
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
+struct TabBar_Previews: PreviewProvider {
     static var previews: some View {
         TabBarView().environmentObject(SessionStore())
+    }
+}
+
+extension Color {
+    static let neuBackground = Color(hex: "f0f0f3")
+    static let dropShadow = Color(hex: "aeaec0").opacity(0.4)
+    static let dropLight = Color(hex: "ffffff")
+}
+
+extension Color {
+    init(hex: String) {
+        let scanner = Scanner(string: hex)
+        // scanner.scanLocation = 0
+        var rgbValue: UInt64 = 0
+        scanner.scanHexInt64(&rgbValue)
+
+        let r = (rgbValue & 0xff0000) >> 16
+        let g = (rgbValue & 0xff00) >> 8
+        let b = rgbValue & 0xff
+
+        self.init(red: Double(r) / 0xff, green: Double(g) / 0xff, blue: Double(b) / 0xff)
     }
 }

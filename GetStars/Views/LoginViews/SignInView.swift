@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import GoogleSignIn
 
 struct SignInView: View {
     @EnvironmentObject var session: SessionStore
@@ -137,4 +139,20 @@ struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
         SignInView().environmentObject(SessionStore())
     }
+}
+
+struct google: UIViewRepresentable {
+    
+    func makeUIView(context: UIViewRepresentableContext<google>) -> GIDSignInButton {
+        
+        let button = GIDSignInButton()
+        button.colorScheme = .dark
+        GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.last?.rootViewController
+        return button
+    }
+    
+    func updateUIView(_ uiView: GIDSignInButton, context: UIViewRepresentableContext<google>) {
+        
+    }
+    
 }

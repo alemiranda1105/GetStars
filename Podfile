@@ -13,7 +13,4 @@ target 'GetStars' do
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
 
-  # Archivos JSON
-  pod 'SwiftyJSON', '~> 4.0'
-
 end

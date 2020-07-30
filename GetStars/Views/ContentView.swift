@@ -15,20 +15,6 @@ struct ContentView: View {
         self.session.listen()
     }
     
-    /*private func loadUser() -> Bool {
-        if self.session.session != nil {
-            // self.session.db.readDataUser(session: self.session)
-            
-            let recData = readFile()
-            if recData.count <= 1 {
-                return false
-            }
-            self.session.data = DataUser(data: recData)
-            return true
-        }
-        return false
-    }*/
-    
     private func signOut() {
         self.session.signOut()
     }
@@ -40,7 +26,7 @@ struct ContentView: View {
             } else if self.session.signing {
                 LoadIndicatorView().environmentObject(self.session)
             } else {
-                HomeView().environmentObject(self.session)
+                TabBarView().environmentObject(self.session)
             }
         }.onAppear {
             self.getUser()
@@ -61,11 +47,8 @@ struct LoadIndicatorView: View {
         print("Starting")
         self.session.db.readDataUser(session: self.session, dg: group)
         group.notify(queue: DispatchQueue.global(qos: .background)) {
-            //self.signInDone()
             print("Terminado")
         }
-        //self.session.data = DataUser(data: readFile())
-        //self.signInDone()
     }
     
     private func signInDone() {
@@ -122,7 +105,6 @@ struct Ring: Shape {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        //ContentView().environmentObject(SessionStore())
-        LoadIndicatorView()
+        ContentView().environmentObject(SessionStore())
     }
 }

@@ -102,5 +102,4 @@ func removeFile() {
             continue
         }
     }
-    
 }

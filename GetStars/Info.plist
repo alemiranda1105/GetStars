@@ -23,7 +23,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.895041960660-d91q6rvt2anobvfal5op6ei0jnejesu6</string>
+				<string>com.googleusercontent.apps.1032437718762-one1ih4seo8cpcljijp9visoncn36q4g</string>
 			</array>
 		</dict>
 	</array>
@@ -31,6 +31,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app saves photo to you photo library</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app saves photo to you photo library</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
