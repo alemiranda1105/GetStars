@@ -10,7 +10,6 @@ import SwiftUI
 
 struct SignUpView: View {
     @EnvironmentObject var session: SessionStore
-    @EnvironmentObject private var dataBase: DataBase
     
     @State var name: String = ""
     @State var lastName: String = ""
@@ -27,9 +26,6 @@ struct SignUpView: View {
     @State private var day: String = ""
     @State private var month: String = ""
     @State private var year: String = ""
-    
-    @State var completed: Bool = false
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     private func checkPass() -> Bool {
         if (pass2 == password){
@@ -158,7 +154,6 @@ struct SignUpView: View {
             } else {
                 self.email = ""
                 self.password = ""
-                self.completed = true
                 
                 // Datos del usuario
                 self.session.data = DataUser(nombre: self.name, apellidos: self.lastName, sexo: sex, edad: age, fechaNacimiento: self.birthDate)
@@ -170,97 +165,72 @@ struct SignUpView: View {
     
     var body: some View {
         VStack {
-            if !completed{
-
-                ScrollView{
-                    
-                    VStack(spacing: 8) {
-                        
-                        Text("Crea una cuenta")
-                            .font(.system(size: 32, weight: .heavy)).padding(8)
-                        
-                        Picker(selection: $generoSeleccionado, label: Text("Género")) {
-                            ForEach(0 ..< generos.count) {
-                                Text(self.generos[$0])
-                            }
-                        }.pickerStyle(SegmentedPickerStyle())
-                        
-                        TextField("Nombre", text: $name)
-                        .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
-                        
-                        TextField("Apellidos", text: $lastName)
-                        .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
-                        
-                        TextField("Email", text: $email)
-                            .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1)).keyboardType(.emailAddress)
-                        
-                        Text("Fecha de nacimiento").font(.system(size: 12, weight: .light))
-                        
-                        HStack {
-                            TextField("DD", text: $day)
-                                .font(.system(size: 14)).padding(4).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
-                                .keyboardType(.decimalPad)
-                            
-                            TextField("MM", text: $month)
-                                .font(.system(size: 14)).padding(4).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
-                                .keyboardType(.decimalPad)
-                            
-                            TextField("AAAA", text: $year)
-                                .font(.system(size: 14)).padding(4).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
-                                .keyboardType(.decimalPad)
+            ScrollView{
+                VStack(spacing: 8) {
+                    Picker(selection: $generoSeleccionado, label: Text("Género")) {
+                        ForEach(0 ..< generos.count) {
+                            Text(self.generos[$0])
                         }
-                        
-                        SecureField("Contraseña", text: $password)
-                        .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
-                        
-                        SecureField("Repite la contraseña", text: $pass2)
-                        .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
-                        
-                        Toggle(isOn: $condiciones){
-                            Text("Aceptar condiciones")
-                        }.padding()
-                        
-                    }.padding(.vertical, 8)
+                    }.pickerStyle(SegmentedPickerStyle())
                     
-                    Button(action: signUp){
-                        Text("Registrarse")
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .padding()
-                        .background(LinearGradient(gradient: Gradient(colors: [.blue, .blue]), startPoint: .leading, endPoint: .trailing))
-                        .foregroundColor(.white)
-                        .cornerRadius(50)
-                        .font(.system(size: 18, weight: .bold))
-                    }.padding(.vertical, 16)
+                    TextField("Nombre", text: $name)
+                    .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
                     
-                    if (error != ""){
-                        Text(error)
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(.red)
-                            .padding()
+                    TextField("Apellidos", text: $lastName)
+                    .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
+                    
+                    TextField("Email", text: $email)
+                        .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1)).keyboardType(.emailAddress)
+                    
+                    Text("Fecha de nacimiento").font(.system(size: 12, weight: .light))
+                    
+                    HStack {
+                        TextField("DD", text: $day)
+                            .font(.system(size: 14)).padding(4).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
+                            .keyboardType(.decimalPad)
                         
+                        TextField("MM", text: $month)
+                            .font(.system(size: 14)).padding(4).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
+                            .keyboardType(.decimalPad)
+                        
+                        TextField("AAAA", text: $year)
+                            .font(.system(size: 14)).padding(4).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
+                            .keyboardType(.decimalPad)
                     }
+                    
+                    SecureField("Contraseña", text: $password)
+                    .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
+                    
+                    SecureField("Repite la contraseña", text: $pass2)
+                    .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
+                    
+                    Toggle(isOn: $condiciones){
+                        Text("Aceptar condiciones")
+                    }.padding()
+                    
+                }.padding(.vertical, 8)
+            
+                if (error != ""){
+                    Text(error)
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(.red)
+                        .padding()
                 }
                 
-            } else {
-                Text("Cuenta creada con éxito")
-                    .font(.system(size: 32, weight: .heavy))
-                
-                Text("Bienvenido a GetStars")
-                    .font(.system(size: 18, weight: .medium)).foregroundColor(.gray)
-                
-                Spacer()
-                
-                Button(action: { self.mode.wrappedValue.dismiss() }){
-                    Text("Continuar")
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .padding()
-                        .background(LinearGradient(gradient: Gradient(colors: [.blue, .gray]), startPoint: .leading, endPoint: .trailing))
-                        .foregroundColor(.white)
-                        .cornerRadius(50)
-                        .font(.system(size: 18, weight: .bold))
+                Button(action: signUp){
+                    Text("Registrarse")
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    .padding()
+                    .background(LinearGradient(gradient: Gradient(colors: [.blue, .blue]), startPoint: .leading, endPoint: .trailing))
+                    .foregroundColor(.white)
+                    .cornerRadius(50)
+                    .font(.system(size: 18, weight: .bold))
                 }.padding(.vertical, 16)
             }
-            }.padding(.horizontal, 8).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+        }
+        .padding(.horizontal, 8)
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+        .navigationBarTitle("Crea una cuenta")
     }
 }
 
