@@ -89,8 +89,8 @@ struct BarraNavegacionView: View {
             }.padding(14)
                 .background(RoundedRectangle(cornerRadius: 16)
                 .fill(Color.white)
-                .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-                .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5))
+                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 10, y: 10)
+                .shadow(color: Color.white.opacity(0.7), radius: 5, x: -5, y: -5))
                 .foregroundColor(Color.init("naranja").opacity(self.index == 4 ? 1 : 0.2))
             
             Spacer(minLength: 0)

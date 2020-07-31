@@ -17,16 +17,20 @@ struct ProfileView: View {
     
     var body: some View {
         VStack {
-            Circle()
-                .fill(Color.init("navyBlue"))
-                .frame(width: 180, height: 180)
-            Text("Bienvenido \((session.data?.getName()) ?? "Dev")")
-                .font(.system(size: 24, weight: .heavy))
-            
-            Button(action: {
-                self.session.signOut()
-            }) {
-                Text("Cerrar sesion")
+            HStack {
+                Circle()
+                    .fill(Color.init("navyBlue"))
+                    .frame(width: 120, height: 120)
+                VStack {
+                    Text("Bienvenido \((session.data?.getName()) ?? "Dev")")
+                        .font(.system(size: 24, weight: .heavy))
+                    
+                    Button(action: {
+                        self.session.signOut()
+                    }) {
+                        Text("Cerrar sesion")
+                    }
+                }
             }
                 
             Spacer()

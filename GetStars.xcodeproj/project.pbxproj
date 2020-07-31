@@ -149,9 +149,9 @@
 		BE41AA6524CF57A000511527 /* TabBarViews */ = {
 			isa = PBXGroup;
 			children = (
-				BEA7AA7A24CCA1FD003A4367 /* CreateAutograph.swift */,
 				BE41AA6724CF584C00511527 /* HomeView.swift */,
 				BE41AA6924CF590500511527 /* SearchView.swift */,
+				BEA7AA7A24CCA1FD003A4367 /* CreateAutograph.swift */,
 				BE41AA6B24CF594A00511527 /* BuyDrawView.swift */,
 				BE41AA6D24CF596800511527 /* ProfileView.swift */,
 			);
