@@ -9,9 +9,11 @@
 import SwiftUI
 import LocalAuthentication
 
+import FirebaseAuth
+import GoogleSignIn
+
 struct WelcomeView: View {
     @EnvironmentObject var session: SessionStore
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     func getUser() {
         self.session.listen()
@@ -48,6 +50,8 @@ struct WelcomeView: View {
                                     .cornerRadius(50)
                                     .font(.system(size: 18, weight: .bold))
                             }
+                            
+                            
                             
                         }.padding(.vertical, 32).padding(.horizontal, 8)
                         

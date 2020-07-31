@@ -71,7 +71,8 @@ struct SignInView: View {
                 Spacer()
                 
                 HStack(spacing: 16){
-                    Button(action: signInGoogle){
+                    // google().frame(width: 120, height: 120)
+                    Button(action: google.attemptLoginGoogle){
                         Text("Google")
                         .frame(minWidth: 0, maxWidth: .infinity)
                         .padding()
@@ -141,18 +142,31 @@ struct SignInView_Previews: PreviewProvider {
     }
 }
 
+
 struct google: UIViewRepresentable {
     
-    func makeUIView(context: UIViewRepresentableContext<google>) -> GIDSignInButton {
+    /*func makeUIView(context: UIViewRepresentableContext<google>) -> GIDSignInButton {
         
         let button = GIDSignInButton()
-        button.colorScheme = .dark
+        button.colorScheme = .light
+        button.style = .wide
         GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.last?.rootViewController
         return button
     }
     
     func updateUIView(_ uiView: GIDSignInButton, context: UIViewRepresentableContext<google>) {
         
+    }*/
+    func makeUIView(context: UIViewRepresentableContext<google>) -> UIView {
+        return UIView()
+    }
+
+    func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<google>) {
+    }
+
+    static func attemptLoginGoogle(){
+        GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.last?.rootViewController
+        GIDSignIn.sharedInstance()?.signIn()
     }
     
 }

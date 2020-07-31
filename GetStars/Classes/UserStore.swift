@@ -22,7 +22,7 @@ class UserStore: ObservableObject {
     //Inidica si el usuario esta iniciando sesion
     @Published var signing: Bool = false
     
-    func signOut() {
+    func deleteData() {
         data.removeObject(forKey: "nombre")
         data.removeObject(forKey: "apellidos")
         data.removeObject(forKey: "edad")

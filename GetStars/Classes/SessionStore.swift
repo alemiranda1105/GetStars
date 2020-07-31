@@ -14,7 +14,7 @@ import FirebaseCore
 import FirebaseAuth
 import GoogleSignIn
 
-class SessionStore: ObservableObject {
+class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     var didChange = PassthroughSubject<SessionStore, Never>()
     @Published var session: User? {didSet {self.didChange.send(self)}}
     var handle: AuthStateDidChangeListenerHandle?
@@ -25,6 +25,7 @@ class SessionStore: ObservableObject {
     
     //Inidica si el usuario esta iniciando sesion
     @Published var signing: Bool = false
+    
     
     func listen(){
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
@@ -68,6 +69,44 @@ class SessionStore: ObservableObject {
     func restoreUser() {
         let recData = readFile()
         self.data = DataUser(data: recData)
+    }
+    
+    // Metodos Google
+    @available(iOS 9.0, *)
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
+      -> Bool {
+      return GIDSignIn.sharedInstance().handle(url)
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+      // ...
+      if let error = error {
+        print(error.localizedDescription)
+        return
+      }
+
+      guard let authentication = user.authentication else { return }
+      let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                        accessToken: authentication.accessToken)
+      // ...
+        Auth.auth().signIn(with: credential) { (res, err) in
+            if err != nil {
+                print((err?.localizedDescription)!)
+                return
+            }
+            print("Sesion iniciada")
+            let user = GIDSignIn.sharedInstance()!.currentUser
+            self.data = DataUser(nombre: (user?.profile.givenName)!, apellidos: (user?.profile.familyName)!, sexo: "google", edad: 20, fechaNacimiento: "99/99/9999")
+            
+            self.session = User(uid: (user?.userID)!, email: user?.profile.email)
+            self.signing = true
+            self.db.createUserDB(session: self)
+            createFile(usuario: self.data!)
+        }
+    }
+
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        self.signOut()
     }
     
 }
