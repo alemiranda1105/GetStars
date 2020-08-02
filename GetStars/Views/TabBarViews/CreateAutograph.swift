@@ -20,6 +20,7 @@ struct CreateAutograph: View {
     @State var size: CGSize = CGSize(width: 0, height: 0)
     
     @State var saved: Bool = false
+    @State var error: String = ""
     
     private func add(drawing: Drawing, toPath path: inout Path) {
         let points = drawing.points
@@ -66,20 +67,36 @@ struct CreateAutograph: View {
                 }
                 .frame(maxHeight: .infinity)
                 
+                
                 HStack {
                     Button(action: {
                         self.drawings.removeAll()
+                        self.error = ""
                     }) {
                         Text("Delete")
                     }.padding()
                     
                     Spacer()
                     
+                    if error != "" {
+                        Text(error)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.red)
+                            .padding()
+                    }
+                    
+                    Spacer()
+                    
                     Button(action: {
-                        let rect = CGRect(origin: self.origin, size: self.size)
-                        let img = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: rect)
-                        UIImageWriteToSavedPhotosAlbum(img!, nil, nil, nil)
-                        self.saved = true
+                        if self.drawings.count >= 1 {
+                            let rect = CGRect(origin: self.origin, size: self.size)
+                            let img = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: rect)
+                            UIImageWriteToSavedPhotosAlbum(img!, nil, nil, nil)
+                            self.saved = true
+                            self.error = ""
+                            self.drawings.removeAll()
+                        }
+                        self.error = "Haga un autógrafo antes de guardar"
                     }){
                         Text("Save")
                     }.padding()

@@ -16,8 +16,6 @@ struct SignInView: View {
     @State var password: String = ""
     @State var error: String = ""
     
-    @State private var completed: Bool = false
-    
     private func signIn() {
         session.signIn(email: email, password: password) { (result, error) in
             if let error = error {
@@ -25,7 +23,6 @@ struct SignInView: View {
             } else {
                 self.email = ""
                 self.password = ""
-                self.completed = true
             }
         }
     }

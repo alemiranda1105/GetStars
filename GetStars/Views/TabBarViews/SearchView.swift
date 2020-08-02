@@ -89,8 +89,7 @@ struct SearchView: View {
                     }
                 }.padding(.horizontal, 8)
             }.navigationBarTitle("Buscar")
-            
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

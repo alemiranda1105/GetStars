@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             
             if #available(iOS 13.0, *) {
-                window.overrideUserInterfaceStyle = .dark
+                window.overrideUserInterfaceStyle = .light
             }
             
             window.rootViewController = UIHostingController(rootView: contentView.environmentObject(SessionStore()))

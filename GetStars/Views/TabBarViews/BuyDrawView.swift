@@ -60,8 +60,7 @@ struct BuyDrawView: View {
                     
                    }.padding(.horizontal, 8)
                }.navigationBarTitle("Compras y sorteos")
-               
-           }
+           }.navigationViewStyle(StackNavigationViewStyle())
        }
 }
 

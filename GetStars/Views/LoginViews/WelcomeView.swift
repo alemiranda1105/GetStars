@@ -54,7 +54,7 @@ struct WelcomeView: View {
                     
                 }.padding(.vertical, 64)
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
