@@ -15,10 +15,6 @@ import GoogleSignIn
 struct WelcomeView: View {
     @EnvironmentObject var session: SessionStore
     
-    func getUser() {
-        self.session.listen()
-    }
-    
     var body: some View {
         NavigationView {
             VStack {

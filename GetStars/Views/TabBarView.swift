@@ -14,8 +14,18 @@ struct TabBarView: View {
     @State var index = 0
     
     private func getData() {
-        let recData = readFile()
-        self.session.data = DataUser(data: recData)
+        // User Defaults
+        let def = UserDefaults.standard
+        let name = def.string(forKey: "name")
+        let lastName = def.string(forKey: "lastName")
+        let age = def.integer(forKey: "age")
+        let sex = def.string(forKey: "sex")
+        let fecha = def.string(forKey: "fechaNacimiento")
+        def.synchronize()
+        self.session.data = DataUser(nombre: name!, apellidos: lastName!, sexo: sex!, edad: age, fechaNacimiento: fecha!)
+        
+        //let recData = readFile()
+        //self.session.data = DataUser(data: recData)
     }
     
     var body: some View {

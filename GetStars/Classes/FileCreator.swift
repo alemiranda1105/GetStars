@@ -74,6 +74,7 @@ func readFile() -> [String: Any]{
         if e >= 30 {
             return ["": 0]
         }
+        e = 0
         return readFile()
     }
 }

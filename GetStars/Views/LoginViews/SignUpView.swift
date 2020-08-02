@@ -159,6 +159,15 @@ struct SignUpView: View {
                 self.session.data = DataUser(nombre: self.name, apellidos: self.lastName, sexo: sex, edad: age, fechaNacimiento: self.birthDate)
                 self.session.db.createUserDB(session: self.session)
                 createFile(usuario: self.session.data!)
+                
+                // UserDefaults (Borrar lo superior en caso de que funcione)
+                let defaults = UserDefaults.standard
+                defaults.set(self.name, forKey: "name")
+                defaults.set(self.lastName, forKey: "lastName")
+                defaults.set(age, forKey: "age")
+                defaults.set(sex, forKey: "sex")
+                defaults.set(self.birthDate, forKey: "fechaNacimiento")
+                defaults.synchronize()
             }
         }
     }

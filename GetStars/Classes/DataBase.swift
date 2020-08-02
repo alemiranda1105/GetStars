@@ -41,6 +41,14 @@ class DataBase: ObservableObject {
                 
                 createFile(usuario: self.datos!)
                 
+                let defaults = UserDefaults.standard
+                defaults.set(document.data()!["nombre"] as! String, forKey: "name")
+                defaults.set(document.data()!["apellidos"] as! String, forKey: "lastName")
+                defaults.set(document.data()!["edad"] as! Int, forKey: "age")
+                defaults.set(document.data()!["sexo"] as! String, forKey: "sex")
+                defaults.set(document.data()!["fechaNacimiento"] as! String, forKey: "fechaNacimiento")
+                defaults.synchronize()
+                
                 print("Document data: \(dataDescription)")
             } else {
                 session.signOut()
