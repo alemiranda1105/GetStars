@@ -35,10 +35,15 @@ struct SignInView: View {
         VStack {
             VStack(spacing: 18) {
                 TextField("Email", text: $email)
-                    .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1)).keyboardType(.emailAddress)
+                    .font(.system(size: 14))
+                    .padding(4)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .keyboardType(.emailAddress).autocapitalization(.none)
                 
                 SecureField("Contraseña", text: $password)
-                .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
+                    .font(.system(size: 14))
+                    .padding(4)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                 
             }.padding(.vertical, 64)
             

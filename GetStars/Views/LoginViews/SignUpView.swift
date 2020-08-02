@@ -174,38 +174,41 @@ struct SignUpView: View {
                     }.pickerStyle(SegmentedPickerStyle())
                     
                     TextField("Nombre", text: $name)
-                    .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
+                        .font(.system(size: 14)).padding(4).textFieldStyle(RoundedBorderTextFieldStyle())
                     
                     TextField("Apellidos", text: $lastName)
-                    .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
+                    .font(.system(size: 14)).padding(4).textFieldStyle(RoundedBorderTextFieldStyle())
                     
                     TextField("Email", text: $email)
-                        .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1)).keyboardType(.emailAddress)
+                        .font(.system(size: 14)).padding(4).textFieldStyle(RoundedBorderTextFieldStyle()).keyboardType(.emailAddress).autocapitalization(.none)
                     
                     Text("Fecha de nacimiento").font(.system(size: 12, weight: .light))
                     
                     HStack {
                         TextField("DD", text: $day)
-                            .font(.system(size: 14)).padding(4).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
+                            .font(.system(size: 14)).padding(2).textFieldStyle(RoundedBorderTextFieldStyle())
                             .keyboardType(.decimalPad)
                         
                         TextField("MM", text: $month)
-                            .font(.system(size: 14)).padding(4).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
+                            .font(.system(size: 14)).padding(2).textFieldStyle(RoundedBorderTextFieldStyle())
                             .keyboardType(.decimalPad)
                         
                         TextField("AAAA", text: $year)
-                            .font(.system(size: 14)).padding(4).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
+                            .font(.system(size: 14)).padding(2).textFieldStyle(RoundedBorderTextFieldStyle())
                             .keyboardType(.decimalPad)
                     }
                     
                     SecureField("Contraseña", text: $password)
-                    .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
+                        .font(.system(size: 14))
+                        .padding(4).textFieldStyle(RoundedBorderTextFieldStyle())
                     
                     SecureField("Repite la contraseña", text: $pass2)
-                    .font(.system(size: 14)).padding(12).background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color.black, lineWidth: 1))
+                        .font(.system(size: 14))
+                        .padding(4).textFieldStyle(RoundedBorderTextFieldStyle())
                     
                     Toggle(isOn: $condiciones){
                         Text("Aceptar condiciones")
+                            .font(.system(size: 16))
                     }.padding()
                     
                 }.padding(.vertical, 8)
@@ -234,8 +237,13 @@ struct SignUpView: View {
     }
 }
 
+#if DEBUG
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView()
+        Group {
+            SignUpView().previewDevice("iPhone 8")
+            SignUpView().previewDevice("iPhone Xs")
+        }
     }
 }
+#endif
