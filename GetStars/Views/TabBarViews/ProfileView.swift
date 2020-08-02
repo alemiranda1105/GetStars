@@ -21,8 +21,10 @@ struct ProfileView: View {
                 Circle()
                     .fill(Color.init("navyBlue"))
                     .frame(width: 120, height: 120)
+                    .padding()
+                
                 VStack {
-                    Text("Bienvenido \((session.data?.getName()) ?? "Dev")")
+                    Text("\((self.session.data?.getName())!)")
                         .font(.system(size: 24, weight: .heavy))
                     
                     Button(action: {
@@ -30,7 +32,7 @@ struct ProfileView: View {
                     }) {
                         Text("Cerrar sesion")
                     }
-                }
+                }.padding()
             }
                 
             Spacer()

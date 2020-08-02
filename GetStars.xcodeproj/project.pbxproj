@@ -31,7 +31,6 @@
 		BEC1097A24AB3FEF00695160 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC1097924AB3FEF00695160 /* WelcomeView.swift */; };
 		BECB5B3524AF381800C65096 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BECB5B3424AF381800C65096 /* GoogleService-Info.plist */; };
 		BED2AFD124B5159F00CE06BB /* SyncWithView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED2AFD024B5159F00CE06BB /* SyncWithView.swift */; };
-		BEF8481924BE16FB00620922 /* FileCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF8481824BE16FB00620922 /* FileCreator.swift */; };
 		BEFF0DA024D344FD008F6300 /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF0D9F24D344FD008F6300 /* UserStore.swift */; };
 /* End PBXBuildFile section */
 
@@ -63,7 +62,6 @@
 		BEC1097924AB3FEF00695160 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		BECB5B3424AF381800C65096 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		BED2AFD024B5159F00CE06BB /* SyncWithView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncWithView.swift; sourceTree = "<group>"; };
-		BEF8481824BE16FB00620922 /* FileCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCreator.swift; sourceTree = "<group>"; };
 		BEFF0D9F24D344FD008F6300 /* UserStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
 		E67F7E4CBD35CF25BD3E2D4F /* Pods_GetStars.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetStars.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -141,7 +139,6 @@
 				BEFF0D9F24D344FD008F6300 /* UserStore.swift */,
 				BE873F7724B249C40041247C /* DataBase.swift */,
 				BE873F7924B24CE60041247C /* DataUser.swift */,
-				BEF8481824BE16FB00620922 /* FileCreator.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -350,7 +347,6 @@
 				BE4A7A7224B4F9B900336760 /* SignUpView.swift in Sources */,
 				BE8C307E24C87E8500135AD9 /* TabBarView.swift in Sources */,
 				BE873F7A24B24CE60041247C /* DataUser.swift in Sources */,
-				BEF8481924BE16FB00620922 /* FileCreator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

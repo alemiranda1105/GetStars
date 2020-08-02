@@ -48,9 +48,12 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     func signOut(){
         do {
             try Auth.auth().signOut()
+            let def = UserDefaults.standard
+            self.data?.getData().forEach { d in
+                def.removeObject(forKey: d.key)
+            }
             self.data = nil
             self.session = nil
-            removeFile()
         } catch {
             print("ERROR SIGNING OUT")
         }
@@ -67,8 +70,14 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     }
     
     func restoreUser() {
-        let recData = readFile()
-        self.data = DataUser(data: recData)
+        let def = UserDefaults.standard
+        let name = def.string(forKey: "name")
+        let lastName = def.string(forKey: "lastName")
+        let age = def.integer(forKey: "age")
+        let sex = def.string(forKey: "sex")
+        let fecha = def.string(forKey: "fechaNacimiento")
+        def.synchronize()
+        self.data = DataUser(nombre: name!, apellidos: lastName!, sexo: sex!, edad: age, fechaNacimiento: fecha!)
     }
     
     // Metodos Google
@@ -101,7 +110,6 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
             self.session = User(uid: (user?.userID)!, email: user?.profile.email)
             self.signing = true
             self.db.createUserDB(session: self)
-            createFile(usuario: self.data!)
         }
     }
 
