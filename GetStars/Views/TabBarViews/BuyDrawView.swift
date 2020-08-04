@@ -55,7 +55,7 @@ struct BuyDrawView: View {
                                .foregroundColor(.white)
                                .cornerRadius(16)
                                .font(.system(size: 18, weight: .bold))
-                           }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
+                           }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10).padding(.bottom, 10)
                        }
                     
                    }.padding(.horizontal, 8)
