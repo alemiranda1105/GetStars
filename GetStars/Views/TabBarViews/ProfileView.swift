@@ -28,6 +28,8 @@ struct ProfileView: View {
                     
                     HStack {
                         Button(action: {
+                            let impactMed = UIImpactFeedbackGenerator(style: .light)
+                            impactMed.impactOccurred()
                             self.visible = false
                         }) {
                             Image(systemName: "arrow.up").resizable().frame(width: 28.0, height: 28.0)
@@ -35,15 +37,17 @@ struct ProfileView: View {
                         
                         Spacer()
                         
-                        NavigationLink(destination: Text("Ajustes")) {
+                        NavigationLink(destination: ConfigurationView().environmentObject(self.session)) {
                             Image(systemName: "gear").resizable().frame(width: 28.0, height: 28.0)
-                        }.foregroundColor(Color.black).padding()
+                            }.foregroundColor(Color.black).padding()
                     }
                         
                     Spacer()
                     
                 } else {
                     Button(action: {
+                        let impactMed = UIImpactFeedbackGenerator(style: .light)
+                        impactMed.impactOccurred()
                         self.visible = true
                     }) {
                         Image(systemName: "arrow.down").resizable().frame(width: 28.0, height: 28.0)
@@ -65,7 +69,7 @@ struct ProfileView: View {
                     }
                 }
             }.navigationBarTitle("\((self.session.data?.getName()) ?? "Dev")")
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
         
     }
 }
