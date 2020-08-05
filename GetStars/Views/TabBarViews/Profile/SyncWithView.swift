@@ -7,10 +7,11 @@
 //
 
 import SwiftUI
+import FirebaseCore
+import FirebaseAuth
+import Google
 
 struct SyncWithView: View {
-    
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     private func sycnWith() {
         
@@ -18,9 +19,7 @@ struct SyncWithView: View {
     
     var body: some View {
         VStack {
-            Text("Un último paso").font(.system(size: 32, weight: .heavy)).multilineTextAlignment(.center).padding()
-            
-            Text("¿Desea sincronizar su cuenta con alguno de los siguientes métodos?").font(.system(size: 24, weight: .medium)).multilineTextAlignment(.center)
+            Text("¿Desea sincronizar su cuenta con alguno de los siguientes métodos?").font(.system(size: 32, weight: .heavy)).multilineTextAlignment(.center).padding()
             
             Spacer()
             
@@ -56,18 +55,6 @@ struct SyncWithView: View {
                 }
                 
             }.padding(8)
-            
-            Spacer()
-            
-            Button(action: { self.mode.wrappedValue.dismiss() }){
-                Text("No, prefiero hacerlo más adelante")
-                .frame(minWidth: 0, maxWidth: .infinity)
-                .padding()
-                .background(LinearGradient(gradient: Gradient(colors: [.blue, .blue]), startPoint: .leading, endPoint: .trailing))
-                .foregroundColor(.white)
-                .cornerRadius(50)
-                .font(.system(size: 18, weight: .bold))
-            }
             
         }.padding()
     }

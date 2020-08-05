@@ -176,7 +176,6 @@
 				BEC1097924AB3FEF00695160 /* WelcomeView.swift */,
 				BE4A7A6F24B4F95200336760 /* SignInView.swift */,
 				BE4A7A7124B4F9B900336760 /* SignUpView.swift */,
-				BED2AFD024B5159F00CE06BB /* SyncWithView.swift */,
 			);
 			path = LoginViews;
 			sourceTree = "<group>";
@@ -195,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				BE9F05F224DAF98000F47E68 /* ConfigurationView.swift */,
+				BED2AFD024B5159F00CE06BB /* SyncWithView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
