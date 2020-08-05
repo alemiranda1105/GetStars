@@ -10,21 +10,24 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        VStack {
-            Button(action: { }){
-                Text("¡PÁSATE AL PRO!")
-                    .font(.system(size: 28, weight: .bold))
-                    .padding(32)
-                    .multilineTextAlignment(.center)
-                
-            }.frame(minWidth: 0, maxWidth: .infinity)
-                .padding(14)
-                .background(RoundedRectangle(cornerRadius: 16)
-                .fill(Color.init("gris")))
-                .foregroundColor(Color.black)
-            Spacer()
-            
-        }.padding(.top, 20).padding(.horizontal, 32)
+        NavigationView {
+            ScrollView {
+                VStack {
+                    Button(action: { }){
+                        Text("¡PÁSATE AL PRO!")
+                            .font(.system(size: 28, weight: .bold))
+                            .padding(32)
+                            .multilineTextAlignment(.center)
+                        
+                    }.frame(minWidth: 0, maxWidth: .infinity)
+                        .padding(14)
+                        .background(RoundedRectangle(cornerRadius: 16)
+                        .fill(Color.init("gris")))
+                        .foregroundColor(Color.black)
+                    Spacer()
+                }.padding(.horizontal, 20)
+            }.navigationBarTitle("Inicio")
+        }
     }
 }
 

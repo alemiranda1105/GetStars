@@ -9,13 +9,29 @@
 import SwiftUI
 
 struct BuyDrawView: View {
+    @State var search: String = ""
     @State var selection: Int? = nil
     
      var body: some View {
            NavigationView {
                ScrollView {
                    VStack {
-                       Spacer(minLength: 30)
+                       TextField("Buscar", text: $search)
+                           .padding(7)
+                           .padding(.horizontal, 25)
+                           .background(Color(.systemGray6))
+                           .cornerRadius(8)
+                           .overlay(
+                               HStack{
+                                   Image(systemName: "magnifyingglass")
+                                       .foregroundColor(.gray)
+                                       .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                       .padding(.leading, 8)
+                               }
+                           )
+                           .padding(.horizontal, 10)
+                       
+                       Spacer(minLength: 25)
                     
                        NavigationLink(destination: Text("Test"), tag: 1, selection: $selection){
                            Button(action: {}) {

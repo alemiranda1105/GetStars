@@ -19,16 +19,16 @@ class DataBase: ObservableObject {
     private var datos: DataUser?
     
     func createUserDB(session: SessionStore) {
-        let uid = session.session?.uid
+        let email = session.session?.email
         let dbData = (session.data?.getData())!
         
-        db.collection(dbCollection).document(uid!).setData(dbData)
+        db.collection(dbCollection).document(email!).setData(dbData)
     }
     
     func readDataUser(session: SessionStore, dg: DispatchGroup) {
         dg.enter()
-        let uid = (session.session?.uid)!
-        let documentRef = db.collection(dbCollection).document(uid)
+        let email = (session.session?.email)!
+        let documentRef = db.collection(dbCollection).document(email)
         
         documentRef.getDocument { (document, error) in
             if let document = document, document.exists {
