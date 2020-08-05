@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ConfigurationView: View {
     @EnvironmentObject var session: SessionStore
+    @State var showAlert: Bool = false
     
     var body: some View {
         Form {
@@ -29,9 +30,13 @@ struct ConfigurationView: View {
                     Spacer()
                     
                     Button(action: {
-                        self.session.signOut()
+                        self.showAlert = true
                     }) {
                         Text("Cerrar sesión").foregroundColor(.red)
+                    }.alert(isPresented: $showAlert) {
+                        Alert(title: Text("Aviso"), message: Text("¿Seguro que desea cerrar sesión?"), primaryButton: .destructive(Text("Cerrar sesión")){
+                                self.session.signOut()
+                            }, secondaryButton: .cancel(Text("Cancelar")))
                     }
                     
                     Spacer()
