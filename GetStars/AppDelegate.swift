@@ -21,11 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Config Firebase
         FirebaseApp.configure()
         
-        // Google SignIn
+        //Google Login
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         let delegate = SessionStore()
         GIDSignIn.sharedInstance().delegate = delegate
-        
         
         return true
     }

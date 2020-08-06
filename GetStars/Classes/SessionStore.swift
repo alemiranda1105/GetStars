@@ -21,7 +21,7 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     
     // Datos usuario
     @Published var data: DataUser?
-    @Published var db: DataBase = DataBase()
+    public let db: DataBase = DataBase()
     
     //Inidica si el usuario esta iniciando sesion
     @Published var signing: Bool = false
@@ -80,7 +80,7 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
         self.data = DataUser(nombre: name!, apellidos: lastName!, sexo: sex!, edad: age, fechaNacimiento: fecha!)
     }
     
-    // Metodos Google
+    // Metodos GoogleLogin
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
       -> Bool {
@@ -97,24 +97,19 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
       guard let authentication = user.authentication else { return }
       let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                         accessToken: authentication.accessToken)
-      // ...
-        Auth.auth().signIn(with: credential) { (res, err) in
-            if err != nil {
-                print((err?.localizedDescription)!)
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if let error = error {
+                print(error.localizedDescription)
                 return
             }
-            print("Sesion iniciada")
-            let user = GIDSignIn.sharedInstance()!.currentUser
-            self.data = DataUser(nombre: (user?.profile.givenName)!, apellidos: (user?.profile.familyName)!, sexo: "google", edad: 20, fechaNacimiento: "99/99/9999")
-            
-            self.session = User(uid: (user?.userID)!, email: user?.profile.email)
-            self.signing = true
-            self.db.createUserDB(session: self)
+            print("SignIn result: " + authResult!.user.email!)
+            print("Heyyyy")
         }
     }
 
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        self.signOut()
+        // Perform any operations when the user disconnects from app here.
+        // ...
     }
     
 }

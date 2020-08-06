@@ -25,6 +25,17 @@ class DataBase: ObservableObject {
         db.collection(dbCollection).document(email!).setData(dbData)
     }
     
+    func createUserDB(dbData: [String: Any], email: String) {
+        let ref = db.collection(dbCollection).document(email)
+        ref.getDocument { (document, error) in
+            if document?.exists ?? false {
+                print("ya existe el archivo")
+                return
+            }
+        }
+        db.collection(dbCollection).document(email).setData(dbData)
+    }
+    
     func readDataUser(session: SessionStore, dg: DispatchGroup) {
         dg.enter()
         let email = (session.session?.email)!

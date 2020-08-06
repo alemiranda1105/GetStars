@@ -67,15 +67,14 @@ struct SignInView: View {
             Spacer()
             
             HStack(spacing: 16){
-                Button(action: google.attemptLoginGoogle){
-                    Text("Google")
+                GoogleLoginView()
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .padding()
                     .background(LinearGradient(gradient: Gradient(colors: [.gray, .gray]), startPoint: .leading, endPoint: .trailing))
                     .foregroundColor(.white)
                     .cornerRadius(50)
                     .font(.system(size: 18, weight: .bold))
-                }
+                
                 
                 Button(action: signInGoogle){
                     Text("Facebook")
@@ -110,21 +109,4 @@ struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
         SignInView().environmentObject(SessionStore())
     }
-}
-
-
-struct google: UIViewRepresentable {
-
-    func makeUIView(context: UIViewRepresentableContext<google>) -> UIView {
-        return UIView()
-    }
-
-    func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<google>) {
-    }
-
-    static func attemptLoginGoogle(){
-        GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.last?.rootViewController
-        GIDSignIn.sharedInstance()?.signIn()
-    }
-    
 }

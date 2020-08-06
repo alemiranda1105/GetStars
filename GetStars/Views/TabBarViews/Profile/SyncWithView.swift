@@ -9,7 +9,7 @@
 import SwiftUI
 import FirebaseCore
 import FirebaseAuth
-import Google
+import GoogleSignIn
 
 struct SyncWithView: View {
     
