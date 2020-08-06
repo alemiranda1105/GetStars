@@ -27,10 +27,6 @@ struct SignInView: View {
         }
     }
     
-    private func signInGoogle() {
-        
-    }
-    
     var body: some View {
         VStack {
             VStack(spacing: 18) {
@@ -67,16 +63,8 @@ struct SignInView: View {
             Spacer()
             
             HStack(spacing: 16){
-                GoogleLoginView()
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .padding()
-                    .background(LinearGradient(gradient: Gradient(colors: [.gray, .gray]), startPoint: .leading, endPoint: .trailing))
-                    .foregroundColor(.white)
-                    .cornerRadius(50)
-                    .font(.system(size: 18, weight: .bold))
                 
-                
-                Button(action: signInGoogle){
+                Button(action: {print("Facebook")}){
                     Text("Facebook")
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .padding()
@@ -86,7 +74,14 @@ struct SignInView: View {
                     .font(.system(size: 18, weight: .bold))
                 }
                 
-                Button(action: signInGoogle){
+                GoogleLoginView()
+                .frame(width: 0, height: 0)
+                .hidden()
+                
+                Button(action: {
+                    
+                    GIDSignIn.sharedInstance().signIn()
+                }){
                     Text("Apple")
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .padding()

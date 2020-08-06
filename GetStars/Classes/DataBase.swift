@@ -11,6 +11,7 @@ import Combine
 
 import FirebaseCore
 import FirebaseFirestore
+import FirebaseStorage
 
 class DataBase: ObservableObject {
     private let dbCollection: String = "usuarios"
@@ -31,9 +32,11 @@ class DataBase: ObservableObject {
             if document?.exists ?? false {
                 print("ya existe el archivo")
                 return
+            } else {
+                print("El archivo no existe, Creando...")
+                self.db.collection(self.dbCollection).document(email).setData(dbData)
             }
         }
-        db.collection(dbCollection).document(email).setData(dbData)
     }
     
     func readDataUser(session: SessionStore, dg: DispatchGroup) {
