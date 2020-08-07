@@ -9,8 +9,11 @@
 import UIKit
 import SwiftUI
 import CoreGraphics
+import Photos
 
 struct CreateAutograph: View {
+    @EnvironmentObject var session: SessionStore
+    
     @State var currentDrawing: Drawing = Drawing()
     @State var drawings: [Drawing] = [Drawing]()
     @State var color: Color = Color.black
@@ -91,7 +94,10 @@ struct CreateAutograph: View {
                         if self.drawings.count >= 1 {
                             let rect = CGRect(origin: self.origin, size: self.size)
                             let img = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: rect)
-                            UIImageWriteToSavedPhotosAlbum(img!, nil, nil, nil)
+                            // UIImageWriteToSavedPhotosAlbum(img!, nil, nil, nil)
+                            let library: PHPhotoLibrary = PHPhotoLibrary.shared()
+                            library.savePhoto(image: img!, albumName: "GetStars")
+                            
                             self.saved = true
                             self.error = ""
                             self.drawings.removeAll()

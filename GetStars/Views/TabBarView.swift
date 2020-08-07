@@ -42,7 +42,7 @@ struct TabBarView: View {
                     ProfileView().environmentObject(self.session)
                     
                 } else {
-                    CreateAutograph()
+                    CreateAutograph().environmentObject(self.session)
                     
                 }
             }

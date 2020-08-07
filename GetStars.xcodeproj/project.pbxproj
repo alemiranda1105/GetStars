@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4DD5D08A7A5B511358615028 /* Pods_GetStars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67F7E4CBD35CF25BD3E2D4F /* Pods_GetStars.framework */; };
+		BE1B821D24DD8A3400BE59B8 /* CustomPhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1B821C24DD8A3400BE59B8 /* CustomPhotoAlbum.swift */; };
 		BE2D820F24AA631A0080A75F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2D820E24AA631A0080A75F /* AppDelegate.swift */; };
 		BE2D821124AA631A0080A75F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2D821024AA631A0080A75F /* SceneDelegate.swift */; };
 		BE2D821324AA631A0080A75F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2D821224AA631A0080A75F /* ContentView.swift */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		67F8D13B24058BB55BF8DC87 /* Pods-GetStars.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetStars.release.xcconfig"; path = "Target Support Files/Pods-GetStars/Pods-GetStars.release.xcconfig"; sourceTree = "<group>"; };
 		9A5FBAB8B76B5B261D2A6D27 /* Pods-GetStars.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetStars.debug.xcconfig"; path = "Target Support Files/Pods-GetStars/Pods-GetStars.debug.xcconfig"; sourceTree = "<group>"; };
+		BE1B821C24DD8A3400BE59B8 /* CustomPhotoAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhotoAlbum.swift; sourceTree = "<group>"; };
 		BE2D820B24AA631A0080A75F /* GetStars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetStars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2D820E24AA631A0080A75F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2D821024AA631A0080A75F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				BE873F7724B249C40041247C /* DataBase.swift */,
 				BE873F7924B24CE60041247C /* DataUser.swift */,
 				BE9F05F424DB039300F47E68 /* CloudStorage.swift */,
+				BE1B821C24DD8A3400BE59B8 /* CustomPhotoAlbum.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				BEB32DDC24D81266007BA071 /* TrendingView.swift in Sources */,
 				BEB32DE024D8129B007BA071 /* CategoryView.swift in Sources */,
 				BE41AA7324CF5EA700511527 /* GridCalculator.swift in Sources */,
+				BE1B821D24DD8A3400BE59B8 /* CustomPhotoAlbum.swift in Sources */,
 				BE41AA7124CF5E8300511527 /* Array+chunked.swift in Sources */,
 				BEFF0DA024D344FD008F6300 /* UserStore.swift in Sources */,
 				BE41AA6A24CF590500511527 /* SearchView.swift in Sources */,
