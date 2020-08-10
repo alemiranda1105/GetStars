@@ -97,8 +97,11 @@ struct CreateAutograph: View {
                             // UIImageWriteToSavedPhotosAlbum(img!, nil, nil, nil)
                             let library: PHPhotoLibrary = PHPhotoLibrary.shared()
                             library.savePhoto(image: img!, albumName: "GetStars")
+                            self.session.st.uploadFile(session: self.session, img: img!, type: "AutMan")
                             
                             self.saved = true
+                            let n = self.session.articles["AutMan"]
+                            self.session.articles["AutMan"] = n! + 1
                             self.error = ""
                             self.drawings.removeAll()
                         }

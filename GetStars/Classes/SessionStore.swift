@@ -23,6 +23,10 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     @Published var data: DataUser?
     public let db: DataBase = DataBase()
     
+    // Numero de articulos que tiene
+    public let st: CloudStorage = CloudStorage()
+    @Published var articles: [String: Int] = ["AutMan": 0]
+    
     //Inidica si el usuario esta iniciando sesion
     @Published var signing: Bool = false
     

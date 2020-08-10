@@ -69,8 +69,10 @@ struct ProfileView: View {
                     }
                 }
             }.navigationBarTitle("\((self.session.data?.getName()) ?? "Dev")")
-        }.navigationViewStyle(StackNavigationViewStyle())
-        
+        }.onAppear {
+            self.session.st.downloadAllFiles(session: self.session, type: "AutMan")
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
