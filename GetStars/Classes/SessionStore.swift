@@ -26,6 +26,7 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     // Numero de articulos que tiene
     public let st: CloudStorage = CloudStorage()
     @Published var articles: [String: Int] = ["AutMan": 0]
+    @Published var autMan: [ImageLoader] = []
     
     //Inidica si el usuario esta iniciando sesion
     @Published var signing: Bool = false

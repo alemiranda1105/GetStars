@@ -10,12 +10,24 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var session: SessionStore
+    @State var autMan: [UIImage] = []
     
     @State var visible: Bool = true
+    @State var downloading: Bool = true
     
     let names = ["Alejandro", "Pepe", "Paola",  "777", "9992", "kitty", "mario", "Alejandro", "Pepe", "Paola",  "777", "9992", "kitty", "mario","Alejandro", "Pepe", "Paola",  "777", "9992", "kitty", "mario"]
     
     private var imagesize = [180, 180]
+    
+    private func loadImage() {
+        let group = DispatchGroup()
+        print("Starting")
+        self.session.st.downloadAllFiles(session: self.session, type: "AutMan", dg: group)
+        group.notify(queue: DispatchQueue.global(qos: .background)) {
+            print("Terminado")
+        }
+        self.downloading = false
+    }
     
     var body: some View {
         NavigationView {
@@ -57,21 +69,31 @@ struct ProfileView: View {
                     
                 }
                 
-                GridStack(minCellWidth: 125, spacing: 15, numItems: self.names.count) {index,cellWidth in
-                    Button(action: {
-                        let impactMed = UIImpactFeedbackGenerator(style: .medium)
-                        impactMed.impactOccurred()
-                    }){
-                        Text("\(self.names[index])")
-                        .frame(width: cellWidth, height: cellWidth)
-                        .background(RoundedRectangle(cornerRadius: 16).fill(Color.blue))
-                            .foregroundColor(Color.white)
+                if self.downloading {
+                    Text("Cargando...").font(.system(size: 32, weight: .heavy)).multilineTextAlignment(.center).padding()
+                } else {
+                    List(self.session.autMan) { img in
+                        NavigationLink(destination: Text("Hola")) {
+                            Image(uiImage: img.image).resizable().frame(width: 200, height: 200)
+                        }
                     }
+                    
+//                    GridStack(minCellWidth: 125, spacing: 15, numItems: self.session.autMan.count) {index,cellWidth in
+//                        Button(action: {
+//                            let impactMed = UIImpactFeedbackGenerator(style: .medium)
+//                            impactMed.impactOccurred()
+//                        }){
+////                            Text("\(self.names[index])")
+////                            .frame(width: cellWidth, height: cellWidth)
+////                            .background(RoundedRectangle(cornerRadius: 16).fill(Color.blue))
+////                                .foregroundColor(Color.white)
+//
+//                        }
+//                    }
                 }
+                
             }.navigationBarTitle("\((self.session.data?.getName()) ?? "Dev")")
-        }.onAppear {
-            self.session.st.downloadAllFiles(session: self.session, type: "AutMan")
-        }
+        }.onAppear(perform: self.loadImage)
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }

@@ -51,11 +51,6 @@ struct LoadIndicatorView: View {
         }
     }
     
-    private func signInDone() {
-        self.session.signing = false
-        print("Sesión iniciada")
-    }
-    
     var body: some View {
         VStack{
             Ring(fillPoint: fillPoint).stroke(Color.red, lineWidth: 10)
