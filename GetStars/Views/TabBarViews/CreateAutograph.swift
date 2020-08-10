@@ -102,6 +102,11 @@ struct CreateAutograph: View {
                             self.saved = true
                             let n = self.session.articles["AutMan"]
                             self.session.articles["AutMan"] = n! + 1
+                            
+                            let defaults = UserDefaults.standard
+                            defaults.set(self.session.articles["AutMan"]!, forKey: "AutMan")
+                            defaults.synchronize()
+                            
                             self.error = ""
                             self.drawings.removeAll()
                         }

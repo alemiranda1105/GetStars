@@ -34,6 +34,30 @@ class CloudStorage: ObservableObject {
         }
     }
     
+    func downloadFile(session: SessionStore, type: String, index: Int, dg: DispatchGroup) {
+        dg.enter()
+        let path = "usuarios/" + (session.session?.email)! + "/" + type + "/" + "\(index)" + ".jpg"
+        let storageRef = storage.reference()
+        let imgRef =  storageRef.child(path)
+        imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if error != nil {
+                print("Error en la descarga")
+            } else {
+                let imgData = data.flatMap(UIImage.init)
+                let img = ImageLoader(image: imgData!, id: index)
+                
+                if img.isContained(array: session.autMan, img: img) {
+                    print("Ya descargado")
+                    
+                } else {
+                    session.autMan.append(img)
+                    print("Descargado")
+                }
+            }
+            dg.leave()
+        }
+    }
+    
     func downloadAllFiles(session: SessionStore, type: String, dg: DispatchGroup){
         dg.enter()
         let art = session.articles[type]!

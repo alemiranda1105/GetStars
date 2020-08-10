@@ -22,9 +22,14 @@ struct ProfileView: View {
     private func loadImage() {
         let group = DispatchGroup()
         print("Starting")
-        self.session.st.downloadAllFiles(session: self.session, type: "AutMan", dg: group)
-        group.notify(queue: DispatchQueue.global(qos: .background)) {
-            print("Terminado")
+        //self.session.st.downloadAllFiles(session: self.session, type: "AutMan", dg: group)
+        let df = UserDefaults.standard
+        let length = df.integer(forKey: "AutMan")
+        for i in 0...length {
+            self.session.st.downloadFile(session: self.session, type: "AutMan", index: i, dg: group)
+            group.notify(queue: DispatchQueue.global(qos: .background)) {
+                print("Terminado")
+            }
         }
         self.downloading = false
     }
