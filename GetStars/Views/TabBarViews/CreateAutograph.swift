@@ -97,20 +97,24 @@ struct CreateAutograph: View {
                             // UIImageWriteToSavedPhotosAlbum(img!, nil, nil, nil)
                             let library: PHPhotoLibrary = PHPhotoLibrary.shared()
                             library.savePhoto(image: img!, albumName: "GetStars")
+                            
+                            self.session.articles["AutMan"] = self.session.data?.autMan
+                            self.session.data?.autMan += 1
+                            
                             self.session.st.uploadFile(session: self.session, img: img!, type: "AutMan")
+                            self.session.db.updateUserDataDB(session: self.session)
                             
                             self.saved = true
-                            let n = self.session.articles["AutMan"]
-                            self.session.articles["AutMan"] = n! + 1
                             
                             let defaults = UserDefaults.standard
-                            defaults.set(self.session.articles["AutMan"]!, forKey: "AutMan")
+                            defaults.set(self.session.data!.autMan-1, forKey: "AutMan")
                             defaults.synchronize()
                             
                             self.error = ""
                             self.drawings.removeAll()
+                        } else {
+                            self.error = "Haga un autógrafo antes de guardar"
                         }
-                        self.error = "Haga un autógrafo antes de guardar"
                     }){
                         Text("Save")
                     }.padding()

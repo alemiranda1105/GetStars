@@ -17,7 +17,7 @@ class DataBase: ObservableObject {
     private let dbCollection: String = "usuarios"
     private var dbRef: String = ""
     private let db = Firestore.firestore()
-    private var datos: DataUser?
+    private var datos: UserData?
     
     func createUserDB(session: SessionStore) {
         let email = session.session?.email
@@ -48,11 +48,12 @@ class DataBase: ObservableObject {
             if let document = document, document.exists {
                 let dataDescription = document.data().map(String.init(describing: )) ?? "nil"
                 
-                self.datos = DataUser(nombre: document.data()!["nombre"] as! String,
+                self.datos = UserData(nombre: document.data()!["nombre"] as! String,
                                         apellidos: document.data()!["apellidos"] as! String,
                                         sexo: document.data()!["sexo"] as! String,
                                         edad: document.data()!["edad"] as! Int,
-                                        fechaNacimiento: document.data()!["fechaNacimiento"] as! String)
+                                        fechaNacimiento: document.data()!["fechaNacimiento"] as! String,
+                                        autMan: document.data()!["AutMan"] as! Int)
                 
                 let defaults = UserDefaults.standard
                 defaults.set(document.data()!["nombre"] as! String, forKey: "name")
@@ -72,6 +73,13 @@ class DataBase: ObservableObject {
             }
             dg.leave()
         }
+    }
+    
+    func updateUserDataDB(session: SessionStore) {
+        let email = session.session?.email
+        let dbData = (session.data?.getData())!
+        
+        db.collection(dbCollection).document(email!).setData(dbData)
     }
 
 }

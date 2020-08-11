@@ -39,7 +39,7 @@ class CloudStorage: ObservableObject {
         let path = "usuarios/" + (session.session?.email)! + "/" + type + "/" + "\(index)" + ".jpg"
         let storageRef = storage.reference()
         let imgRef =  storageRef.child(path)
-        imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+        imgRef.getData(maxSize: 1 * 512 * 512) { data, error in
             if error != nil {
                 print("Error en la descarga")
             } else {

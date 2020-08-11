@@ -22,7 +22,6 @@ struct ProfileView: View {
     private func loadImage() {
         let group = DispatchGroup()
         print("Starting")
-        //self.session.st.downloadAllFiles(session: self.session, type: "AutMan", dg: group)
         let df = UserDefaults.standard
         let length = df.integer(forKey: "AutMan")
         for i in 0...length {
@@ -82,19 +81,6 @@ struct ProfileView: View {
                             Image(uiImage: img.image).resizable().frame(width: 200, height: 200)
                         }
                     }
-                    
-//                    GridStack(minCellWidth: 125, spacing: 15, numItems: self.session.autMan.count) {index,cellWidth in
-//                        Button(action: {
-//                            let impactMed = UIImpactFeedbackGenerator(style: .medium)
-//                            impactMed.impactOccurred()
-//                        }){
-////                            Text("\(self.names[index])")
-////                            .frame(width: cellWidth, height: cellWidth)
-////                            .background(RoundedRectangle(cornerRadius: 16).fill(Color.blue))
-////                                .foregroundColor(Color.white)
-//
-//                        }
-//                    }
                 }
                 
             }.navigationBarTitle("\((self.session.data?.getName()) ?? "Dev")")

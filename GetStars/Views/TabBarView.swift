@@ -20,8 +20,12 @@ struct TabBarView: View {
         let age = def.integer(forKey: "age")
         let sex = def.string(forKey: "sex")
         let fecha = def.string(forKey: "fechaNacimiento")
+        
+        let autMan = def.integer(forKey: "AutMan")
+        
         def.synchronize()
-        self.session.data = DataUser(nombre: name!, apellidos: lastName!, sexo: sex!, edad: age, fechaNacimiento: fecha!)
+        self.session.articles["AutMan"] = autMan
+        self.session.data = UserData(nombre: name!, apellidos: lastName!, sexo: sex!, edad: age, fechaNacimiento: fecha!, autMan: autMan)
     }
     
     var body: some View {

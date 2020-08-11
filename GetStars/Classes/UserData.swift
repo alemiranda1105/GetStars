@@ -1,5 +1,5 @@
 //
-//  DataUser.swift
+//  UserData.swift
 //  GetStars
 //
 //  Created by Alejandro Miranda on 05/07/2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct DataUser {
+struct UserData {
     private let nombre: String
     private let apellidos: String
     private let sexo: String
@@ -16,19 +16,23 @@ struct DataUser {
     private let fechaNacimiento: String
     private let data: [String: Any]
     
+    // Articulos
+    var autMan: Int
     
-    init(nombre: String, apellidos: String, sexo: String, edad: Int, fechaNacimiento: String) {
+    init(nombre: String, apellidos: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int) {
         self.nombre = nombre
         self.apellidos = apellidos
         self.sexo = sexo
         self.edad = edad
         self.fechaNacimiento = fechaNacimiento
+        self.autMan = autMan
         self.data = [
             "nombre" : nombre,
             "apellidos" : apellidos,
             "edad" : edad,
             "sexo": sexo,
-            "fechaNacimiento": fechaNacimiento]
+            "fechaNacimiento": fechaNacimiento,
+            "AutMan": autMan]
     }
     
     init(data: [String: Any]) {
@@ -37,12 +41,14 @@ struct DataUser {
         self.sexo = data["sexo"] as! String
         self.edad = Int(data["edad"] as! String)!
         self.fechaNacimiento = data["fechaNacimiento"] as! String
+        self.autMan = Int(data["AutMan"] as! String)!
         self.data = [
             "nombre" : nombre,
             "apellidos" : apellidos,
             "edad" : edad,
             "sexo": sexo,
-            "fechaNacimiento": fechaNacimiento]
+            "fechaNacimiento": fechaNacimiento,
+            "AutMan": autMan]
     }
     
     func getData() -> [String: Any]{
@@ -53,7 +59,4 @@ struct DataUser {
         return self.nombre
     }
     
-    func toString() -> String {
-        return "nombre" + ": " + self.nombre + ", " + "apellidos" + ": " + self.apellidos + ", " +  "edad" + ": " + String(self.edad) + ", " +  "sexo" + ": " + self.sexo + ", " +  "fechaNacimiento" + ": " + self.fechaNacimiento
-    }
 }

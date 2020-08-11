@@ -15,10 +15,6 @@ struct ContentView: View {
         self.session.listen()
     }
     
-    private func signOut() {
-        self.session.signOut()
-    }
-    
     var body: some View{
         VStack {
             if self.session.session == nil {

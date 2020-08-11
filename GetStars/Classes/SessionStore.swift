@@ -20,13 +20,13 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     var handle: AuthStateDidChangeListenerHandle?
     
     // Datos usuario
-    @Published var data: DataUser?
+    @Published var data: UserData?
     public let db: DataBase = DataBase()
     
     // Numero de articulos que tiene
     public let st: CloudStorage = CloudStorage()
     @Published var articles: [String: Int] = ["AutMan": 0]
-    @Published var autMan: [ImageLoader] = []
+    @Published var autMan = [ImageLoader]()
     
     //Inidica si el usuario esta iniciando sesion
     @Published var signing: Bool = false
@@ -81,8 +81,9 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
         let age = def.integer(forKey: "age")
         let sex = def.string(forKey: "sex")
         let fecha = def.string(forKey: "fechaNacimiento")
+        let autMan = def.integer(forKey: "AutMan")
         def.synchronize()
-        self.data = DataUser(nombre: name!, apellidos: lastName!, sexo: sex!, edad: age, fechaNacimiento: fecha!)
+        self.data = UserData(nombre: name!, apellidos: lastName!, sexo: sex!, edad: age, fechaNacimiento: fecha!, autMan: autMan)
     }
     
     // Metodos GoogleLogin
