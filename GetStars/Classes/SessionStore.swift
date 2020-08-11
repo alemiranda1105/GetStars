@@ -28,6 +28,8 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     @Published var articles: [String: Int] = ["AutMan": 0]
     @Published var autMan = [ImageLoader]()
     
+    @Published var url = [UrlLoader]()
+    
     //Inidica si el usuario esta iniciando sesion
     @Published var signing: Bool = false
     

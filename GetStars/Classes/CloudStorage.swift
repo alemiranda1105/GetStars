@@ -90,6 +90,24 @@ class CloudStorage: ObservableObject {
             dg.leave()
         }
     }
+    
+    func downloadURL(session: SessionStore, type: String, index: Int, dg: DispatchGroup) {
+        dg.enter()
+        let path = "usuarios/" + (session.session?.email)! + "/" + type + "/" + "\(index)" + ".jpg"
+        let storageRef = storage.reference()
+        let imgRef =  storageRef.child(path)
+        imgRef.downloadURL { url, error in
+            if error != nil {
+                print("Error en la obtención de una url")
+                
+            } else {
+                print("URL Obtenida")
+                let urlLoader = UrlLoader(url: url!, id: index)
+                session.url.append(urlLoader)
+            }
+            dg.leave()
+        }
+    }
 }
 
 struct ImageLoader: Identifiable {
@@ -108,4 +126,24 @@ struct ImageLoader: Identifiable {
         }
         return false
     }
+}
+
+struct UrlLoader: Identifiable {
+    var id: Int
+    var url: URL
+    
+    init(url: URL, id: Int) {
+        self.id = id
+        self.url = url
+    }
+    
+    func isContained(array: [UrlLoader], url: UrlLoader) -> Bool {
+        for i in array {
+            if i.id == url.id {
+                return true
+            }
+        }
+        return false
+    }
+    
 }

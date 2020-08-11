@@ -14,5 +14,6 @@ target 'GetStars' do
   pod 'Firebase/Firestore'
 
   pod 'Firebase/Storage'
+  pod 'SDWebImageSwiftUI'
 
 end

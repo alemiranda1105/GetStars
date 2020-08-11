@@ -7,17 +7,13 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var session: SessionStore
-    @State var autMan: [UIImage] = []
     
     @State var visible: Bool = true
     @State var downloading: Bool = true
-    
-    let names = ["Alejandro", "Pepe", "Paola",  "777", "9992", "kitty", "mario", "Alejandro", "Pepe", "Paola",  "777", "9992", "kitty", "mario","Alejandro", "Pepe", "Paola",  "777", "9992", "kitty", "mario"]
-    
-    private var imagesize = [180, 180]
     
     private func loadImage() {
         let group = DispatchGroup()
@@ -25,7 +21,7 @@ struct ProfileView: View {
         let df = UserDefaults.standard
         let length = df.integer(forKey: "AutMan")
         for i in 0...length {
-            self.session.st.downloadFile(session: self.session, type: "AutMan", index: i, dg: group)
+            self.session.st.downloadURL(session: self.session, type: "AutMan", index: i, dg: group)
             group.notify(queue: DispatchQueue.global(qos: .background)) {
                 print("Terminado")
             }
@@ -76,9 +72,11 @@ struct ProfileView: View {
                 if self.downloading {
                     Text("Cargando...").font(.system(size: 32, weight: .heavy)).multilineTextAlignment(.center).padding()
                 } else {
-                    List(self.session.autMan) { img in
+                    List(self.session.url) { url in
                         NavigationLink(destination: Text("Hola")) {
-                            Image(uiImage: img.image).resizable().frame(width: 200, height: 200)
+                            WebImage(url: url.url)
+                                .resizable()
+                                .frame(width: 200, height: 200)
                         }
                     }
                 }
