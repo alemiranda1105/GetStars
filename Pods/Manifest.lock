@@ -376,6 +376,7 @@ PODS:
   - SDWebImage/Core (5.8.4)
   - SDWebImageSwiftUI (1.5.0):
     - SDWebImage (~> 5.7)
+  - WaterfallGrid (0.4.0)
 
 DEPENDENCIES:
   - Firebase/Analytics
@@ -386,6 +387,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - GoogleSignIn
   - SDWebImageSwiftUI
+  - WaterfallGrid (~> 0.4.0)
 
 SPEC REPOS:
   trunk:
@@ -417,6 +419,7 @@ SPEC REPOS:
     - Protobuf
     - SDWebImage
     - SDWebImageSwiftUI
+    - WaterfallGrid
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -447,7 +450,8 @@ SPEC CHECKSUMS:
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   SDWebImageSwiftUI: 43687ffe232ddd33fe0659498b7ca9884fdd6b35
+  WaterfallGrid: 568881d69470c0ffe635732dfafd859db1365989
 
-PODFILE CHECKSUM: 711469b46f4981ee6e71d773bf40eeffebf5e8ed
+PODFILE CHECKSUM: fb63c38d3ecf11057e4c3939c4a0d3c46c7423df
 
 COCOAPODS: 1.9.3

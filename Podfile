@@ -16,4 +16,6 @@ target 'GetStars' do
   pod 'Firebase/Storage'
   pod 'SDWebImageSwiftUI'
 
+  pod 'WaterfallGrid', '~> 0.4.0'
+
 end

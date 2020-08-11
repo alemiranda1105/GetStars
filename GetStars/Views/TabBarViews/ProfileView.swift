@@ -8,6 +8,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import WaterfallGrid
 
 struct ProfileView: View {
     @EnvironmentObject var session: SessionStore
@@ -76,8 +77,9 @@ struct ProfileView: View {
                         NavigationLink(destination: Text("Hola")) {
                             WebImage(url: url.url)
                                 .resizable()
-                                .frame(width: 200, height: 200)
-                        }
+                                .frame(width: 120, height: 120)
+                                .aspectRatio(contentMode: .fit)
+                        }.tag(url.id)
                     }
                 }
                 

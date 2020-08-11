@@ -108,42 +108,5 @@ class CloudStorage: ObservableObject {
             dg.leave()
         }
     }
-}
-
-struct ImageLoader: Identifiable {
-    var id: Int
-    var image: UIImage
-    init(image: UIImage, id: Int) {
-        self.image = image
-        self.id = id
-    }
-    
-    func isContained(array: [ImageLoader], img: ImageLoader) -> Bool {
-        for i in array {
-            if i.id == img.id {
-                return true
-            }
-        }
-        return false
-    }
-}
-
-struct UrlLoader: Identifiable {
-    var id: Int
-    var url: URL
-    
-    init(url: URL, id: Int) {
-        self.id = id
-        self.url = url
-    }
-    
-    func isContained(array: [UrlLoader], url: UrlLoader) -> Bool {
-        for i in array {
-            if i.id == url.id {
-                return true
-            }
-        }
-        return false
-    }
     
 }
