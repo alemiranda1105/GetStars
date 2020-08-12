@@ -7,18 +7,24 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct AutographProfileView: View {
     @EnvironmentObject var session: SessionStore
+    let url: UrlLoader
     
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+        WebImage(url: self.url.url)
+        .resizable()
+        .placeholder(Image(systemName: "photo"))
+        .placeholder {
+            Rectangle().foregroundColor(.gray)
+        }
+        .indicator(.activity)
+        .transition(.fade(duration: 0.5))
+        .scaledToFit()
+        .frame(width: 300, height: 300, alignment: .center)
 
-struct AutographProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        AutographProfileView().environmentObject(SessionStore())
     }
 }

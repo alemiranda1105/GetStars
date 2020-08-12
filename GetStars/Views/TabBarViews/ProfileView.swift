@@ -8,7 +8,6 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-import WaterfallGrid
 
 struct ProfileView: View {
     @EnvironmentObject var session: SessionStore
@@ -26,6 +25,9 @@ struct ProfileView: View {
             group.notify(queue: DispatchQueue.global(qos: .background)) {
                 print("Terminado")
             }
+        }
+        self.session.autMan.sort {
+            $0.id < $1.id
         }
         self.downloading = false
     }
@@ -73,13 +75,19 @@ struct ProfileView: View {
                 if self.downloading {
                     Text("Cargando...").font(.system(size: 32, weight: .heavy)).multilineTextAlignment(.center).padding()
                 } else {
-                    List(self.session.url) { url in
-                        NavigationLink(destination: Text("Hola")) {
-                            WebImage(url: url.url)
-                                .resizable()
-                                .frame(width: 120, height: 120)
-                                .aspectRatio(contentMode: .fit)
-                        }.tag(url.id)
+                    GridStack(minCellWidth: 125, spacing: 5, numItems: self.session.url.count){ i, width in
+                        NavigationLink(destination: AutographProfileView(url: self.session.url[i])) {
+                            WebImage(url: self.session.url[i].url)
+                            .resizable()
+                            .placeholder(Image(systemName: "photo"))
+                            .placeholder {
+                                Rectangle().foregroundColor(.gray)
+                            }
+                            .indicator(.activity)
+                            .transition(.fade(duration: 0.5))
+                            .frame(width: width, height: width, alignment: .center)
+                            .border(Color.black, width: 1)
+                        }.buttonStyle(PlainButtonStyle()).padding(.vertical, 5)
                     }
                 }
                 

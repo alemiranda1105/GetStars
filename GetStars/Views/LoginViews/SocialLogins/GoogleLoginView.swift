@@ -46,13 +46,12 @@ struct GoogleLoginView: UIViewRepresentable {
             let def = UserDefaults.standard
             def.set(name, forKey: "name")
             def.set(email, forKey: "email")
-            def.set("Google", forKey: "lastName")
             def.set("Google", forKey: "sex")
             def.set(100, forKey: "age")
             def.set("Google", forKey: "fechaNacimiento")
             def.synchronize()
             let db = DataBase()
-            let dbData = ["nombre": name, "apellidos": "google", "edad": 100, "fechaNacimiento": "Google", "sexo": "Google"] as [String : Any]
+            let dbData = ["nombre": name, "edad": 100, "fechaNacimiento": "Google", "sexo": "Google"] as [String : Any]
             db.createUserDB(dbData: dbData, email: email)
           }
             

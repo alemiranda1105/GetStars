@@ -16,7 +16,6 @@ struct TabBarView: View {
     private func getData() {
         let def = UserDefaults.standard
         let name = def.string(forKey: "name")
-        let lastName = def.string(forKey: "lastName")
         let age = def.integer(forKey: "age")
         let sex = def.string(forKey: "sex")
         let fecha = def.string(forKey: "fechaNacimiento")
@@ -25,7 +24,7 @@ struct TabBarView: View {
         
         def.synchronize()
         self.session.articles["AutMan"] = autMan
-        self.session.data = UserData(nombre: name!, apellidos: lastName!, sexo: sex!, edad: age, fechaNacimiento: fecha!, autMan: autMan)
+        self.session.data = UserData(nombre: name!, sexo: sex!, edad: age, fechaNacimiento: fecha!, autMan: autMan)
     }
     
     var body: some View {

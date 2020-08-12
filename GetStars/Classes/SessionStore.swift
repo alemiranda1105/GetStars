@@ -79,13 +79,12 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     func restoreUser() {
         let def = UserDefaults.standard
         let name = def.string(forKey: "name")
-        let lastName = def.string(forKey: "lastName")
         let age = def.integer(forKey: "age")
         let sex = def.string(forKey: "sex")
         let fecha = def.string(forKey: "fechaNacimiento")
         let autMan = def.integer(forKey: "AutMan")
         def.synchronize()
-        self.data = UserData(nombre: name!, apellidos: lastName!, sexo: sex!, edad: age, fechaNacimiento: fecha!, autMan: autMan)
+        self.data = UserData(nombre: name!, sexo: sex!, edad: age, fechaNacimiento: fecha!, autMan: autMan)
     }
     
     // Metodos GoogleLogin

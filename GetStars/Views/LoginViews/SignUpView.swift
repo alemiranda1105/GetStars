@@ -12,7 +12,6 @@ struct SignUpView: View {
     @EnvironmentObject var session: SessionStore
     
     @State var name: String = ""
-    @State var lastName: String = ""
     @State var email: String = ""
     @State var password: String = ""
     @State var pass2: String = ""
@@ -115,7 +114,7 @@ struct SignUpView: View {
     }
     
     func signUp() {
-        if (name == "" || lastName == "") {
+        if (name == "") {
             error = "Introduzca correctamente los datos"
             return
         }
@@ -156,12 +155,11 @@ struct SignUpView: View {
                 self.password = ""
                 
                 // Datos del usuario
-                self.session.data = UserData(nombre: self.name, apellidos: self.lastName, sexo: sex, edad: age, fechaNacimiento: self.birthDate, autMan: 0)
+                self.session.data = UserData(nombre: self.name, sexo: sex, edad: age, fechaNacimiento: self.birthDate, autMan: 0)
                 self.session.db.createUserDB(session: self.session)
                 
                 let defaults = UserDefaults.standard
                 defaults.set(self.name, forKey: "name")
-                defaults.set(self.lastName, forKey: "lastName")
                 defaults.set(age, forKey: "age")
                 defaults.set(sex, forKey: "sex")
                 defaults.set(self.birthDate, forKey: "fechaNacimiento")
@@ -183,11 +181,8 @@ struct SignUpView: View {
                         }
                     }.pickerStyle(SegmentedPickerStyle())
                     
-                    TextField("Nombre", text: $name)
+                    TextField("Nombre completo", text: $name)
                         .font(.system(size: 14)).padding(4).textFieldStyle(RoundedBorderTextFieldStyle())
-                    
-                    TextField("Apellidos", text: $lastName)
-                    .font(.system(size: 14)).padding(4).textFieldStyle(RoundedBorderTextFieldStyle())
                     
                     TextField("Email", text: $email)
                         .font(.system(size: 14)).padding(4).textFieldStyle(RoundedBorderTextFieldStyle()).keyboardType(.emailAddress).autocapitalization(.none)

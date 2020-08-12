@@ -49,7 +49,6 @@ class DataBase: ObservableObject {
                 let dataDescription = document.data().map(String.init(describing: )) ?? "nil"
                 
                 self.datos = UserData(nombre: document.data()!["nombre"] as! String,
-                                        apellidos: document.data()!["apellidos"] as! String,
                                         sexo: document.data()!["sexo"] as! String,
                                         edad: document.data()!["edad"] as! Int,
                                         fechaNacimiento: document.data()!["fechaNacimiento"] as! String,
@@ -57,7 +56,6 @@ class DataBase: ObservableObject {
                 
                 let defaults = UserDefaults.standard
                 defaults.set(document.data()!["nombre"] as! String, forKey: "name")
-                defaults.set(document.data()!["apellidos"] as! String, forKey: "lastName")
                 defaults.set(document.data()!["edad"] as! Int, forKey: "age")
                 defaults.set(document.data()!["sexo"] as! String, forKey: "sex")
                 defaults.set(document.data()!["fechaNacimiento"] as! String, forKey: "fechaNacimiento")

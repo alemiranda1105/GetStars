@@ -51,6 +51,9 @@ class CloudStorage: ObservableObject {
                     
                 } else {
                     session.autMan.append(img)
+                    session.autMan.sort {
+                        $0.id < $1.id
+                    }
                     print("Descargado")
                 }
             }
@@ -103,7 +106,11 @@ class CloudStorage: ObservableObject {
             } else {
                 print("URL Obtenida")
                 let urlLoader = UrlLoader(url: url!, id: index)
-                session.url.append(urlLoader)
+                if urlLoader.isContained(array: session.url, url: urlLoader) {
+                    print("Ya descargado")
+                } else {
+                    session.url.append(urlLoader)
+                }
             }
             dg.leave()
         }
