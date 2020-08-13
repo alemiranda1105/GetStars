@@ -50,7 +50,7 @@ struct LoadIndicatorView: View {
     
     var body: some View {
         VStack{
-            Ring(fillPoint: fillPoint).stroke(Color.red, lineWidth: 10)
+            Ring(fillPoint: fillPoint).stroke(Color("naranja"), lineWidth: 10)
                 .frame(width: 100, height: 100)
                 .onAppear() {
                     withAnimation(self.animation) {
@@ -94,9 +94,13 @@ struct Ring: Shape {
     }
 }
 
-
+#if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(SessionStore())
+        Group {
+            //ContentView().environmentObject(SessionStore())
+            LoadIndicatorView().environmentObject(SessionStore())
+        }
     }
 }
+#endif

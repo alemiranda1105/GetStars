@@ -9,12 +9,16 @@
 import SwiftUI
 
 struct SignUpView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     @EnvironmentObject var session: SessionStore
     
     @State var name: String = ""
     @State var email: String = ""
+    
     @State var password: String = ""
-    @State var pass2: String = ""
+    @State var secure: Bool = true
+    
     @State var error: String = ""
     @State private var condiciones: Bool = false
     
@@ -25,15 +29,6 @@ struct SignUpView: View {
     @State private var day: String = ""
     @State private var month: String = ""
     @State private var year: String = ""
-    
-    private func checkPass() -> Bool {
-        if (pass2 == password){
-            return true
-        } else {
-            self.error = "Las contraseñas no coinciden"
-            return false
-        }
-    }
     
     private func checkDate() -> Bool {
         let actualY = Calendar.current.component(.year, from: Date())
@@ -129,8 +124,6 @@ struct SignUpView: View {
         self.birthDate = self.day + "/" +  self.month + "/" + self.year
         let age: Int = checkAge()
         
-        if !checkPass(){ return }
-        
         var sex: String = ""
         
         switch self.generoSeleccionado {
@@ -182,34 +175,74 @@ struct SignUpView: View {
                     }.pickerStyle(SegmentedPickerStyle())
                     
                     TextField("Nombre completo", text: $name)
-                        .font(.system(size: 14)).padding(4).textFieldStyle(RoundedBorderTextFieldStyle())
+                        .font(.system(size: 14))
+                        .padding(8)
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
                     
                     TextField("Email", text: $email)
-                        .font(.system(size: 14)).padding(4).textFieldStyle(RoundedBorderTextFieldStyle()).keyboardType(.emailAddress).autocapitalization(.none)
+                        .font(.system(size: 14))
+                        .padding(8)
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
+                        .keyboardType(.emailAddress).autocapitalization(.none)
                     
                     Text("Fecha de nacimiento").font(.system(size: 12, weight: .light))
                     
                     HStack {
                         TextField("DD", text: $day)
-                            .font(.system(size: 14)).padding(2).textFieldStyle(RoundedBorderTextFieldStyle())
+                            .font(.system(size: 14))
+                            .padding(6)
+                            .background(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
                             .keyboardType(.decimalPad)
                         
                         TextField("MM", text: $month)
-                            .font(.system(size: 14)).padding(2).textFieldStyle(RoundedBorderTextFieldStyle())
+                            .font(.system(size: 14))
+                            .padding(6)
+                            .background(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
                             .keyboardType(.decimalPad)
                         
                         TextField("AAAA", text: $year)
-                            .font(.system(size: 14)).padding(2).textFieldStyle(RoundedBorderTextFieldStyle())
+                            .font(.system(size: 14))
+                            .padding(6)
+                            .background(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
                             .keyboardType(.decimalPad)
                     }
                     
-                    SecureField("Contraseña", text: $password)
-                        .font(.system(size: 14))
-                        .padding(4).textFieldStyle(RoundedBorderTextFieldStyle())
-                    
-                    SecureField("Repite la contraseña", text: $pass2)
-                        .font(.system(size: 14))
-                        .padding(4).textFieldStyle(RoundedBorderTextFieldStyle())
+                    HStack {
+                        if secure {
+                            SecureField("Contraseña", text: $password)
+                                .font(.system(size: 14))
+                                .padding(8)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
+                        } else {
+                            TextField("Contraseña", text: $password)
+                                .font(.system(size: 14))
+                                .padding(8)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
+                        }
+                        Button(action: {
+                            self.secure.toggle()
+                        }) {
+                            if secure {
+                                Image(systemName: "eye.slash")
+                            } else {
+                                Image(systemName: "eye")
+                            }
+                        }.foregroundColor(colorScheme == .dark ? Color.white : Color.blue)
+                    }
                     
                     Toggle(isOn: $condiciones){
                         Text("Aceptar condiciones")
@@ -229,8 +262,12 @@ struct SignUpView: View {
                     Text("Registrarse")
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .padding()
-                    .background(LinearGradient(gradient: Gradient(colors: [.blue, .blue]), startPoint: .leading, endPoint: .trailing))
-                    .foregroundColor(.white)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 50)
+                        .stroke(Color("naranja"), lineWidth: 4))
+                    .background(colorScheme == .dark ? Color("navyBlue").opacity(0.8) : Color.white)
+                    .foregroundColor(Color("naranja"))
+                    .border(Color("naranja"))
                     .cornerRadius(50)
                     .font(.system(size: 18, weight: .bold))
                 }.padding(.vertical, 16)

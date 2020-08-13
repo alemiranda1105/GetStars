@@ -11,6 +11,7 @@ import FirebaseAuth
 import GoogleSignIn
 
 struct SignInView: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var session: SessionStore
     @State var email: String = ""
     @State var password: String = ""
@@ -30,16 +31,32 @@ struct SignInView: View {
     var body: some View {
         VStack {
             VStack(spacing: 18) {
-                TextField("Email", text: $email)
+                VStack(alignment: .leading) {
+                    Text("Email")
+                        .font(.callout)
+                        .bold()
+                    
+                    TextField("Email", text: $email)
                     .font(.system(size: 14))
-                    .padding(4)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(10)
+                    .background(
+                        RoundedRectangle(cornerRadius: 5)
+                            .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
                     .keyboardType(.emailAddress).autocapitalization(.none)
+                }
                 
-                SecureField("Contraseña", text: $password)
+                VStack(alignment: .leading) {
+                    Text("Contraseña")
+                        .font(.callout)
+                        .bold()
+                    
+                    SecureField("Contraseña", text: $password)
                     .font(.system(size: 14))
-                    .padding(4)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(10)
+                    .background(
+                        RoundedRectangle(cornerRadius: 5)
+                          .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
+                }
                 
             }.padding(.vertical, 64)
             
@@ -50,47 +67,17 @@ struct SignInView: View {
                     .padding()
             }
             
+            Spacer()
+            
             Button(action: signIn){
                 Text("Iniciar Sesión")
                 .frame(minWidth: 0, maxWidth: .infinity)
                 .padding()
-                .background(LinearGradient(gradient: Gradient(colors: [.blue, .blue]), startPoint: .leading, endPoint: .trailing))
+                .background(Color("navyBlue"))
                 .foregroundColor(.white)
                 .cornerRadius(50)
                 .font(.system(size: 18, weight: .bold))
-            }
-            
-            Spacer()
-            
-            HStack(spacing: 16){
-                
-                Button(action: {print("Facebook")}){
-                    Text("Facebook")
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .padding()
-                    .background(LinearGradient(gradient: Gradient(colors: [.gray, .gray]), startPoint: .leading, endPoint: .trailing))
-                    .foregroundColor(.white)
-                    .cornerRadius(50)
-                    .font(.system(size: 18, weight: .bold))
-                }
-                
-                GoogleLoginView()
-                .frame(width: 0, height: 0)
-                .hidden()
-                
-                Button(action: {
-                    
-                    GIDSignIn.sharedInstance().signIn()
-                }){
-                    Text("Apple")
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .padding()
-                    .background(LinearGradient(gradient: Gradient(colors: [.black, .black]), startPoint: .leading, endPoint: .trailing))
-                    .foregroundColor(.white)
-                    .cornerRadius(50)
-                    .font(.system(size: 18, weight: .bold))
-                }
-            }.padding(8)
+            }.padding(.bottom, 16)
 
         }
         .padding(.horizontal, 8)
@@ -100,8 +87,14 @@ struct SignInView: View {
     }
 }
 
+#if DEBUG
 struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
-        SignInView().environmentObject(SessionStore())
+        Group {
+            SignInView().environmentObject(SessionStore()).environment(\.colorScheme, .dark)
+            
+            SignInView().environmentObject(SessionStore()).environment(\.colorScheme, .light)
+        }
     }
 }
+#endif
