@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var session: SessionStore
+    private let def = UserDefaults.standard
     
     private func getUser() {
         self.session.listen()
@@ -19,7 +20,7 @@ struct ContentView: View {
         VStack {
             if self.session.session == nil {
                 WelcomeView().environmentObject(self.session)
-            } else if self.session.signing {
+            } else if self.session.signing || def.bool(forKey: "sign") {
                 LoadIndicatorView().environmentObject(self.session)
             } else {
                 TabBarView().environmentObject(self.session)
@@ -43,7 +44,7 @@ struct LoadIndicatorView: View {
         print("Starting")
         self.session.db.readDataUser(session: self.session, dg: group)
         group.notify(queue: DispatchQueue.global(qos: .background)) {
-            print("Terminado")
+            print("Terminado inicio")
         }
     }
     

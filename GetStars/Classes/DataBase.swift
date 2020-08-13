@@ -19,6 +19,8 @@ class DataBase: ObservableObject {
     private let db = Firestore.firestore()
     private var datos: UserData?
     
+    private var check = false
+    
     func createUserDB(session: SessionStore) {
         let email = session.session?.email
         let dbData = (session.data?.getData())!
@@ -31,9 +33,11 @@ class DataBase: ObservableObject {
         ref.getDocument { (document, error) in
             if document?.exists ?? false {
                 print("ya existe el archivo")
+                UserDefaults.standard.set(true, forKey: "sign")
                 return
             } else {
                 print("El archivo no existe, Creando...")
+                UserDefaults.standard.set(false, forKey: "sign")
                 self.db.collection(self.dbCollection).document(email).setData(dbData)
             }
         }
@@ -59,10 +63,13 @@ class DataBase: ObservableObject {
                 defaults.set(document.data()!["edad"] as! Int, forKey: "age")
                 defaults.set(document.data()!["sexo"] as! String, forKey: "sex")
                 defaults.set(document.data()!["fechaNacimiento"] as! String, forKey: "fechaNacimiento")
+                defaults.set(document.data()!["AutMan"] as! Int, forKey: "AutMan")
                 defaults.synchronize()
                 
                 session.data = self.datos!
+                session.articles["AutMan"] = (document.data()!["AutMan"] as! Int)
                 session.signing = false
+                UserDefaults.standard.set(false, forKey: "sign")
                 
                 print("Document data: \(dataDescription)")
             } else {
@@ -73,11 +80,16 @@ class DataBase: ObservableObject {
         }
     }
     
-    func updateUserDataDB(session: SessionStore) {
+    func updateAutManDB(session: SessionStore) {
         let email = session.session?.email
-        let dbData = (session.data?.getData())!
         
-        db.collection(dbCollection).document(email!).setData(dbData)
+        db.collection(dbCollection).document(email!).updateData(["AutMan": session.articles["AutMan"]! as Int]) { err in
+            if err != nil {
+                print("Error actualizando")
+            } else {
+                print("Base de datos actualizada")
+            }
+        }
     }
 
 }

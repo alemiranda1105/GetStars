@@ -59,6 +59,9 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
             self.data?.getData().forEach { d in
                 def.removeObject(forKey: d.key)
             }
+            def.removeObject(forKey: "sign")
+            self.url.removeAll()
+            self.articles.removeAll()
             self.data = nil
             self.session = nil
         } catch {

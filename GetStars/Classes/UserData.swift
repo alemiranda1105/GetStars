@@ -47,7 +47,7 @@ struct UserData {
     }
     
     func getData() -> [String: Any]{
-        return data
+        return self.data
     }
     
     func getName() -> String {

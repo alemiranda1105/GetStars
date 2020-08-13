@@ -13,6 +13,7 @@ import FirebaseAuth
 
 
 struct GoogleLoginView: UIViewRepresentable {
+    @EnvironmentObject var session: SessionStore
     
     func makeCoordinator() -> GoogleLoginView.Coordinator {
         return GoogleLoginView.Coordinator()
@@ -51,10 +52,10 @@ struct GoogleLoginView: UIViewRepresentable {
             def.set("Google", forKey: "fechaNacimiento")
             def.synchronize()
             let db = DataBase()
-            let dbData = ["nombre": name, "edad": 100, "fechaNacimiento": "Google", "sexo": "Google"] as [String : Any]
+            let dbData = ["nombre": name, "edad": 100, "fechaNacimiento": "Google", "sexo": "Google", "AutMan": 0] as [String : Any]
+            
             db.createUserDB(dbData: dbData, email: email)
           }
-            
         }
     }
     

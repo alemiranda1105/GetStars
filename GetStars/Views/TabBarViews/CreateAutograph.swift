@@ -94,7 +94,6 @@ struct CreateAutograph: View {
                         if self.drawings.count >= 1 {
                             let rect = CGRect(origin: self.origin, size: self.size)
                             let img = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: rect)
-                            // UIImageWriteToSavedPhotosAlbum(img!, nil, nil, nil)
                             let library: PHPhotoLibrary = PHPhotoLibrary.shared()
                             library.savePhoto(image: img!, albumName: "GetStars")
                             
@@ -102,12 +101,12 @@ struct CreateAutograph: View {
                             self.session.data?.autMan += 1
                             
                             self.session.st.uploadFile(session: self.session, img: img!, type: "AutMan")
-                            self.session.db.updateUserDataDB(session: self.session)
+                            self.session.db.updateAutManDB(session: self.session)
                             
                             self.saved = true
                             
                             let defaults = UserDefaults.standard
-                            defaults.set(self.session.data!.autMan-1, forKey: "AutMan")
+                            defaults.set(self.session.data!.autMan, forKey: "AutMan")
                             defaults.synchronize()
                             
                             self.error = ""
