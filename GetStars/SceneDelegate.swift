@@ -27,10 +27,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             
-            if #available(iOS 13.0, *) {
-                window.overrideUserInterfaceStyle = .light
-            }
-            
             window.rootViewController = UIHostingController(rootView: contentView.environmentObject(SessionStore()))
             self.window = window
             window.makeKeyAndVisible()
@@ -64,7 +60,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
-
