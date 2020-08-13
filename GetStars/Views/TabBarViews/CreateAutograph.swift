@@ -77,6 +77,11 @@ struct CreateAutograph: View {
                         self.error = ""
                     }) {
                         Text("Delete")
+                        .frame(minWidth: 0, maxWidth: 50)
+                        .padding(5)
+                        .background(Color("naranja"))
+                        .foregroundColor(.white)
+                        .cornerRadius(50)
                     }.padding()
                     
                     Spacer()
@@ -116,11 +121,16 @@ struct CreateAutograph: View {
                         }
                     }){
                         Text("Save")
+                        .frame(minWidth: 0, maxWidth: 50)
+                        .padding(5)
+                        .background(Color("navyBlue"))
+                        .foregroundColor(.white)
+                        .cornerRadius(50)
                     }.padding()
                 }
             } else {
                 VStack {
-                    Text("El autografo ha sido guardado con exito")
+                    Text("El autógrafo ha sido guardado con éxito")
                         .font(.system(size: 24, weight: .heavy))
                         .multilineTextAlignment(.center)
                         .padding()
@@ -130,10 +140,10 @@ struct CreateAutograph: View {
                     Button(action: {
                         self.saved = false
                     }) {
-                        Text("Realizar otro autográfo")
+                        Text("Realizar otro autógrafo")
                         .frame(minWidth: 0, maxWidth: .infinity)
                         .padding()
-                        .background(LinearGradient(gradient: Gradient(colors: [.blue, .blue]), startPoint: .leading, endPoint: .trailing))
+                        .background(Color("navyBlue"))
                         .foregroundColor(.white)
                         .cornerRadius(50)
                         .font(.system(size: 18, weight: .bold))

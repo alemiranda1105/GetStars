@@ -60,6 +60,7 @@ struct TabBarView: View {
 
 struct BarraNavegacionView: View {
     @Binding var index: Int
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         
@@ -71,7 +72,7 @@ struct BarraNavegacionView: View {
             }) {
                 Image(systemName: "house").resizable().frame(width: 32.0, height: 32.0)
                 
-            }.foregroundColor(Color.black.opacity(self.index == 0 ? 1 : 0.2))
+            }.foregroundColor(colorScheme == .dark ? Color.white.opacity(self.index == 0 ? 1 : 0.35): Color.black.opacity(self.index == 0 ? 1 : 0.2))
             
             Spacer(minLength: 0)
             
@@ -82,7 +83,7 @@ struct BarraNavegacionView: View {
             }) {
                 Image(systemName: "magnifyingglass").resizable().frame(width: 32.0, height: 32.0)
                 
-            }.foregroundColor(Color.black.opacity(self.index == 1 ? 1 : 0.2))
+            }.foregroundColor(colorScheme == .dark ? Color.white.opacity(self.index == 1 ? 1 : 0.35): Color.black.opacity(self.index == 1 ? 1 : 0.2))
             
             Spacer(minLength: 0)
             
@@ -97,8 +98,8 @@ struct BarraNavegacionView: View {
                 
             }.padding(14)
                 .background(RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.init("gris")))
-                .foregroundColor(Color.init("naranja").opacity(self.index == 4 ? 1 : 0.2))
+                    .fill(colorScheme == .dark ? Color.init(hex: "383838"): Color("gris")))
+                .foregroundColor(Color.init("naranja").opacity(self.index == 4 ? 1 : 0.35))
             
             Spacer(minLength: 0)
             
@@ -109,7 +110,7 @@ struct BarraNavegacionView: View {
             }) {
                 Image(systemName: "cart").resizable().frame(width: 32.0, height: 32.0)
                 
-            }.foregroundColor(Color.black.opacity(self.index == 2 ? 1 : 0.2))
+            }.foregroundColor(colorScheme == .dark ? Color.white.opacity(self.index == 2 ? 1 : 0.35): Color.black.opacity(self.index == 2 ? 1 : 0.2))
             
             Spacer(minLength: 0)
             
@@ -120,10 +121,10 @@ struct BarraNavegacionView: View {
             }) {
                 Image(systemName: "person").resizable().frame(width: 32.0, height: 32.0)
                 
-            }.foregroundColor(Color.black.opacity(self.index == 3 ? 1 : 0.2))
+            }.foregroundColor(colorScheme == .dark ? Color.white.opacity(self.index == 3 ? 1 : 0.35): Color.black.opacity(self.index == 3 ? 1 : 0.2))
         }
         .padding(.horizontal, 16)
-        .background(Color.white)
+        .background(colorScheme == .dark ? Color.black: Color.white)
     }
 }
 

@@ -10,6 +10,8 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ProfileView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     @EnvironmentObject var session: SessionStore
     
     @State var visible: Bool = true
@@ -48,13 +50,13 @@ struct ProfileView: View {
                             self.visible = false
                         }) {
                             Image(systemName: "arrow.up").resizable().frame(width: 28.0, height: 28.0)
-                        }.foregroundColor(Color.black).padding()
+                        }.foregroundColor(colorScheme == .dark ? Color.white: Color.black).padding()
                         
                         Spacer()
                         
                         NavigationLink(destination: ConfigurationView().environmentObject(self.session)) {
                             Image(systemName: "gear").resizable().frame(width: 28.0, height: 28.0)
-                            }.foregroundColor(Color.black).padding()
+                            }.foregroundColor(colorScheme == .dark ? Color.white: Color.black).padding()
                     }
                         
                     Spacer()
@@ -66,7 +68,7 @@ struct ProfileView: View {
                         self.visible = true
                     }) {
                         Image(systemName: "arrow.down").resizable().frame(width: 28.0, height: 28.0)
-                    }.foregroundColor(Color.black).padding()
+                    }.foregroundColor(colorScheme == .dark ? Color.white: Color.black).padding()
                     
                     Spacer()
                     
