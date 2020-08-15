@@ -21,7 +21,7 @@ struct ProductCard: View {
     
     var body: some View {
         VStack {
-            NavigationLink(destination: Text("\(self.item.name)")){
+            NavigationLink(destination: ProductView(product: self.$item)){
                 ZStack {
                     
                     Image(self.item.image).resizable().scaledToFill()
@@ -42,8 +42,9 @@ struct ProductCard: View {
                     }
                 }
                 
-                }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
+            }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
                 .buttonStyle(PlainButtonStyle())
+            
             Spacer(minLength: 16)
         }
     }
