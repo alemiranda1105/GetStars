@@ -36,6 +36,7 @@
 		BEC1097A24AB3FEF00695160 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC1097924AB3FEF00695160 /* WelcomeView.swift */; };
 		BECB5B3524AF381800C65096 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BECB5B3424AF381800C65096 /* GoogleService-Info.plist */; };
 		BED2AFD124B5159F00CE06BB /* SyncWithView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED2AFD024B5159F00CE06BB /* SyncWithView.swift */; };
+		BEEF585924E6A22C000CC9E9 /* ProductCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEF585824E6A22C000CC9E9 /* ProductCard.swift */; };
 		BEFBA10424E2D6B500E0C883 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBA10324E2D6B500E0C883 /* Utilities.swift */; };
 		BEFBA10724E2D8CF00E0C883 /* GridStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBA10624E2D8CF00E0C883 /* GridStack.swift */; };
 		BEFBA10924E2E6D500E0C883 /* AutographProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBA10824E2E6D500E0C883 /* AutographProfileView.swift */; };
@@ -74,6 +75,7 @@
 		BEC1097924AB3FEF00695160 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		BECB5B3424AF381800C65096 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		BED2AFD024B5159F00CE06BB /* SyncWithView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncWithView.swift; sourceTree = "<group>"; };
+		BEEF585824E6A22C000CC9E9 /* ProductCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCard.swift; sourceTree = "<group>"; };
 		BEFBA10324E2D6B500E0C883 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		BEFBA10624E2D8CF00E0C883 /* GridStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridStack.swift; sourceTree = "<group>"; };
 		BEFBA10824E2E6D500E0C883 /* AutographProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographProfileView.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				BE41AA6724CF584C00511527 /* HomeView.swift */,
+				BEEF585524E69484000CC9E9 /* Home */,
 				BE41AA6924CF590500511527 /* SearchView.swift */,
 				BEB32DD624D811E9007BA071 /* Search */,
 				BEA7AA7A24CCA1FD003A4367 /* CreateAutograph.swift */,
@@ -211,6 +214,14 @@
 				BEC0488A24DC174500393EFB /* GoogleLoginView.swift */,
 			);
 			path = SocialLogins;
+			sourceTree = "<group>";
+		};
+		BEEF585524E69484000CC9E9 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				BEEF585824E6A22C000CC9E9 /* ProductCard.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		C969E021775049648446E573 /* Pods */ = {
@@ -391,6 +402,7 @@
 				BE873F7A24B24CE60041247C /* UserData.swift in Sources */,
 				BEFBA10424E2D6B500E0C883 /* Utilities.swift in Sources */,
 				BEB32DDA24D81235007BA071 /* DestacadosView.swift in Sources */,
+				BEEF585924E6A22C000CC9E9 /* ProductCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
