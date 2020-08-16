@@ -98,7 +98,7 @@ struct BarraNavegacionView: View {
                 
             }.padding(14)
                 .background(RoundedRectangle(cornerRadius: 16)
-                    .fill(colorScheme == .dark ? Color.init(hex: "383838"): Color("gris")))
+                    .fill(Color("gris")))
                 .foregroundColor(Color.init("naranja").opacity(self.index == 4 ? 1 : 0.35))
             
             Spacer(minLength: 0)
