@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ProductCard: View {
-    @Binding var item: Product
+    @Binding var item: Person
     
     var body: some View {
         VStack {
@@ -43,7 +43,7 @@ struct ProductCard: View {
 }
 
 fileprivate struct DummyView: View {
-    @Binding var item: Product
+    @Binding var item: Person
     var body: some View {
         return GeometryReader { g in
             Group {
@@ -58,7 +58,7 @@ fileprivate struct DummyView: View {
 #if DEBUG
 struct ProductCard_Previews: PreviewProvider {
     static var previews: some View {
-        ProductCard(item: .constant(Product(name: "Antoñito Perez lopez", description: "prueba", image: "p1")))
+        ProductCard(item: .constant(Person(name: "Antoñito Perez lopez", description: "prueba", image: "p1")))
     }
 }
 #endif

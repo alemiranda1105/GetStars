@@ -10,7 +10,6 @@ import SwiftUI
 
 struct BuyDrawView: View {
     @State var search: String = ""
-    @State var selection: Int? = nil
     
      var body: some View {
            NavigationView {
@@ -31,51 +30,45 @@ struct BuyDrawView: View {
                            )
                            .padding(.horizontal, 10)
                        
-                       Spacer(minLength: 25)
-                    
-                       NavigationLink(destination: Text("Test"), tag: 1, selection: $selection){
-                           Button(action: {}) {
-                               Text("Destacados")
-                                   .fontWeight(.heavy)
-                                   .frame(minWidth: 0, maxWidth: .infinity)
-                               .padding(70)
-                                   .background(Color.init("naranja"))
-                               .foregroundColor(.white)
-                               .cornerRadius(16)
-                               .font(.system(size: 18, weight: .bold))
-                           }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-                       }
+                       Spacer(minLength: 35)
                        
-                       Spacer(minLength: 15)
-                       
-                       NavigationLink(destination: Text("Test"), tag: 1, selection: $selection){
-                           Button(action: {}) {
-                               Text("Populares")
+                       NavigationLink(destination: Text("Subastas")){
+                           Text("Subastas")
+                               .fontWeight(.heavy)
                                .frame(minWidth: 0, maxWidth: .infinity)
-                               .padding(70)
-                                   .background(Color.init(hex: "00b0ff"))
+                               .padding(50)
+                               .background(Color.init("naranja"))
                                .foregroundColor(.white)
                                .cornerRadius(16)
                                .font(.system(size: 18, weight: .bold))
-                           }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-                       }
+                       }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
                        
-                       Spacer(minLength: 15)
+                       Spacer(minLength: 20)
                        
-                       NavigationLink(destination: Text("Test"), tag: 1, selection: $selection){
-                           Button(action: {}) {
-                               Text("Novedades")
+                       NavigationLink(destination: Text("Sorteos")){
+                           Text("Sorteos")
                                .frame(minWidth: 0, maxWidth: .infinity)
-                               .padding(70)
-                                   .background(Color.init(hex: "5e35b1"))
+                               .padding(50)
+                               .background(Color.init(hex: "00b0ff"))
                                .foregroundColor(.white)
                                .cornerRadius(16)
                                .font(.system(size: 18, weight: .bold))
-                           }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10).padding(.bottom, 10)
-                       }
-                    
+                       }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
+                       
+                       Spacer(minLength: 20)
+                       
+                       NavigationLink(destination: Text("Live")){
+                           Text("Live")
+                               .frame(minWidth: 0, maxWidth: .infinity)
+                               .padding(50)
+                               .background(Color.init(hex: "5e35b1"))
+                               .foregroundColor(.white)
+                               .cornerRadius(16)
+                               .font(.system(size: 18, weight: .bold))
+                       }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
+                       
                    }.padding(.horizontal, 8)
-               }.navigationBarTitle("Compras y sorteos")
+               }.navigationBarTitle("Subastas y sorteos")
            }.navigationViewStyle(StackNavigationViewStyle())
        }
 }
