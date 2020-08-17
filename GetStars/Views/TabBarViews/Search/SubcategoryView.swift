@@ -38,20 +38,31 @@ struct SubcategoryView: View {
         Product(name: "Actor 5", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "ac10")]
     
     @State var data: [Product] = []
+    @State var spacer: Bool = true
     var cat: String
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack {
-                if self.data.count <= 0 {
-                    Text("Cargando...")
-                } else {
-                    ForEach(0..<self.data.count) { product in
-                        ProductCard(item: self.$data[product])
-                    }
+        VStack {
+            if self.data.count <= 0 {
+                Text("Cargando...")
+            } else {
+                if self.spacer {
+                    Spacer(minLength: 110)
+                }
+                Text(self.cat)
+                    .font(.system(size: 32, weight: .heavy))
+                    .padding()
+                
+                ForEach(0..<self.data.count) { product in
+                    ProductCard(item: self.$data[product]).navigationBarTitle("").navigationBarHidden(true)
                 }
             }
-        }.navigationBarTitle(Text(self.cat)).onAppear {
+        }.onDisappear {
+            self.spacer = false
+            print("Cambiado")
+        }
+        .navigationBarTitle(Text(self.cat))
+        .onAppear {
             switch self.cat {
                 case "Deportes":
                     self.data = self.deportes
@@ -67,13 +78,16 @@ struct SubcategoryView: View {
                     break
                 default:
                     self.data = self.deportes
+                    break
             }
         }
     }
 }
 
+#if DEBUG
 struct SubcategoryView_Previews: PreviewProvider {
     static var previews: some View {
         SubcategoryView(cat: "Preview")
     }
 }
+#endif

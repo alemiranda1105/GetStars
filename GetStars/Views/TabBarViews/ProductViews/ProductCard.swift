@@ -42,6 +42,19 @@ struct ProductCard: View {
     }
 }
 
+fileprivate struct DummyView: View {
+    @Binding var item: Product
+    var body: some View {
+        return GeometryReader { g in
+            Group {
+                ScrollView {
+                    ProductView(product: self.$item).frame(width: g.size.width)
+                }
+            }
+        }
+    }
+}
+
 #if DEBUG
 struct ProductCard_Previews: PreviewProvider {
     static var previews: some View {
