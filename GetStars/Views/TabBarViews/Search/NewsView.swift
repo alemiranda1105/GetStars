@@ -17,13 +17,23 @@ struct NewsView: View {
     Person(name: "Novedad 5", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "n5")]
     
     var body: some View {
-        ScrollView {
-            VStack {
-                ForEach(0..<self.data.count) { product in
-                    ProductCard(item: self.$data[product])
-                }
+        GeometryReader { g in
+            Group {
+                ScrollView {
+                    ForEach(0..<self.data.count) { product in
+                        ProductCard(item: self.$data[product])
+                            .frame(width: g.size.width)
+                    }
+                }.navigationBarTitle("Novedades")
             }
-        }.navigationBarTitle("Novedades")
+        }
+//        ScrollView {
+//            VStack {
+//                ForEach(0..<self.data.count) { product in
+//                    ProductCard(item: self.$data[product])
+//                }
+//            }
+//        }.navigationBarTitle("Novedades")
     }
 }
 

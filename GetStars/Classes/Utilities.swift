@@ -94,3 +94,9 @@ extension Color {
         return (r, g, b, a)
     }
 }
+
+extension Double {
+    var dollarString:String {
+        return String(format: "%.2f", self)
+    }
+}

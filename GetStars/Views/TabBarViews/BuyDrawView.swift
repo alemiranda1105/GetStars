@@ -32,7 +32,7 @@ struct BuyDrawView: View {
                        
                        Spacer(minLength: 35)
                        
-                       NavigationLink(destination: Text("Subastas")){
+                       NavigationLink(destination: SubastaView()){
                            Text("Subastas")
                                .fontWeight(.heavy)
                                .frame(minWidth: 0, maxWidth: .infinity)
