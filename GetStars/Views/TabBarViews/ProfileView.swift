@@ -56,19 +56,28 @@ struct ProfileView: View {
                         
                         NavigationLink(destination: ConfigurationView().environmentObject(self.session)) {
                             Image(systemName: "gear").resizable().frame(width: 28.0, height: 28.0)
-                            }.foregroundColor(colorScheme == .dark ? Color.white: Color.black).padding()
+                        }.foregroundColor(colorScheme == .dark ? Color.white: Color.black).padding()
                     }
                         
                     Spacer()
                     
                 } else {
-                    Button(action: {
-                        let impactMed = UIImpactFeedbackGenerator(style: .light)
-                        impactMed.impactOccurred()
-                        self.visible = true
-                    }) {
-                        Image(systemName: "arrow.down").resizable().frame(width: 28.0, height: 28.0)
-                    }.foregroundColor(colorScheme == .dark ? Color.white: Color.black).padding()
+                    HStack {
+                        Button(action: {
+                            let impactMed = UIImpactFeedbackGenerator(style: .light)
+                            impactMed.impactOccurred()
+                            self.visible = true
+                        }) {
+                            Image(systemName: "arrow.down").resizable().frame(width: 28.0, height: 28.0)
+                        }.foregroundColor(colorScheme == .dark ? Color.white: Color.black).padding()
+                        
+                        Spacer()
+                        
+                        NavigationLink(destination: ConfigurationView().environmentObject(self.session)) {
+                            Image(systemName: "gear").resizable().frame(width: 28.0, height: 28.0)
+                        }.foregroundColor(colorScheme == .dark ? Color.white: Color.black).padding()
+                        
+                    }
                     
                     Spacer()
                     
@@ -93,7 +102,8 @@ struct ProfileView: View {
                     }
                 }
                 
-            }.navigationBarTitle("\((self.session.data?.getName()) ?? "Dev")")
+            }.navigationBarTitle(Text(self.session.data?.getName() ?? "Dev"), displayMode: self.visible ? .automatic: .inline)
+            //.navigationBarTitle("\((self.session.data?.getName()) ?? "Dev")")
         }.onAppear(perform: self.loadImage)
         .navigationViewStyle(StackNavigationViewStyle())
     }

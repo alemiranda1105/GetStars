@@ -76,9 +76,9 @@ struct CreateAutograph: View {
                         self.drawings.removeAll()
                         self.error = ""
                     }) {
-                        Text("Delete")
-                        .frame(minWidth: 0, maxWidth: 50)
-                        .padding(5)
+                        Text("Borrar")
+                        .frame(minWidth: 0, maxWidth: 70)
+                        .padding(10)
                         .background(Color("naranja"))
                         .foregroundColor(.white)
                         .cornerRadius(50)
@@ -120,9 +120,9 @@ struct CreateAutograph: View {
                             self.error = "Haga un autógrafo antes de guardar"
                         }
                     }){
-                        Text("Save")
-                        .frame(minWidth: 0, maxWidth: 50)
-                        .padding(5)
+                        Text("Guardar")
+                        .frame(minWidth: 0, maxWidth: 70)
+                        .padding(10)
                         .background(Color("navyBlue"))
                         .foregroundColor(.white)
                         .cornerRadius(50)
