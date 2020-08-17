@@ -17,7 +17,7 @@ struct ContentView: View {
     }
     
     var body: some View{
-        VStack {
+        Group {
             if self.session.session == nil {
                 WelcomeView().environmentObject(self.session)
             } else if self.session.signing || def.bool(forKey: "sign") {
