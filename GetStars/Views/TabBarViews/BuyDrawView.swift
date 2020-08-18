@@ -45,7 +45,7 @@ struct BuyDrawView: View {
                        
                        Spacer(minLength: 20)
                        
-                       NavigationLink(destination: Text("Sorteos")){
+                       NavigationLink(destination: SorteosView()){
                            Text("Sorteos")
                                .frame(minWidth: 0, maxWidth: .infinity)
                                .padding(50)
@@ -57,7 +57,7 @@ struct BuyDrawView: View {
                        
                        Spacer(minLength: 20)
                        
-                       NavigationLink(destination: Text("Live")){
+                       NavigationLink(destination: LiveView()){
                            Text("Live")
                                .frame(minWidth: 0, maxWidth: .infinity)
                                .padding(50)

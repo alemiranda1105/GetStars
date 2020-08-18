@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4DD5D08A7A5B511358615028 /* Pods_GetStars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67F7E4CBD35CF25BD3E2D4F /* Pods_GetStars.framework */; };
+		BE19C86B24EC2BAF00A2B975 /* LiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE19C86A24EC2BAF00A2B975 /* LiveView.swift */; };
+		BE19C86D24EC2D6F00A2B975 /* SorteosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE19C86C24EC2D6F00A2B975 /* SorteosView.swift */; };
+		BE19C87024EC2DE700A2B975 /* SorteoProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE19C86F24EC2DE700A2B975 /* SorteoProductView.swift */; };
+		BE19C87224EC2DF500A2B975 /* SorteoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE19C87124EC2DF500A2B975 /* SorteoCardView.swift */; };
 		BE1B821D24DD8A3400BE59B8 /* CustomPhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1B821C24DD8A3400BE59B8 /* CustomPhotoAlbum.swift */; };
 		BE2D820F24AA631A0080A75F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2D820E24AA631A0080A75F /* AppDelegate.swift */; };
 		BE2D821124AA631A0080A75F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2D821024AA631A0080A75F /* SceneDelegate.swift */; };
@@ -52,6 +56,10 @@
 /* Begin PBXFileReference section */
 		67F8D13B24058BB55BF8DC87 /* Pods-GetStars.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetStars.release.xcconfig"; path = "Target Support Files/Pods-GetStars/Pods-GetStars.release.xcconfig"; sourceTree = "<group>"; };
 		9A5FBAB8B76B5B261D2A6D27 /* Pods-GetStars.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetStars.debug.xcconfig"; path = "Target Support Files/Pods-GetStars/Pods-GetStars.debug.xcconfig"; sourceTree = "<group>"; };
+		BE19C86A24EC2BAF00A2B975 /* LiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveView.swift; sourceTree = "<group>"; };
+		BE19C86C24EC2D6F00A2B975 /* SorteosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SorteosView.swift; sourceTree = "<group>"; };
+		BE19C86F24EC2DE700A2B975 /* SorteoProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SorteoProductView.swift; sourceTree = "<group>"; };
+		BE19C87124EC2DF500A2B975 /* SorteoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SorteoCardView.swift; sourceTree = "<group>"; };
 		BE1B821C24DD8A3400BE59B8 /* CustomPhotoAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhotoAlbum.swift; sourceTree = "<group>"; };
 		BE2D820B24AA631A0080A75F /* GetStars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetStars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2D820E24AA631A0080A75F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +116,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BE19C86E24EC2DD500A2B975 /* Sorteo */ = {
+			isa = PBXGroup;
+			children = (
+				BE19C86F24EC2DE700A2B975 /* SorteoProductView.swift */,
+				BE19C87124EC2DF500A2B975 /* SorteoCardView.swift */,
+			);
+			path = Sorteo;
+			sourceTree = "<group>";
+		};
 		BE2D820224AA631A0080A75F = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +226,9 @@
 			children = (
 				BE67C0FF24EAB1D7007AA0E6 /* SubastaView.swift */,
 				BE67C10124EAB4CD007AA0E6 /* Subasta */,
+				BE19C86C24EC2D6F00A2B975 /* SorteosView.swift */,
+				BE19C86E24EC2DD500A2B975 /* Sorteo */,
+				BE19C86A24EC2BAF00A2B975 /* LiveView.swift */,
 			);
 			path = BuyDrawViews;
 			sourceTree = "<group>";
@@ -424,6 +444,7 @@
 				BEC1097A24AB3FEF00695160 /* WelcomeView.swift in Sources */,
 				BE67C0FD24EAB13F007AA0E6 /* Product.swift in Sources */,
 				BE873F7824B249C40041247C /* DataBase.swift in Sources */,
+				BE19C86B24EC2BAF00A2B975 /* LiveView.swift in Sources */,
 				BE67C10524EAB526007AA0E6 /* SubastaCardView.swift in Sources */,
 				BE2D821324AA631A0080A75F /* ContentView.swift in Sources */,
 				BE41AA6E24CF596800511527 /* ProfileView.swift in Sources */,
@@ -435,6 +456,8 @@
 				BE8FA5EF24E9837200EAF22C /* Person.swift in Sources */,
 				BE67C10024EAB1D7007AA0E6 /* SubastaView.swift in Sources */,
 				BEFBA10924E2E6D500E0C883 /* AutographProfileView.swift in Sources */,
+				BE19C87024EC2DE700A2B975 /* SorteoProductView.swift in Sources */,
+				BE19C86D24EC2D6F00A2B975 /* SorteosView.swift in Sources */,
 				BEFBA10724E2D8CF00E0C883 /* GridStack.swift in Sources */,
 				BEB32DE024D8129B007BA071 /* CategoryView.swift in Sources */,
 				BE1B821D24DD8A3400BE59B8 /* CustomPhotoAlbum.swift in Sources */,
@@ -442,6 +465,7 @@
 				BE4A7A7224B4F9B900336760 /* SignUpView.swift in Sources */,
 				BE8C307E24C87E8500135AD9 /* TabBarView.swift in Sources */,
 				BE67C0FB24EA7D60007AA0E6 /* SubcategoryView.swift in Sources */,
+				BE19C87224EC2DF500A2B975 /* SorteoCardView.swift in Sources */,
 				BEB32DDE24D81282007BA071 /* NewsView.swift in Sources */,
 				BE873F7A24B24CE60041247C /* UserData.swift in Sources */,
 				BEFBA10424E2D6B500E0C883 /* Utilities.swift in Sources */,

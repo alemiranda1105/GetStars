@@ -38,24 +38,19 @@ struct ProfileView: View {
         NavigationView {
             VStack {
                 if self.visible {
-                    Circle()
-                        .fill(Color.init("navyBlue"))
+                    Image(systemName: colorScheme == .dark ? "person.crop.circle": "person.crop.circle.fill")
+                    .resizable()
+                    .scaledToFill()
                         .frame(width: 120, height: 120)
                         .padding()
                     
-                    HStack {
+                    HStack(alignment: .center) {
                         Button(action: {
                             let impactMed = UIImpactFeedbackGenerator(style: .light)
                             impactMed.impactOccurred()
                             self.visible = false
                         }) {
                             Image(systemName: "arrow.up").resizable().frame(width: 28.0, height: 28.0)
-                        }.foregroundColor(colorScheme == .dark ? Color.white: Color.black).padding()
-                        
-                        Spacer()
-                        
-                        NavigationLink(destination: ConfigurationView().environmentObject(self.session)) {
-                            Image(systemName: "gear").resizable().frame(width: 28.0, height: 28.0)
                         }.foregroundColor(colorScheme == .dark ? Color.white: Color.black).padding()
                     }
                         
@@ -70,13 +65,6 @@ struct ProfileView: View {
                         }) {
                             Image(systemName: "arrow.down").resizable().frame(width: 28.0, height: 28.0)
                         }.foregroundColor(colorScheme == .dark ? Color.white: Color.black).padding()
-                        
-                        Spacer()
-                        
-                        NavigationLink(destination: ConfigurationView().environmentObject(self.session)) {
-                            Image(systemName: "gear").resizable().frame(width: 28.0, height: 28.0)
-                        }.foregroundColor(colorScheme == .dark ? Color.white: Color.black).padding()
-                        
                     }
                     
                     Spacer()
@@ -103,7 +91,11 @@ struct ProfileView: View {
                 }
                 
             }.navigationBarTitle(Text(self.session.data?.getName() ?? "Dev"), displayMode: self.visible ? .automatic: .inline)
-            //.navigationBarTitle("\((self.session.data?.getName()) ?? "Dev")")
+            .navigationBarItems(trailing:
+                NavigationLink(destination: ConfigurationView().environmentObject(self.session)) {
+                    Image(systemName: "gear").resizable().frame(width: 28.0, height: 28.0)
+                }.foregroundColor(colorScheme == .dark ? Color.white: Color.black)
+            )
         }.onAppear(perform: self.loadImage)
         .navigationViewStyle(StackNavigationViewStyle())
     }
