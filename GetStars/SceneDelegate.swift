@@ -8,12 +8,10 @@
 
 import UIKit
 import SwiftUI
-import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var window2: UIWindow?
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -23,55 +21,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView()
-        let loadingView = LoadView()
         
-        /*  INICIO FIREBASE  */
-        if let windowScene = scene as? UIWindowScene {
-            let window2 = UIWindow(windowScene: windowScene)
-            
-            window2.rootViewController = UIHostingController(rootView: loadingView)
-            self.window2 = window2
-            window2.makeKeyAndVisible()
-        }
-        
-        let session = SessionStore()
-        
-        Auth.auth().addStateDidChangeListener({ (auth, user) in
-            if let user = user {
-                session.session = User(uid: user.uid, email: user.email)
-                
-                // Use a UIHostingController as window root view controller.
-                if let windowScene = scene as? UIWindowScene {
-                    let window = UIWindow(windowScene: windowScene)
-                    
-                    window.rootViewController = UIHostingController(rootView: contentView.environmentObject(session))
-                    self.window = window
-                    window.makeKeyAndVisible()
-                }
-                
-            } else {
-                session.session = nil
-                
-                // Use a UIHostingController as window root view controller.
-                if let windowScene = scene as? UIWindowScene {
-                    let window = UIWindow(windowScene: windowScene)
-                    
-                    window.rootViewController = UIHostingController(rootView: contentView.environmentObject(SessionStore()))
-                    self.window = window
-                    window.makeKeyAndVisible()
-                }
-            }
-        })
-        /*      FINAL        */
-        
+
         // Use a UIHostingController as window root view controller.
-//        if let windowScene = scene as? UIWindowScene {
-//            let window = UIWindow(windowScene: windowScene)
-//
-//            window.rootViewController = UIHostingController(rootView: contentView.environmentObject(SessionStore()))
-//            self.window = window
-//            window.makeKeyAndVisible()
-//        }
+        if let windowScene = scene as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            
+            window.rootViewController = UIHostingController(rootView: contentView.environmentObject(SessionStore()))
+            self.window = window
+            window.makeKeyAndVisible()
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
