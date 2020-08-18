@@ -96,6 +96,9 @@ struct LoadIndicatorView: View {
         print("Starting")
         self.session.db.readDataUser(session: self.session, dg: group)
         group.notify(queue: DispatchQueue.global(qos: .background)) {
+            let def = UserDefaults.standard
+            def.set(false, forKey: "sign")
+            def.synchronize()
             print("Terminado inicio")
         }
     }

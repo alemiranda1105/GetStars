@@ -39,22 +39,24 @@ struct GoogleLoginView: UIViewRepresentable {
             if let error = error {
               print(error.localizedDescription)
               return
+            } else {
+                print("signIn result: " + authResult!.user.email!)
+                print("Hola")
+                let email: String = (authResult?.user.email)!
+                let name: String = (authResult?.user.displayName)!
+                let def = UserDefaults.standard
+                def.set(name, forKey: "name")
+                def.set(email, forKey: "email")
+                def.set("Google", forKey: "sex")
+                def.set(100, forKey: "age")
+                def.set("Google", forKey: "fechaNacimiento")
+                def.set(true, forKey: "sign")
+                def.synchronize()
+                let db = DataBase()
+                let dbData = ["nombre": name, "edad": 100, "fechaNacimiento": "Google", "sexo": "Google", "AutMan": 0] as [String : Any]
+                
+                db.createUserDB(dbData: dbData, email: email)
             }
-            print("signIn result: " + authResult!.user.email!)
-            print("Hola")
-            let email: String = (authResult?.user.email)!
-            let name: String = (authResult?.user.displayName)!
-            let def = UserDefaults.standard
-            def.set(name, forKey: "name")
-            def.set(email, forKey: "email")
-            def.set("Google", forKey: "sex")
-            def.set(100, forKey: "age")
-            def.set("Google", forKey: "fechaNacimiento")
-            def.synchronize()
-            let db = DataBase()
-            let dbData = ["nombre": name, "edad": 100, "fechaNacimiento": "Google", "sexo": "Google", "AutMan": 0] as [String : Any]
-            
-            db.createUserDB(dbData: dbData, email: email)
           }
         }
     }
