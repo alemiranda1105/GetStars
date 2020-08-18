@@ -105,7 +105,12 @@ struct SubastaProductView: View {
                         }
                         
                         Button(action: {
-                            self.product.price = self.price
+                            if self.price <= self.product.price {
+                                self.error = "El precio debe ser superior a \(self.product.price)€"
+                            } else {
+                                self.product.price = self.price
+                                self.error = ""
+                            }
                         }){
                             HStack {
                                 Image(systemName: self.colorScheme == .dark ? "cart": "cart.fill")

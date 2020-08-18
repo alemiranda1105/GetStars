@@ -13,20 +13,6 @@ struct TabBarView: View {
     
     @State var index = 0
     
-    private func getData() {
-        let def = UserDefaults.standard
-        let name = def.string(forKey: "name")
-        let age = def.integer(forKey: "age")
-        let sex = def.string(forKey: "sex")
-        let fecha = def.string(forKey: "fechaNacimiento")
-        
-        let autMan = def.integer(forKey: "AutMan")
-        
-        def.synchronize()
-        self.session.articles["AutMan"] = autMan
-        self.session.data = UserData(nombre: name!, sexo: sex!, edad: age, fechaNacimiento: fecha!, autMan: autMan)
-    }
-    
     var body: some View {
         VStack {
             
@@ -54,7 +40,9 @@ struct TabBarView: View {
             
             BarraNavegacionView(index: self.$index)
             
-        }.onAppear(perform: self.getData)
+        }.onAppear(perform: {
+            self.session.restoreUser()
+        })
     }
 }
 

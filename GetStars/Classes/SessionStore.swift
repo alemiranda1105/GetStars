@@ -34,13 +34,15 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     @Published var signing: Bool = false
     
     
-    func listen(){
+    func listen(dg: DispatchGroup){
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            dg.enter()
             if let user = user {
                 self.session = User(uid: user.uid, email: user.email)
             } else {
                 self.session = nil
             }
+            dg.leave()
         })
     }
     
@@ -60,6 +62,7 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
                 def.removeObject(forKey: d.key)
             }
             def.removeObject(forKey: "sign")
+            def.removeObject(forKey: "SESSION")
             self.url.removeAll()
             self.articles.removeAll()
             self.data = nil
@@ -87,7 +90,19 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
         let fecha = def.string(forKey: "fechaNacimiento")
         let autMan = def.integer(forKey: "AutMan")
         def.synchronize()
-        self.data = UserData(nombre: name!, sexo: sex!, edad: age, fechaNacimiento: fecha!, autMan: autMan)
+        
+        if name == nil || sex == nil || fecha == nil {
+            print("Error leyendo userDefaults, probando a cargar desde la base de datos")
+            let dg = DispatchGroup()
+            self.db.readDataUser(session: self, dg: dg)
+            dg.notify(queue: DispatchQueue.global(qos: .background)) {
+                print("Carga de datos terminada")
+            }
+            
+        } else {
+            self.data = UserData(nombre: name!, sexo: sex!, edad: age, fechaNacimiento: fecha!, autMan: autMan)
+        }
+        
     }
     
     // Metodos GoogleLogin

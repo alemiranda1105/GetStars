@@ -10,19 +10,27 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var session: SessionStore
+    @State var loading = true
     private let def = UserDefaults.standard
+    private let dg = DispatchGroup()
     
     private func getUser() {
-        self.session.listen()
+        self.session.listen(dg: dg)
+        dg.notify(queue: DispatchQueue.global(qos: .background)) {
+            print("Terminado checkeo sesión")
+            self.loading = false
+        }
     }
     
     var body: some View{
         Group {
-            if self.session.session == nil {
+            if self.session.session == nil && !self.loading {
                 WelcomeView().environmentObject(self.session)
-            } else if self.session.signing || def.bool(forKey: "sign") {
+            } else if self.loading {
+                ActivityIndicator(isAnimating: .constant(true), style: .large)
+            } else if ((self.session.signing || def.bool(forKey: "sign")) && !self.loading) {
                 LoadIndicatorView().environmentObject(self.session)
-            } else {
+            } else if !self.loading {
                 TabBarView().environmentObject(self.session)
             }
         }.onAppear {
@@ -31,14 +39,58 @@ struct ContentView: View {
     }
 }
 
+struct ActivityIndicator: UIViewRepresentable {
+
+    @Binding var isAnimating: Bool
+    let style: UIActivityIndicatorView.Style
+
+    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
+        return UIActivityIndicatorView(style: style)
+    }
+
+    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
+        isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
+    }
+}
+
+struct LoadingView<Content>: View where Content: View {
+
+    @Binding var isShowing: Bool
+    var content: () -> Content
+
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .center) {
+
+                self.content()
+                    .disabled(self.isShowing)
+                    .blur(radius: self.isShowing ? 3 : 0)
+
+                VStack {
+                    Text("Cargando...")
+                    ActivityIndicator(isAnimating: .constant(true), style: .large)
+                }
+                .frame(width: geometry.size.width / 2,
+                       height: geometry.size.height / 5)
+                .background(Color.secondary.colorInvert())
+                .foregroundColor(Color.primary)
+                .cornerRadius(20)
+                .opacity(self.isShowing ? 1 : 0)
+
+            }
+        }
+    }
+
+}
+
 struct LoadIndicatorView: View {
     @EnvironmentObject var session: SessionStore
     @State private var fillPoint = 0.0
-    
+
     private var animation: Animation {
         Animation.easeOut(duration: 1.0).repeatForever(autoreverses: false)
     }
-    
+
     private func loadData() {
         let group = DispatchGroup()
         print("Starting")
@@ -47,7 +99,7 @@ struct LoadIndicatorView: View {
             print("Terminado inicio")
         }
     }
-    
+
     var body: some View {
         VStack{
             Ring(fillPoint: fillPoint).stroke(Color("naranja"), lineWidth: 10)
@@ -58,7 +110,7 @@ struct LoadIndicatorView: View {
                     }
             }
             Text("Cargando").padding()
-            
+
         }.onAppear {
             self.loadData()
         }
@@ -98,8 +150,7 @@ struct Ring: Shape {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            //ContentView().environmentObject(SessionStore())
-            LoadIndicatorView().environmentObject(SessionStore())
+            ContentView().environmentObject(SessionStore())
         }
     }
 }
