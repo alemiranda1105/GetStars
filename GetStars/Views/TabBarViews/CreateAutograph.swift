@@ -102,8 +102,8 @@ struct CreateAutograph: View {
                             let library: PHPhotoLibrary = PHPhotoLibrary.shared()
                             library.savePhoto(image: img!, albumName: "GetStars")
                             
-                            self.session.articles["AutMan"] = self.session.data?.autMan
                             self.session.data?.autMan += 1
+                            self.session.articles["AutMan"] = self.session.data?.autMan
                             
                             self.session.st.uploadFile(session: self.session, img: img!, type: "AutMan")
                             self.session.db.updateAutManDB(session: self.session)

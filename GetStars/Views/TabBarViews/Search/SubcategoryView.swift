@@ -61,7 +61,7 @@ struct SubcategoryView: View {
             self.spacer = false
             print("Cambiado")
         }
-        .navigationBarTitle(Text(self.cat))
+        .navigationBarTitle("").navigationBarHidden(true)
         .onAppear {
             switch self.cat {
                 case "Deportes":

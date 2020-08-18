@@ -13,6 +13,10 @@ struct SubastaProductView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var product: Product
     
+    @State var price: Double = 0.0
+    @State var expanded: Bool = false
+    @State var error = ""
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 32) {
@@ -64,7 +68,9 @@ struct SubastaProductView: View {
                 
                 
                 VStack(spacing: 8) {
-                    Button(action: {}){
+                    Button(action: {
+                        self.expanded.toggle()
+                    }){
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "plus.app": "plus.app.fill")
                             
@@ -78,8 +84,44 @@ struct SubastaProductView: View {
                     .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                     .cornerRadius(8)
                     
+                    if expanded {
+                        Stepper("Pujar: ", onIncrement: {
+                            self.price += 1.0
+                            self.error = ""
+                        }, onDecrement: {
+                            if self.price <= self.product.price {
+                                self.error = "No se puede pujar por debajo"
+                            } else {
+                                self.price -= 1.0
+                            }
+                            
+                        })
+                        
+                        if error != "" {
+                            Text(error)
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.red)
+                                .padding()
+                        }
+                        
+                        Button(action: {
+                            self.product.price = self.price
+                        }){
+                            HStack {
+                                Image(systemName: self.colorScheme == .dark ? "cart": "cart.fill")
+                                
+                                Text("Añadir Puja (\(self.price.dollarString)€)")
+                                    .font(.system(size: 18, weight: .bold))
+                            }
+                            
+                        }.frame(minWidth: 0, maxWidth: .infinity)
+                        .padding(15)
+                        .background(Color("gris"))
+                        .foregroundColor(self.colorScheme == .dark ? Color.white: Color("naranja"))
+                        .cornerRadius(8)
+                    }
                     
-                    Button(action: {}){
+                    NavigationLink(destination: ProductView(product: self.$product.owner)){
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "person.crop.circle": "person.crop.circle.fill")
                             Text("Ver perfil de \(self.product.owner.name)")
@@ -97,6 +139,9 @@ struct SubastaProductView: View {
             }
         }.navigationBarTitle("")
         .navigationBarHidden(true)
+        .onAppear {
+            self.price = self.product.price
+        }
     }
 }
 
