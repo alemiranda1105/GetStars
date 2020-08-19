@@ -72,6 +72,36 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
         }
     }
     
+    func reAuth(email: String, pass: String, dg: DispatchGroup) {
+        let user = Auth.auth().currentUser
+        let credential = EmailAuthProvider.credential(withEmail: email, password: pass)
+        
+        user?.reauthenticate(with: credential, completion: { (res, error) -> Void in
+            dg.enter()
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("Reaunteticado")
+            }
+            dg.leave()
+        })
+        
+    }
+    
+    func deleteAccount() {
+        let user = Auth.auth().currentUser
+        self.db.deleteDB(session: self)
+        self.st.deleteSt(session: self)
+        user?.delete { error in
+            if let error = error {
+                print(error.localizedDescription)
+                print("error eliminando la cuenta")
+            } else {
+                print("Cuenta eliminada")
+            }
+        }
+    }
+    
     func unbind() {
         if let handle = handle {
             Auth.auth().removeStateDidChangeListener(handle)

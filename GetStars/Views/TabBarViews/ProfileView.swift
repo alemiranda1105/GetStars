@@ -44,13 +44,16 @@ struct ProfileView: View {
                         .frame(width: 120, height: 120)
                         .padding()
                     
+                    Text(self.session.data?.getName() ?? "Dev")
+                        .font(.system(size: 20, weight: .thin))
+                    
                     HStack(alignment: .center) {
                         Button(action: {
                             let impactMed = UIImpactFeedbackGenerator(style: .light)
                             impactMed.impactOccurred()
                             self.visible = false
                         }) {
-                            Image(systemName: "arrow.up").resizable().frame(width: 28.0, height: 28.0)
+                            Image(systemName: "arrow.up").resizable().frame(width: 22.0, height: 22.0)
                         }.foregroundColor(colorScheme == .dark ? Color.white: Color.black).padding()
                     }
                         
@@ -63,7 +66,7 @@ struct ProfileView: View {
                             impactMed.impactOccurred()
                             self.visible = true
                         }) {
-                            Image(systemName: "arrow.down").resizable().frame(width: 28.0, height: 28.0)
+                            Image(systemName: "arrow.down").resizable().frame(width: 22.0, height: 22.0)
                         }.foregroundColor(colorScheme == .dark ? Color.white: Color.black).padding()
                     }
                     
@@ -90,7 +93,7 @@ struct ProfileView: View {
                     }
                 }
                 
-            }.navigationBarTitle(Text(self.session.data?.getName() ?? "Dev"), displayMode: self.visible ? .automatic: .inline)
+            }.navigationBarTitle(Text("Perfil"), displayMode: self.visible ? .automatic: .inline)
             .navigationBarItems(trailing:
                 NavigationLink(destination: ConfigurationView().environmentObject(self.session)) {
                     Image(systemName: "gear").resizable().frame(width: 28.0, height: 28.0)

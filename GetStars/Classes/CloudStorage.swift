@@ -116,4 +116,19 @@ class CloudStorage: ObservableObject {
         }
     }
     
+    func deleteSt(session: SessionStore) {
+        let path = "usuarios/" + (session.session?.email)!
+        let storageRef = storage.reference()
+        let ref = storageRef.child(path)
+        
+        ref.delete { error in
+            if let error = error {
+                print(error.localizedDescription)
+                print("Error eliminando la nube")
+            } else {
+                print("Nube eliminada")
+            }
+        }
+    }
+    
 }

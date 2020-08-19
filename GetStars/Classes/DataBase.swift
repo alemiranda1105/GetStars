@@ -91,5 +91,18 @@ class DataBase: ObservableObject {
             }
         }
     }
+    
+    func deleteDB(session: SessionStore) {
+        let email = session.session?.email
+        
+        db.collection(dbCollection).document(email!).delete() { err in
+            if let err = err {
+                print(err.localizedDescription)
+                print("error eliminando la base de datos")
+            } else {
+                print("Base de datos eliminada")
+            }
+        }
+    }
 
 }
