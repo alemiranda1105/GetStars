@@ -82,7 +82,7 @@ struct SignInView: View {
         }
         .padding(.horizontal, 8)
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-        .navigationBarTitle("Bienvenido de nuevo")
+        .navigationBarTitle(Text("Bienvenido de nuevo"))
         .onAppear(perform: { self.session.signing = true })
     }
 }

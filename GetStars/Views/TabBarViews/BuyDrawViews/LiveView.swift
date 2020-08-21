@@ -11,7 +11,7 @@ import SwiftUI
 struct LiveView: View {
     var body: some View {
         VStack {
-            Text("Proximamente")
+            Text("Próximamente")
                 .padding()
                 .font(.system(size: 32, weight: .bold))
             Text("Estamos trabajando para que puedas conectar con las estrellas de una manera en la que nunca lo habías hecho")

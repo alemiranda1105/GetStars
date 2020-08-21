@@ -22,7 +22,7 @@ struct SignUpView: View {
     @State var error: String = ""
     @State private var condiciones: Bool = false
     
-    private var generos = ["🙎‍♂️Hombre", "🙎‍♀️Mujer", "🧒Otro", "No decirlo"]
+    private var generos = [Text("🙎‍♂️Hombre"), Text("🙎‍♀️Mujer"), Text("🧒Otro"), Text("No decirlo")]
     @State private var generoSeleccionado = 0
     
     @State private var birthDate: String = ""
@@ -170,7 +170,8 @@ struct SignUpView: View {
                 VStack(spacing: 8) {
                     Picker(selection: $generoSeleccionado, label: Text("Género")) {
                         ForEach(0 ..< generos.count) {
-                            Text(self.generos[$0])
+                            //Text(self.generos[$0])
+                            self.generos[$0]
                         }
                     }.pickerStyle(SegmentedPickerStyle())
                     
@@ -275,7 +276,7 @@ struct SignUpView: View {
         }
         .padding(.horizontal, 8)
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-        .navigationBarTitle("Crea una cuenta")
+        .navigationBarTitle(Text("Crea una cuenta"))
     }
 }
 

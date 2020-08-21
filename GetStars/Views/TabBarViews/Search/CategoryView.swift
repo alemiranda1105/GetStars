@@ -10,14 +10,18 @@ import SwiftUI
 
 struct CategoryView: View {
     @Environment(\.colorScheme) var colorScheme
+    private let langStr = Locale.current.languageCode
+    
     let cats: [Category] = [Category(name: "Deportes"), Category(name: "Musica"), Category(name: "Televisión"), Category(name: "Cine")]
     
+    let enCats: [Category] = [Category(name: "Sports"), Category(name: "Music"), Category(name: "Tv"), Category(name: "Movies")]
+    
     var body: some View {
-        List(cats) { c in
+        List(self.langStr == "en" ? enCats: cats) { c in
             NavigationLink(destination: DummyView(c: c.name)) {
-                Text(c.name)
+                Text("\(c.name)")
             }
-        }.navigationBarTitle("Categorías")
+        }.navigationBarTitle(Text("Categorías"))
     }
 }
 

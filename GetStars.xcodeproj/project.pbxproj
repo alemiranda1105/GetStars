@@ -35,6 +35,7 @@
 		BE873F7A24B24CE60041247C /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE873F7924B24CE60041247C /* UserData.swift */; };
 		BE8C307E24C87E8500135AD9 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8C307D24C87E8500135AD9 /* TabBarView.swift */; };
 		BE8FA5EF24E9837200EAF22C /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FA5EE24E9837200EAF22C /* Person.swift */; };
+		BE962A0124EFD538009C8AA7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE962A0324EFD538009C8AA7 /* Localizable.strings */; };
 		BE9F05F324DAF98000F47E68 /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9F05F224DAF98000F47E68 /* ConfigurationView.swift */; };
 		BE9F05F524DB039300F47E68 /* CloudStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9F05F424DB039300F47E68 /* CloudStorage.swift */; };
 		BEA7AA7B24CCA1FD003A4367 /* CreateAutograph.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA7AA7A24CCA1FD003A4367 /* CreateAutograph.swift */; };
@@ -85,6 +86,8 @@
 		BE873F7924B24CE60041247C /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		BE8C307D24C87E8500135AD9 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		BE8FA5EE24E9837200EAF22C /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		BE962A0224EFD538009C8AA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BE962A0424EFD55B009C8AA7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE9F05F224DAF98000F47E68 /* ConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationView.swift; sourceTree = "<group>"; };
 		BE9F05F424DB039300F47E68 /* CloudStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStorage.swift; sourceTree = "<group>"; };
 		BEA7AA7A24CCA1FD003A4367 /* CreateAutograph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAutograph.swift; sourceTree = "<group>"; };
@@ -155,6 +158,7 @@
 				BE2D821C24AA631C0080A75F /* Info.plist */,
 				BECB5B3424AF381800C65096 /* GoogleService-Info.plist */,
 				BE2D821624AA631C0080A75F /* Preview Content */,
+				BE962A0324EFD538009C8AA7 /* Localizable.strings */,
 			);
 			path = GetStars;
 			sourceTree = "<group>";
@@ -343,6 +347,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = BE2D820224AA631A0080A75F;
 			productRefGroup = BE2D820C24AA631A0080A75F /* Products */;
@@ -359,6 +364,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE962A0124EFD538009C8AA7 /* Localizable.strings in Resources */,
 				BE2D821B24AA631C0080A75F /* LaunchScreen.storyboard in Resources */,
 				BECB5B3524AF381800C65096 /* GoogleService-Info.plist in Resources */,
 				BE2D821824AA631C0080A75F /* Preview Assets.xcassets in Resources */,
@@ -485,6 +491,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		BE962A0324EFD538009C8AA7 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE962A0224EFD538009C8AA7 /* en */,
+				BE962A0424EFD55B009C8AA7 /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -492,6 +507,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -552,6 +568,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -617,7 +634,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.marquelodev.GetStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -640,7 +657,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.marquelodev.GetStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

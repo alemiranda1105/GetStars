@@ -36,7 +36,7 @@ struct HomeView: View {
                     }
                     
                 }.padding(.top, 20).padding(.horizontal, 32)
-            }.navigationBarTitle("Inicio")
+            }.navigationBarTitle(Text("Inicio"))
         }.navigationViewStyle(StackNavigationViewStyle())
     }
 }

@@ -12,6 +12,8 @@ import CoreGraphics
 import Photos
 
 struct CreateAutograph: View {
+    private let langStr = Locale.current.languageCode
+    
     @EnvironmentObject var session: SessionStore
     
     @State var currentDrawing: Drawing = Drawing()
@@ -87,7 +89,7 @@ struct CreateAutograph: View {
                     Spacer()
                     
                     if error != "" {
-                        Text(error)
+                        Text((error))
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.red)
                             .padding()
@@ -117,7 +119,7 @@ struct CreateAutograph: View {
                             self.error = ""
                             self.drawings.removeAll()
                         } else {
-                            self.error = "Haga un autógrafo antes de guardar"
+                            self.error = self.langStr == "en" ? "Draw something before save": "Haga un autógrafo antes de guardar"
                         }
                     }){
                         Text("Guardar")

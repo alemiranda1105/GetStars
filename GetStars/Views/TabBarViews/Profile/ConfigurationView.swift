@@ -35,7 +35,7 @@ struct ConfigurationView: View {
                     HStack {
                         Text("Version")
                         Spacer()
-                        Text("0.1")
+                        Text("0.2")
                     }
                 }
                 Section {
@@ -111,7 +111,7 @@ struct ConfigurationView: View {
                     self.email = ""
                     self.password = ""
                 }){
-                    Text("Borrar cuenta")
+                    Text("Eliminar cuenta")
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .padding()
                     .background(Color("naranja"))

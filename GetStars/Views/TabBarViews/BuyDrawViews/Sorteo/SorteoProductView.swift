@@ -9,8 +9,10 @@
 import SwiftUI
 
 struct SorteoProductView: View {
+    private let langStr = Locale.current.languageCode
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
+    
     @Binding var product: Product
     
     @State var expanded: Bool = false
@@ -63,7 +65,7 @@ struct SorteoProductView: View {
                     .multilineTextAlignment(.leading)
                 
                 
-                Text("Hasta: 10/09/2020")
+                Text(self.langStr == "en" ? "Until: 10/09/2020": "Hasta: 10/09/2020")
                     .cornerRadius(15)
                     .font(.system(size: 32, weight: .medium))
                 

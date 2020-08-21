@@ -76,6 +76,18 @@ struct SubcategoryView: View {
                 case "Cine":
                     self.data = self.cine
                     break
+                case "Sports":
+                    self.data = self.deportes
+                    break
+                case "Music":
+                    self.data = self.musica
+                    break
+                case "Tv":
+                    self.data = self.tv
+                    break
+                case "Movies":
+                    self.data = self.cine
+                    break
                 default:
                     self.data = self.deportes
                     break

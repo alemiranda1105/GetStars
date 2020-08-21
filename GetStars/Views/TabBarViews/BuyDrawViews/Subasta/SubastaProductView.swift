@@ -9,8 +9,10 @@
 import SwiftUI
 
 struct SubastaProductView: View {
+    private let langStr = Locale.current.languageCode
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
+    
     @Binding var product: Product
     
     @State var price: Double = 0.0
@@ -62,9 +64,18 @@ struct SubastaProductView: View {
                     .multilineTextAlignment(.leading)
                 
                 
-                Text("Precio actual: \(self.product.price.dollarString)€")
+                /*Text("Precio actual: ")
                     .cornerRadius(15)
-                    .font(.system(size: 32, weight: .medium))
+                    .font(.system(size: 32, weight: .medium))*/
+                
+                HStack {
+                    Text("Precio actual: ")
+                        .cornerRadius(15)
+                        .font(.system(size: 32, weight: .medium))
+                    Text("\(self.product.price.dollarString)€")
+                        .cornerRadius(15)
+                        .font(.system(size: 32, weight: .medium))
+                }
                 
                 
                 VStack(spacing: 8) {
@@ -90,7 +101,7 @@ struct SubastaProductView: View {
                             self.error = ""
                         }, onDecrement: {
                             if self.price <= self.product.price {
-                                self.error = "No se puede pujar por debajo"
+                                self.error =  (self.langStr == "en" ? "You cannot set a price under the actual one": "No se puede pujar por debajo")
                             } else {
                                 self.price -= 1.0
                             }
@@ -106,7 +117,7 @@ struct SubastaProductView: View {
                         
                         Button(action: {
                             if self.price <= self.product.price {
-                                self.error = "El precio debe ser superior a \(self.product.price)€"
+                                self.error = (self.langStr == "en" ? "The price must be higher than \(self.product.price)€": "El precio debe ser superior a \(self.product.price)€")
                             } else {
                                 self.product.price = self.price
                                 self.error = ""
@@ -129,7 +140,7 @@ struct SubastaProductView: View {
                     NavigationLink(destination: ProductView(product: self.$product.owner)){
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "person.crop.circle": "person.crop.circle.fill")
-                            Text("Ver perfil de \(self.product.owner.name)")
+                            Text("\(self.product.owner.name)")
                                 .font(.system(size: 18, weight: .bold))
                         }
                         

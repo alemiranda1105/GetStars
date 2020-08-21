@@ -79,7 +79,7 @@ struct SearchView: View {
                             .font(.system(size: 18, weight: .bold))
                     }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
                 }.padding(.horizontal, 8)
-            }.navigationBarTitle("Buscar")
+            }.navigationBarTitle(Text("Buscar"))
         }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
