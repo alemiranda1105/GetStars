@@ -32,7 +32,7 @@ struct HomeView: View {
                         .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                     
                     ForEach(0..<self.data.count, id: \.self) { item in
-                        ProductCard(item: self.$data[item])
+                        PersonCard(person: self.$data[item])
                     }
                     
                 }.padding(.top, 20).padding(.horizontal, 32)

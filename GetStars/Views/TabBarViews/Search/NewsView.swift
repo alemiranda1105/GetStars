@@ -21,7 +21,7 @@ struct NewsView: View {
             Group {
                 ScrollView {
                     ForEach(0..<self.data.count) { product in
-                        ProductCard(item: self.$data[product])
+                        PersonCard(person: self.$data[product])
                             .frame(width: g.size.width)
                     }
                 }.navigationBarTitle("Novedades")

@@ -54,7 +54,7 @@ struct SubcategoryView: View {
                     .padding()
                 
                 ForEach(0..<self.data.count) { product in
-                    ProductCard(item: self.$data[product]).navigationBarTitle("").navigationBarHidden(true)
+                    PersonCard(person: self.$data[product]).navigationBarTitle("").navigationBarHidden(true)
                 }
             }
         }.onDisappear {

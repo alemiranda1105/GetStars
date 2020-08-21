@@ -8,10 +8,10 @@
 
 import SwiftUI
 
-struct ProductView: View {
+struct PersonView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
-    @Binding var product: Person
+    @Binding var person: Person
     
     var body: some View {
         ScrollView {
@@ -29,7 +29,7 @@ struct ProductView: View {
                     }.zIndex(1000)
                     
                     GeometryReader { g in
-                        Image(self.product.image).resizable().scaledToFill()
+                        Image(self.person.image).resizable().scaledToFill()
                             .frame(width: g.size.width, height: (g.size.height+165), alignment: .center)
                             .cornerRadius(16)
                             .overlay(RoundedRectangle(cornerRadius: 15)
@@ -38,7 +38,7 @@ struct ProductView: View {
                         
                     VStack {
                         HStack(alignment: .lastTextBaseline) {
-                            Text("\(self.product.name)")
+                            Text("\(self.person.name)")
                                 .foregroundColor(Color.white)
                                 .cornerRadius(16)
                                 .font(.system(size: 32, weight: .bold))
@@ -50,7 +50,7 @@ struct ProductView: View {
                 .edgesIgnoringSafeArea(.top)
                 .edgesIgnoringSafeArea(.horizontal)
                 
-                Text(self.product.description)
+                Text(self.person.description)
                     .font(.system(size: 16, weight: .regular))
                     .padding()
                     .padding(.top, 100)
@@ -118,11 +118,11 @@ struct ProductView: View {
 struct ProductView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ProductView(product: .constant(Person(name: "Antoñito Perez lopez", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "p1"))).previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+            PersonView(person: .constant(Person(name: "Antoñito Perez lopez", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "p1"))).previewDevice(PreviewDevice(rawValue: "iPhone 8"))
             
-            ProductView(product: .constant(Person(name: "Antoñito Perez lopez", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "p1"))).previewDevice(PreviewDevice(rawValue: "iPhone 11"))
+            PersonView(person: .constant(Person(name: "Antoñito Perez lopez", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "p1"))).previewDevice(PreviewDevice(rawValue: "iPhone 11"))
             
-            ProductView(product: .constant(Person(name: "Antoñito Perez lopez", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "p1"))).previewDevice(PreviewDevice(rawValue: "iPad Air (3rd generation)"))
+            PersonView(person: .constant(Person(name: "Antoñito Perez lopez", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "p1"))).previewDevice(PreviewDevice(rawValue: "iPad Air (3rd generation)"))
         }
     }
 }

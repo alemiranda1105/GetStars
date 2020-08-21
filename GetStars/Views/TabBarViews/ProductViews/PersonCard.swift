@@ -8,15 +8,15 @@
 
 import SwiftUI
 
-struct ProductCard: View {
-    @Binding var item: Person
+struct PersonCard: View {
+    @Binding var person: Person
     
     var body: some View {
         VStack {
-            NavigationLink(destination: ProductView(product: self.$item)){
+            NavigationLink(destination: PersonView(person: self.$person)){
                 ZStack {
                     
-                    Image(self.item.image).resizable().scaledToFill()
+                    Image(self.person.image).resizable().scaledToFill()
                         .frame(minWidth: 0, maxWidth: .infinity)
                         .frame(width: 350, height: 350)
                         .cornerRadius(16)
@@ -25,7 +25,7 @@ struct ProductCard: View {
                     
                     VStack {
                         HStack(alignment: .lastTextBaseline) {
-                            Text("\(self.item.name)")
+                            Text("\(self.person.name)")
                                 .foregroundColor(Color.white)
                                 .cornerRadius(16)
                                 .font(.system(size: 32, weight: .bold))
@@ -48,7 +48,7 @@ fileprivate struct DummyView: View {
         return GeometryReader { g in
             Group {
                 ScrollView {
-                    ProductView(product: self.$item).frame(width: g.size.width)
+                    PersonView(person: self.$item).frame(width: g.size.width)
                 }
             }
         }
@@ -58,7 +58,7 @@ fileprivate struct DummyView: View {
 #if DEBUG
 struct ProductCard_Previews: PreviewProvider {
     static var previews: some View {
-        ProductCard(item: .constant(Person(name: "Antoñito Perez lopez", description: "prueba", image: "p1")))
+        PersonCard(person: .constant(Person(name: "Antoñito Perez lopez", description: "prueba", image: "p1")))
     }
 }
 #endif

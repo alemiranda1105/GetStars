@@ -36,6 +36,7 @@
 		BE8C307E24C87E8500135AD9 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8C307D24C87E8500135AD9 /* TabBarView.swift */; };
 		BE8FA5EF24E9837200EAF22C /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FA5EE24E9837200EAF22C /* Person.swift */; };
 		BE962A0124EFD538009C8AA7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE962A0324EFD538009C8AA7 /* Localizable.strings */; };
+		BE962A0624F01B51009C8AA7 /* StarsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE962A0524F01B51009C8AA7 /* StarsManager.swift */; };
 		BE9F05F324DAF98000F47E68 /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9F05F224DAF98000F47E68 /* ConfigurationView.swift */; };
 		BE9F05F524DB039300F47E68 /* CloudStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9F05F424DB039300F47E68 /* CloudStorage.swift */; };
 		BEA7AA7B24CCA1FD003A4367 /* CreateAutograph.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA7AA7A24CCA1FD003A4367 /* CreateAutograph.swift */; };
@@ -45,10 +46,10 @@
 		BEB32DE024D8129B007BA071 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB32DDF24D8129B007BA071 /* CategoryView.swift */; };
 		BEC0488B24DC174500393EFB /* GoogleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC0488A24DC174500393EFB /* GoogleLoginView.swift */; };
 		BEC1097A24AB3FEF00695160 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC1097924AB3FEF00695160 /* WelcomeView.swift */; };
-		BECB173624E8543400E78176 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECB173524E8543400E78176 /* ProductView.swift */; };
+		BECB173624E8543400E78176 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECB173524E8543400E78176 /* PersonView.swift */; };
 		BECB5B3524AF381800C65096 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BECB5B3424AF381800C65096 /* GoogleService-Info.plist */; };
 		BED2AFD124B5159F00CE06BB /* SyncWithView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED2AFD024B5159F00CE06BB /* SyncWithView.swift */; };
-		BEEF585924E6A22C000CC9E9 /* ProductCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEF585824E6A22C000CC9E9 /* ProductCard.swift */; };
+		BEEF585924E6A22C000CC9E9 /* PersonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEF585824E6A22C000CC9E9 /* PersonCard.swift */; };
 		BEFBA10424E2D6B500E0C883 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBA10324E2D6B500E0C883 /* Utilities.swift */; };
 		BEFBA10724E2D8CF00E0C883 /* GridStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBA10624E2D8CF00E0C883 /* GridStack.swift */; };
 		BEFBA10924E2E6D500E0C883 /* AutographProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBA10824E2E6D500E0C883 /* AutographProfileView.swift */; };
@@ -88,6 +89,7 @@
 		BE8FA5EE24E9837200EAF22C /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		BE962A0224EFD538009C8AA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE962A0424EFD55B009C8AA7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BE962A0524F01B51009C8AA7 /* StarsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsManager.swift; sourceTree = "<group>"; };
 		BE9F05F224DAF98000F47E68 /* ConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationView.swift; sourceTree = "<group>"; };
 		BE9F05F424DB039300F47E68 /* CloudStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStorage.swift; sourceTree = "<group>"; };
 		BEA7AA7A24CCA1FD003A4367 /* CreateAutograph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAutograph.swift; sourceTree = "<group>"; };
@@ -97,10 +99,10 @@
 		BEB32DDF24D8129B007BA071 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		BEC0488A24DC174500393EFB /* GoogleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginView.swift; sourceTree = "<group>"; };
 		BEC1097924AB3FEF00695160 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		BECB173524E8543400E78176 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
+		BECB173524E8543400E78176 /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
 		BECB5B3424AF381800C65096 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		BED2AFD024B5159F00CE06BB /* SyncWithView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncWithView.swift; sourceTree = "<group>"; };
-		BEEF585824E6A22C000CC9E9 /* ProductCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCard.swift; sourceTree = "<group>"; };
+		BEEF585824E6A22C000CC9E9 /* PersonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCard.swift; sourceTree = "<group>"; };
 		BEFBA10324E2D6B500E0C883 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		BEFBA10624E2D8CF00E0C883 /* GridStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridStack.swift; sourceTree = "<group>"; };
 		BEFBA10824E2E6D500E0C883 /* AutographProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographProfileView.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				BEFBA10324E2D6B500E0C883 /* Utilities.swift */,
 				BEFBA10624E2D8CF00E0C883 /* GridStack.swift */,
 				BE8FA5EE24E9837200EAF22C /* Person.swift */,
+				BE962A0524F01B51009C8AA7 /* StarsManager.swift */,
 				BE67C0FC24EAB13F007AA0E6 /* Product.swift */,
 			);
 			path = Classes;
@@ -279,8 +282,8 @@
 		BEEF585524E69484000CC9E9 /* ProductViews */ = {
 			isa = PBXGroup;
 			children = (
-				BEEF585824E6A22C000CC9E9 /* ProductCard.swift */,
-				BECB173524E8543400E78176 /* ProductView.swift */,
+				BEEF585824E6A22C000CC9E9 /* PersonCard.swift */,
+				BECB173524E8543400E78176 /* PersonView.swift */,
 			);
 			path = ProductViews;
 			sourceTree = "<group>";
@@ -439,7 +442,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE2D820F24AA631A0080A75F /* AppDelegate.swift in Sources */,
-				BECB173624E8543400E78176 /* ProductView.swift in Sources */,
+				BECB173624E8543400E78176 /* PersonView.swift in Sources */,
 				BE67C10324EAB4E3007AA0E6 /* SubastaProductView.swift in Sources */,
 				BE9F05F324DAF98000F47E68 /* ConfigurationView.swift in Sources */,
 				BE41AA6824CF584C00511527 /* HomeView.swift in Sources */,
@@ -451,6 +454,7 @@
 				BE67C0FD24EAB13F007AA0E6 /* Product.swift in Sources */,
 				BE873F7824B249C40041247C /* DataBase.swift in Sources */,
 				BE19C86B24EC2BAF00A2B975 /* LiveView.swift in Sources */,
+				BE962A0624F01B51009C8AA7 /* StarsManager.swift in Sources */,
 				BE67C10524EAB526007AA0E6 /* SubastaCardView.swift in Sources */,
 				BE2D821324AA631A0080A75F /* ContentView.swift in Sources */,
 				BE41AA6E24CF596800511527 /* ProfileView.swift in Sources */,
@@ -476,7 +480,7 @@
 				BE873F7A24B24CE60041247C /* UserData.swift in Sources */,
 				BEFBA10424E2D6B500E0C883 /* Utilities.swift in Sources */,
 				BEB32DDA24D81235007BA071 /* DestacadosView.swift in Sources */,
-				BEEF585924E6A22C000CC9E9 /* ProductCard.swift in Sources */,
+				BEEF585924E6A22C000CC9E9 /* PersonCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

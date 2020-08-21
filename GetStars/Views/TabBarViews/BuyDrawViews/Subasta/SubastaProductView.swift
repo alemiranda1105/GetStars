@@ -137,7 +137,7 @@ struct SubastaProductView: View {
                         .cornerRadius(8)
                     }
                     
-                    NavigationLink(destination: ProductView(product: self.$product.owner)){
+                    NavigationLink(destination: PersonView(person: self.$product.owner)){
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "person.crop.circle": "person.crop.circle.fill")
                             Text("\(self.product.owner.name)")
