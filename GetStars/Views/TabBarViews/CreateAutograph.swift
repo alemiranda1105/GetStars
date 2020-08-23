@@ -53,7 +53,7 @@ struct CreateAutograph: View {
                     .stroke(self.color, lineWidth: self.lineWidth)
                         .background(Color(white: 0.95))
                         .gesture(
-                            DragGesture(minimumDistance: 0.1)
+                            DragGesture(minimumDistance: 0.005)
                                 .onChanged({ (value) in
                                     let currentPoint = value.location
                                     if currentPoint.y >= 0

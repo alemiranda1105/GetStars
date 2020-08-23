@@ -30,12 +30,6 @@ struct PersonView: View {
                     }.zIndex(1000)
                     
                     GeometryReader { g in
-//                        Image(self.person.image.absoluteString).resizable().scaledToFill()
-//                            .frame(width: g.size.width, height: (g.size.height+165), alignment: .center)
-//                            .cornerRadius(16)
-//                            .overlay(RoundedRectangle(cornerRadius: 15)
-//                                .stroke(Color.clear, lineWidth: 1))
-                        
                         WebImage(url: self.person.image).resizable()
                         .placeholder(Image(systemName: "photo"))
                         .placeholder {

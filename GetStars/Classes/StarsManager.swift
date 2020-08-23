@@ -29,6 +29,7 @@ class StarsDB: DataBase {
             if let error = error {
                 print(error.localizedDescription)
             } else {
+                print("Keys obtenidas")
                 self.keys.append(contentsOf: document!.data()!["key"] as! [String])
             }
             dg.leave()
@@ -78,6 +79,11 @@ class StarsDB: DataBase {
     func getDesc() -> String {
         return self.descr
     }
+    
+    func searchViewDB(search: String, dg: DispatchGroup) {
+        
+    }
+    
 }
 
 class StarsST: CloudStorage {
