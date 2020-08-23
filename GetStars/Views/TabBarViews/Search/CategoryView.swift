@@ -18,7 +18,7 @@ struct CategoryView: View {
     
     var body: some View {
         List(self.langStr == "en" ? enCats: cats) { c in
-            NavigationLink(destination: DummyView(c: c.name)) {
+            NavigationLink(destination: SubcategoryView(cat: c.name)) {
                 Text("\(c.name)")
             }
         }.navigationBarTitle(Text("Categorías"))

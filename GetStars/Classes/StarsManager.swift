@@ -20,11 +20,15 @@ class StarsDB: DataBase {
     private var keys: [String] = [String]()
     private var descr: String = ""
     private var name: String = ""
+    private var cat: String = ""
     
     // Search keys
     private var destacados = [String]()
     private var novedades = [String]()
     private var populares = [String]()
+    
+    // Categories keys
+    private var catID = [String]()
     
     
     func readKeys(dg: DispatchGroup) {
@@ -112,6 +116,32 @@ class StarsDB: DataBase {
             }
             dg.leave()
         }
+    }
+    
+    func readFamousByCategory(cat: String, dg: DispatchGroup) {
+        dg.enter()
+        db.collection(self.dbCollection).whereField("cat", isEqualTo: cat).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                print("Error al encontrar famosos de la categoría")
+            } else {
+                for document in querySnapshot!.documents {
+                    self.catID.append(document.documentID)
+                    print(document.documentID)
+                }
+                print("Obtenidos los famsosos \(cat)")
+            }
+            dg.leave()
+        }
+        
+    }
+    
+    func getCatId() -> [String] {
+        return self.catID
+    }
+    
+    func getCat() -> String {
+        return self.cat
     }
     
     func getName() -> String {

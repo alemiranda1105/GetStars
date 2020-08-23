@@ -48,7 +48,6 @@
 		BEC1097A24AB3FEF00695160 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC1097924AB3FEF00695160 /* WelcomeView.swift */; };
 		BECB173624E8543400E78176 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECB173524E8543400E78176 /* PersonView.swift */; };
 		BECB5B3524AF381800C65096 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BECB5B3424AF381800C65096 /* GoogleService-Info.plist */; };
-		BED2AFD124B5159F00CE06BB /* SyncWithView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED2AFD024B5159F00CE06BB /* SyncWithView.swift */; };
 		BEEF585924E6A22C000CC9E9 /* PersonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEF585824E6A22C000CC9E9 /* PersonCard.swift */; };
 		BEFBA10424E2D6B500E0C883 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBA10324E2D6B500E0C883 /* Utilities.swift */; };
 		BEFBA10724E2D8CF00E0C883 /* GridStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBA10624E2D8CF00E0C883 /* GridStack.swift */; };
@@ -101,7 +100,6 @@
 		BEC1097924AB3FEF00695160 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		BECB173524E8543400E78176 /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
 		BECB5B3424AF381800C65096 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
-		BED2AFD024B5159F00CE06BB /* SyncWithView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncWithView.swift; sourceTree = "<group>"; };
 		BEEF585824E6A22C000CC9E9 /* PersonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCard.swift; sourceTree = "<group>"; };
 		BEFBA10324E2D6B500E0C883 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		BEFBA10624E2D8CF00E0C883 /* GridStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridStack.swift; sourceTree = "<group>"; };
@@ -253,7 +251,6 @@
 			isa = PBXGroup;
 			children = (
 				BE9F05F224DAF98000F47E68 /* ConfigurationView.swift */,
-				BED2AFD024B5159F00CE06BB /* SyncWithView.swift */,
 				BEFBA10824E2E6D500E0C883 /* AutographProfileView.swift */,
 			);
 			path = Profile;
@@ -448,7 +445,6 @@
 				BE41AA6824CF584C00511527 /* HomeView.swift in Sources */,
 				BE2D821124AA631A0080A75F /* SceneDelegate.swift in Sources */,
 				BE2D822524AA656C0080A75F /* SessionStore.swift in Sources */,
-				BED2AFD124B5159F00CE06BB /* SyncWithView.swift in Sources */,
 				BE41AA6C24CF594A00511527 /* BuyDrawView.swift in Sources */,
 				BEC1097A24AB3FEF00695160 /* WelcomeView.swift in Sources */,
 				BE67C0FD24EAB13F007AA0E6 /* Product.swift in Sources */,

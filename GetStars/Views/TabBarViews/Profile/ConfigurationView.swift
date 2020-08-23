@@ -22,11 +22,6 @@ struct ConfigurationView: View {
     var body: some View {
         Form {
             if !eliminarDatos {
-                Section {
-                    NavigationLink(destination: SyncWithView())  {
-                        Text("Sincronizar cuenta con...")
-                    }
-                }
                 Section(header: Text("Datos personales")) {
                     Text("Editar datos personales")
                     Text("Cambiar suscripción")
