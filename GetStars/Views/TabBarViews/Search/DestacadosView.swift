@@ -9,31 +9,56 @@
 import SwiftUI
 
 struct DestacadosView: View {
-    @State var data: [Person] = [
-    Person(name: "Destacado 1", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "d1"),
-    Person(name: "Destacado 2", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "d2"),
-    Person(name: "Destacado 3", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "d3"),
-    Person(name: "Destacado 4", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "d4"),
-    Person(name: "Destacado 5", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "d5")]
+    @EnvironmentObject var session: SessionStore
+    
+    @Environment(\.colorScheme) var colorScheme
+    @State var data: [Person] = [Person]()
+    @State var loading = true
+    
+    private func getFamous() {
+        let st = StarsST()
+        let db = StarsDB()
+        var imgUrl = [URL]()
+        var url = URL(string: "")
+        let dg = DispatchGroup()
+        db.readSpecialKey(cat: "destacados", dg: dg)
+        dg.notify(queue: DispatchQueue.global(qos: .background)) {
+            let keys = db.getSpecialKey(cat: "destacados")
+            for i in keys {
+                st.getImage(key: i, dg: dg)
+                dg.wait()
+                
+                imgUrl.append(st.getImgUrl())
+                url = st.getImgUrl()
+                db.readFamous(key: i, dg: dg)
+                dg.wait()
+                
+                print("Famoso destacado leído")
+                let name = db.getName()
+                let desc = db.getDesc()
+                self.data.append(Person(name: name, description: desc, image: url!))
+                self.loading = false
+            }
+        }
+    }
     
     var body: some View {
         GeometryReader { g in
             Group {
-                ScrollView {
-                    ForEach(0..<self.data.count) { product in
-                        PersonCard(person: self.$data[product])
-                            .frame(width: g.size.width)
-                    }
-                }.navigationBarTitle("Destacados")
+                if self.loading {
+                    ActivityIndicator(isAnimating: .constant(true), style: .medium).onAppear(perform: self.getFamous)
+                } else {
+                    ScrollView {
+                        ForEach(0..<self.data.count, id: \.self) { item in
+                            PersonCard(person: self.$data[item])
+                                .frame(width: g.size.width)
+                        }
+                    }.navigationBarTitle("Destacados")
+                    .navigationViewStyle(StackNavigationViewStyle())
+                }
+                
             }
         }
-//        ScrollView {
-//            VStack {
-//                ForEach(0..<self.data.count) { product in
-//                    ProductCard(item: self.$data[product])
-//                }
-//            }
-//        }.navigationBarTitle("Destacados")
     }
 }
 

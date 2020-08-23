@@ -21,6 +21,11 @@ class StarsDB: DataBase {
     private var descr: String = ""
     private var name: String = ""
     
+    // Search keys
+    private var destacados = [String]()
+    private var novedades = [String]()
+    private var populares = [String]()
+    
     
     func readKeys(dg: DispatchGroup) {
         dg.enter()
@@ -36,8 +41,45 @@ class StarsDB: DataBase {
         }
     }
     
+    func readSpecialKey(cat: String, dg: DispatchGroup) {
+        dg.enter()
+        let documentRef = db.collection("keys").document(cat)
+        documentRef.getDocument { (document, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("Keys de \(cat) obtenidas")
+                switch cat {
+                case "destacados":
+                    self.destacados.append(contentsOf: document!.data()!["destacados"] as! [String])
+                case "novedades":
+                    self.novedades.append(contentsOf: document!.data()!["novedades"] as! [String])
+                case "populares":
+                    self.populares.append(contentsOf: document!.data()!["populares"] as! [String])
+                default:
+                    print("Error buscando las claves especiales")
+                }
+            }
+            dg.leave()
+        }
+    }
+    
     func getKeys() -> [String] {
         return self.keys
+    }
+    
+    func getSpecialKey(cat: String) -> [String] {
+        switch cat {
+        case "destacados":
+            return self.destacados
+        case "novedades":
+            return self.novedades
+        case "populares":
+            return self.populares
+        default:
+            print("Error devolviendo las claves especiales")
+            return self.destacados
+        }
     }
     
     func readFamous(key: String,dg: DispatchGroup) {
@@ -78,10 +120,6 @@ class StarsDB: DataBase {
     
     func getDesc() -> String {
         return self.descr
-    }
-    
-    func searchViewDB(search: String, dg: DispatchGroup) {
-        
     }
     
 }
