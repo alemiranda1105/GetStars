@@ -11,7 +11,6 @@ import SwiftUI
 struct DestacadosView: View {
     @EnvironmentObject var session: SessionStore
     
-    @Environment(\.colorScheme) var colorScheme
     @State var data: [Person] = [Person]()
     @State var loading = true
     
@@ -46,7 +45,9 @@ struct DestacadosView: View {
         GeometryReader { g in
             Group {
                 if self.loading {
-                    ActivityIndicator(isAnimating: .constant(true), style: .medium).onAppear(perform: self.getFamous)
+                    ActivityIndicator(isAnimating: .constant(true), style: .medium)
+                        .frame(width: g.size.width, height: g.size.height, alignment: .center)
+                        .onAppear(perform: self.getFamous)
                 } else {
                     ScrollView {
                         ForEach(0..<self.data.count, id: \.self) { item in
