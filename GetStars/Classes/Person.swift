@@ -11,19 +11,21 @@ import SwiftUI
 
 class Person: Identifiable {
     var id = UUID()
-    private let key: String
-    var name:String
-    var description:String
-    var image:String
+    var name: String
+    var description: String
+    var image: URL
+    private let key: String = "prueba"
     
-    init(name: String, description: String, image: String, key: String) {
+    init(name: String, description: String, image: String) {
+        self.name = name
+        self.description = description
+        self.image = URL(string: image)!
+    }
+    
+    init(name: String, description: String, image: URL) {
         self.name = name
         self.description = description
         self.image = image
-        self.key = key
     }
-    
-    func getKey() -> String {
-        return self.key
-    }
+
 }

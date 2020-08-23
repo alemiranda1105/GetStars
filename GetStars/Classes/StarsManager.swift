@@ -9,33 +9,82 @@
 import Combine
 import Firebase
 
+struct Stars: Identifiable {
+    var id = UUID()
+    var url: URL
+}
+
 class StarsDB: DataBase {
     private let dbCollection = "famosos"
     private let db = Firestore.firestore()
-    private var keys: [String] = [""]
+    private var keys: [String] = [String]()
+    private var descr: String = ""
+    private var name: String = ""
     
-    func readKeys() -> [String]{
+    
+    func readKeys(dg: DispatchGroup) {
+        dg.enter()
         let documentRef = db.collection("keys").document("key")
-        let dg = DispatchGroup()
         documentRef.getDocument { (document, error) in
-            dg.enter()
             if let error = error {
                 print(error.localizedDescription)
             } else {
-                self.keys = document!.data()!["key"] as! [String]
+                self.keys.append(contentsOf: document!.data()!["key"] as! [String])
             }
             dg.leave()
         }
+    }
+    
+    func getKeys() -> [String] {
         return self.keys
+    }
+    
+    func readFamous(key: String,dg: DispatchGroup) {
+        dg.enter()
+        let documentRef = db.collection(self.dbCollection).document(key)
+        documentRef.getDocument { (document, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                print("Error obteniendo al famoso")
+            } else {
+                print("Cargando datos del famoso...")
+                self.descr = document!.data()!["Descripcion"] as! String
+                self.name = document!.data()!["Nombre"] as! String
+            }
+            dg.leave()
+        }
+    }
+    
+    func readFamous(key: String, session: SessionStore, dg: DispatchGroup) {
+        dg.enter()
+        let documentRef = db.collection(self.dbCollection).document(key)
+        documentRef.getDocument { (document, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                print("Error obteniendo al famoso")
+            } else {
+                print("Cargando datos del famoso...")
+                self.descr = document!.data()!["Descripcion"] as! String
+                self.name = document!.data()!["Nombre"] as! String
+            }
+            dg.leave()
+        }
+    }
+    
+    func getName() -> String {
+        return self.name
+    }
+    
+    func getDesc() -> String {
+        return self.descr
     }
 }
 
 class StarsST: CloudStorage {
     private let storage = Storage.storage()
-    private var imgUrl = ""
+    private var imgUrl = URL(string: "")
     
-    func getImage(key: String) {
-        let dg = DispatchGroup()
+    func getImage(key: String, dg: DispatchGroup) {
         dg.enter()
         let path = "creadores/" + key + "/" + "profileImage.jpg"
         let storageRef = storage.reference()
@@ -46,10 +95,14 @@ class StarsST: CloudStorage {
                 
             } else {
                 print("imagen obtenida")
-                self.imgUrl = ""
+                self.imgUrl = url
             }
             dg.leave()
         }
+    }
+    
+    func getImgUrl() -> URL {
+        return self.imgUrl!
     }
     
 }

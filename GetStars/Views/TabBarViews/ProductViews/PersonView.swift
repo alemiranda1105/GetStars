@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct PersonView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -29,11 +30,24 @@ struct PersonView: View {
                     }.zIndex(1000)
                     
                     GeometryReader { g in
-                        Image(self.person.image).resizable().scaledToFill()
-                            .frame(width: g.size.width, height: (g.size.height+165), alignment: .center)
-                            .cornerRadius(16)
-                            .overlay(RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color.clear, lineWidth: 1))
+//                        Image(self.person.image.absoluteString).resizable().scaledToFill()
+//                            .frame(width: g.size.width, height: (g.size.height+165), alignment: .center)
+//                            .cornerRadius(16)
+//                            .overlay(RoundedRectangle(cornerRadius: 15)
+//                                .stroke(Color.clear, lineWidth: 1))
+                        
+                        WebImage(url: self.person.image).resizable()
+                        .placeholder(Image(systemName: "photo"))
+                        .placeholder {
+                            Rectangle().foregroundColor(.gray)
+                        }
+                        .indicator(.activity)
+                        .scaledToFill()
+                        .frame(width: g.size.width, height: (g.size.height+165), alignment: .center)
+                        .cornerRadius(16)
+                        .overlay(RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color.clear, lineWidth: 1))
+                        
                     }.padding(.bottom, 16)
                         
                     VStack {

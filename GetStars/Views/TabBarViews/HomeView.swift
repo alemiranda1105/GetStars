@@ -9,13 +9,38 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject var session: SessionStore
+    
     @Environment(\.colorScheme) var colorScheme
-    @State var data: [Person] = [
-        Person(name: "Persona 1", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "p1"),
-        Person(name: "Persona 2", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "p2"),
-        Person(name: "Persona 3", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "p3"),
-        Person(name: "Persona 4", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "p4"),
-        Person(name: "Persona 5", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "p5")]
+    @State var data: [Person] = [Person]()
+    
+    private func getFamous() {
+        let st = StarsST()
+        let db = StarsDB()
+        var imgUrl = [URL]()
+        let dg = DispatchGroup()
+        db.readKeys(dg: dg)
+        dg.notify(queue: DispatchQueue.global(qos: .background)) {
+            let keys = db.getKeys()
+            for i in keys {
+                st.getImage(key: i, dg: dg)
+                dg.wait()
+                dg.notify(queue: DispatchQueue.global(qos: .background)) {
+                    imgUrl.append(st.getImgUrl())
+                    let url = st.getImgUrl()
+                    
+                    db.readFamous(key: i, dg: dg)
+                    dg.wait()
+                    dg.notify(queue: DispatchQueue.global(qos: .background)) {
+                        print("Famoso leído")
+                        let name = db.getName()
+                        let desc = db.getDesc()
+                        self.data.append(Person(name: name, description: desc, image: url))
+                    }
+                }
+            }
+        }
+    }
     
     var body: some View {
         NavigationView {
@@ -38,6 +63,7 @@ struct HomeView: View {
                 }.padding(.top, 20).padding(.horizontal, 32)
             }.navigationBarTitle(Text("Inicio"))
         }.navigationViewStyle(StackNavigationViewStyle())
+        .onAppear { self.getFamous()}
     }
 }
 

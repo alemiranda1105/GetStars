@@ -30,6 +30,9 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     
     @Published var url = [UrlLoader]()
     
+    // Famosos
+    @Published var keys = [String]()
+    
     //Inidica si el usuario esta iniciando sesion
     @Published var signing: Bool = false
     
@@ -121,9 +124,16 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
         let autMan = def.integer(forKey: "AutMan")
         def.synchronize()
         
+        let dg = DispatchGroup()
+        let dbStars = StarsDB()
+        dbStars.readKeys(dg: dg)
+        self.keys = dbStars.getKeys()
+        dg.notify(queue: DispatchQueue.global(qos: .background)) {
+            print("Carga de keys terminada")
+        }
+        
         if name == nil || sex == nil || fecha == nil {
             print("Error leyendo userDefaults, probando a cargar desde la base de datos")
-            let dg = DispatchGroup()
             self.db.readDataUser(session: self, dg: dg)
             dg.notify(queue: DispatchQueue.global(qos: .background)) {
                 print("Carga de datos terminada")

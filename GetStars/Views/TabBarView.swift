@@ -19,7 +19,7 @@ struct TabBarView: View {
             ZStack {
                 
                 if self.index == 0 {
-                    HomeView()
+                    HomeView().environmentObject(self.session)
                     
                 } else if self.index == 1 {
                     SearchView()
