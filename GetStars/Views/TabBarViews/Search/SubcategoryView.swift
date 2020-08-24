@@ -41,7 +41,7 @@ struct SubcategoryView: View {
                 c = "cine"
                 break
             default:
-                c = ""
+                c = self.cat.lowercased()
                 break
             }
             

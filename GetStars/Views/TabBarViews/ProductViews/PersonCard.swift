@@ -17,25 +17,18 @@ struct PersonCard: View {
         VStack {
             NavigationLink(destination: PersonView(person: self.$person)){
                 ZStack {
-                    
-//                    Image(self.person.image).resizable().scaledToFill()
-//                        .frame(minWidth: 0, maxWidth: .infinity)
-//                        .frame(width: 350, height: 350)
-//                        .cornerRadius(16)
-//                        .overlay(RoundedRectangle(cornerRadius: 15)
-//                            .stroke(Color.clear, lineWidth: 1))
                     WebImage(url: self.person.image).resizable()
-                    .placeholder(Image(systemName: "photo"))
-                    .placeholder {
-                        Rectangle().foregroundColor(.gray)
-                    }
-                    .indicator(.activity)
-                    .scaledToFill()
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .frame(width: 350, height: 350)
-                    .cornerRadius(16)
-                    .overlay(RoundedRectangle(cornerRadius: 15)
-                        .stroke(Color.clear, lineWidth: 1))
+                        .placeholder(Image(systemName: "photo"))
+                        .placeholder {
+                            Rectangle().foregroundColor(.gray)
+                        }
+                        .indicator(.activity)
+                        .scaledToFill()
+                        .frame(minWidth: 0, maxWidth: .infinity)
+                        .frame(width: 350, height: 350)
+                        .cornerRadius(16)
+                        .overlay(RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color.clear, lineWidth: 1))
                     
                     
                     VStack {
@@ -53,19 +46,6 @@ struct PersonCard: View {
                 .buttonStyle(PlainButtonStyle())
             
             Spacer(minLength: 16)
-        }
-    }
-}
-
-fileprivate struct DummyView: View {
-    @Binding var item: Person
-    var body: some View {
-        return GeometryReader { g in
-            Group {
-                ScrollView {
-                    PersonView(person: self.$item).frame(width: g.size.width)
-                }
-            }
         }
     }
 }

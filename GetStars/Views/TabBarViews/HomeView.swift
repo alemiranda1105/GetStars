@@ -12,7 +12,7 @@ struct HomeView: View {
     @EnvironmentObject var session: SessionStore
     
     @Environment(\.colorScheme) var colorScheme
-    @State var data: [Person] = [Person]()
+    @State var data: [Person] = [Person(name: "Debug debug", description: "Debugging the app", image: URL(string: "https://firebasestorage.googleapis.com/v0/b/getstars-a36bb.appspot.com/o/creadores%2F93cnbY5xxelS73sSsWnm%2FprofileImage.jpg?alt=media&token=3391460d-5bc0-4975-bc3a-6b7cd4c39348")!)]
     
     private func getFamous() {
         let st = StarsST()
@@ -44,24 +44,34 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack {
-                    Button(action: { }){
-                        Text("¡PÁSATE AL PRO!")
-                            .font(.system(size: 25, weight: .bold))
+            GeometryReader { g in
+                ScrollView {
+                    Group {
+                        NavigationLink(destination: Text("¡PÁSATE AL PRO!")){
+                            ZStack {
+                                Text("¡PÁSATE AL PRO!")
+                                    .font(.system(size: 25, weight: .bold))
+                                    .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+                                    .scaledToFill()
+                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                    .frame(width: 350, height: 120)
+                                    .background(Color("gris"))
+                                    .cornerRadius(16)
+                                    .overlay(RoundedRectangle(cornerRadius: 15)
+                                        .stroke(Color.clear, lineWidth: 1))
+                            }
+                            
+                        }.buttonStyle(PlainButtonStyle())
                         
-                    }.frame(minWidth: 0, maxWidth: .infinity)
-                        .padding(48)
-                        .background(RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.init("gris")))
-                        .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
-                    
-                    ForEach(0..<self.data.count, id: \.self) { item in
-                        PersonCard(person: self.$data[item])
+                        
+                        ForEach(0..<self.data.count, id: \.self) { item in
+                            PersonCard(person: self.$data[item]).frame(width: g.size.width)
+                        }
+                        
                     }
-                    
-                }.padding(.top, 20).padding(.horizontal, 32)
-            }.navigationBarTitle(Text("Inicio"))
+                }.frame(width: g.size.width)
+                .navigationBarTitle(Text("Inicio"))
+            }
         }.navigationViewStyle(StackNavigationViewStyle())
         .onAppear { self.getFamous()}
     }
@@ -72,7 +82,6 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             HomeView().previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-            HomeView().previewDevice(PreviewDevice(rawValue: "iPhone 11"))
         }
     }
 }
