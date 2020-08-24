@@ -125,12 +125,6 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
         def.synchronize()
         
         let dg = DispatchGroup()
-        let dbStars = StarsDB()
-        dbStars.readKeys(dg: dg)
-        self.keys = dbStars.getKeys()
-        dg.notify(queue: DispatchQueue.global(qos: .background)) {
-            print("Carga de keys terminada")
-        }
         
         if name == nil || sex == nil || fecha == nil {
             print("Error leyendo userDefaults, probando a cargar desde la base de datos")
