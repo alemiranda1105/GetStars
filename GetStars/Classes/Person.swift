@@ -27,5 +27,9 @@ class Person: Identifiable {
         self.description = description
         self.image = image
     }
+    
+    func getKey() -> String {
+        return self.key
+    }
 
 }

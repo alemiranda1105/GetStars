@@ -23,11 +23,11 @@ struct PersonView: View {
                             self.presentationMode.wrappedValue.dismiss()
                         }) {
                             Image(systemName: "multiply.circle.fill").resizable().frame(width: 28.0, height: 28.0)
-                                .foregroundColor(Color.gray)
+                                .foregroundColor(Color("gris"))
                         }.padding(16)
                             .padding(.bottom, 16)
                         Spacer()
-                    }.zIndex(1000)
+                    }.shadow(color: Color.black.opacity(0.5), radius: 2, x: 0, y: 0).zIndex(1000)
                     
                     GeometryReader { g in
                         WebImage(url: self.person.image).resizable()
@@ -70,7 +70,7 @@ struct PersonView: View {
                     .font(.system(size: 32, weight: .bold))
                 
                 VStack(spacing: 8) {
-                    Button(action: {}){
+                    NavigationLink(destination: FamousItems(item: .constant("aut"), person: self.$person)){
                         HStack {
                             Image(systemName: "pencil.and.outline")
                             
@@ -85,7 +85,7 @@ struct PersonView: View {
                     .cornerRadius(8)
                     
                     
-                    Button(action: {}){
+                    NavigationLink(destination: FamousItems(item: .constant("foto"), person: self.$person)){
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "camera": "camera.fill")
                             
@@ -100,7 +100,7 @@ struct PersonView: View {
                     .cornerRadius(8)
                     
                     
-                    Button(action: {}){
+                    NavigationLink(destination: FamousItems(item: .constant("selfie"), person: self.$person)){
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "camera.on.rectangle": "camera.on.rectangle.fill")
                             
