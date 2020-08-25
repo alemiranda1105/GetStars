@@ -29,7 +29,14 @@ struct FamousItems: View {
     }
     
     private func getFoto() {
-        
+        let st = StarsST()
+        let dg = DispatchGroup()
+        st.getPhoto(key: self.person.getKey(), dg: dg)
+        dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+            let url = st.getPhoUrl()
+            self.url = url
+            self.product = Product(price: 5.99, name: "Foto", description: "Foto de prueba", image: url, owner: self.person)
+        }
     }
     
     var body: some View {
@@ -37,9 +44,7 @@ struct FamousItems: View {
             if self.item == "aut" {
                 AutView(url: self.$url, product: self.$product).onAppear(perform: self.getAutografo)
             } else if self.item == "foto" {
-                Group {
-                    Text("Fotos de \(self.person.name)")
-                }.onAppear(perform: self.getFoto)
+                PhotoView(url: self.$url, product: self.$product).onAppear(perform: self.getFoto)
             } else {
                 VStack {
                     Text("Próximamente")
@@ -77,7 +82,10 @@ private struct AutView: View {
                         .indicator(.activity)
                         .transition(.fade(duration: 0.5))
                         .scaledToFit()
-                    .frame(width: g.size.width/2, height: g.size.height/2, alignment: .center)
+                        .frame(width: g.size.width/2, height: g.size.height/2, alignment: .center)
+                        .cornerRadius(15)
+                        .overlay(RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color.clear, lineWidth: 1))
                     
                     Spacer(minLength: 32)
                     
@@ -120,6 +128,73 @@ private struct AutView: View {
     }
 }
 
+private struct PhotoView: View {
+    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.presentationMode) var presentationMode
+    
+    @Binding var url: URL
+    @Binding var product: Product
+    
+    var body: some View {
+        GeometryReader { g in
+            Group {
+                ScrollView {
+                    Spacer(minLength: 12)
+                    
+                    WebImage(url: self.url)
+                        .resizable()
+                        .placeholder(Image(systemName: "photo"))
+                        .placeholder {
+                            Rectangle().foregroundColor(Color("gris"))
+                        }
+                        .indicator(.activity)
+                        .transition(.fade(duration: 0.5))
+                        .scaledToFit()
+                        .frame(width: g.size.width/2, height: g.size.height/2, alignment: .center)
+                        .cornerRadius(15)
+                        .overlay(RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color.clear, lineWidth: 1))
+                    
+                    Spacer(minLength: 32)
+                    
+                    Button(action: {
+                        // Añadir código para descargar la imagen
+                        
+                    }){
+                        HStack {
+                            Image(systemName: self.colorScheme == .dark ? "camera": "camera.fill")
+                            
+                            Text("Foto normal: \(self.product.price.dollarString)€")
+                                .font(.system(size: 18, weight: .bold))
+                        }.padding(15)
+                        
+                    }.frame(width: g.size.width-15)
+                        .background(Color("gris"))
+                        .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+                        .cornerRadius(8)
+                    
+                    Spacer(minLength: 8)
+                    
+                    Button(action: {
+                        // Añadir código para descargar la imagen
+                        
+                    }){
+                        HStack {
+                            Image(systemName: self.colorScheme == .dark ? "gift": "gift.fill")
+                            
+                            Text("Foto dedicada: \((self.product.price + 1.20).dollarString)€")
+                                .font(.system(size: 18, weight: .bold))
+                        }.padding(15)
+                        
+                    }.frame(width: g.size.width-15)
+                        .background(Color("gris"))
+                        .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+                        .cornerRadius(8)
+                }
+            }
+        }
+    }
+}
 
 #if DEBUG
 struct FamousItems_Previews: PreviewProvider {

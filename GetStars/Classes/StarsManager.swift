@@ -158,6 +158,7 @@ class StarsST: CloudStorage {
     private let storage = Storage.storage()
     private var imgUrl = URL(string: "")
     private var autUrl = URL(string: "")
+    private var phoUrl = URL(string: "")
     
     func getImage(key: String, dg: DispatchGroup) {
         dg.enter()
@@ -199,6 +200,27 @@ class StarsST: CloudStorage {
     
     func getAutUrl() -> URL {
         return self.autUrl!
+    }
+    
+    func getPhoto(key: String, dg: DispatchGroup) {
+        dg.enter()
+        let path = "creadores/" + key + "/" + "photo.jpg"
+        let storageRef = storage.reference()
+        let imgRef =  storageRef.child(path)
+        
+        imgRef.downloadURL { url, error in
+            if error != nil {
+                print("Error obteniendo la foto")
+            } else {
+                self.phoUrl = url
+                print("URL de foto obtenida")
+            }
+            dg.leave()
+        }
+    }
+    
+    func getPhoUrl() -> URL {
+        return self.phoUrl!
     }
     
 }
