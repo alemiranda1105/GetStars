@@ -14,37 +14,69 @@ struct FamousItems: View {
     @Binding var item: String
     @Binding var person: Person
     
-    @State var product: Product = Product()
+    @State var product = [Product]()
     @State var url = URL(string: "https://google.com/")!
+    
+    @State var loading = true
     
     private func getAutografo() {
         let st = StarsST()
+        let db = StarsDB()
         let dg = DispatchGroup()
         st.getAut(key: self.person.getKey(), dg: dg)
         dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
             let url = st.getAutUrl()
             self.url = url
-            self.product = Product(price: 2.99, name: "Autografo", description: "Autografo de prueba", image: url, owner: self.person)
+            
+            db.getProductPrice(product: "autografo", key: self.person.getKey(), dg: dg)
+            dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+                var autPrice = db.getPrice()
+                self.product.append(Product(price: autPrice, name: "Autógrafo", description: "Autógrafo de prueba", image: self.url, owner: self.person))
+                
+                db.getProductPrice(product: "autografo ded", key: self.person.getKey(), dg: dg)
+                dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+                    autPrice = db.getPrice()
+                    self.product.append(Product(price: autPrice, name: "Autógrafo dedicado", description: "Autógrafo dedicado de prueba", image: self.url, owner: self.person))
+                    
+                    self.loading = false
+                    
+                }
+            }
         }
     }
     
     private func getFoto() {
         let st = StarsST()
+        let db = StarsDB()
         let dg = DispatchGroup()
-        st.getPhoto(key: self.person.getKey(), dg: dg)
+        st.getAut(key: self.person.getKey(), dg: dg)
         dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-            let url = st.getPhoUrl()
+            let url = st.getAutUrl()
             self.url = url
-            self.product = Product(price: 5.99, name: "Foto", description: "Foto de prueba", image: url, owner: self.person)
+            
+            db.getProductPrice(product: "foto", key: self.person.getKey(), dg: dg)
+            dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+                var autPrice = db.getPrice()
+                self.product.append(Product(price: autPrice, name: "Foto", description: "Foto de prueba", image: self.url, owner: self.person))
+                
+                db.getProductPrice(product: "foto ded", key: self.person.getKey(), dg: dg)
+                dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+                    autPrice = db.getPrice()
+                    self.product.append(Product(price: autPrice, name: "Foto dedicada", description: "Foto dedicado de prueba", image: self.url, owner: self.person))
+                    
+                    self.loading = false
+                    
+                }
+            }
         }
     }
     
     var body: some View {
         Group {
             if self.item == "aut" {
-                AutView(url: self.$url, product: self.$product).onAppear(perform: self.getAutografo)
+                AutView(url: self.$url, product: self.$product, loading: self.$loading).onAppear(perform: self.getAutografo)
             } else if self.item == "foto" {
-                PhotoView(url: self.$url, product: self.$product).onAppear(perform: self.getFoto)
+                PhotoView(url: self.$url, product: self.$product, loading: self.$loading).onAppear(perform: self.getFoto)
             } else {
                 VStack {
                     Text("Próximamente")
@@ -65,8 +97,9 @@ private struct AutView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @Binding var url: URL
-    @Binding var product: Product
-    
+    @Binding var product: [Product]
+    @Binding var loading: Bool
+
     var body: some View {
         GeometryReader { g in
             Group {
@@ -89,39 +122,24 @@ private struct AutView: View {
                     
                     Spacer(minLength: 32)
                     
-                    Button(action: {
-                        // Añadir código para descargar la imagen
-                        
-                    }){
-                        HStack {
-                            Image(systemName: self.colorScheme == .dark ? "hand.draw": "hand.draw.fill")
-                            
-                            Text("Autógrafo normal: \(self.product.price.dollarString)€")
-                                .font(.system(size: 18, weight: .bold))
-                        }.padding(15)
-                        
-                    }.frame(width: g.size.width-15)
-                        .background(Color("gris"))
-                        .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
-                        .cornerRadius(8)
-                    
-                    Spacer(minLength: 8)
-                    
-                    Button(action: {
-                        // Añadir código para descargar la imagen
-                        
-                    }){
-                        HStack {
-                            Image(systemName: self.colorScheme == .dark ? "gift": "gift.fill")
-                            
-                            Text("Autógrafo dedicado: \((self.product.price + 1.20).dollarString)€")
-                                .font(.system(size: 18, weight: .bold))
-                        }.padding(15)
-                        
-                    }.frame(width: g.size.width-15)
-                        .background(Color("gris"))
-                        .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
-                        .cornerRadius(8)
+                    if self.loading {
+                        ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(width: g.size.width, height: g.size.height, alignment: .center)
+                    } else {
+                        ForEach(self.product, id: \.name) { item in
+                            Button(action: { }) {
+                                HStack {
+                                    Image(systemName: self.colorScheme == .dark ? "hand.draw": "hand.draw.fill")
+
+                                    Text("\(item.name): \(item.price.dollarString)€")
+                                        .font(.system(size: 18, weight: .bold))
+                                }.padding(15)
+                                
+                            }.frame(width: g.size.width-15)
+                                .background(Color("gris"))
+                                .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+                                .cornerRadius(8)
+                        }
+                    }
                 }
             }
         }
@@ -133,7 +151,9 @@ private struct PhotoView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @Binding var url: URL
-    @Binding var product: Product
+    @Binding var product: [Product]
+    
+    @Binding var loading: Bool
     
     var body: some View {
         GeometryReader { g in
@@ -157,39 +177,24 @@ private struct PhotoView: View {
                     
                     Spacer(minLength: 32)
                     
-                    Button(action: {
-                        // Añadir código para descargar la imagen
-                        
-                    }){
-                        HStack {
-                            Image(systemName: self.colorScheme == .dark ? "camera": "camera.fill")
-                            
-                            Text("Foto normal: \(self.product.price.dollarString)€")
-                                .font(.system(size: 18, weight: .bold))
-                        }.padding(15)
-                        
-                    }.frame(width: g.size.width-15)
-                        .background(Color("gris"))
-                        .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
-                        .cornerRadius(8)
-                    
-                    Spacer(minLength: 8)
-                    
-                    Button(action: {
-                        // Añadir código para descargar la imagen
-                        
-                    }){
-                        HStack {
-                            Image(systemName: self.colorScheme == .dark ? "gift": "gift.fill")
-                            
-                            Text("Foto dedicada: \((self.product.price + 1.20).dollarString)€")
-                                .font(.system(size: 18, weight: .bold))
-                        }.padding(15)
-                        
-                    }.frame(width: g.size.width-15)
-                        .background(Color("gris"))
-                        .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
-                        .cornerRadius(8)
+                    if self.loading {
+                        ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(width: g.size.width, height: g.size.height, alignment: .center)
+                    } else {
+                        ForEach(self.product, id: \.name) { item in
+                            Button(action: { }) {
+                                HStack {
+                                    Image(systemName: self.colorScheme == .dark ? "camera": "camera.fill")
+
+                                    Text("\(item.name): \(item.price.dollarString)€")
+                                        .font(.system(size: 18, weight: .bold))
+                                }.padding(15)
+                                
+                            }.frame(width: g.size.width-15)
+                                .background(Color("gris"))
+                                .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+                                .cornerRadius(8)
+                        }
+                    }
                 }
             }
         }

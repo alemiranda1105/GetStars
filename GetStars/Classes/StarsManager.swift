@@ -30,6 +30,9 @@ class StarsDB: DataBase {
     // Categories keys
     private var catID = [String]()
     
+    // Price
+    private var price: Double = 0.0
+    
     
     func readKeys(dg: DispatchGroup) {
         dg.enter()
@@ -150,6 +153,24 @@ class StarsDB: DataBase {
     
     func getDesc() -> String {
         return self.descr
+    }
+    
+    func getProductPrice(product: String, key: String, dg: DispatchGroup) {
+        dg.enter()
+        let documentRef = db.collection(self.dbCollection).document(key)
+        documentRef.getDocument { (document, error) in
+            if error != nil {
+                print("Error buscando el precio de \(product)")
+            } else {
+                let map = document?.data()!["prod"] as! [String : Double]
+                self.price = map[product]!
+            }
+            dg.leave()
+        }
+    }
+    
+    func getPrice() -> Double {
+        return self.price
     }
     
 }
