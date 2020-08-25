@@ -164,7 +164,7 @@ struct SubastaProductView: View {
 #if DEBUG
 struct SubastaProductView_Previews: PreviewProvider {
     static var previews: some View {
-        SubastaProductView(product: .constant(Product(price: 99, name: "Test", description: "Casco usado por un piloto de carreras en una carrera en la que corrieron muchos corredores", image: "pr2", owner: Person(name: "Piloto 1", description: "Piloto de carreras", image: "p1"))))
+        SubastaProductView(product: .constant(Product(price: 99, name: "Test", description: "Casco usado por un piloto de carreras en una carrera en la que corrieron muchos corredores", image: "pr2", owner: Person(name: "Piloto 1", description: "Piloto de carreras", image: "p1", key: ""))))
     }
 }
 #endif

@@ -35,7 +35,7 @@ struct HomeView: View {
                 print("Famoso HOME leído")
                 let name = db.getName()
                 let desc = db.getDesc()
-                self.data.append(Person(name: name, description: desc, image: url!))
+                self.data.append(Person(name: name, description: desc, image: url!, key: i))
                 self.loading = false
             }
         }

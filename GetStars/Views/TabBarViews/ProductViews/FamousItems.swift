@@ -199,7 +199,7 @@ private struct PhotoView: View {
 #if DEBUG
 struct FamousItems_Previews: PreviewProvider {
     static var previews: some View {
-        FamousItems(item: .constant("aut"), person: .constant(Person(name: "DEbug", description: "Debug", image: "")))
+        FamousItems(item: .constant("aut"), person: .constant(Person(name: "DEbug", description: "Debug", image: "", key: "")))
     }
 }
 #endif
