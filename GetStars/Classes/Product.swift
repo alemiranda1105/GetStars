@@ -16,4 +16,28 @@ struct Product: Identifiable {
     var description: String
     var image: String
     var owner: Person
+    
+    init() {
+        self.price = 0.0
+        self.name = ""
+        self.description = ""
+        self.image = ""
+        self.owner = Person()
+    }
+    
+    init(price: Double, name: String, description: String, image: URL, owner: Person) {
+        self.price = price
+        self.name = name
+        self.description = description
+        self.image = image.absoluteString
+        self.owner = owner
+    }
+    
+    init(price: Double, name: String, description: String, image: String, owner: Person) {
+        self.price = price
+        self.name = name
+        self.description = description
+        self.image = image
+        self.owner = owner
+    }
 }

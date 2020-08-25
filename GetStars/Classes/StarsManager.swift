@@ -157,6 +157,7 @@ class StarsDB: DataBase {
 class StarsST: CloudStorage {
     private let storage = Storage.storage()
     private var imgUrl = URL(string: "")
+    private var autUrl = URL(string: "")
     
     func getImage(key: String, dg: DispatchGroup) {
         dg.enter()
@@ -177,6 +178,27 @@ class StarsST: CloudStorage {
     
     func getImgUrl() -> URL {
         return self.imgUrl!
+    }
+    
+    func getAut(key: String, dg: DispatchGroup) {
+        dg.enter()
+        let path = "creadores/" + key + "/" + "aut.jpg"
+        let storageRef = storage.reference()
+        let imgRef =  storageRef.child(path)
+        
+        imgRef.downloadURL { url, error in
+            if error != nil {
+                print("Error obteniendo el autográfo")
+            } else {
+                self.autUrl = url
+                print("URL de autógrafo obtenida")
+            }
+            dg.leave()
+        }
+    }
+    
+    func getAutUrl() -> URL {
+        return self.autUrl!
     }
     
 }

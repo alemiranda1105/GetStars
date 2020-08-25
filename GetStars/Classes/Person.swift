@@ -16,6 +16,12 @@ class Person: Identifiable {
     var image: URL
     private let key: String = "prueba"
     
+    init() {
+        self.name = ""
+        self.description = ""
+        self.image = URL(string: "") ?? URL(fileURLWithPath: "")
+    }
+    
     init(name: String, description: String, image: String) {
         self.name = name
         self.description = description
