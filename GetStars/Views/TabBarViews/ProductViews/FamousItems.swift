@@ -20,6 +20,7 @@ struct FamousItems: View {
     @State var loading = true
     
     private func getAutografo() {
+        self.product = [Product]()
         let st = StarsST()
         let db = StarsDB()
         let dg = DispatchGroup()
@@ -46,6 +47,7 @@ struct FamousItems: View {
     }
     
     private func getFoto() {
+        self.product = [Product]()
         let st = StarsST()
         let db = StarsDB()
         let dg = DispatchGroup()
@@ -126,7 +128,7 @@ private struct AutView: View {
                         ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(width: g.size.width, height: g.size.height, alignment: .center)
                     } else {
                         ForEach(self.product, id: \.name) { item in
-                            Button(action: { }) {
+                            NavigationLink(destination: PaymentView()) {
                                 HStack {
                                     Image(systemName: self.colorScheme == .dark ? "hand.draw": "hand.draw.fill")
 
@@ -181,7 +183,7 @@ private struct PhotoView: View {
                         ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(width: g.size.width, height: g.size.height, alignment: .center)
                     } else {
                         ForEach(self.product, id: \.name) { item in
-                            Button(action: { }) {
+                            NavigationLink(destination: PaymentView()) {
                                 HStack {
                                     Image(systemName: self.colorScheme == .dark ? "camera": "camera.fill")
 

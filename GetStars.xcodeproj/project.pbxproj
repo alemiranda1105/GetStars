@@ -26,6 +26,8 @@
 		BE41AA6E24CF596800511527 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE41AA6D24CF596800511527 /* ProfileView.swift */; };
 		BE4A7A7024B4F95200336760 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4A7A6F24B4F95200336760 /* SignInView.swift */; };
 		BE4A7A7224B4F9B900336760 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4A7A7124B4F9B900336760 /* SignUpView.swift */; };
+		BE5A37C024F69E96001EBF57 /* DedicatoriaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5A37BF24F69E96001EBF57 /* DedicatoriaView.swift */; };
+		BE5A37C224F69EB9001EBF57 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5A37C124F69EB9001EBF57 /* PaymentView.swift */; };
 		BE67C0FB24EA7D60007AA0E6 /* SubcategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE67C0FA24EA7D60007AA0E6 /* SubcategoryView.swift */; };
 		BE67C0FD24EAB13F007AA0E6 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE67C0FC24EAB13F007AA0E6 /* Product.swift */; };
 		BE67C10024EAB1D7007AA0E6 /* SubastaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE67C0FF24EAB1D7007AA0E6 /* SubastaView.swift */; };
@@ -78,6 +80,8 @@
 		BE41AA6D24CF596800511527 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		BE4A7A6F24B4F95200336760 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		BE4A7A7124B4F9B900336760 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		BE5A37BF24F69E96001EBF57 /* DedicatoriaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DedicatoriaView.swift; sourceTree = "<group>"; };
+		BE5A37C124F69EB9001EBF57 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		BE67C0FA24EA7D60007AA0E6 /* SubcategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcategoryView.swift; sourceTree = "<group>"; };
 		BE67C0FC24EAB13F007AA0E6 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		BE67C0FF24EAB1D7007AA0E6 /* SubastaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubastaView.swift; sourceTree = "<group>"; };
@@ -204,6 +208,7 @@
 		BE41AA6524CF57A000511527 /* TabBarViews */ = {
 			isa = PBXGroup;
 			children = (
+				BE5A37BE24F69E6C001EBF57 /* DedicatoriaYCompra */,
 				BEEF585524E69484000CC9E9 /* ProductViews */,
 				BE41AA6724CF584C00511527 /* HomeView.swift */,
 				BE41AA6924CF590500511527 /* SearchView.swift */,
@@ -226,6 +231,15 @@
 				BE4A7A7124B4F9B900336760 /* SignUpView.swift */,
 			);
 			path = LoginViews;
+			sourceTree = "<group>";
+		};
+		BE5A37BE24F69E6C001EBF57 /* DedicatoriaYCompra */ = {
+			isa = PBXGroup;
+			children = (
+				BE5A37BF24F69E96001EBF57 /* DedicatoriaView.swift */,
+				BE5A37C124F69EB9001EBF57 /* PaymentView.swift */,
+			);
+			path = DedicatoriaYCompra;
 			sourceTree = "<group>";
 		};
 		BE67C0FE24EAB1B0007AA0E6 /* BuyDrawViews */ = {
@@ -462,6 +476,7 @@
 				BEC0488B24DC174500393EFB /* GoogleLoginView.swift in Sources */,
 				BEA7AA7B24CCA1FD003A4367 /* CreateAutograph.swift in Sources */,
 				BEB32DDC24D81266007BA071 /* TrendingView.swift in Sources */,
+				BE5A37C024F69E96001EBF57 /* DedicatoriaView.swift in Sources */,
 				BE8FA5EF24E9837200EAF22C /* Person.swift in Sources */,
 				BE67C10024EAB1D7007AA0E6 /* SubastaView.swift in Sources */,
 				BEFBA10924E2E6D500E0C883 /* AutographProfileView.swift in Sources */,
@@ -471,6 +486,7 @@
 				BEFBA10724E2D8CF00E0C883 /* GridStack.swift in Sources */,
 				BEB32DE024D8129B007BA071 /* CategoryView.swift in Sources */,
 				BE1B821D24DD8A3400BE59B8 /* CustomPhotoAlbum.swift in Sources */,
+				BE5A37C224F69EB9001EBF57 /* PaymentView.swift in Sources */,
 				BE41AA6A24CF590500511527 /* SearchView.swift in Sources */,
 				BE4A7A7224B4F9B900336760 /* SignUpView.swift in Sources */,
 				BE8C307E24C87E8500135AD9 /* TabBarView.swift in Sources */,
