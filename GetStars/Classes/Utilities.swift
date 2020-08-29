@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 import Combine
 
 import Firebase
@@ -110,4 +111,10 @@ extension UINavigationController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return viewControllers.count > 1
     }
+}
+
+extension UIScreen{
+   static let screenWidth = UIScreen.main.bounds.size.width
+   static let screenHeight = UIScreen.main.bounds.size.height
+   static let screenSize = UIScreen.main.bounds.size
 }

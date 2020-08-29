@@ -99,6 +99,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MediaWatermark.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-GetStars.xcscheme</key>
 		<dict>
 			<key>isShown</key>

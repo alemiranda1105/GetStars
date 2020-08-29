@@ -180,6 +180,27 @@ class StarsST: CloudStorage {
     private var imgUrl = URL(string: "")
     private var autUrl = URL(string: "")
     private var phoUrl = URL(string: "")
+    private var img = UIImage()
+    
+    func downloadFile(key: String, dg: DispatchGroup) {
+        dg.enter()
+        let path = "creadores/" + "93cnbY5xxelS73sSsWnm" + "/profileImage.jpg"
+        let storageRef = storage.reference()
+        let imgRef =  storageRef.child(path)
+        imgRef.getData(maxSize: 1 * 512 * 512) { data, error in
+            if error != nil {
+                print(error?.localizedDescription ?? "")
+                print("Error en la descarga")
+            } else {
+                self.img = UIImage(data: data!)!
+            }
+            dg.leave()
+        }
+    }
+    
+    func getImageFile() -> UIImage {
+        return self.img
+    }
     
     func getImage(key: String, dg: DispatchGroup) {
         dg.enter()

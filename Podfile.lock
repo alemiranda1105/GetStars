@@ -364,6 +364,7 @@ PODS:
   - GTMSessionFetcher/Full (1.4.0):
     - GTMSessionFetcher/Core (= 1.4.0)
   - leveldb-library (1.22)
+  - MediaWatermark (0.4.0)
   - nanopb (1.30905.0):
     - nanopb/decode (= 1.30905.0)
     - nanopb/encode (= 1.30905.0)
@@ -385,6 +386,7 @@ DEPENDENCIES:
   - Firebase/Messaging
   - Firebase/Storage
   - GoogleSignIn
+  - MediaWatermark
   - SDWebImageSwiftUI
 
 SPEC REPOS:
@@ -412,6 +414,7 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - leveldb-library
+    - MediaWatermark
     - nanopb
     - PromisesObjC
     - Protobuf
@@ -442,12 +445,13 @@ SPEC CHECKSUMS:
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
+  MediaWatermark: d67db91deaaa9403220899adfb59c80221a02a7d
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   SDWebImageSwiftUI: 43687ffe232ddd33fe0659498b7ca9884fdd6b35
 
-PODFILE CHECKSUM: 711469b46f4981ee6e71d773bf40eeffebf5e8ed
+PODFILE CHECKSUM: 8753745aab14b89e443e7f255c803e2fe7b0f3af
 
 COCOAPODS: 1.9.3

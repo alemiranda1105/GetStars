@@ -7,7 +7,10 @@
 //
 
 import SwiftUI
+import UIKit
 import SDWebImageSwiftUI
+import MediaWatermark
+import Firebase
 
 struct DedicatoriaView: View {
     @State var url = URL(string: "https://firebasestorage.googleapis.com/v0/b/getstars-a36bb.appspot.com/o/creadores%2F93cnbY5xxelS73sSsWnm%2FprofileImage.jpg?alt=media&token=3391460d-5bc0-4975-bc3a-6b7cd4c39348")!
@@ -18,6 +21,85 @@ struct DedicatoriaView: View {
     @State var size: CGFloat = 12
     @State var posX: CGFloat = 0.0
     @State var posY: CGFloat = 0.0
+    
+    @State var frame: CGFloat = 0.0
+    
+    // Filtro palabras
+    private let filtro: [String] = ["cabrón", "hijo de puta", "..."]
+    
+    func createDedicatory() {
+        // Descargar la imagen de Storage
+        // Añadirle la dedicatoria
+        // Enviarla a revisión
+        
+        let dg = DispatchGroup()
+        let st = StarsST()
+        
+        st.downloadFile(key: "prueba", dg: dg)
+        dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+            
+            let item = MediaItem(image: st.getImageFile())
+            
+            let proportion = (item.size.height/UIScreen.main.bounds.height) * (item.size.width/UIScreen.main.bounds.width)
+            let center = [item.size.width/2, item.size.height/2]
+            let pos = self.checkCenter(center: center, proportion: proportion)
+            
+            let attributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: self.size * proportion)]
+            let attrStr  = NSAttributedString(string: self.mensaje, attributes: attributes)
+            let mes = MediaElement(text: attrStr)
+            
+            mes.frame = CGRect(x: pos[0], y: pos[1], width: item.size.width, height: item.size.height)
+            
+            item.add(element: mes)
+            
+            let mediaProcessor = MediaProcessor()
+            mediaProcessor.processElements(item: item) { (result, error) in
+                let storage = Storage.storage()
+                let path = "usuarios/" + "amiranda110500@gmail.com" + "/" + "autDed" + "/" + "1" + ".jpg"
+                let storageRef = storage.reference()
+                let imgRef =  storageRef.child(path)
+                
+                // Subida
+                let data = result.image!.jpegData(compressionQuality: 0.8)!
+                _ = imgRef.putData(data, metadata: nil) { (metadata, error) in
+                    guard metadata != nil else {
+                        print(error?.localizedDescription as Any)
+                        return
+                    }
+                }
+            }
+        }
+    }
+    
+    private func checkCenter(center: [CGFloat], proportion: CGFloat) -> [CGFloat] {
+        // Comprobacion X
+        let x = center[0]
+        print(x)
+        
+        var newX: CGFloat = 0.0
+        if x >= self.posX {
+            newX = x + (self.posX * proportion)
+        } else {
+            newX = x + (self.posX * proportion)
+        }
+        print(newX)
+        
+        // Comprobacion Y
+        let y = center[1]
+        print(y)
+        
+        print("Pos de y \(self.posY)")
+        
+        var newY: CGFloat = 0.0
+        if y >= self.posY {
+            newY = y - (self.posY * proportion)
+        } else {
+            newY = y + (self.posY * proportion)
+        }
+        print(newY)
+        
+        return [newX, newY]
+    }
     
     var body: some View {
         GeometryReader { g in
@@ -37,8 +119,10 @@ struct DedicatoriaView: View {
                     Text(self.mensaje)
                         .font(.system(size: self.size))
                         .foregroundColor(.white).offset(x: self.posX, y: self.posY)
-                        .frame(width: g.size.width/1.80, height: g.size.width/1.80)
+                        .frame(width: (g.size.width/1.80), height: g.size.width/1.80)
                         .multilineTextAlignment(.leading)
+                }.onAppear {
+                    self.frame = g.size.width/1.80
                 }
                 
                 Spacer()
@@ -147,7 +231,9 @@ struct DedicatoriaView: View {
                 Spacer(minLength: 5)
             }
         }.navigationBarItems(trailing: HStack {
-            NavigationLink(destination: PaymentView()) {
+            Button(action: {
+                self.createDedicatory()
+            }) {
                 Image(systemName: "cart.badge.plus")
                     .resizable()
                     .frame(width: 32, height: 28)
