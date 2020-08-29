@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct SearchView: View {
+    @EnvironmentObject var session: SessionStore
+    
     @State var search: String = ""
     
     var body: some View {
@@ -32,7 +34,7 @@ struct SearchView: View {
                     
                     Spacer(minLength: 25)
                     
-                    NavigationLink(destination: DestacadosView()){
+                    NavigationLink(destination: DestacadosView().environmentObject(self.session)){
                         Text("Destacados")
                             .fontWeight(.heavy)
                             .frame(minWidth: 0, maxWidth: .infinity)
@@ -45,7 +47,7 @@ struct SearchView: View {
                     
                     Spacer(minLength: 10)
                     
-                    NavigationLink(destination: TrendingView()){
+                    NavigationLink(destination: TrendingView().environmentObject(self.session)){
                         Text("Populares")
                             .frame(minWidth: 0, maxWidth: .infinity)
                             .padding(50)
@@ -57,7 +59,7 @@ struct SearchView: View {
                     
                     Spacer(minLength: 10)
                     
-                    NavigationLink(destination: NewsView()){
+                    NavigationLink(destination: NewsView().environmentObject(self.session)){
                         Text("Novedades")
                             .frame(minWidth: 0, maxWidth: .infinity)
                             .padding(50)
@@ -69,7 +71,7 @@ struct SearchView: View {
                     
                     Spacer(minLength: 10)
                     
-                    NavigationLink(destination: CategoryView()){
+                    NavigationLink(destination: CategoryView().environmentObject(self.session)){
                         Text("Categorías")
                             .frame(minWidth: 0, maxWidth: .infinity)
                             .padding(15)

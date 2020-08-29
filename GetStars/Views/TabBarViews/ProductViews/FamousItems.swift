@@ -11,6 +11,8 @@ import SDWebImageSwiftUI
 
 
 struct FamousItems: View {
+    @EnvironmentObject var session: SessionStore
+    
     @Binding var item: String
     @Binding var person: Person
     
@@ -32,12 +34,12 @@ struct FamousItems: View {
             db.getProductPrice(product: "autografo", key: self.person.getKey(), dg: dg)
             dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                 var autPrice = db.getPrice()
-                self.product.append(Product(price: autPrice, name: "Autógrafo", description: "Autógrafo de prueba", image: self.url, owner: self.person))
+                self.product.append(Product(price: autPrice, name: "Autógrafo", description: "Autógrafo de prueba", image: self.url, owner: self.person, isDedicated: false))
                 
                 db.getProductPrice(product: "autografo ded", key: self.person.getKey(), dg: dg)
                 dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                     autPrice = db.getPrice()
-                    self.product.append(Product(price: autPrice, name: "Autógrafo dedicado", description: "Autógrafo dedicado de prueba", image: self.url, owner: self.person))
+                    self.product.append(Product(price: autPrice, name: "Autógrafo dedicado", description: "Autógrafo dedicado de prueba", image: self.url, owner: self.person, isDedicated: true))
                     
                     self.loading = false
                     
@@ -59,12 +61,12 @@ struct FamousItems: View {
             db.getProductPrice(product: "foto", key: self.person.getKey(), dg: dg)
             dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                 var autPrice = db.getPrice()
-                self.product.append(Product(price: autPrice, name: "Foto", description: "Foto de prueba", image: self.url, owner: self.person))
+                self.product.append(Product(price: autPrice, name: "Foto", description: "Foto de prueba", image: self.url, owner: self.person, isDedicated: false))
                 
                 db.getProductPrice(product: "foto ded", key: self.person.getKey(), dg: dg)
                 dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                     autPrice = db.getPrice()
-                    self.product.append(Product(price: autPrice, name: "Foto dedicada", description: "Foto dedicado de prueba", image: self.url, owner: self.person))
+                    self.product.append(Product(price: autPrice, name: "Foto dedicada", description: "Foto dedicado de prueba", image: self.url, owner: self.person, isDedicated: true))
                     
                     self.loading = false
                     
@@ -76,9 +78,9 @@ struct FamousItems: View {
     var body: some View {
         Group {
             if self.item == "aut" {
-                AutView(url: self.$url, product: self.$product, loading: self.$loading).onAppear(perform: self.getAutografo)
+                AutView(url: self.$url, product: self.$product, loading: self.$loading).environmentObject(self.session).onAppear(perform: self.getAutografo)
             } else if self.item == "foto" {
-                PhotoView(url: self.$url, product: self.$product, loading: self.$loading).onAppear(perform: self.getFoto)
+                PhotoView(url: self.$url, product: self.$product, loading: self.$loading).environmentObject(self.session).onAppear(perform: self.getFoto)
             } else {
                 VStack {
                     Text("Próximamente")
@@ -97,6 +99,8 @@ struct FamousItems: View {
 private struct AutView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
+    
+    @EnvironmentObject var session: SessionStore
     
     @Binding var url: URL
     @Binding var product: [Product]
@@ -128,7 +132,7 @@ private struct AutView: View {
                         ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(width: g.size.width, height: g.size.height, alignment: .center)
                     } else {
                         ForEach(self.product, id: \.name) { item in
-                            NavigationLink(destination: PaymentView()) {
+                            NavigationLink(destination: PaymentView(product: .constant(item)).environmentObject(self.session)) {
                                 HStack {
                                     Image(systemName: self.colorScheme == .dark ? "hand.draw": "hand.draw.fill")
 
@@ -152,6 +156,8 @@ private struct PhotoView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     
+    @EnvironmentObject var session: SessionStore
+    
     @Binding var url: URL
     @Binding var product: [Product]
     
@@ -183,7 +189,7 @@ private struct PhotoView: View {
                         ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(width: g.size.width, height: g.size.height, alignment: .center)
                     } else {
                         ForEach(self.product, id: \.name) { item in
-                            NavigationLink(destination: PaymentView()) {
+                            NavigationLink(destination: PaymentView(product: .constant(item)).environmentObject(self.session)) {
                                 HStack {
                                     Image(systemName: self.colorScheme == .dark ? "camera": "camera.fill")
 

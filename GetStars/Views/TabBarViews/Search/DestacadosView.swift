@@ -51,7 +51,7 @@ struct DestacadosView: View {
                 } else {
                     ScrollView {
                         ForEach(0..<self.data.count, id: \.self) { item in
-                            PersonCard(person: self.$data[item])
+                            PersonCard(person: self.$data[item]).environmentObject(self.session)
                                 .frame(width: g.size.width)
                         }
                     }.navigationBarTitle("Destacados")

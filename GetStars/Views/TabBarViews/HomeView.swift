@@ -10,6 +10,7 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var session: SessionStore
+    
     @Environment(\.colorScheme) var colorScheme
 
     @State var data: [Person] = [Person]()
@@ -69,7 +70,8 @@ struct HomeView: View {
                             
                             
                             ForEach(0..<self.data.count, id: \.self) { item in
-                                PersonCard(person: self.$data[item]).frame(width: g.size.width)
+                                PersonCard(person: self.$data[item]).environmentObject(self.session)
+                                    .frame(width: g.size.width)
                             }
                             
                         }

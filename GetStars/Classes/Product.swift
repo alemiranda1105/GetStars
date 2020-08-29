@@ -17,27 +17,32 @@ struct Product: Identifiable {
     var image: String
     var owner: Person
     
+    let isDedicated: Bool
+    
     init() {
         self.price = 0.0
         self.name = ""
         self.description = ""
         self.image = ""
         self.owner = Person()
+        self.isDedicated = false
     }
     
-    init(price: Double, name: String, description: String, image: URL, owner: Person) {
+    init(price: Double, name: String, description: String, image: URL, owner: Person, isDedicated: Bool) {
         self.price = price
         self.name = name
         self.description = description
         self.image = image.absoluteString
         self.owner = owner
+        self.isDedicated = isDedicated
     }
     
-    init(price: Double, name: String, description: String, image: String, owner: Person) {
+    init(price: Double, name: String, description: String, image: String, owner: Person, isDedicated: Bool) {
         self.price = price
         self.name = name
         self.description = description
         self.image = image
         self.owner = owner
+        self.isDedicated = isDedicated
     }
 }

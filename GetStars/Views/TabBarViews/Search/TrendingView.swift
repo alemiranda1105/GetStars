@@ -51,7 +51,7 @@ struct TrendingView: View {
                 } else {
                     ScrollView {
                         ForEach(0..<self.data.count, id: \.self) { product in
-                            PersonCard(person: self.$data[product])
+                            PersonCard(person: self.$data[product]).environmentObject(self.session)
                                 .frame(width: g.size.width)
                         }
                     }.navigationBarTitle("Populares")

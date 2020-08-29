@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct CategoryView: View {
+    @EnvironmentObject var session: SessionStore
+    
     @Environment(\.colorScheme) var colorScheme
     private let langStr = Locale.current.languageCode
     
@@ -18,24 +20,10 @@ struct CategoryView: View {
     
     var body: some View {
         List(self.langStr == "en" ? enCats: cats) { c in
-            NavigationLink(destination: SubcategoryView(cat: c.name)) {
+            NavigationLink(destination: SubcategoryView(cat: c.name).environmentObject(self.session)) {
                 Text("\(c.name)")
             }
         }.navigationBarTitle(Text("Categorías"))
-    }
-}
-
-fileprivate struct DummyView: View {
-    var c: String
-    var body: some View {
-        return GeometryReader { g in
-            Group {
-                ScrollView {
-                    SubcategoryView(cat: self.c)
-                        .frame(width: g.size.width)
-                }
-            }
-        }
     }
 }
 

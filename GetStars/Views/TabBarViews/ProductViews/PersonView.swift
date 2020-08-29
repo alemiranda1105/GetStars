@@ -12,6 +12,9 @@ import SDWebImageSwiftUI
 struct PersonView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
+    
+    @EnvironmentObject var session: SessionStore
+    
     @Binding var person: Person
     
     var body: some View {
@@ -70,7 +73,7 @@ struct PersonView: View {
                     .font(.system(size: 32, weight: .bold))
                 
                 VStack(spacing: 8) {
-                    NavigationLink(destination: FamousItems(item: .constant("aut"), person: self.$person)){
+                    NavigationLink(destination: FamousItems(item: .constant("aut"), person: self.$person).environmentObject(self.session)){
                         HStack {
                             Image(systemName: "pencil.and.outline")
                             
@@ -85,7 +88,7 @@ struct PersonView: View {
                     .cornerRadius(8)
                     
                     
-                    NavigationLink(destination: FamousItems(item: .constant("foto"), person: self.$person)){
+                    NavigationLink(destination: FamousItems(item: .constant("foto"), person: self.$person).environmentObject(self.session)){
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "camera": "camera.fill")
                             
@@ -100,7 +103,7 @@ struct PersonView: View {
                     .cornerRadius(8)
                     
                     
-                    NavigationLink(destination: FamousItems(item: .constant("selfie"), person: self.$person)){
+                    NavigationLink(destination: FamousItems(item: .constant("selfie"), person: self.$person).environmentObject(self.session)){
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "camera.on.rectangle": "camera.on.rectangle.fill")
                             

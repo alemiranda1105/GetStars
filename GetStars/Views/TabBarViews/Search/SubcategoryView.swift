@@ -77,7 +77,8 @@ struct SubcategoryView: View {
                 } else {
                     ScrollView {
                         ForEach(0..<self.data.count, id: \.self) { product in
-                            PersonCard(person: self.$data[product]).frame(width: g.size.width)
+                            PersonCard(person: self.$data[product]).environmentObject(self.session)
+                                .frame(width: g.size.width)
                         }
                     }.navigationBarTitle(LocalizedStringKey(self.cat))
                     .navigationViewStyle(StackNavigationViewStyle())

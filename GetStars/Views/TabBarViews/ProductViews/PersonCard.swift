@@ -11,11 +11,13 @@ import SDWebImageSwiftUI
 import Firebase
 
 struct PersonCard: View {
+    @EnvironmentObject var session: SessionStore
+    
     @Binding var person: Person
     
     var body: some View {
         VStack {
-            NavigationLink(destination: PersonView(person: self.$person)){
+            NavigationLink(destination: PersonView(person: self.$person).environmentObject(self.session)){
                 ZStack {
                     WebImage(url: self.person.image).resizable()
                         .placeholder(Image(systemName: "photo"))

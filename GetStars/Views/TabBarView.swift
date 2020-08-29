@@ -22,7 +22,7 @@ struct TabBarView: View {
                     HomeView().environmentObject(self.session)
                     
                 } else if self.index == 1 {
-                    SearchView()
+                    SearchView().environmentObject(self.session)
                     
                 } else if self.index == 2 {
                     BuyDrawView()
