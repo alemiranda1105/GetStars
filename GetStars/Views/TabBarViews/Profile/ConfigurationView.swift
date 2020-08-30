@@ -12,6 +12,8 @@ struct ConfigurationView: View {
     @EnvironmentObject var session: SessionStore
     @Environment(\.colorScheme) var colorScheme
     
+    private let appVersion = UIApplication.appVersion
+    
     @State var showAlert: Bool = false
     @State var showAlert2: Bool = false
     @State var eliminarDatos: Bool = false
@@ -30,7 +32,7 @@ struct ConfigurationView: View {
                     HStack {
                         Text("Version")
                         Spacer()
-                        Text("0.2")
+                        Text(self.appVersion ?? "1.0")
                     }
                 }
                 Section {

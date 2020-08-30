@@ -22,16 +22,15 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     // Datos usuario
     @Published var data: UserData?
     public let db: DataBase = DataBase()
+    public let st: CloudStorage = CloudStorage()
     
     // Numero de articulos que tiene
-    public let st: CloudStorage = CloudStorage()
-    @Published var articles: [String: Int] = ["AutMan": 0]
+    @Published var articles: [String: Int] = ["AutMan": 0, "AutDed": 0, "AutFot": 0]
     @Published var autMan = [ImageLoader]()
-    
     @Published var url = [UrlLoader]()
     
-    // Famosos
-    @Published var keys = [String]()
+    // Carrito de articulos
+    @Published var cart = [Product]()
     
     //Inidica si el usuario esta iniciando sesion
     @Published var signing: Bool = false

@@ -13,7 +13,9 @@ import MediaWatermark
 import Firebase
 
 struct DedicatoriaView: View {
-    @State var url = URL(string: "https://firebasestorage.googleapis.com/v0/b/getstars-a36bb.appspot.com/o/creadores%2F93cnbY5xxelS73sSsWnm%2FprofileImage.jpg?alt=media&token=3391460d-5bc0-4975-bc3a-6b7cd4c39348")!
+    @EnvironmentObject var session: SessionStore
+    @State var product: Product
+    
     
     // Opciones de texto
     @State var mensaje = ""
@@ -105,7 +107,7 @@ struct DedicatoriaView: View {
         GeometryReader { g in
             VStack {
                 ZStack {
-                    WebImage(url: self.url)
+                    WebImage(url: URL(string: self.product.image))
                     .resizable()
                     .placeholder(Image(systemName: "photo"))
                     .placeholder {
@@ -245,8 +247,8 @@ struct DedicatoriaView: View {
 struct DedicatoriaView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            DedicatoriaView().previewDevice("iPhone 8")
-            DedicatoriaView().previewDevice("iPhone 11")
+            DedicatoriaView(product: (Product(price: 2.99, name: "Preview", description: "Descripción de preview", image: "", owner: Person(name: "", description: "", image: "", key: ""), isDedicated: true))).previewDevice("iPhone 8")
+            DedicatoriaView(product: (Product(price: 2.99, name: "Preview", description: "Descripción de preview", image: "", owner: Person(name: "", description: "", image: "", key: ""), isDedicated: true))).previewDevice("iPhone 11")
         }
     }
 }

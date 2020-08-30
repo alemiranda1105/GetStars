@@ -53,9 +53,9 @@ struct FamousItems: View {
         let st = StarsST()
         let db = StarsDB()
         let dg = DispatchGroup()
-        st.getAut(key: self.person.getKey(), dg: dg)
+        st.getPhoto(key: self.person.getKey(), dg: dg)
         dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-            let url = st.getAutUrl()
+            let url = st.getPhoUrl()
             self.url = url
             
             db.getProductPrice(product: "foto", key: self.person.getKey(), dg: dg)
@@ -132,7 +132,7 @@ private struct AutView: View {
                         ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(width: g.size.width, height: g.size.height, alignment: .center)
                     } else {
                         ForEach(self.product, id: \.name) { item in
-                            NavigationLink(destination: PaymentView(product: .constant(item)).environmentObject(self.session)) {
+                            NavigationLink(destination: PaymentView(product: item).environmentObject(self.session)) {
                                 HStack {
                                     Image(systemName: self.colorScheme == .dark ? "hand.draw": "hand.draw.fill")
 
@@ -189,7 +189,7 @@ private struct PhotoView: View {
                         ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(width: g.size.width, height: g.size.height, alignment: .center)
                     } else {
                         ForEach(self.product, id: \.name) { item in
-                            NavigationLink(destination: PaymentView(product: .constant(item)).environmentObject(self.session)) {
+                            NavigationLink(destination: PaymentView(product: item).environmentObject(self.session)) {
                                 HStack {
                                     Image(systemName: self.colorScheme == .dark ? "camera": "camera.fill")
 
