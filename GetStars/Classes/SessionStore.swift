@@ -138,6 +138,10 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
         
     }
     
+    func getCart() -> [Product]{
+        return self.cart
+    }
+    
     // Metodos GoogleLogin
     
     @available(iOS 9.0, *)

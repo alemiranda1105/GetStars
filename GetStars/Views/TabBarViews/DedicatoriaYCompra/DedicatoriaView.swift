@@ -13,6 +13,8 @@ import MediaWatermark
 import Firebase
 
 struct DedicatoriaView: View {
+    @Environment(\.presentationMode) var presentationMode
+    
     @EnvironmentObject var session: SessionStore
     @State var product: Product
     
@@ -222,7 +224,7 @@ struct DedicatoriaView: View {
                     }
                 }.padding(.horizontal, 12)
                 
-                TextField("Pulsa para editar la dedidcatoria", text: self.$mensaje)
+                TextField("Pulsa para editar la dedicatoria", text: self.$mensaje)
                     .font(.system(size: 14))
                     .padding(10)
                     .background(
@@ -234,11 +236,21 @@ struct DedicatoriaView: View {
             }
         }.navigationBarItems(trailing: HStack {
             Button(action: {
-                self.createDedicatory()
+                self.product.setMessage(newMessage: self.mensaje)
+                var n = 0
+                for i in self.session.cart {
+                    if i.equals(product: self.product) {
+                        self.session.cart.remove(at: n)
+                        self.session.cart.insert(self.product, at: n)
+                    }
+                    n += 1
+                }
+                self.presentationMode.wrappedValue.dismiss()
+                //self.createDedicatory()
             }) {
-                Image(systemName: "cart.badge.plus")
+                Image(systemName: "square.and.arrow.down")
                     .resizable()
-                    .frame(width: 32, height: 28)
+                    .frame(width: 28, height: 28)
             }
         })
     }

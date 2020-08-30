@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-struct Product: Identifiable {
+class Product: Identifiable {
     var id = UUID()
     var price: Double
     var name: String
@@ -18,6 +18,7 @@ struct Product: Identifiable {
     var owner: Person
     
     let isDedicated: Bool
+    var message: String = ""
     
     init() {
         self.price = 0.0
@@ -44,5 +45,22 @@ struct Product: Identifiable {
         self.image = image
         self.owner = owner
         self.isDedicated = isDedicated
+    }
+    
+    func setMessage(newMessage: String) {
+        self.message = newMessage
+    }
+    
+    func equals(product: Product) -> Bool {
+        if self.name == product.name {
+            if self.price == product.price {
+                if self.description == product.description {
+                    if self.owner.getKey() == product.owner.getKey() {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
     }
 }

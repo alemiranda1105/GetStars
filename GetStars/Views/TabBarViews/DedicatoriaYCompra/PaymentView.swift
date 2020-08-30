@@ -22,6 +22,7 @@ struct PaymentView: View {
     @State var paid: Bool = false
     
     private func readCart() {
+        self.session.cart = session.getCart()
         self.addProduct()
         for item in self.session.cart {
             total += item.price
@@ -32,6 +33,11 @@ struct PaymentView: View {
         // Condición para llamadas sin añadir productos a la cesta
         if self.product.name == "" {
             return
+        }
+        for i in self.session.cart {
+            if i.equals(product: self.product) {
+                return
+            }
         }
         self.session.cart.append(self.product)
     }
@@ -68,6 +74,7 @@ struct PaymentView: View {
                     
                     Text("Productos en la cesta:")
                         .font(.system(size: 24, weight: .semibold))
+                    Spacer()
                     
                     CartView().environmentObject(self.session)
                     
