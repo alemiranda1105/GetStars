@@ -35,7 +35,7 @@ struct PaymentView: View {
             return
         }
         for i in self.session.cart {
-            if i.equals(product: self.product) {
+            if i.message == self.product.message && i.message != "" {
                 return
             }
         }

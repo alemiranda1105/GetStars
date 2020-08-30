@@ -106,86 +106,42 @@ struct DedicatoriaView: View {
     }
     
     var body: some View {
-        GeometryReader { g in
-            VStack {
-                ZStack {
-                    WebImage(url: URL(string: self.product.image))
-                    .resizable()
-                    .placeholder(Image(systemName: "photo"))
-                    .placeholder {
-                        Rectangle().foregroundColor(Color("gris"))
+        Group {
+            GeometryReader { g in
+                VStack {
+                    ZStack {
+                        WebImage(url: URL(string: self.product.image))
+                        .resizable()
+                        .placeholder(Image(systemName: "photo"))
+                        .placeholder {
+                            Rectangle().foregroundColor(Color("gris"))
+                        }
+                        .indicator(.activity)
+                        .transition(.fade(duration: 0.5))
+                        .scaledToFit()
+                        .frame(width: g.size.width, height: g.size.height/1.5, alignment: .center)
+                        
+                        Text(self.mensaje)
+                            .font(.system(size: self.size))
+                            .foregroundColor(.white).offset(x: self.posX, y: self.posY)
+                            .frame(width: (g.size.width/1.80), height: g.size.width/1.80)
+                            .multilineTextAlignment(.leading)
+                    }.onAppear {
+                        self.frame = g.size.width/1.80
                     }
-                    .indicator(.activity)
-                    .transition(.fade(duration: 0.5))
-                    .scaledToFit()
-                    .frame(width: g.size.width, height: g.size.height/1.5, alignment: .center)
                     
-                    Text(self.mensaje)
-                        .font(.system(size: self.size))
-                        .foregroundColor(.white).offset(x: self.posX, y: self.posY)
-                        .frame(width: (g.size.width/1.80), height: g.size.width/1.80)
-                        .multilineTextAlignment(.leading)
-                }.onAppear {
-                    self.frame = g.size.width/1.80
-                }
-                
-                Spacer()
-                
-                HStack {
-                    HStack {
-                        Button(action: {
-                            let impactMed = UIImpactFeedbackGenerator(style: .rigid)
-                            impactMed.impactOccurred()
-                            if self.size >= 1.0 {
-                                self.size -= 0.5
-                            }
-                        }) {
-                            Image(systemName: "minus.square")
-                                .frame(width: 25)
-                                .padding(4)
-                                .background(Color("navyBlue"))
-                                .foregroundColor(.white)
-                                .cornerRadius(2.5)
-                        }
-                        
-                        Text("Tamaño")
-                        
-                        Button(action: {
-                            let impactMed = UIImpactFeedbackGenerator(style: .rigid)
-                            impactMed.impactOccurred()
-                            self.size += 0.5
-                        }) {
-                            Image(systemName: "plus.square")
-                                .frame(width: 25)
-                                .padding(4)
-                                .background(Color("navyBlue"))
-                                .foregroundColor(.white)
-                                .cornerRadius(2.5)
-                        }
-                    }.padding(.horizontal, 12)
                     Spacer()
                     
                     HStack {
-                        Button(action: {
-                            let impactMed = UIImpactFeedbackGenerator(style: .rigid)
-                            impactMed.impactOccurred()
-                            self.posX -= 2
-                        }) {
-                            Image(systemName: "chevron.left")
-                                .frame(width: 25)
-                                .padding(4)
-                                .background(Color("navyBlue"))
-                                .foregroundColor(.white)
-                                .cornerRadius(2.5)
-                        }
-                        
-                        VStack {
+                        HStack {
                             Button(action: {
                                 let impactMed = UIImpactFeedbackGenerator(style: .rigid)
                                 impactMed.impactOccurred()
-                                self.posY -= 2
+                                if self.size >= 1.0 {
+                                    self.size -= 0.5
+                                }
                             }) {
-                                Image(systemName: "chevron.up")
+                                Image(systemName: "minus.square")
                                     .frame(width: 25)
                                     .padding(4)
                                     .background(Color("navyBlue"))
@@ -193,14 +149,73 @@ struct DedicatoriaView: View {
                                     .cornerRadius(2.5)
                             }
                             
-                            Text("Posición")
+                            Text("Tamaño")
                             
                             Button(action: {
                                 let impactMed = UIImpactFeedbackGenerator(style: .rigid)
                                 impactMed.impactOccurred()
-                                self.posY += 2
+                                self.size += 0.5
                             }) {
-                                Image(systemName: "chevron.down")
+                                Image(systemName: "plus.square")
+                                    .frame(width: 25)
+                                    .padding(4)
+                                    .background(Color("navyBlue"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(2.5)
+                            }
+                        }.padding(.horizontal, 12)
+                        Spacer()
+                        
+                        HStack {
+                            Button(action: {
+                                let impactMed = UIImpactFeedbackGenerator(style: .rigid)
+                                impactMed.impactOccurred()
+                                self.posX -= 2
+                            }) {
+                                Image(systemName: "chevron.left")
+                                    .frame(width: 25)
+                                    .padding(4)
+                                    .background(Color("navyBlue"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(2.5)
+                            }
+                            
+                            VStack {
+                                Button(action: {
+                                    let impactMed = UIImpactFeedbackGenerator(style: .rigid)
+                                    impactMed.impactOccurred()
+                                    self.posY -= 2
+                                }) {
+                                    Image(systemName: "chevron.up")
+                                        .frame(width: 25)
+                                        .padding(4)
+                                        .background(Color("navyBlue"))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(2.5)
+                                }
+                                
+                                Text("Posición")
+                                
+                                Button(action: {
+                                    let impactMed = UIImpactFeedbackGenerator(style: .rigid)
+                                    impactMed.impactOccurred()
+                                    self.posY += 2
+                                }) {
+                                    Image(systemName: "chevron.down")
+                                        .frame(width: 25)
+                                        .padding(4)
+                                        .background(Color("navyBlue"))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(2.5)
+                                }
+                            }
+                            
+                            Button(action: {
+                                let impactMed = UIImpactFeedbackGenerator(style: .rigid)
+                                impactMed.impactOccurred()
+                                self.posX += 2
+                            }) {
+                                Image(systemName: "chevron.right")
                                     .frame(width: 25)
                                     .padding(4)
                                     .background(Color("navyBlue"))
@@ -208,59 +223,51 @@ struct DedicatoriaView: View {
                                     .cornerRadius(2.5)
                             }
                         }
+                    }.padding(.horizontal, 12)
+                    VStack {
+                        TextField("Pulsa para editar la dedicatoria", text: self.$mensaje)
+                        .font(.system(size: 14))
+                        .padding(10)
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .strokeBorder(Color("naranja"), lineWidth: 1))
                         
                         Button(action: {
-                            let impactMed = UIImpactFeedbackGenerator(style: .rigid)
-                            impactMed.impactOccurred()
-                            self.posX += 2
+                            self.product.setMessage(newMessage: self.mensaje)
+                            var n = 0
+                            for i in self.session.cart {
+                                if i.equals(product: self.product) {
+                                    self.session.cart.remove(at: n)
+                                    self.session.cart.insert(self.product, at: n)
+                                }
+                                n += 1
+                            }
+                            self.presentationMode.wrappedValue.dismiss()
+                            //self.createDedicatory()
                         }) {
-                            Image(systemName: "chevron.right")
-                                .frame(width: 25)
-                                .padding(4)
-                                .background(Color("navyBlue"))
+                            Text("Añadir a la cesta")
+                                .frame(minWidth: 0, maxWidth: .infinity)
+                                .padding(10)
+                                .background(Color("naranja"))
                                 .foregroundColor(.white)
-                                .cornerRadius(2.5)
+                                .cornerRadius(50)
+                                .font(.system(size: 18, weight: .bold))
                         }
-                    }
-                }.padding(.horizontal, 12)
-                
-                TextField("Pulsa para editar la dedicatoria", text: self.$mensaje)
-                    .font(.system(size: 14))
-                    .padding(10)
-                    .background(
-                        RoundedRectangle(cornerRadius: 5)
-                            .strokeBorder(Color("naranja"), lineWidth: 1))
-                    .frame(width: g.size.width-10)
-                
-                Spacer(minLength: 5)
-            }
-        }.navigationBarItems(trailing: HStack {
-            Button(action: {
-                self.product.setMessage(newMessage: self.mensaje)
-                var n = 0
-                for i in self.session.cart {
-                    if i.equals(product: self.product) {
-                        self.session.cart.remove(at: n)
-                        self.session.cart.insert(self.product, at: n)
-                    }
-                    n += 1
+                    }.padding().frame(width: g.size.width)
+                    
+                    Spacer(minLength: 5)
                 }
-                self.presentationMode.wrappedValue.dismiss()
-                //self.createDedicatory()
-            }) {
-                Image(systemName: "square.and.arrow.down")
-                    .resizable()
-                    .frame(width: 28, height: 28)
             }
-        })
+        }
     }
 }
 
 struct DedicatoriaView_Previews: PreviewProvider {
+    var session = SessionStore()
     static var previews: some View {
         Group {
-            DedicatoriaView(product: (Product(price: 2.99, name: "Preview", description: "Descripción de preview", image: "", owner: Person(name: "", description: "", image: "", key: ""), isDedicated: true))).previewDevice("iPhone 8")
-            DedicatoriaView(product: (Product(price: 2.99, name: "Preview", description: "Descripción de preview", image: "", owner: Person(name: "", description: "", image: "", key: ""), isDedicated: true))).previewDevice("iPhone 11")
+            DedicatoriaView(product: (Product(price: 2.99, name: "Preview", description: "Descripción de preview", image: "", owner: Person(name: "", description: "", image: "", key: ""), isDedicated: true))).environmentObject(SessionStore()).previewDevice("iPhone 8")
+            DedicatoriaView(product: (Product(price: 2.99, name: "Preview", description: "Descripción de preview", image: "", owner: Person(name: "", description: "", image: "", key: ""), isDedicated: true))).environmentObject(SessionStore()).previewDevice("iPhone 11")
         }
     }
 }

@@ -104,46 +104,68 @@ private struct AutView: View {
     
     @Binding var url: URL
     @Binding var product: [Product]
+    
     @Binding var loading: Bool
-
+    
+    @State var showDedicatoryView = false
+    @State var dedicatoryItem = Product()
+    @State var showCart = false
+    
     var body: some View {
         GeometryReader { g in
             Group {
-                ScrollView {
-                    Spacer(minLength: 12)
-                    
-                    WebImage(url: self.url)
-                        .resizable()
-                        .placeholder(Image(systemName: "photo"))
-                        .placeholder {
-                            Rectangle().foregroundColor(Color("gris"))
-                        }
-                        .indicator(.activity)
-                        .transition(.fade(duration: 0.5))
-                        .scaledToFit()
-                        .frame(width: g.size.width/2, height: g.size.height/2, alignment: .center)
-                        .cornerRadius(15)
-                        .overlay(RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color.clear, lineWidth: 1))
-                    
-                    Spacer(minLength: 32)
-                    
-                    if self.loading {
-                        ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(width: g.size.width, height: g.size.height, alignment: .center)
-                    } else {
-                        ForEach(self.product, id: \.name) { item in
-                            NavigationLink(destination: PaymentView(product: item).environmentObject(self.session)) {
-                                HStack {
-                                    Image(systemName: self.colorScheme == .dark ? "hand.draw": "hand.draw.fill")
+                if self.showDedicatoryView {
+                    DedicatoriaView(product: self.dedicatoryItem).environmentObject(self.session)
+                } else if self.showCart {
+                    PaymentView(product: Product()).environmentObject(self.session)
+                } else {
+                    ScrollView {
+                        Spacer(minLength: 12)
+                        
+                        WebImage(url: self.url)
+                            .resizable()
+                            .placeholder(Image(systemName: "photo"))
+                            .placeholder {
+                                Rectangle().foregroundColor(Color("gris"))
+                            }
+                            .indicator(.activity)
+                            .transition(.fade(duration: 0.5))
+                            .scaledToFit()
+                            .frame(width: g.size.width/2, height: g.size.height/2, alignment: .center)
+                            .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15)
+                                .stroke(Color.clear, lineWidth: 1))
+                        
+                        Spacer(minLength: 32)
+                        
+                        if self.loading {
+                            ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(width: g.size.width, height: g.size.height, alignment: .center)
+                        } else {
+                            ForEach(self.product, id: \.name) { item in
+                                Button(action: {
+                                    if item.isDedicated {
+                                        withAnimation(.default) {
+                                            self.dedicatoryItem = item
+                                            self.showDedicatoryView = true
+                                        }
+                                    } else {
+                                        withAnimation(.easeIn(duration: 0.25)) {
+                                            self.session.cart.append(item)
+                                            self.showCart = true
+                                        }
+                                    }
+                                }) {
+                                    HStack {
+                                        Image(systemName: self.colorScheme == .dark ? "hand.draw": "hand.draw.fill")
 
-                                    Text("\(item.name): \(item.price.dollarString)€")
-                                        .font(.system(size: 18, weight: .bold))
-                                }.padding(15)
-                                
-                            }.frame(width: g.size.width-15)
+                                        Text("\(item.name): \(item.price.dollarString)€")
+                                            .font(.system(size: 18, weight: .bold))
+                                    }.padding(15)
+                                }.frame(width: g.size.width-15)
                                 .background(Color("gris"))
                                 .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                                 .cornerRadius(8)
+                            }
                         }
                     }
                 }
@@ -163,44 +185,65 @@ private struct PhotoView: View {
     
     @Binding var loading: Bool
     
+    @State var showDedicatoryView = false
+    @State var dedicatoryItem = Product()
+    @State var showCart = false
+    
     var body: some View {
         GeometryReader { g in
             Group {
-                ScrollView {
-                    Spacer(minLength: 12)
-                    
-                    WebImage(url: self.url)
-                        .resizable()
-                        .placeholder(Image(systemName: "photo"))
-                        .placeholder {
-                            Rectangle().foregroundColor(Color("gris"))
-                        }
-                        .indicator(.activity)
-                        .transition(.fade(duration: 0.5))
-                        .scaledToFit()
-                        .frame(width: g.size.width/2, height: g.size.height/2, alignment: .center)
-                        .cornerRadius(15)
-                        .overlay(RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color.clear, lineWidth: 1))
-                    
-                    Spacer(minLength: 32)
-                    
-                    if self.loading {
-                        ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(width: g.size.width, height: g.size.height, alignment: .center)
-                    } else {
-                        ForEach(self.product, id: \.name) { item in
-                            NavigationLink(destination: PaymentView(product: item).environmentObject(self.session)) {
-                                HStack {
-                                    Image(systemName: self.colorScheme == .dark ? "camera": "camera.fill")
+                if self.showDedicatoryView {
+                    DedicatoriaView(product: self.dedicatoryItem).environmentObject(self.session)
+                } else if self.showCart {
+                    PaymentView(product: Product()).environmentObject(self.session)
+                } else {
+                    ScrollView {
+                        Spacer(minLength: 12)
+                        
+                        WebImage(url: self.url)
+                            .resizable()
+                            .placeholder(Image(systemName: "photo"))
+                            .placeholder {
+                                Rectangle().foregroundColor(Color("gris"))
+                            }
+                            .indicator(.activity)
+                            .transition(.fade(duration: 0.5))
+                            .scaledToFit()
+                            .frame(width: g.size.width/2, height: g.size.height/2, alignment: .center)
+                            .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15)
+                                .stroke(Color.clear, lineWidth: 1))
+                        
+                        Spacer(minLength: 32)
+                        
+                        if self.loading {
+                            ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(width: g.size.width, height: g.size.height, alignment: .center)
+                        } else {
+                            ForEach(self.product, id: \.name) { item in
+                                Button(action: {
+                                    if item.isDedicated {
+                                        withAnimation(.default) {
+                                            self.dedicatoryItem = item
+                                            self.showDedicatoryView = true
+                                        }
+                                    } else {
+                                        withAnimation(.easeIn(duration: 0.25)) {
+                                            self.session.cart.append(item)
+                                            self.showCart = true
+                                        }
+                                    }
+                                }) {
+                                    HStack {
+                                        Image(systemName: self.colorScheme == .dark ? "camera": "camera.fill")
 
-                                    Text("\(item.name): \(item.price.dollarString)€")
-                                        .font(.system(size: 18, weight: .bold))
-                                }.padding(15)
-                                
-                            }.frame(width: g.size.width-15)
+                                        Text("\(item.name): \(item.price.dollarString)€")
+                                            .font(.system(size: 18, weight: .bold))
+                                    }.padding(15)
+                                }.frame(width: g.size.width-15)
                                 .background(Color("gris"))
                                 .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                                 .cornerRadius(8)
+                            }
                         }
                     }
                 }
