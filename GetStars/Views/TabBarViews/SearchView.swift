@@ -11,6 +11,8 @@ import SwiftUI
 struct SearchView: View {
     @EnvironmentObject var session: SessionStore
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @State var search: String = ""
     
     var body: some View {
@@ -82,6 +84,11 @@ struct SearchView: View {
                     }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
                 }.padding(.horizontal, 8)
             }.navigationBarTitle(Text("Buscar"))
+            .navigationBarItems(trailing:
+                NavigationLink(destination: PaymentView(product: Product()).environmentObject(self.session)) {
+                    Image(systemName: "cart").resizable().frame(width: 28.0, height: 28.0)
+                }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+            )
         }.navigationViewStyle(StackNavigationViewStyle())
     }
 }

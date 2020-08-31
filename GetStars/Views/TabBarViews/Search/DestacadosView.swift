@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct DestacadosView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     @EnvironmentObject var session: SessionStore
     
     @State var data: [Person] = [Person]()
@@ -55,6 +57,11 @@ struct DestacadosView: View {
                                 .frame(width: g.size.width)
                         }
                     }.navigationBarTitle("Destacados")
+                    .navigationBarItems(trailing:
+                        NavigationLink(destination: PaymentView(product: Product()).environmentObject(self.session)) {
+                            Image(systemName: "cart").resizable().frame(width: 28.0, height: 28.0)
+                        }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+                    )
                     .navigationViewStyle(StackNavigationViewStyle())
                 }
                 

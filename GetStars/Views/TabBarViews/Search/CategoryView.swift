@@ -24,6 +24,12 @@ struct CategoryView: View {
                 Text("\(c.name)")
             }
         }.navigationBarTitle(Text("Categorías"))
+        .navigationBarItems(trailing:
+            NavigationLink(destination: PaymentView(product: Product()).environmentObject(self.session)) {
+                Image(systemName: "cart").resizable().frame(width: 28.0, height: 28.0)
+            }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+        )
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

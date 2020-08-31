@@ -25,7 +25,7 @@ struct TabBarView: View {
                     SearchView().environmentObject(self.session)
                     
                 } else if self.index == 2 {
-                    BuyDrawView()
+                    BuyDrawView().environmentObject(self.session)
                     
                 } else if self.index == 3 {
                     ProfileView().environmentObject(self.session)
@@ -58,7 +58,7 @@ struct BarraNavegacionView: View {
             Button(action: {
                 self.index = 0
             }) {
-                Image(systemName: "house").resizable().frame(width: 32.0, height: 32.0)
+                Image(systemName: "house").resizable().frame(width: 28.0, height: 28)
                 
             }.foregroundColor(colorScheme == .dark ? Color.white.opacity(self.index == 0 ? 1 : 0.35): Color.black.opacity(self.index == 0 ? 1 : 0.2))
             
@@ -69,7 +69,7 @@ struct BarraNavegacionView: View {
             Button(action: {
                 self.index = 1
             }) {
-                Image(systemName: "magnifyingglass").resizable().frame(width: 32.0, height: 32.0)
+                Image(systemName: "magnifyingglass").resizable().frame(width: 28.0, height: 28.0)
                 
             }.foregroundColor(colorScheme == .dark ? Color.white.opacity(self.index == 1 ? 1 : 0.35): Color.black.opacity(self.index == 1 ? 1 : 0.2))
             
@@ -82,9 +82,9 @@ struct BarraNavegacionView: View {
                 let impactMed = UIImpactFeedbackGenerator(style: .medium)
                 impactMed.impactOccurred()
             }) {
-                Image(systemName: "hand.draw").resizable().frame(width: 32.0, height: 32.0)
+                Image(systemName: "hand.draw").resizable().frame(width: 28.0, height: 28.0)
                 
-            }.padding(14)
+            }.padding(10)
                 .background(RoundedRectangle(cornerRadius: 16)
                     .fill(Color("gris")))
                 .foregroundColor(Color.init("naranja").opacity(self.index == 4 ? 1 : 0.35))
@@ -96,7 +96,7 @@ struct BarraNavegacionView: View {
             Button(action: {
                 self.index = 2
             }) {
-                Image(systemName: "cart").resizable().frame(width: 32.0, height: 32.0)
+                Image(systemName: "bag").resizable().frame(width: 28.0, height: 28.0)
                 
             }.foregroundColor(colorScheme == .dark ? Color.white.opacity(self.index == 2 ? 1 : 0.35): Color.black.opacity(self.index == 2 ? 1 : 0.2))
             
@@ -107,7 +107,7 @@ struct BarraNavegacionView: View {
             Button(action: {
                 self.index = 3
             }) {
-                Image(systemName: "person").resizable().frame(width: 32.0, height: 32.0)
+                Image(systemName: "person").resizable().frame(width: 28.0, height: 28.0)
                 
             }.foregroundColor(colorScheme == .dark ? Color.white.opacity(self.index == 3 ? 1 : 0.35): Color.black.opacity(self.index == 3 ? 1 : 0.2))
         }

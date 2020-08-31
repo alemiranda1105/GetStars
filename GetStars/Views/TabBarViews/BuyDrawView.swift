@@ -9,7 +9,11 @@
 import SwiftUI
 
 struct BuyDrawView: View {
+    @EnvironmentObject var session: SessionStore
+    
     @State var search: String = ""
+    
+    @Environment(\.colorScheme) var colorScheme
     
      var body: some View {
            NavigationView {

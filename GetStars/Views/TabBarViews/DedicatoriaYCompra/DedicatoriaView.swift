@@ -261,7 +261,7 @@ struct DedicatoriaView: View {
                             }
                         }.padding().frame(width: g.size.width)
                         
-                        Spacer(minLength: 20)
+                        Spacer(minLength: 5)
                     }
                 }
             }

@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct NewsView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     @EnvironmentObject var session: SessionStore
     
     @State var data: [Person] = [Person]()
@@ -55,6 +57,11 @@ struct NewsView: View {
                                 .frame(width: g.size.width)
                         }
                     }.navigationBarTitle("Novedades")
+                    .navigationBarItems(trailing:
+                        NavigationLink(destination: PaymentView(product: Product()).environmentObject(self.session)) {
+                            Image(systemName: "cart").resizable().frame(width: 28.0, height: 28.0)
+                        }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+                    )
                     .navigationViewStyle(StackNavigationViewStyle())
                 }
             }
