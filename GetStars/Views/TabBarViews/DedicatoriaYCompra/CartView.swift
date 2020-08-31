@@ -22,7 +22,7 @@ struct CartView: View {
                             .multilineTextAlignment(.center)
                         Text(product.owner.name)
                             .font(.system(size: 12, weight: .light))
-                    }.frame(width: 200, height: 50)
+                    }.frame(width: 150, height: 50)
                     
                     Spacer()
 
