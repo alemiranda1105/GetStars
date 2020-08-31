@@ -229,7 +229,7 @@ struct DedicatoriaView: View {
                                 }
                             }
                         }.padding(.horizontal, 12)
-                        VStack {
+                        HStack {
                             TextField("Pulsa para editar la dedicatoria", text: self.$mensaje)
                             .font(.system(size: 14))
                             .padding(10)
@@ -252,17 +252,16 @@ struct DedicatoriaView: View {
                                     self.showPayment = true
                                 }
                             }) {
-                                Text("Añadir a la cesta")
-                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                Image(systemName: "cart")
+                                    .frame(minWidth: 0, maxWidth: 50)
                                     .padding(10)
                                     .background(Color("naranja"))
                                     .foregroundColor(.white)
                                     .cornerRadius(50)
-                                    .font(.system(size: 18, weight: .bold))
                             }
                         }.padding().frame(width: g.size.width)
                         
-                        Spacer(minLength: 5)
+                        Spacer(minLength: 20)
                     }
                 }
             }
