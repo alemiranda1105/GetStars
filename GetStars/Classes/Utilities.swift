@@ -51,12 +51,6 @@ struct UrlLoader: Identifiable {
 }
 
 extension Color {
-    static let neuBackground = Color(hex: "f0f0f3")
-    static let dropShadow = Color(hex: "aeaec0").opacity(0.4)
-    static let dropLight = Color(hex: "ffffff")
-}
-
-extension Color {
     init(hex: String) {
         let scanner = Scanner(string: hex)
         // scanner.scanLocation = 0
@@ -100,23 +94,6 @@ extension Double {
     var dollarString:String {
         return String(format: "%.2f", self)
     }
-}
-
-extension UINavigationController: UIGestureRecognizerDelegate {
-    override open func viewDidLoad() {
-        super.viewDidLoad()
-        interactivePopGestureRecognizer?.delegate = self
-    }
-
-    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return viewControllers.count > 1
-    }
-}
-
-extension UIScreen{
-   static let screenWidth = UIScreen.main.bounds.size.width
-   static let screenHeight = UIScreen.main.bounds.size.height
-   static let screenSize = UIScreen.main.bounds.size
 }
 
 extension UIApplication {

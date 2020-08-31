@@ -35,6 +35,7 @@
 		BE67C10324EAB4E3007AA0E6 /* SubastaProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE67C10224EAB4E3007AA0E6 /* SubastaProductView.swift */; };
 		BE67C10524EAB526007AA0E6 /* SubastaCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE67C10424EAB526007AA0E6 /* SubastaCardView.swift */; };
 		BE7017BE24F40E810039A272 /* FamousItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7017BD24F40E810039A272 /* FamousItems.swift */; };
+		BE71A53C24FD401600D4150D /* StarProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE71A53B24FD401600D4150D /* StarProfileView.swift */; };
 		BE873F7824B249C40041247C /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE873F7724B249C40041247C /* DataBase.swift */; };
 		BE873F7A24B24CE60041247C /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE873F7924B24CE60041247C /* UserData.swift */; };
 		BE8C307E24C87E8500135AD9 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8C307D24C87E8500135AD9 /* TabBarView.swift */; };
@@ -90,6 +91,7 @@
 		BE67C10224EAB4E3007AA0E6 /* SubastaProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubastaProductView.swift; sourceTree = "<group>"; };
 		BE67C10424EAB526007AA0E6 /* SubastaCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubastaCardView.swift; sourceTree = "<group>"; };
 		BE7017BD24F40E810039A272 /* FamousItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamousItems.swift; sourceTree = "<group>"; };
+		BE71A53B24FD401600D4150D /* StarProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarProfileView.swift; sourceTree = "<group>"; };
 		BE873F7724B249C40041247C /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		BE873F7924B24CE60041247C /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		BE8C307D24C87E8500135AD9 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				BE41AA6624CF57CA00511527 /* LoginViews */,
 				BE8C307D24C87E8500135AD9 /* TabBarView.swift */,
 				BE41AA6524CF57A000511527 /* TabBarViews */,
+				BE71A53A24FD3FE100D4150D /* StarsView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -264,6 +267,14 @@
 				BE67C10424EAB526007AA0E6 /* SubastaCardView.swift */,
 			);
 			path = Subasta;
+			sourceTree = "<group>";
+		};
+		BE71A53A24FD3FE100D4150D /* StarsView */ = {
+			isa = PBXGroup;
+			children = (
+				BE71A53B24FD401600D4150D /* StarProfileView.swift */,
+			);
+			path = StarsView;
 			sourceTree = "<group>";
 		};
 		BE9F05F124DAF96400F47E68 /* Profile */ = {
@@ -488,6 +499,7 @@
 				BE7017BE24F40E810039A272 /* FamousItems.swift in Sources */,
 				BE19C86D24EC2D6F00A2B975 /* SorteosView.swift in Sources */,
 				BEFBA10724E2D8CF00E0C883 /* GridStack.swift in Sources */,
+				BE71A53C24FD401600D4150D /* StarProfileView.swift in Sources */,
 				BEB32DE024D8129B007BA071 /* CategoryView.swift in Sources */,
 				BE1B821D24DD8A3400BE59B8 /* CustomPhotoAlbum.swift in Sources */,
 				BE5A37C224F69EB9001EBF57 /* PaymentView.swift in Sources */,
