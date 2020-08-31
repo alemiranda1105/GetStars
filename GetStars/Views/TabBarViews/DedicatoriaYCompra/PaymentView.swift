@@ -45,27 +45,27 @@ struct PaymentView: View {
     var body: some View {
         Group {
             if self.paid {
-                
-                Text("Pago realizado, en breves momentos tus compras serán visibles")
-                    .padding()
-                    .font(.system(size: 32, weight: .bold))
-                    .multilineTextAlignment(.center)
-                Text("Pulsa el botón para volver al inicio")
-                    .padding()
-                    .font(.system(size: 28, weight: .light))
-                    .multilineTextAlignment(.leading)
-                Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                }) {
-                    Text("Volver atrás")
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .padding(8)
-                        .background(Color("naranja"))
-                        .foregroundColor(.white)
-                        .cornerRadius(50)
-                        .font(.system(size: 18, weight: .bold))
-                }.padding()
-                
+                VStack {
+                    Text("Pago realizado, en breves momentos tus compras serán visibles")
+                        .padding()
+                        .font(.system(size: 32, weight: .bold))
+                        .multilineTextAlignment(.center)
+                    Text("Pulsa el botón para volver al inicio")
+                        .padding()
+                        .font(.system(size: 28, weight: .light))
+                        .multilineTextAlignment(.leading)
+                    Button(action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Text("Volver atrás")
+                            .frame(minWidth: 0, maxWidth: .infinity)
+                            .padding(8)
+                            .background(Color("naranja"))
+                            .foregroundColor(.white)
+                            .cornerRadius(50)
+                            .font(.system(size: 18, weight: .bold))
+                    }.padding()
+                }
             } else {
                 VStack {
                     Text("Total a pagar: \(self.total.dollarString)€")
