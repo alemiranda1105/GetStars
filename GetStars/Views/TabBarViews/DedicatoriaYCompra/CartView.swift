@@ -14,7 +14,7 @@ struct CartView: View {
     
     var body: some View {
         List(self.session.cart) { product in
-            HStack(spacing: 8) {
+            HStack {
                 HStack {
                     VStack(spacing: 10) {
                         Text(product.name)
