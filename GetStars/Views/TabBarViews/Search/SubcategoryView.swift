@@ -52,11 +52,11 @@ struct SubcategoryView: View {
             
             let keys = db.getCatId()
             for i in keys {
-                st.getImage(key: i, dg: dg)
+                st.getProfileImage(key: i, dg: dg)
                 dg.wait()
                 
-                imgUrl.append(st.getImgUrl())
-                url = st.getImgUrl()
+                imgUrl.append(st.getProfileImgUrl())
+                url = st.getProfileImgUrl()
                 db.readFamous(key: i, dg: dg)
                 dg.wait()
                 

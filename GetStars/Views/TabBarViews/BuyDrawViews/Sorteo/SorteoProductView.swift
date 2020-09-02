@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct SorteoProductView: View {
     private let langStr = Locale.current.languageCode
@@ -36,11 +37,17 @@ struct SorteoProductView: View {
                     }.zIndex(1000)
                     
                     GeometryReader { g in
-                        Image(self.product.image).resizable().scaledToFill()
-                            .frame(width: g.size.width, height: (g.size.height+165), alignment: .center)
-                            .cornerRadius(16)
-                            .overlay(RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color.clear, lineWidth: 1))
+                        WebImage(url: URL(string: self.product.image)).resizable()
+                        .placeholder(Image(systemName: "photo"))
+                        .placeholder {
+                            Rectangle().foregroundColor(.gray)
+                        }
+                        .indicator(.activity)
+                        .scaledToFill()
+                        .frame(width: g.size.width, height: (g.size.height+165), alignment: .center)
+                        .cornerRadius(16)
+                        .overlay(RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color.clear, lineWidth: 1))
                     }.padding(.bottom, 16)
                         
                     VStack {
@@ -65,7 +72,7 @@ struct SorteoProductView: View {
                     .multilineTextAlignment(.leading)
                 
                 
-                Text(self.langStr == "en" ? "Until: 10/09/2020": "Hasta: 10/09/2020")
+                Text(self.langStr == "en" ? "Until: \(self.product.fecha)": "Hasta: \(self.product.fecha)")
                     .cornerRadius(15)
                     .font(.system(size: 32, weight: .medium))
                 

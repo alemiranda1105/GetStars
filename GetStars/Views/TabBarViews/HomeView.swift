@@ -26,10 +26,10 @@ struct HomeView: View {
         dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
             let keys = db.getKeys()
             for i in keys {
-                st.getImage(key: i, dg: dg)
+                st.getProfileImage(key: i, dg: dg)
                 dg.wait()
                 
-                url = st.getImgUrl()
+                url = st.getProfileImgUrl()
                 db.readFamous(key: i, dg: dg)
                 dg.wait()
                 

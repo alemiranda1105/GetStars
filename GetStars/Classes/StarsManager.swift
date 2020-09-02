@@ -182,6 +182,10 @@ class StarsST: CloudStorage {
     private var phoUrl = URL(string: "")
     private var img = UIImage()
     
+    // Sorteo y subasta
+    private var imagenSorteo = URL(string: "")
+    private var imagenSubasta = URL(string: "")
+    
     func downloadFile(key: String, dg: DispatchGroup) {
         dg.enter()
         let path = "creadores/" + "93cnbY5xxelS73sSsWnm" + "/profileImage.jpg"
@@ -202,7 +206,7 @@ class StarsST: CloudStorage {
         return self.img
     }
     
-    func getImage(key: String, dg: DispatchGroup) {
+    func getProfileImage(key: String, dg: DispatchGroup) {
         dg.enter()
         let path = "creadores/" + key + "/" + "profileImage.jpg"
         let storageRef = storage.reference()
@@ -219,7 +223,7 @@ class StarsST: CloudStorage {
         }
     }
     
-    func getImgUrl() -> URL {
+    func getProfileImgUrl() -> URL {
         return self.imgUrl!
     }
     
@@ -263,6 +267,46 @@ class StarsST: CloudStorage {
     
     func getPhoUrl() -> URL {
         return self.phoUrl!
+    }
+    
+    func readSorteoImage(key: String, name: String, dg: DispatchGroup) {
+        dg.enter()
+        let path = "creadores/" + key + "/sorteos/" + name.replacingOccurrences(of: " ", with: "") + ".jpg"
+        let storageRef = storage.reference()
+        let imgRef = storageRef.child(path)
+        imgRef.downloadURL { url, error in
+            if error != nil {
+                print("error obteniendo la imagen del sorteo")
+            } else {
+                self.imagenSorteo = url
+                print("URL foto sorteo obtenido")
+            }
+            dg.leave()
+        }
+    }
+    
+    func getFotoSorteo() -> URL {
+        return self.imagenSorteo!
+    }
+    
+    func readSubastaImage(key: String, name: String, dg: DispatchGroup) {
+        dg.enter()
+        let path = "creadores/" + key + "/subasta/" + name.replacingOccurrences(of: " ", with: "") + ".jpg"
+        let storageRef = storage.reference()
+        let imgRef = storageRef.child(path)
+        imgRef.downloadURL { url, error in
+            if error != nil {
+                print("error obteniendo la imagen del sorteo")
+            } else {
+                self.imagenSubasta = url
+                print("URL foto sorteo obtenido")
+            }
+            dg.leave()
+        }
+    }
+    
+    func getFotoSubasta() -> URL {
+        return self.imagenSubasta!
     }
     
 }

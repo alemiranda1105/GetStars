@@ -17,8 +17,12 @@ class Product: Identifiable {
     var image: String
     var owner: Person
     
+    // Productos dedicados
     let isDedicated: Bool
     var message: String = ""
+    
+    //Sorteos y subastas
+    var fecha = ""
     
     init() {
         self.price = 0.0
@@ -49,6 +53,10 @@ class Product: Identifiable {
     
     func setMessage(newMessage: String) {
         self.message = newMessage
+    }
+    
+    func setFecha(fecha: String) {
+        self.fecha = fecha
     }
     
     func equals(product: Product) -> Bool {
