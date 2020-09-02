@@ -28,10 +28,24 @@ struct DedicatoriaView: View {
     
     @State var frame: CGFloat = 0.0
     
+    @State var error = ""
+    
     // Filtro palabras
-    private let filtro: [String] = ["cabrón", "hijo de puta", "..."]
+    private let filtro: [String] = ["cabrón", "cabron", "puta", "putón", "puton", "zorro", "mierda", "desgraciado", "hostias", "subnormal", "inútil", "inutil", "puto"]
     
     @State var showPayment = false
+    
+    private func checkDedicatoria() -> Bool {
+        let array = self.mensaje.split(separator: " ")
+        for m in array {
+            for p in self.filtro {
+                if m.lowercased() == p.lowercased() {
+                    return false
+                }
+            }
+        }
+        return true
+    }
     
     func createDedicatory() {
         // Descargar la imagen de Storage
@@ -169,6 +183,14 @@ struct DedicatoriaView: View {
                                         .cornerRadius(2.5)
                                 }
                             }.padding(.horizontal, 12)
+                            
+                            Spacer()
+                            if self.error != "" {
+                                Text(self.error)
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.red)
+                                    .padding()
+                            }
                             Spacer()
                             
                             HStack {
@@ -238,6 +260,14 @@ struct DedicatoriaView: View {
                                     .strokeBorder(Color("naranja"), lineWidth: 1))
                             
                             Button(action: {
+                                if !self.checkDedicatoria() {
+                                    self.error = "No introduzca palabras ofensivas"
+                                    return
+                                }
+                                if self.mensaje.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+                                    self.error = "Escriba un mensaje, por favor"
+                                    return
+                                }
                                 self.product.setMessage(newMessage: self.mensaje)
                                 var n = 0
                                 for i in self.session.cart {

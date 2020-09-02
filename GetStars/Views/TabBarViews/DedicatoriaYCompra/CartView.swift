@@ -11,11 +11,29 @@ import SDWebImageSwiftUI
 
 struct CartView: View {
     @EnvironmentObject var session: SessionStore
+    @Binding var editing: Bool
     
     var body: some View {
         List(self.session.cart) { product in
             HStack {
                 HStack {
+                    if self.editing {
+                        Button(action:{
+                            let impactMed = UIImpactFeedbackGenerator(style: .rigid)
+                            impactMed.impactOccurred()
+                            var n = 0
+                            for i in self.session.cart {
+                                if i.equals(product: product) {
+                                    self.session.cart.remove(at: n)
+                                    break
+                                }
+                                n += 1
+                            }
+                        }) {
+                            Image(systemName: "minus.circle.fill").resizable()
+                                .foregroundColor(.red)
+                        }.frame(width: 20, height: 20, alignment: .center)
+                    }
                     VStack(spacing: 10) {
                         Text(product.name)
                             .font(.system(size: 16, weight: .regular))
@@ -50,6 +68,6 @@ struct CartView: View {
 
 struct CartView_Previews: PreviewProvider {
     static var previews: some View {
-        CartView()
+        CartView(editing: .constant(true))
     }
 }

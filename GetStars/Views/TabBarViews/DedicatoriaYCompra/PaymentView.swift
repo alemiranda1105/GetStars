@@ -19,6 +19,7 @@ struct PaymentView: View {
     
     @State var total: Double = 0.0
     
+    @State var editing: Bool = false
     @State var paid: Bool = false
     
     private func readCart() {
@@ -42,6 +43,23 @@ struct PaymentView: View {
         self.session.cart.append(self.product)
     }
     
+    private func payment() {
+        if self.session.cart.count <= 0 {
+            self.paid = false
+            return
+        }
+        for i in self.session.cart {
+            if i.isDedicated {
+                print("Dedicado ------ Subiendo a la nube para revisión")
+                print(i.message)
+            } else {
+                print("No dedicado ------ Añadiendo a compras del usuario")
+            }
+        }
+        self.paid = true
+        self.session.cart.removeAll()
+    }
+    
     var body: some View {
         Group {
             if self.paid {
@@ -53,7 +71,7 @@ struct PaymentView: View {
                     Text("Pulsa el botón para volver al inicio")
                         .padding()
                         .font(.system(size: 28, weight: .light))
-                        .multilineTextAlignment(.leading)
+                        .multilineTextAlignment(.center)
                     Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
@@ -76,7 +94,7 @@ struct PaymentView: View {
                         .font(.system(size: 24, weight: .semibold))
                     Spacer()
                     
-                    CartView().environmentObject(self.session)
+                    CartView(editing: self.$editing).environmentObject(self.session)
                     
                     HStack {
                         Button(action: {
@@ -90,8 +108,31 @@ struct PaymentView: View {
                                 .cornerRadius(50)
                                 .font(.system(size: 18, weight: .bold))
                         }
+                        
                         Button(action: {
-                            self.paid = true
+                            self.editing.toggle()
+                        }) {
+                            if self.editing {
+                                Text("Hecho")
+                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                    .padding(8)
+                                    .background(Color("gris"))
+                                    .foregroundColor(self.colorScheme == .dark ? .white: .black)
+                                    .cornerRadius(50)
+                                    .font(.system(size: 18, weight: .bold))
+                            } else {
+                                Text("Editar")
+                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                    .padding(8)
+                                    .background(Color("gris"))
+                                    .foregroundColor(self.colorScheme == .dark ? .white: .black)
+                                    .cornerRadius(50)
+                                    .font(.system(size: 18, weight: .bold))
+                            }
+                        }
+                        
+                        Button(action: {
+                            self.payment()
                         }) {
                             Text("Pagar")
                                 .frame(minWidth: 0, maxWidth: .infinity)
