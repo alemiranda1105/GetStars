@@ -11,19 +11,72 @@ import SwiftUI
 struct SubastaView: View {
     @EnvironmentObject var session: SessionStore
     
-    @State var subastas: [Product] = [
-        Product(price: 100.0, name: "Casco", description: "Este casco fue usado durante mi participación en una importante carrerar en Francia", image: "pr2", owner: Person(name: "Piloto 1", description: "Piloto de competicón", image: "d5", key: ""), isDedicated: false),
-        Product(price: 25.99, name: "Botas", description: "El precio de venta de estas botas será integramente donado a una ONG", image: "pr1", owner: Person(name: "Futbolista 1", description: "Jugadora en equipo de primera división", image: "n5", key: ""), isDedicated: false)]
+    @State var subastas: [Product] = [Product]()
+    
+    @State var loading: Bool = true
+    
+    private func readSubastas() {
+        let db = StarsDB()
+        let st = StarsST()
+        let dg = DispatchGroup()
+        
+        db.readSubastas(dg: dg)
+        dg.notify(queue: DispatchQueue.global(qos: .background)) {
+            let subastas = db.getSubastas()
+            for i in subastas {
+                db.readDatosSubastas(name: i, dg: dg)
+                dg.wait()
+                
+                let datos = db.getDatosSubasta()
+                
+                st.readSubastaImage(key: datos["dueño"] as! String, name: datos["nombre"] as! String, dg: dg)
+                dg.wait()
+                
+                let sorteoImg = st.getFotoSubasta()
+                
+                db.readFamous(key: datos["dueño"] as! String, dg: dg)
+                dg.wait()
+                
+                st.getProfileImage(key: datos["dueño"] as! String, dg: dg)
+                dg.wait()
+                
+                let owner = Person(name: db.getName(), description: db.getDesc(), image: st.getProfileImgUrl(), key: datos["dueño"] as! String)
+                
+                let p = Product(price: datos["precio"] as! Double, name: datos["nombre"] as! String, description: datos["descripcion"] as! String, image: sorteoImg, owner: owner, isDedicated: false)
+                p.setFecha(fecha: datos["fechaFinal"] as! String)
+                
+                if !self.isContained(p: p) {
+                    self.subastas.append(p)
+                }
+                self.loading = false
+            }
+        }
+    }
+    
+    private func isContained(p: Product) -> Bool{
+        for i in self.subastas {
+            if i.equals(product: p) {
+                return true
+            }
+        }
+        return false
+    }
     
     var body: some View {
         GeometryReader { g in
             Group {
                 ScrollView {
-                    ForEach(0..<self.subastas.count) { p in
-                        SubastaCardView(product: self.$subastas[p]).environmentObject(self.session)
-                            .frame(width: g.size.width)
+                    if self.loading {
+                        ActivityIndicator(isAnimating: .constant(true), style: .medium)
+                            .frame(width: g.size.width, height: g.size.height, alignment: .center)
+                    } else {
+                        ForEach(0..<self.subastas.count) { p in
+                            SubastaCardView(product: self.$subastas[p]).environmentObject(self.session)
+                                .frame(width: g.size.width)
+                        }
                     }
                 }.navigationBarTitle("Subastas")
+                .onAppear(perform: self.readSubastas)
             }
         }
     }

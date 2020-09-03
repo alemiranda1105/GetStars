@@ -37,6 +37,10 @@ class StarsDB: DataBase {
     private var sorteos = [String]()
     private var datosSorteo = [String: Any]()
     
+    // Subastas
+    private var subastas = [String]()
+    private var datosSubastas = [String: Any]()
+    
     
     func readKeys(dg: DispatchGroup) {
         dg.enter()
@@ -174,6 +178,37 @@ class StarsDB: DataBase {
         }
     }
     
+    func readSubastas(dg: DispatchGroup) {
+        dg.enter()
+        db.collection("subastas").getDocuments() { query, error in
+            if error != nil {
+                print("Error obteniendo las subastas")
+            } else {
+                for document in query!.documents {
+                    self.subastas.append(document.documentID)
+                }
+            }
+            dg.leave()
+        }
+    }
+    
+    func readDatosSubastas(name: String, dg: DispatchGroup) {
+        dg.enter()
+        db.collection("subastas").document(name).getDocument { (document, error) in
+            if error != nil {
+                print("error leyendo la subasta")
+            } else {
+                print("Subasta obtenida")
+                self.datosSubastas["descripcion"] = document!.data()!["descripcion"] as! String
+                self.datosSubastas["dueño"] = document!.data()!["dueño"] as! String
+                self.datosSubastas["fechaFinal"] = document!.data()!["fechaFinal"] as! String
+                self.datosSubastas["nombre"] = document!.data()!["nombre"] as! String
+                self.datosSubastas["precio"] = document!.data()!["precio"] as! Double
+            }
+            dg.leave()
+        }
+    }
+    
     func getCatId() -> [String] {
         return self.catID
     }
@@ -214,6 +249,14 @@ class StarsDB: DataBase {
     
     func getDatosSorteo() -> [String: Any] {
         return self.datosSorteo
+    }
+    
+    func getSubastas() -> [String] {
+        return self.subastas
+    }
+    
+    func getDatosSubasta() -> [String: Any] {
+        return self.datosSubastas
     }
     
 }
@@ -336,7 +379,7 @@ class StarsST: CloudStorage {
     
     func readSubastaImage(key: String, name: String, dg: DispatchGroup) {
         dg.enter()
-        let path = "creadores/" + key + "/subasta/" + name.replacingOccurrences(of: " ", with: "") + ".jpg"
+        let path = "creadores/" + key + "/subastas/" + name.replacingOccurrences(of: " ", with: "") + ".jpg"
         let storageRef = storage.reference()
         let imgRef = storageRef.child(path)
         imgRef.downloadURL { url, error in
