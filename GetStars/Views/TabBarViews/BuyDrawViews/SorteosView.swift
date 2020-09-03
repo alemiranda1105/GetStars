@@ -10,45 +10,48 @@ import SwiftUI
 import Firebase
 
 struct SorteosView: View {
+    @EnvironmentObject var session: SessionStore
+    
     @State var sorteos: [Product] = [Product]()
     
     @State var loading: Bool = true
     
-    func readSorteos() {
-        let db = Firestore.firestore()
-        let documentRef = db.collection("sorteos")
-        documentRef.getDocuments() { (querySnapshot, error) in
-            if error != nil {
-                print("error obteniendo los sorteos")
-            } else {
-                for document in querySnapshot!.documents {
-                    let name = document.data()["nombre"] as! String
-                    let desc = document.data()["descripcion"] as! String
-                    let fecha = document.data()["fechaFinal"] as! String
-                    let _ = document.data()["participantes"] as! [String]
-                    
-                    let dg = DispatchGroup()
-                    let ownerKey = document.data()["dueño"] as! String
-                    let dbStars = StarsDB()
-                    let stStars = StarsST()
-                    dbStars.readFamous(key: ownerKey, dg: dg)
-                    dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                        stStars.getProfileImage(key: ownerKey, dg: dg)
-                        stStars.readSorteoImage(key: ownerKey, name: name, dg: dg)
-                        dg.wait()
-                        
-                        let owner = Person(name: dbStars.getName(), description: dbStars.getDesc(), image: stStars.getProfileImgUrl(), key: ownerKey)
-                        let p = Product(price: 0.0, name: name, description: desc, image: stStars.getFotoSorteo(), owner: owner, isDedicated: false)
-                        p.setFecha(fecha: fecha)
-                        
-                        if !self.isContained(p: p) {
-                            self.sorteos.append(p)
-                        }
-                        self.loading = false
-                    }
+    private func readSorteos() {
+        let db = StarsDB()
+        let st = StarsST()
+        let dg = DispatchGroup()
+        
+        db.readSorteos(dg: dg)
+        dg.notify(queue: DispatchQueue.global(qos: .background)) {
+            let sorteos = db.getSorteos()
+            for i in sorteos {
+                db.readDatosSorteos(name: i, dg: dg)
+                dg.wait()
+                
+                let datos = db.getDatosSorteo()
+                
+                st.readSorteoImage(key: datos["dueño"] as! String, name: datos["nombre"] as! String, dg: dg)
+                dg.wait()
+                
+                let sorteoImg = st.getFotoSorteo()
+                
+                db.readFamous(key: datos["dueño"] as! String, dg: dg)
+                dg.wait()
+                
+                st.getProfileImage(key: datos["dueño"] as! String, dg: dg)
+                dg.wait()
+                
+                let owner = Person(name: db.getName(), description: db.getDesc(), image: st.getProfileImgUrl(), key: datos["dueño"] as! String)
+                
+                let p = Product(price: 0.0, name: datos["nombre"] as! String, description: datos["descripcion"] as! String, image: sorteoImg, owner: owner, isDedicated: false)
+                p.setFecha(fecha: datos["fechaFinal"] as! String)
+                p.setParticipantes(lista: datos["participantes"] as! [String])
+                
+                if !self.isContained(p: p) {
+                    self.sorteos.append(p)
                 }
+                self.loading = false
             }
-            
         }
     }
     
@@ -70,7 +73,7 @@ struct SorteosView: View {
                             .frame(width: g.size.width, height: g.size.height, alignment: .center)
                     } else {
                         ForEach(0..<self.sorteos.count, id: \.self) { p in
-                            SorteoCardView(product: self.$sorteos[p])
+                            SorteoCardView(product: self.$sorteos[p]).environmentObject(self.session)
                                 .frame(width: g.size.width)
                         }
                     }

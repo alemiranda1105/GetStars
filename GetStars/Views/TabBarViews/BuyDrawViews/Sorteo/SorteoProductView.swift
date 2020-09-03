@@ -8,8 +8,11 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import Firebase
 
 struct SorteoProductView: View {
+    @EnvironmentObject var session: SessionStore
+    
     private let langStr = Locale.current.languageCode
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
@@ -20,6 +23,26 @@ struct SorteoProductView: View {
     
     @State var participantes: [Product] = []
     @State var participando: Bool = false
+    
+    private func checkParticipacion() {
+        self.participando = product.comprobarParticipacion(email: (self.session.session?.email!)!)
+    }
+    
+    private func participarSorteo() {
+        let db = Firestore.firestore()
+        let documentRef = db.collection("sorteos").document("prueba")
+        documentRef.updateData([
+            "participantes": FieldValue.arrayUnion([self.session.session?.email as Any])
+        ])
+    }
+    
+    private func salirDelSorteo() {
+        let db = Firestore.firestore()
+        let documentRef = db.collection("sorteos").document("prueba")
+        documentRef.updateData([
+            "participantes": FieldValue.arrayRemove([self.session.session?.email as Any])
+        ])
+    }
     
     var body: some View {
         ScrollView {
@@ -86,6 +109,7 @@ struct SorteoProductView: View {
                 VStack(spacing: 8) {
                     if self.participando {
                         Button(action: {
+                            self.salirDelSorteo()
                             self.participando = false
                         }){
                             HStack {
@@ -103,6 +127,7 @@ struct SorteoProductView: View {
 
                     } else {
                         Button(action: {
+                            self.participarSorteo()
                             self.participando = true
                         }){
                             HStack {
@@ -137,6 +162,7 @@ struct SorteoProductView: View {
             }
         }.navigationBarTitle("")
         .navigationBarHidden(true)
+        .onAppear(perform: self.checkParticipacion)
     }
 }
 

@@ -23,6 +23,7 @@ class Product: Identifiable {
     
     //Sorteos y subastas
     var fecha = ""
+    var participantes = [String]()
     
     init() {
         self.price = 0.0
@@ -57,6 +58,19 @@ class Product: Identifiable {
     
     func setFecha(fecha: String) {
         self.fecha = fecha
+    }
+    
+    func setParticipantes(lista: [String]) {
+        self.participantes = lista
+    }
+    
+    func comprobarParticipacion(email: String) -> Bool {
+        for i in self.participantes {
+            if i == email {
+                return true
+            }
+        }
+        return false
     }
     
     func equals(product: Product) -> Bool {

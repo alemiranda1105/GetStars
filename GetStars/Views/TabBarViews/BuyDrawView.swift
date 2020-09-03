@@ -36,7 +36,7 @@ struct BuyDrawView: View {
                        
                        Spacer(minLength: 35)
                        
-                       NavigationLink(destination: SubastaView()){
+                    NavigationLink(destination: SubastaView().environmentObject(self.session)){
                            Text("Subastas")
                                .fontWeight(.heavy)
                                .frame(minWidth: 0, maxWidth: .infinity)
@@ -49,7 +49,7 @@ struct BuyDrawView: View {
                        
                        Spacer(minLength: 20)
                        
-                       NavigationLink(destination: SorteosView()){
+                       NavigationLink(destination: SorteosView().environmentObject(self.session)){
                            Text("Sorteos")
                                .frame(minWidth: 0, maxWidth: .infinity)
                                .padding(50)
@@ -61,7 +61,7 @@ struct BuyDrawView: View {
                        
                        Spacer(minLength: 20)
                        
-                       NavigationLink(destination: LiveView()){
+                       NavigationLink(destination: LiveView().environmentObject(self.session)){
                            Text("Live")
                                .frame(minWidth: 0, maxWidth: .infinity)
                                .padding(50)

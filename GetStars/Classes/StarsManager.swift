@@ -33,6 +33,10 @@ class StarsDB: DataBase {
     // Price
     private var price: Double = 0.0
     
+    // Sorteos
+    private var sorteos = [String]()
+    private var datosSorteo = [String: Any]()
+    
     
     func readKeys(dg: DispatchGroup) {
         dg.enter()
@@ -139,6 +143,37 @@ class StarsDB: DataBase {
         
     }
     
+    func readSorteos(dg: DispatchGroup) {
+        dg.enter()
+        db.collection("sorteos").getDocuments() { query, error in
+            if error != nil {
+                print("Error obteniendo los sorteos")
+            } else {
+                for document in query!.documents {
+                    self.sorteos.append(document.documentID)
+                }
+            }
+            dg.leave()
+        }
+    }
+    
+    func readDatosSorteos(name: String, dg: DispatchGroup) {
+        dg.enter()
+        db.collection("sorteos").document(name).getDocument { (document, error) in
+            if error != nil {
+                print("error leyendo el sorteo")
+            } else {
+                print("Sorteo obtenido")
+                self.datosSorteo["descripcion"] = document!.data()!["descripcion"] as! String
+                self.datosSorteo["dueño"] = document!.data()!["dueño"] as! String
+                self.datosSorteo["fechaFinal"] = document!.data()!["fechaFinal"] as! String
+                self.datosSorteo["nombre"] = document!.data()!["nombre"] as! String
+                self.datosSorteo["participantes"] = document!.data()!["participantes"] as! [String]
+            }
+            dg.leave()
+        }
+    }
+    
     func getCatId() -> [String] {
         return self.catID
     }
@@ -171,6 +206,14 @@ class StarsDB: DataBase {
     
     func getPrice() -> Double {
         return self.price
+    }
+    
+    func getSorteos() -> [String] {
+        return self.sorteos
+    }
+    
+    func getDatosSorteo() -> [String: Any] {
+        return self.datosSorteo
     }
     
 }
@@ -277,6 +320,8 @@ class StarsST: CloudStorage {
         imgRef.downloadURL { url, error in
             if error != nil {
                 print("error obteniendo la imagen del sorteo")
+                print(error?.localizedDescription ?? "")
+                self.imagenSorteo = URL(string: "")
             } else {
                 self.imagenSorteo = url
                 print("URL foto sorteo obtenido")
@@ -296,10 +341,12 @@ class StarsST: CloudStorage {
         let imgRef = storageRef.child(path)
         imgRef.downloadURL { url, error in
             if error != nil {
-                print("error obteniendo la imagen del sorteo")
+                print("error obteniendo la imagen de la subasta")
+                print(error?.localizedDescription ?? "")
+                self.imagenSorteo = URL(string: "")
             } else {
                 self.imagenSubasta = url
-                print("URL foto sorteo obtenido")
+                print("URL foto subasta obtenido")
             }
             dg.leave()
         }

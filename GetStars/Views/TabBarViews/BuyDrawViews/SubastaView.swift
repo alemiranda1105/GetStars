@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct SubastaView: View {
+    @EnvironmentObject var session: SessionStore
+    
     @State var subastas: [Product] = [
         Product(price: 100.0, name: "Casco", description: "Este casco fue usado durante mi participación en una importante carrerar en Francia", image: "pr2", owner: Person(name: "Piloto 1", description: "Piloto de competicón", image: "d5", key: ""), isDedicated: false),
         Product(price: 25.99, name: "Botas", description: "El precio de venta de estas botas será integramente donado a una ONG", image: "pr1", owner: Person(name: "Futbolista 1", description: "Jugadora en equipo de primera división", image: "n5", key: ""), isDedicated: false)]
@@ -18,7 +20,7 @@ struct SubastaView: View {
             Group {
                 ScrollView {
                     ForEach(0..<self.subastas.count) { p in
-                        SubastaCardView(product: self.$subastas[p])
+                        SubastaCardView(product: self.$subastas[p]).environmentObject(self.session)
                             .frame(width: g.size.width)
                     }
                 }.navigationBarTitle("Subastas")

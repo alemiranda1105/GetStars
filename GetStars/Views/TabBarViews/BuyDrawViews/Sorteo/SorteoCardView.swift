@@ -10,11 +10,13 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct SorteoCardView: View {
+    @EnvironmentObject var session: SessionStore
+    
     @Binding var product: Product
     
     var body: some View {
         VStack {
-            NavigationLink(destination: SorteoProductView(product: self.$product)){
+            NavigationLink(destination: SorteoProductView(product: self.$product).environmentObject(self.session)){
                 ZStack {
                     
                     WebImage(url: URL(string: self.product.image)).resizable()
