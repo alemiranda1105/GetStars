@@ -26,7 +26,7 @@ struct SubastaProductView: View {
     
     private func readPrice() {
         let db = Firestore.firestore()
-        db.collection("subastas").document("prueba").getDocument { document, error in
+        db.collection("subastas").document(self.product.productID).getDocument { document, error in
             if error != nil {
                 print("error leyendo el precio")
                 print(error?.localizedDescription ?? "")
@@ -39,7 +39,7 @@ struct SubastaProductView: View {
     
     private func addPuja() {
         let db = Firestore.firestore()
-        db.collection("subastas").document("prueba").getDocument { document, error in
+        db.collection("subastas").document(self.product.productID).getDocument { document, error in
             if error != nil {
                 print("error leyendo el precio")
                 print(error?.localizedDescription ?? "")
@@ -59,7 +59,7 @@ struct SubastaProductView: View {
         
                 let newPrice = self.price - self.product.price
                 let email = self.session.session?.email!
-                let documentRef = db.collection("subastas").document("prueba")
+                let documentRef = db.collection("subastas").document(self.product.productID)
                 documentRef.updateData([
                     "precio": FieldValue.increment(newPrice),
                     "ultimoParticipante": email!

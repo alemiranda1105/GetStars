@@ -44,9 +44,16 @@ struct SubastaView: View {
                 
                 let p = Product(price: datos["precio"] as! Double, name: datos["nombre"] as! String, description: datos["descripcion"] as! String, image: sorteoImg, owner: owner, isDedicated: false)
                 p.setFecha(fecha: datos["fechaFinal"] as! String)
+                p.setProductID(id: i)
                 
-                if !self.isContained(p: p) {
-                    self.subastas.append(p)
+                if self.isContained(p: p) {
+                    for j in 0..<self.subastas.count {
+                        if self.subastas[j].equals(product: p) {
+                            self.subastas[j] = p
+                        }
+                    }
+                } else {
+                   self.subastas.append(p)
                 }
                 self.loading = false
             }
