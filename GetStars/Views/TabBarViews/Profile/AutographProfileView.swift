@@ -9,6 +9,9 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
+import CoreGraphics
+import Photos
+
 struct AutographProfileView: View {
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var session: SessionStore
@@ -37,6 +40,13 @@ struct AutographProfileView: View {
                     
                     Button(action: {
                         // Añadir código para descargar la imagen
+                        let dg = DispatchGroup()
+                        self.session.st.downloadFile(session: self.session, type: "AutMan", index: self.url.name, dg: dg)
+                        dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+                            let img = self.session.st.getDownloadImg()
+                            let library: PHPhotoLibrary = PHPhotoLibrary.shared()
+                            library.savePhoto(image: img, albumName: "GetStars")
+                        }
                         
                     }){
                         HStack {

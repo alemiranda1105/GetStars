@@ -27,9 +27,9 @@ struct ProfileView: View {
             group.notify(queue: DispatchQueue.global(qos: .background)) {
                 print("Terminado")
             }
-        }
-        self.session.autMan.sort {
-            $0.id < $1.id
+            self.session.url = self.session.url.sorted {
+                $0.name.lowercased() < $1.name.lowercased()
+            }
         }
         self.downloading = false
     }

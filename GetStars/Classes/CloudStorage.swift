@@ -14,6 +14,7 @@ import FirebaseStorage
 
 class CloudStorage: ObservableObject {
     private let storage = Storage.storage()
+    private var downloadImg = UIImage()
     
     func uploadFile(session: SessionStore, img: UIImage, type: String) {
         if session.session?.email == nil {
@@ -34,7 +35,7 @@ class CloudStorage: ObservableObject {
         }
     }
     
-    func downloadFile(session: SessionStore, type: String, index: Int, dg: DispatchGroup) {
+    func downloadFile(session: SessionStore, type: String, index: String, dg: DispatchGroup) {
         dg.enter()
         let path = "usuarios/" + (session.session?.email)! + "/" + type + "/" + "\(index)" + ".jpg"
         let storageRef = storage.reference()
@@ -43,22 +44,15 @@ class CloudStorage: ObservableObject {
             if error != nil {
                 print("Error en la descarga")
             } else {
-                let imgData = data.flatMap(UIImage.init)
-                let img = ImageLoader(image: imgData!, id: index)
-                
-                if img.isContained(array: session.autMan, img: img) {
-                    print("Ya descargado")
-                    
-                } else {
-                    session.autMan.append(img)
-                    session.autMan.sort {
-                        $0.id < $1.id
-                    }
-                    print("Descargado")
-                }
+                self.downloadImg = data.flatMap(UIImage.init)!
+                print("Imagen descargada")
             }
             dg.leave()
         }
+    }
+    
+    func getDownloadImg() -> UIImage {
+        return self.downloadImg
     }
     
     func downloadAllFiles(session: SessionStore, type: String, dg: DispatchGroup){
@@ -106,6 +100,7 @@ class CloudStorage: ObservableObject {
             } else {
                 print("URL Obtenida")
                 let urlLoader = UrlLoader(url: url!, id: index)
+                urlLoader.setName(name: "\(index)")
                 if urlLoader.isContained(array: session.url, url: urlLoader) {
                     print("Ya descargado")
                 } else {

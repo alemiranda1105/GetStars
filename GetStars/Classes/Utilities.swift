@@ -31,13 +31,19 @@ struct ImageLoader: Identifiable {
     }
 }
 
-struct UrlLoader: Identifiable {
+class UrlLoader: Identifiable {
     var id: Int
     var url: URL
+    
+    var name: String = ""
     
     init(url: URL, id: Int) {
         self.id = id
         self.url = url
+    }
+    
+    func setName(name: String) {
+        self.name = name
     }
     
     func isContained(array: [UrlLoader], url: UrlLoader) -> Bool {
