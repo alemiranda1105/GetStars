@@ -22,6 +22,7 @@ struct DedicatoriaView: View {
     // Opciones de texto
     @State var mensaje = ""
     
+    @State var color: Color = Color("naranja")
     @State var size: CGFloat = 12
     @State var posX: CGFloat = 0.0
     @State var posY: CGFloat = 0.0
@@ -34,6 +35,10 @@ struct DedicatoriaView: View {
     private let filtro: [String] = ["cabrón", "cabron", "puta", "putón", "puton", "zorro", "mierda", "desgraciado", "hostias", "subnormal", "inútil", "inutil", "puto"]
     
     @State var showPayment = false
+    
+    // ColorPicker
+    @State var showColorMenu = false
+    private let colors: [Color] = [.white, .black, .red, .blue, .green, .pink, .purple]
     
     private func checkDedicatoria() -> Bool {
         let array = self.mensaje.split(separator: " ")
@@ -142,7 +147,7 @@ struct DedicatoriaView: View {
                             
                             Text(self.mensaje)
                                 .font(.system(size: self.size))
-                                .foregroundColor(.white).offset(x: self.posX, y: self.posY)
+                                .foregroundColor(self.color).offset(x: self.posX, y: self.posY)
                                 .frame(width: (g.size.width/1.80), height: g.size.width/1.80)
                                 .multilineTextAlignment(.leading)
                         }.onAppear {
@@ -182,10 +187,24 @@ struct DedicatoriaView: View {
                                         .foregroundColor(.white)
                                         .cornerRadius(2.5)
                                 }
-                            }.padding(.horizontal, 12)
+                            }
                             
                             Spacer()
+                            
+                            Button(action: {
+                                self.showColorMenu.toggle()
+                            }) {
+                                Text("Color")
+                                    .frame(width: 50)
+                                    .padding(4)
+                                    .background(Color("navyBlue"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(2.5)
+                                
+                            }
+                            
                             if self.error != "" {
+                                Spacer()
                                 Text(self.error)
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.red)
@@ -250,7 +269,8 @@ struct DedicatoriaView: View {
                                         .cornerRadius(2.5)
                                 }
                             }
-                        }.padding(.horizontal, 12)
+                        }.padding().frame(width: g.size.width)
+                        
                         HStack {
                             TextField("Pulsa para editar la dedicatoria", text: self.$mensaje)
                             .font(.system(size: 14))
@@ -292,6 +312,26 @@ struct DedicatoriaView: View {
                         }.padding().frame(width: g.size.width)
                         
                         Spacer(minLength: 5)
+                    }.sheet(isPresented: self.$showColorMenu) {
+                        VStack {
+                            Text("Seleccione un color:").font(.system(size: 32, weight: .bold)).padding()
+                            Spacer()
+                            ForEach(self.colors, id: \.self) { color in
+                                Button(action: {
+                                    self.color = color
+                                    self.showColorMenu.toggle()
+                                }) {
+                                    Text(color.description)
+                                        .font(.system(size: 14, weight: .regular))
+                                        .frame(minWidth: 0, maxWidth: 50)
+                                        .padding(10)
+                                        .background(color)
+                                        .foregroundColor(color == .white ? .black: .white)
+                                        .cornerRadius(50)
+                                }.padding()
+                            }
+                            Spacer()
+                        }
                     }
                 }
             }
@@ -299,12 +339,14 @@ struct DedicatoriaView: View {
     }
 }
 
+#if DEBUG
 struct DedicatoriaView_Previews: PreviewProvider {
     var session = SessionStore()
     static var previews: some View {
         Group {
-            DedicatoriaView(product: (Product(price: 2.99, name: "Preview", description: "Descripción de preview", image: "", owner: Person(name: "", description: "", image: "", key: ""), isDedicated: true))).environmentObject(SessionStore()).previewDevice("iPhone 8")
-            DedicatoriaView(product: (Product(price: 2.99, name: "Preview", description: "Descripción de preview", image: "", owner: Person(name: "", description: "", image: "", key: ""), isDedicated: true))).environmentObject(SessionStore()).previewDevice("iPhone 11")
+            DedicatoriaView(product: (Product(price: 2.99, name: "Preview", description: "Descripción de preview", image: "", owner: Person(name: "", description: "", image: "", key: ""), isDedicated: true))).previewDevice("iPhone 8")
+            DedicatoriaView(product: (Product(price: 2.99, name: "Preview", description: "Descripción de preview", image: "", owner: Person(name: "", description: "", image: "", key: ""), isDedicated: true))).previewDevice("iPhone 11")
         }
     }
 }
+#endif
