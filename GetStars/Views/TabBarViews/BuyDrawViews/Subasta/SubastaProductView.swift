@@ -9,6 +9,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 import Firebase
+import FirebaseFirestore
 
 struct SubastaProductView: View {
     private let langStr = Locale.current.languageCode

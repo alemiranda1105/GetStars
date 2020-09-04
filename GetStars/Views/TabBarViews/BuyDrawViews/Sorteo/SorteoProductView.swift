@@ -9,6 +9,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 import Firebase
+import FirebaseFirestore
 
 struct SorteoProductView: View {
     @EnvironmentObject var session: SessionStore
@@ -30,7 +31,7 @@ struct SorteoProductView: View {
     
     private func participarSorteo() {
         let db = Firestore.firestore()
-        let documentRef = db.collection("sorteos").document("prueba")
+        let documentRef = db.collection("sorteos").document(self.product.productID)
         documentRef.updateData([
             "participantes": FieldValue.arrayUnion([self.session.session?.email as Any])
         ])
@@ -38,7 +39,7 @@ struct SorteoProductView: View {
     
     private func salirDelSorteo() {
         let db = Firestore.firestore()
-        let documentRef = db.collection("sorteos").document("prueba")
+        let documentRef = db.collection("sorteos").document(self.product.productID)
         documentRef.updateData([
             "participantes": FieldValue.arrayRemove([self.session.session?.email as Any])
         ])

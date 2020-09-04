@@ -22,6 +22,7 @@ class Product: Identifiable {
     var message: String = ""
     
     //Sorteos y subastas
+    var productID = ""
     var fecha = ""
     var participantes = [String]()
     
@@ -75,6 +76,10 @@ class Product: Identifiable {
             }
         }
         return false
+    }
+    
+    func setProductID(id: String) {
+        self.productID = id
     }
     
     func equals(product: Product) -> Bool {

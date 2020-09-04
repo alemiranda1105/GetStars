@@ -17,14 +17,15 @@ struct SorteosView: View {
     @State var loading: Bool = true
     
     private func readSorteos() {
+        self.loading = false
         let db = StarsDB()
         let st = StarsST()
         let dg = DispatchGroup()
         
         db.readSorteos(dg: dg)
         dg.notify(queue: DispatchQueue.global(qos: .background)) {
-            let sorteos = db.getSorteos()
-            for i in sorteos {
+            let lista = db.getSorteos()
+            for i in lista {
                 db.readDatosSorteos(name: i, dg: dg)
                 dg.wait()
                 
@@ -46,10 +47,18 @@ struct SorteosView: View {
                 let p = Product(price: 0.0, name: datos["nombre"] as! String, description: datos["descripcion"] as! String, image: sorteoImg, owner: owner, isDedicated: false)
                 p.setFecha(fecha: datos["fechaFinal"] as! String)
                 p.setParticipantes(lista: datos["participantes"] as! [String])
+                p.setProductID(id: i)
                 
-                if !self.isContained(p: p) {
-                    self.sorteos.append(p)
+                if self.isContained(p: p) {
+                    for j in 0..<self.sorteos.count {
+                        if self.sorteos[j].equals(product: p) {
+                            self.sorteos[j] = p
+                        }
+                    }
+                } else {
+                   self.sorteos.append(p)
                 }
+                
                 self.loading = false
             }
         }
