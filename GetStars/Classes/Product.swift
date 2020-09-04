@@ -60,6 +60,10 @@ class Product: Identifiable {
         self.fecha = fecha
     }
     
+    func setPrice(newPrice: Double) {
+        self.price = newPrice
+    }
+    
     func setParticipantes(lista: [String]) {
         self.participantes = lista
     }

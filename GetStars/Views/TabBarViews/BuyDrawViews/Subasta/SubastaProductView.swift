@@ -8,17 +8,66 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import Firebase
 
 struct SubastaProductView: View {
     private let langStr = Locale.current.languageCode
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     
+    @EnvironmentObject var session: SessionStore
+    
     @Binding var product: Product
     
     @State var price: Double = 0.0
     @State var expanded: Bool = false
     @State var error = ""
+    
+    private func readPrice() {
+        let db = Firestore.firestore()
+        db.collection("subastas").document("prueba").getDocument { document, error in
+            if error != nil {
+                print("error leyendo el precio")
+                print(error?.localizedDescription ?? "")
+            } else {
+                self.product.setPrice(newPrice: document?.data()!["precio"] as! Double)
+                self.price = self.product.price
+            }
+        }
+    }
+    
+    private func addPuja() {
+        let db = Firestore.firestore()
+        db.collection("subastas").document("prueba").getDocument { document, error in
+            if error != nil {
+                print("error leyendo el precio")
+                print(error?.localizedDescription ?? "")
+            } else {
+                self.product.setPrice(newPrice: document?.data()!["precio"] as! Double)
+                if self.price <= self.product.price {
+                    self.error = (self.langStr == "en" ? "The price must be higher than \(self.product.price)€": "El precio debe ser superior a \(self.product.price)€")
+                    return
+                }
+
+                
+                let lastParticipante = document?.data()!["ultimoParticipante"] as! String
+                if lastParticipante == self.session.session?.email {
+                    self.error = ("Ya has participado en esta puja y no puedes volver a pujar hasta que otra persona puje")
+                    return
+                }
+        
+                let newPrice = self.price - self.product.price
+                let email = self.session.session?.email!
+                let documentRef = db.collection("subastas").document("prueba")
+                documentRef.updateData([
+                    "precio": FieldValue.increment(newPrice),
+                    "ultimoParticipante": email!
+                ])
+                self.product.setPrice(newPrice: self.price)
+                self.expanded = false
+            }
+        }
+    }
     
     var body: some View {
         ScrollView {
@@ -77,6 +126,12 @@ struct SubastaProductView: View {
                     Text("\(self.product.price.dollarString)€")
                         .cornerRadius(15)
                         .font(.system(size: 32, weight: .medium))
+                    Button(action: {
+                        self.readPrice()
+                    }) {
+                        Image(systemName: "arrow.clockwise").resizable()
+                            .foregroundColor(self.colorScheme == .dark ? .white: .black)
+                    }.frame(width: 20, height: 20, alignment: .center)
                 }
                 
                 
@@ -108,20 +163,21 @@ struct SubastaProductView: View {
                                 self.price -= 1.0
                             }
                             
-                        })
+                        }).onAppear(perform: self.readPrice)
                         
                         if error != "" {
                             Text(error)
                                 .font(.system(size: 14, weight: .semibold))
                                 .foregroundColor(.red)
                                 .padding()
+                                .frame(width: 180, height: 100, alignment: .center)
                         }
                         
                         Button(action: {
                             if self.price <= self.product.price {
                                 self.error = (self.langStr == "en" ? "The price must be higher than \(self.product.price)€": "El precio debe ser superior a \(self.product.price)€")
                             } else {
-                                self.product.price = self.price
+                                self.addPuja()
                                 self.error = ""
                             }
                         }){
@@ -135,7 +191,7 @@ struct SubastaProductView: View {
                         }.frame(minWidth: 0, maxWidth: .infinity)
                         .padding(15)
                         .background(Color("gris"))
-                        .foregroundColor(self.colorScheme == .dark ? Color.white: Color("naranja"))
+                        .foregroundColor(Color("naranja"))
                         .cornerRadius(8)
                     }
                     
@@ -158,7 +214,7 @@ struct SubastaProductView: View {
         }.navigationBarTitle("")
         .navigationBarHidden(true)
         .onAppear {
-            self.price = self.product.price
+            self.readPrice()
         }
     }
 }

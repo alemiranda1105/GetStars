@@ -8,10 +8,23 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import Firebase
 
 struct SubastaCardView: View {
     @EnvironmentObject var session: SessionStore
     @Binding var product: Product
+    
+    private func readPrice() {
+        let db = Firestore.firestore()
+        db.collection("subastas").document("prueba").getDocument { document, error in
+            if error != nil {
+                print("error leyendo el precio")
+                print(error?.localizedDescription ?? "")
+            } else {
+                self.product.setPrice(newPrice: document?.data()!["precio"] as! Double)
+            }
+        }
+    }
     
     var body: some View {
         VStack {
@@ -49,7 +62,7 @@ struct SubastaCardView: View {
                 .buttonStyle(PlainButtonStyle())
             
             Spacer(minLength: 16)
-        }
+        }.onAppear(perform: self.readPrice)
     }
 }
 
