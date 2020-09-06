@@ -87,7 +87,9 @@ class Product: Identifiable {
             if self.price == product.price {
                 if self.description == product.description {
                     if self.owner.getKey() == product.owner.getKey() {
-                        return true
+                        if self.message == product.message {
+                            return true
+                        }
                     }
                 }
             }
