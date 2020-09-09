@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key></key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -35,6 +37,10 @@
 	<string>This app saves photo to you photo library</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app saves photo to you photo library</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app use your camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app use your mic</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

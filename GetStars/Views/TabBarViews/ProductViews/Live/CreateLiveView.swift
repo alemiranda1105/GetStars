@@ -16,6 +16,8 @@ struct CreateLiveView: View {
     @State var participantes = [String]()
     @State var nParticipantes = 0
     
+    @State var mensaje = ""
+    
     @State var participando = false
     
     private func getLiveData() {

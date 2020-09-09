@@ -34,12 +34,12 @@ struct FamousItems: View {
             db.getProductPrice(product: "autografo", key: self.person.getKey(), dg: dg)
             dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                 var autPrice = db.getPrice()
-                self.product.append(Product(price: autPrice, name: "Autógrafo", description: "Autógrafo de prueba", image: self.url, owner: self.person, isDedicated: false))
+                self.product.append(Product(price: autPrice, name: "Autógrafo", description: "Autógrafo de prueba", image: self.url, owner: self.person, isDedicated: false, productType: .autografo))
                 
                 db.getProductPrice(product: "autografo ded", key: self.person.getKey(), dg: dg)
                 dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                     autPrice = db.getPrice()
-                    self.product.append(Product(price: autPrice, name: "Autógrafo dedicado", description: "Autógrafo dedicado de prueba", image: self.url, owner: self.person, isDedicated: true))
+                    self.product.append(Product(price: autPrice, name: "Autógrafo dedicado", description: "Autógrafo dedicado de prueba", image: self.url, owner: self.person, isDedicated: true, productType: .autografoDedicado))
                     
                     self.loading = false
                     
@@ -61,12 +61,12 @@ struct FamousItems: View {
             db.getProductPrice(product: "foto", key: self.person.getKey(), dg: dg)
             dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                 var autPrice = db.getPrice()
-                self.product.append(Product(price: autPrice, name: "Foto", description: "Foto de prueba", image: self.url, owner: self.person, isDedicated: false))
+                self.product.append(Product(price: autPrice, name: "Foto", description: "Foto de prueba", image: self.url, owner: self.person, isDedicated: false, productType: .foto))
                 
                 db.getProductPrice(product: "foto ded", key: self.person.getKey(), dg: dg)
                 dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                     autPrice = db.getPrice()
-                    self.product.append(Product(price: autPrice, name: "Foto dedicada", description: "Foto dedicado de prueba", image: self.url, owner: self.person, isDedicated: true))
+                    self.product.append(Product(price: autPrice, name: "Foto dedicada", description: "Foto dedicado de prueba", image: self.url, owner: self.person, isDedicated: true, productType: .fotoDedicada))
                     
                     self.loading = false
                     

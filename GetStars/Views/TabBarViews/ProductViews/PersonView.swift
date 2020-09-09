@@ -107,7 +107,7 @@ struct PersonView: View {
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "camera.on.rectangle": "camera.on.rectangle.fill")
                             
-                            Text("Selfie")
+                            Text("Live")
                                 .font(.system(size: 18, weight: .bold))
                         }
                         
