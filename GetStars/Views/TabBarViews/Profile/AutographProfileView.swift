@@ -24,6 +24,9 @@ struct AutographProfileView: View {
         self.session.st.deleteFile(userType: "usuarios", email: self.session.session?.email ?? "", name: "\(self.url.name).jpg", type: "AutMan")
         self.session.data?.autMan -= 1
         self.session.articles["AutMan"] = self.session.data?.autMan
+        let defaults = UserDefaults.standard
+        defaults.set(self.session.data!.autMan, forKey: "AutMan")
+        defaults.synchronize()
         self.session.db.updateAutManDB(session: self.session)
         var p = 0
         for i in self.session.url {

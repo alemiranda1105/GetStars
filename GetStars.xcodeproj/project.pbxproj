@@ -225,8 +225,8 @@
 				BEA7AA7A24CCA1FD003A4367 /* CreateAutograph.swift */,
 				BE41AA6B24CF594A00511527 /* BuyDrawView.swift */,
 				BE67C0FE24EAB1B0007AA0E6 /* BuyDrawViews */,
-				BE41AA6D24CF596800511527 /* ProfileView.swift */,
 				BE4DDDE5250803FB002DF5A2 /* Live */,
+				BE41AA6D24CF596800511527 /* ProfileView.swift */,
 				BE9F05F124DAF96400F47E68 /* Profile */,
 			);
 			path = TabBarViews;

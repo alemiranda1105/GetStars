@@ -58,13 +58,13 @@ class DataBase: ObservableObject {
                                         fechaNacimiento: document.data()!["fechaNacimiento"] as! String,
                                         autMan: document.data()!["AutMan"] as! Int)
                 
-//                let defaults = UserDefaults.standard
-//                defaults.set(document.data()!["nombre"] as! String, forKey: "name")
-//                defaults.set(document.data()!["edad"] as! Int, forKey: "age")
-//                defaults.set(document.data()!["sexo"] as! String, forKey: "sex")
-//                defaults.set(document.data()!["fechaNacimiento"] as! String, forKey: "fechaNacimiento")
-//                defaults.set(document.data()!["AutMan"] as! Int, forKey: "AutMan")
-//                defaults.synchronize()
+                let defaults = UserDefaults.standard
+                defaults.set(document.data()!["nombre"] as! String, forKey: "name")
+                defaults.set(document.data()!["edad"] as! Int, forKey: "age")
+                defaults.set(document.data()!["sexo"] as! String, forKey: "sex")
+                defaults.set(document.data()!["fechaNacimiento"] as! String, forKey: "fechaNacimiento")
+                defaults.set(document.data()!["AutMan"] as! Int, forKey: "AutMan")
+                defaults.synchronize()
                 
                 session.data = self.datos!
                 session.articles["AutMan"] = (document.data()!["AutMan"] as! Int)
