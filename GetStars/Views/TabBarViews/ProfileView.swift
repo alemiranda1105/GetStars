@@ -20,8 +20,7 @@ struct ProfileView: View {
     private func loadImage() {
         let group = DispatchGroup()
         print("Starting")
-        let df = UserDefaults.standard
-        let length = df.integer(forKey: "AutMan")
+        let length = self.session.data?.autMan ?? 0
         for i in 0...length {
             self.session.st.downloadURL(session: self.session, type: "AutMan", index: i, dg: group)
             group.notify(queue: DispatchQueue.global(qos: .background)) {

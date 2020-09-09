@@ -112,9 +112,9 @@ struct CreateAutograph: View {
                             
                             self.saved = true
                             
-                            let defaults = UserDefaults.standard
-                            defaults.set(self.session.data!.autMan, forKey: "AutMan")
-                            defaults.synchronize()
+//                            let defaults = UserDefaults.standard
+//                            defaults.set(self.session.data!.autMan, forKey: "AutMan")
+//                            defaults.synchronize()
                             
                             self.error = ""
                             self.drawings.removeAll()
