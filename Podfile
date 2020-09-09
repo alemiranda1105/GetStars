@@ -16,7 +16,4 @@ target 'GetStars' do
   pod 'Firebase/Storage'
   pod 'SDWebImageSwiftUI'
 
-  #Añadir texto a imagen
-  pod 'MediaWatermark'
-
 end

@@ -103,7 +103,7 @@ struct PersonView: View {
                     .cornerRadius(8)
                     
                     
-                    NavigationLink(destination: FamousItems(item: .constant("selfie"), person: self.$person).environmentObject(self.session)){
+                    NavigationLink(destination: CreateLiveView(person: self.$person).environmentObject(self.session)){
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "camera.on.rectangle": "camera.on.rectangle.fill")
                             

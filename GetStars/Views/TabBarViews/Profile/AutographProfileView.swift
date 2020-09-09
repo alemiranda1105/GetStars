@@ -14,9 +14,26 @@ import Photos
 
 struct AutographProfileView: View {
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.presentationMode) var presentationMode
+    
     @EnvironmentObject var session: SessionStore
     
     let url: UrlLoader
+    
+    private func deleteImage() {
+        self.session.st.deleteFile(userType: "usuarios", email: self.session.session?.email ?? "", name: "\(self.url.name).jpg", type: "AutMan")
+        
+        var p = 0
+        for i in self.session.url {
+            if i.id == self.url.id {
+                self.session.url.remove(at: p)
+            }
+            p += 1
+        }
+        print("Eliminada la imagen")
+        self.presentationMode.wrappedValue.dismiss()
+        
+    }
     
     
     var body: some View {
@@ -64,8 +81,7 @@ struct AutographProfileView: View {
                     Spacer(minLength: 8)
                     
                     Button(action: {
-                        // Añadir código para eliminar la imagen
-                        
+                        self.deleteImage()
                     }){
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "trash": "trash.fill")

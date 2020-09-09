@@ -14,7 +14,7 @@ class Person: Identifiable {
     var name: String
     var description: String
     var image: URL
-    private var key: String
+    private let key: String
     
     init() {
         self.name = ""

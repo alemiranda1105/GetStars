@@ -55,39 +55,6 @@ class CloudStorage: ObservableObject {
         return self.downloadImg
     }
     
-    func downloadAllFiles(session: SessionStore, type: String, dg: DispatchGroup){
-        dg.enter()
-        let art = session.articles[type]!
-        let dg2 = DispatchGroup()
-        for i in 0...art {
-            dg2.enter()
-            let path = "usuarios/" + (session.session?.email)! + "/" + type + "/" + "\(i)" + ".jpg"
-            let storageRef = storage.reference()
-            let imgRef =  storageRef.child(path)
-            imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-                if error != nil {
-                    print("Error en la descarga")
-                } else {
-                    let imgData = data.flatMap(UIImage.init)
-                    let img = ImageLoader(image: imgData!, id: i)
-                    
-                    if img.isContained(array: session.autMan, img: img) {
-                        print("Ya descargado")
-                        
-                    } else {
-                        session.autMan.append(img)
-                        print("Descargado")
-                    }
-                }
-                dg2.leave()
-            }
-        }
-        dg2.notify(queue: DispatchQueue.global(qos: .background)) {
-            print("DESCARGA TERMINADA")
-            dg.leave()
-        }
-    }
-    
     func downloadURL(session: SessionStore, type: String, index: Int, dg: DispatchGroup) {
         dg.enter()
         let path = "usuarios/" + (session.session?.email)! + "/" + type + "/" + "\(index)" + ".jpg"
@@ -108,6 +75,17 @@ class CloudStorage: ObservableObject {
                 }
             }
             dg.leave()
+        }
+    }
+    
+    func deleteFile(userType: String, email: String, name: String, type: String) {
+        let path = "\(userType)/\(email)/\(type)/\(name)"
+        let imgRef = storage.reference().child(path)
+        imgRef.delete { error in
+            if error != nil {
+                print("Errror eliminando el archivo \(name)")
+                print(error?.localizedDescription ?? "")
+            }
         }
     }
     

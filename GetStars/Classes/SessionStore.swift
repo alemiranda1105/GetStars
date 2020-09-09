@@ -26,7 +26,6 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     
     // Numero de articulos que tiene
     @Published var articles: [String: Int] = ["AutMan": 0, "AutDed": 0, "AutFot": 0]
-    @Published var autMan = [ImageLoader]()
     @Published var url = [UrlLoader]()
     
     // Carrito de articulos

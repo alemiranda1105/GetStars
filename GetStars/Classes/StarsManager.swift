@@ -41,6 +41,10 @@ class StarsDB: DataBase {
     private var subastas = [String]()
     private var datosSubastas = [String: Any]()
     
+    // Lives
+    private var nParticipantesLive: Int = 0
+    private var listaParticipantesLive: [String] = [String]()
+    
     
     func readKeys(dg: DispatchGroup) {
         dg.enter()
@@ -98,22 +102,6 @@ class StarsDB: DataBase {
     }
     
     func readFamous(key: String,dg: DispatchGroup) {
-        dg.enter()
-        let documentRef = db.collection(self.dbCollection).document(key)
-        documentRef.getDocument { (document, error) in
-            if let error = error {
-                print(error.localizedDescription)
-                print("Error obteniendo al famoso")
-            } else {
-                print("Cargando datos del famoso...")
-                self.descr = document!.data()!["Descripcion"] as! String
-                self.name = document!.data()!["Nombre"] as! String
-            }
-            dg.leave()
-        }
-    }
-    
-    func readFamous(key: String, session: SessionStore, dg: DispatchGroup) {
         dg.enter()
         let documentRef = db.collection(self.dbCollection).document(key)
         documentRef.getDocument { (document, error) in
@@ -209,6 +197,31 @@ class StarsDB: DataBase {
         }
     }
     
+    func readListaLive(key: String, dg: DispatchGroup) {
+        dg.enter()
+        db.collection("lives").document(key).getDocument { (document, error) in
+            if error != nil {
+                print("Error leyendo los datos del live")
+            } else {
+                print("Obteniendo datos del live")
+                self.nParticipantesLive = document!.data()!["numeroParticipantes"] as! Int
+                self.listaParticipantesLive = document!.data()!["listaParticipantes"] as! [String]
+                print("Datos del live obtenidos")
+            }
+            dg.leave()
+        }
+    }
+    
+    func añadirAlLive(key: String, email: String, dg: DispatchGroup) {
+        dg.enter()
+        let documentRef = db.collection("lives").document(key)
+        documentRef.updateData([
+            "listaParticipantes": FieldValue.arrayUnion([email as Any]),
+            "numeroParticipantes": FieldValue.increment(1.0)
+        ])
+        dg.leave()
+    }
+    
     func getCatId() -> [String] {
         return self.catID
     }
@@ -257,6 +270,14 @@ class StarsDB: DataBase {
     
     func getDatosSubasta() -> [String: Any] {
         return self.datosSubastas
+    }
+    
+    func getNParticipantesLive() -> Int {
+        return self.nParticipantesLive
+    }
+    
+    func getListaParticipantesLive() -> [String] {
+        return self.listaParticipantesLive
     }
     
 }

@@ -9,7 +9,6 @@
 import SwiftUI
 import UIKit
 import SDWebImageSwiftUI
-import MediaWatermark
 import Firebase
 
 struct DedicatoriaView: View {
