@@ -22,7 +22,9 @@ struct AutographProfileView: View {
     
     private func deleteImage() {
         self.session.st.deleteFile(userType: "usuarios", email: self.session.session?.email ?? "", name: "\(self.url.name).jpg", type: "AutMan")
-        
+        self.session.data?.autMan -= 1
+        self.session.articles["AutMan"] = self.session.data?.autMan
+        self.session.db.updateAutManDB(session: self.session)
         var p = 0
         for i in self.session.url {
             if i.id == self.url.id {

@@ -53,7 +53,6 @@ struct CreateLiveView: View {
                     Text(participante)
                 }
                 Button(action: {
-                    print("GHolalalasjkdpasjd")
                     let db = StarsDB()
                     let dg = DispatchGroup()
                     db.añadirAlLive(key: self.person.getKey(), email: (self.session.session?.email)!, dg: dg)

@@ -26,6 +26,18 @@ class Product: Identifiable {
     var fecha = ""
     var participantes = [String]()
     
+    //Tipo de producto
+    let productType: ProductType
+    enum ProductType {
+        case autografoManual
+        case autografo
+        case autografoDedicado
+        case foto
+        case fotoDedicada
+        case fotoConAutografo
+        case live
+    }
+    
     init() {
         self.price = 0.0
         self.name = ""
@@ -33,6 +45,7 @@ class Product: Identifiable {
         self.image = ""
         self.owner = Person()
         self.isDedicated = false
+        self.productType = .autografo
     }
     
     init(price: Double, name: String, description: String, image: URL, owner: Person, isDedicated: Bool) {
@@ -42,6 +55,17 @@ class Product: Identifiable {
         self.image = image.absoluteString
         self.owner = owner
         self.isDedicated = isDedicated
+        self.productType = .autografo
+    }
+    
+    init(price: Double, name: String, description: String, image: URL, owner: Person, isDedicated: Bool, productType: ProductType) {
+        self.price = price
+        self.name = name
+        self.description = description
+        self.image = image.absoluteString
+        self.owner = owner
+        self.isDedicated = isDedicated
+        self.productType = productType
     }
     
     init(price: Double, name: String, description: String, image: String, owner: Person, isDedicated: Bool) {
@@ -51,6 +75,7 @@ class Product: Identifiable {
         self.image = image
         self.owner = owner
         self.isDedicated = isDedicated
+        self.productType = .autografo
     }
     
     func setMessage(newMessage: String) {
