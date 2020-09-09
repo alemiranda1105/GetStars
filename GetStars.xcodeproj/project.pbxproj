@@ -226,6 +226,7 @@
 				BE41AA6B24CF594A00511527 /* BuyDrawView.swift */,
 				BE67C0FE24EAB1B0007AA0E6 /* BuyDrawViews */,
 				BE41AA6D24CF596800511527 /* ProfileView.swift */,
+				BE4DDDE5250803FB002DF5A2 /* Live */,
 				BE9F05F124DAF96400F47E68 /* Profile */,
 			);
 			path = TabBarViews;
@@ -267,8 +268,8 @@
 				BE67C0FF24EAB1D7007AA0E6 /* SubastaView.swift */,
 				BE67C10124EAB4CD007AA0E6 /* Subasta */,
 				BE19C86C24EC2D6F00A2B975 /* SorteosView.swift */,
-				BE19C86E24EC2DD500A2B975 /* Sorteo */,
 				BE19C86A24EC2BAF00A2B975 /* LiveView.swift */,
+				BE19C86E24EC2DD500A2B975 /* Sorteo */,
 			);
 			path = BuyDrawViews;
 			sourceTree = "<group>";
@@ -322,7 +323,6 @@
 		BEEF585524E69484000CC9E9 /* ProductViews */ = {
 			isa = PBXGroup;
 			children = (
-				BE4DDDE5250803FB002DF5A2 /* Live */,
 				BEEF585824E6A22C000CC9E9 /* PersonCard.swift */,
 				BECB173524E8543400E78176 /* PersonView.swift */,
 				BE7017BD24F40E810039A272 /* FamousItems.swift */,

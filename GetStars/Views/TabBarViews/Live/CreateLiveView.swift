@@ -46,7 +46,7 @@ struct CreateLiveView: View {
     var body: some View {
         VStack {
             if self.participando {
-                Text("Enhorabuena, dentro de poco recibirás tu video")
+                Text("Enhorabuena, en un plazo de 30 días recibirás tu video")
                 Text("\(1000 - self.nParticipantes)")
             } else {
                 Text(person.name)
