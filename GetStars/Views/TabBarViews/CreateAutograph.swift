@@ -105,9 +105,9 @@ struct CreateAutograph: View {
                             library.savePhoto(image: img!, albumName: "GetStars")
                             
                             self.session.data?.autMan += 1
-                            self.session.articles["AutMan"] = self.session.data?.autMan
+                            //self.session.articles["AutMan"] = self.session.data?.autMan
                             
-                            self.session.st.uploadFile(session: self.session, img: img!, type: "AutMan")
+                            self.session.st.uploadAutMan(session: self.session, img: img!, type: "AutMan")
                             self.session.db.updateAutManDB(session: self.session)
                             
                             self.saved = true

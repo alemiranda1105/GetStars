@@ -67,7 +67,7 @@ class DataBase: ObservableObject {
                 defaults.synchronize()
                 
                 session.data = self.datos!
-                session.articles["AutMan"] = (document.data()!["AutMan"] as! Int)
+                //session.articles["AutMan"] = (document.data()!["AutMan"] as! Int)
                 session.signing = false
                 UserDefaults.standard.set(false, forKey: "sign")
                 
@@ -83,12 +83,28 @@ class DataBase: ObservableObject {
     func updateAutManDB(session: SessionStore) {
         let email = session.session?.email
         
-        db.collection(dbCollection).document(email!).updateData(["AutMan": session.articles["AutMan"]! as Int]) { err in
+        db.collection(dbCollection).document(email!).updateData(["AutMan": session.data?.autMan as Any]) { err in
             if err != nil {
                 print("Error actualizando")
             } else {
                 print("Base de datos actualizada")
             }
+        }
+    }
+    
+    func readCompras(session: SessionStore, dg: DispatchGroup) {
+        dg.enter()
+        let email = session.session?.email ?? ""
+        let documentRef = db.collection(dbCollection).document(email)
+        
+        documentRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                
+            } else {
+                print(error?.localizedDescription ?? "")
+                print("Error obteniendo los datos de compra")
+            }
+            dg.leave()
         }
     }
     

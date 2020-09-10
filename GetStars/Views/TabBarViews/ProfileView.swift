@@ -36,6 +36,11 @@ struct ProfileView: View {
         self.downloading = false
     }
     
+    private func getCompras() {
+        let group = DispatchGroup()
+        
+    }
+    
     var body: some View {
         GeometryReader { g in
             NavigationView {
@@ -172,7 +177,7 @@ struct ProfileView: View {
                                         .padding()
                                     }
                                 }.foregroundColor(.black)
-                            }
+                            }.onAppear(perform: self.getCompras)
                         } else {
                             GridStack(minCellWidth: 125, spacing: 5, numItems: self.session.url.count){ i, width in
                                 NavigationLink(destination: AutographProfileView(url: self.session.url[i])) {

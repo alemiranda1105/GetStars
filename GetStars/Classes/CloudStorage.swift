@@ -16,11 +16,11 @@ class CloudStorage: ObservableObject {
     private let storage = Storage.storage()
     private var downloadImg = UIImage()
     
-    func uploadFile(session: SessionStore, img: UIImage, type: String) {
+    func uploadAutMan(session: SessionStore, img: UIImage, type: String) {
         if session.session?.email == nil {
             return
         }
-        let n: String! = String(session.articles[type]!)
+        let n: String! = String(session.data!.autMan as Int)
         let path = "usuarios/" + (session.session?.email)! + "/" + type + "/" + n + ".jpg"
         let storageRef = storage.reference()
         let imgRef =  storageRef.child(path)
