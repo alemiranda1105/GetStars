@@ -22,7 +22,7 @@ struct SignUpView: View {
     @State var error: String = ""
     @State private var condiciones: Bool = false
     
-    private var generos = [Text("🙎‍♂️Hombre"), Text("🙎‍♀️Mujer"), Text("🧒Otro"), Text("No decirlo")]
+    private var generos = [Text("🙎‍♂️Hombre"), Text("🙎‍♀️Mujer"), Text("No decirlo")]
     @State private var generoSeleccionado = 0
     
     @State private var birthDate: String = ""
@@ -133,8 +133,6 @@ struct SignUpView: View {
             case 1:
                 sex = "mujer"
             case 2:
-                sex = "otro"
-            case 3:
                 sex = "null"
             default:
                 self.error = "Reintentelo de nuevo"
@@ -151,15 +149,15 @@ struct SignUpView: View {
                 self.session.data = UserData(nombre: self.name, sexo: sex, edad: age, fechaNacimiento: self.birthDate, autMan: 0)
                 self.session.db.createUserDB(session: self.session)
                 
-//                let defaults = UserDefaults.standard
-//                defaults.set(self.name, forKey: "name")
-//                defaults.set(age, forKey: "age")
-//                defaults.set(sex, forKey: "sex")
-//                defaults.set(self.birthDate, forKey: "fechaNacimiento")
-//                
-//                defaults.set(self.session.data?.autMan, forKey: "AutMan")
-//                
-//                defaults.synchronize()
+                let defaults = UserDefaults.standard
+                defaults.set(self.name, forKey: "name")
+                defaults.set(age, forKey: "age")
+                defaults.set(sex, forKey: "sex")
+                defaults.set(self.birthDate, forKey: "fechaNacimiento")
+                
+                defaults.set(self.session.data?.autMan, forKey: "AutMan")
+                
+                defaults.synchronize()
             }
         }
     }
