@@ -37,7 +37,7 @@ struct ProfileView: View {
     }
     
     private func getCompras() {
-        let group = DispatchGroup()
+        //let group = DispatchGroup()
         
     }
     

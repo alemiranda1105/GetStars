@@ -32,7 +32,6 @@ struct TabBarView: View {
                     
                 } else {
                     CreateAutograph().environmentObject(self.session)
-                    
                 }
             }
             
