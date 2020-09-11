@@ -293,6 +293,9 @@ class StarsST: CloudStorage {
     private var imagenSorteo = URL(string: "")
     private var imagenSubasta = URL(string: "")
     
+    // Live
+    private var urlLive = URL(string: "")
+    
     func downloadFile(key: String, dg: DispatchGroup) {
         dg.enter()
         let path = "creadores/" + "93cnbY5xxelS73sSsWnm" + "/profileImage.jpg"
@@ -420,7 +423,8 @@ class StarsST: CloudStorage {
         return self.imagenSubasta!
     }
     
-    func uploadLiveToUser(key: String, email: String, url: URL) {
+    func uploadLiveToUser(key: String, email: String, url: URL, dg: DispatchGroup) {
+        dg.enter()
         let path = "usuarios/" + email + "/live/" + key
         let storageRef = storage.reference()
         let liveRef = storageRef.child(path)
@@ -432,7 +436,45 @@ class StarsST: CloudStorage {
             } else {
                 print("----- LIVE SUBIDO -----")
             }
+            dg.leave()
         }
+    }
+    
+    func uploadTempLive(key: String, url: URL, dg: DispatchGroup) {
+        dg.enter()
+        let path = "creadores/" + key + "/live/temp"
+        let storageRef = storage.reference()
+        let liveRef = storageRef.child(path)
+        
+        liveRef.putFile(from: url, metadata: nil) { metadata, error in
+            if error != nil {
+                print(error?.localizedDescription ?? "")
+                print("Error subiendo el live temporal bro")
+            } else {
+                print("----- LIVE TEMPORAL SUBIDO -----")
+            }
+            dg.leave()
+        }
+    }
+    
+    func downloadLiveURL(key: String, email: String, dg: DispatchGroup) {
+        dg.enter()
+        let path = "usuarios/" + email + "/live/" + key
+        let storageRef = storage.reference()
+        let liveRef = storageRef.child(path)
+        liveRef.downloadURL { (url, error) in
+            if error != nil {
+                print(error?.localizedDescription ?? "")
+                print("Error descargando la url del video")
+            } else {
+                self.urlLive = url!
+            }
+            dg.leave()
+        }
+    }
+    
+    func getLiveURL() -> URL {
+        return self.urlLive!
     }
     
 }

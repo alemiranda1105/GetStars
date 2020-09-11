@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -38,6 +38,8 @@
 		BE67C10524EAB526007AA0E6 /* SubastaCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE67C10424EAB526007AA0E6 /* SubastaCardView.swift */; };
 		BE7017BE24F40E810039A272 /* FamousItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7017BD24F40E810039A272 /* FamousItems.swift */; };
 		BE71A53C24FD401600D4150D /* StarProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE71A53B24FD401600D4150D /* StarProfileView.swift */; };
+		BE747581250BD3C800C8488E /* LivePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE747580250BD3C800C8488E /* LivePlayerView.swift */; };
+		BE747584250BD48F00C8488E /* VideoPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = BE747583250BD48F00C8488E /* VideoPlayer */; };
 		BE873F7824B249C40041247C /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE873F7724B249C40041247C /* DataBase.swift */; };
 		BE873F7A24B24CE60041247C /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE873F7924B24CE60041247C /* UserData.swift */; };
 		BE8C307E24C87E8500135AD9 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8C307D24C87E8500135AD9 /* TabBarView.swift */; };
@@ -98,6 +100,7 @@
 		BE67C10424EAB526007AA0E6 /* SubastaCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubastaCardView.swift; sourceTree = "<group>"; };
 		BE7017BD24F40E810039A272 /* FamousItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamousItems.swift; sourceTree = "<group>"; };
 		BE71A53B24FD401600D4150D /* StarProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarProfileView.swift; sourceTree = "<group>"; };
+		BE747580250BD3C800C8488E /* LivePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePlayerView.swift; sourceTree = "<group>"; };
 		BE873F7724B249C40041247C /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		BE873F7924B24CE60041247C /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		BE8C307D24C87E8500135AD9 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -131,6 +134,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DD5D08A7A5B511358615028 /* Pods_GetStars.framework in Frameworks */,
+				BE747584250BD48F00C8488E /* VideoPlayer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +257,7 @@
 				BE8CF386250AB6D70055484E /* CameraViews */,
 				BE4DDDE625080413002DF5A2 /* CreateLiveView.swift */,
 				BE4DDDE825080BE9002DF5A2 /* LiveCard.swift */,
+				BE747580250BD3C800C8488E /* LivePlayerView.swift */,
 			);
 			path = Live;
 			sourceTree = "<group>";
@@ -381,6 +386,7 @@
 			);
 			name = GetStars;
 			packageProductDependencies = (
+				BE747583250BD48F00C8488E /* VideoPlayer */,
 			);
 			productName = GetStars;
 			productReference = BE2D820B24AA631A0080A75F /* GetStars.app */;
@@ -412,6 +418,7 @@
 			);
 			mainGroup = BE2D820224AA631A0080A75F;
 			packageReferences = (
+				BE747582250BD48E00C8488E /* XCRemoteSwiftPackageReference "VideoPlayer" */,
 			);
 			productRefGroup = BE2D820C24AA631A0080A75F /* Products */;
 			projectDirPath = "";
@@ -505,6 +512,7 @@
 				BECB173624E8543400E78176 /* PersonView.swift in Sources */,
 				BE67C10324EAB4E3007AA0E6 /* SubastaProductView.swift in Sources */,
 				BE9F05F324DAF98000F47E68 /* ConfigurationView.swift in Sources */,
+				BE747581250BD3C800C8488E /* LivePlayerView.swift in Sources */,
 				BE41AA6824CF584C00511527 /* HomeView.swift in Sources */,
 				BE2D821124AA631A0080A75F /* SceneDelegate.swift in Sources */,
 				BE2D822524AA656C0080A75F /* SessionStore.swift in Sources */,
@@ -759,6 +767,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BE747582250BD48E00C8488E /* XCRemoteSwiftPackageReference "VideoPlayer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wxxsw/VideoPlayer.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BE747583250BD48F00C8488E /* VideoPlayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE747582250BD48E00C8488E /* XCRemoteSwiftPackageReference "VideoPlayer" */;
+			productName = VideoPlayer;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BE2D820324AA631A0080A75F /* Project object */;
 }

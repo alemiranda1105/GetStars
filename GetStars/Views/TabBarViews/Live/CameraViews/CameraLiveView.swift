@@ -20,6 +20,8 @@ struct CameraLiveView: View {
     @State var time = 15
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
+    @State var recorded = false
+    
     @State var message = ""
     
     private func readMessage() {
@@ -28,8 +30,8 @@ struct CameraLiveView: View {
     
     private func checkGrabacion() {
         if self.time <= 0 && self.recording {
-            self.cameraObject.stopRecording(key: "prueba", email: "amiranda110500@gmail.com")
-            self.recording.toggle()
+            self.time = 15
+            self.uploadRecord()
         } else if !self.recording {
             self.time = 15
             return
@@ -38,103 +40,119 @@ struct CameraLiveView: View {
         }
     }
     
+    private func uploadRecord() {
+        self.recording = false
+        let dg = DispatchGroup()
+        self.cameraObject.stopRecording(key: "prueba", email: "amiranda110500@gmail.com", dg: dg)
+        dg.notify(queue: DispatchQueue.global(qos: .background)) {
+            print("Subido live temporal - Cambio a LivePlayer")
+            self.recorded = true
+        }
+    }
+    
     var body: some View {
-        VStack {
-            ZStack(alignment: .bottom) {
-                
+        Group {
+            if self.recorded {
+                LivePlayerView()
+            } else {
                 VStack {
-                    Spacer()
-                    Text(self.message)
-                        .padding()
-                        .foregroundColor(.white)
-                        .background(Color.gray.opacity(0.7))
-                        .cornerRadius(20)
-                    Spacer()
-                }.zIndex(1000004)
-                
-                CameraViewController().environmentObject(self.cameraObject)
-                    .zIndex(1000000)
-                
-                HStack {
-                    if !self.recording {
-                        Button(action: {
-                            print("Modo flash")
-                            self.cameraObject.changeFlashMode()
-                        }) {
-                            Image(systemName: "bolt")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 20, height: 20)
-                                .padding()
-                                .background(Color("gris"))
-                                .foregroundColor(.white)
-                                .cornerRadius(100)
-                        }
-                    }
-                    Spacer()
-                }.padding()
-                .zIndex(1000002)
-                
-                HStack(alignment: .center){
-                    Button(action: {
-                        print("Grabando")
-                        self.recording.toggle()
-                        if self.recording {
-                            self.cameraObject.startRecording()
-                        } else {
-                            self.cameraObject.stopRecording(key: "prueba", email: "amiranda110500@gmail.com")
-                        }
-                    }) {
-                        if !self.recording {
-                            Image(systemName: "video.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40)
-                            .padding()
-                            .background(Color.red)
-                            .foregroundColor(.white)
-                            .cornerRadius(100)
-                            
-                        } else {
-                           Text("\(self.time)")
-                               .frame(width: 40, height: 40)
-                               .padding()
-                               .background(Color.red)
-                               .foregroundColor(.white)
-                               .cornerRadius(100)
-                            .onReceive(timer) { t in
-                                self.checkGrabacion()
-                            }
-                        }
+                    ZStack(alignment: .bottom) {
                         
-                    }.padding(.horizontal, 90)
-                    
-                }.padding()
-                .zIndex(1000001)
-                
-                HStack {
-                    Spacer()
-                    if !self.recording {
-                        Button(action: {
-                            print("Cambiar Camara")
-                            self.cameraObject.changeCamera()
-                        }) {
+                        VStack {
+                            Spacer()
+                            Text(self.message)
+                                .padding()
+                                .foregroundColor(.white)
+                                .background(Color.gray.opacity(0.7))
+                                .cornerRadius(20)
+                            Spacer()
+                        }.zIndex(1000004)
+                        
+                        CameraViewController().environmentObject(self.cameraObject)
+                            .zIndex(1000000)
+                        
+                        HStack {
                             if !self.recording {
-                                Image(systemName: "arrow.clockwise")
+                                Button(action: {
+                                    print("Modo flash")
+                                    self.cameraObject.changeFlashMode()
+                                }) {
+                                    Image(systemName: "bolt")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 20, height: 20)
+                                        .padding()
+                                        .background(Color("gris"))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(100)
+                                }
+                            }
+                            Spacer()
+                        }.padding()
+                        .zIndex(1000002)
+                        
+                        HStack(alignment: .center){
+                            Button(action: {
+                                print("Grabando")
+                                self.recording.toggle()
+                                if self.recording {
+                                    self.cameraObject.startRecording()
+                                } else {
+                                    self.uploadRecord()
+                                }
+                            }) {
+                                if !self.recording {
+                                    Image(systemName: "video.fill")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 20, height: 20)
+                                    .frame(width: 40, height: 40)
                                     .padding()
-                                    .background(Color("gris"))
+                                    .background(Color.red)
                                     .foregroundColor(.white)
                                     .cornerRadius(100)
+                                    
+                                } else {
+                                   Text("\(self.time)")
+                                       .frame(width: 40, height: 40)
+                                       .padding()
+                                       .background(Color.red)
+                                       .foregroundColor(.white)
+                                       .cornerRadius(100)
+                                    .onReceive(timer) { t in
+                                        self.checkGrabacion()
+                                    }
+                                }
+                                
+                            }.padding(.horizontal, 90)
+                            
+                        }.padding()
+                        .zIndex(1000001)
+                        
+                        HStack {
+                            Spacer()
+                            if !self.recording {
+                                Button(action: {
+                                    print("Cambiar Camara")
+                                    self.cameraObject.changeCamera()
+                                }) {
+                                    if !self.recording {
+                                        Image(systemName: "arrow.clockwise")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 20, height: 20)
+                                            .padding()
+                                            .background(Color("gris"))
+                                            .foregroundColor(.white)
+                                            .cornerRadius(100)
+                                    }
+                                }
                             }
-                        }
+                        }.padding()
+                        .zIndex(1000002)
                     }
-                }.padding()
-                .zIndex(1000002)
+                }.onAppear(perform: self.readMessage)
             }
-        }.onAppear(perform: self.readMessage)
+        }
     }
 }
 
@@ -148,6 +166,8 @@ final class CameraViewController: UIViewController {
         self.cameraObject.camera.cameraOutputMode = .videoWithMic
         self.cameraObject.camera.cameraDevice = .front
         self.cameraObject.camera.shouldFlipFrontCameraImage = true
+        self.cameraObject.camera.cameraOutputQuality = .hd1920x1080
+        self.cameraObject.camera.videoAlbumName = "GetStarsTemp"
         
         previewView = UIView(frame: CGRect(x:0, y:0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height))
         previewView.contentMode = UIView.ContentMode.scaleAspectFit
