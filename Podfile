@@ -17,7 +17,5 @@ target 'GetStars' do
   pod 'SDWebImageSwiftUI'
 
   pod 'CameraManager', '~> 5.1'
-  pod 'CameraKit-iOS'
-  pod 'SwiftVideoRecorder'
 
 end

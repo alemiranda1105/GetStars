@@ -10,12 +10,13 @@ import SwiftUI
 import UIKit
 import AVFoundation
 
-// Camaras
-import CameraKit_iOS
+// Camara
 import CameraManager
 
 struct CameraLiveView: View {
     @ObservedObject var cameraObject: CameraController = CameraController.shared
+    
+    @State var recording: Bool = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -25,7 +26,12 @@ struct CameraLiveView: View {
             HStack{
                 Button(action: {
                     print("Grabando")
-                    
+                    self.recording.toggle()
+                    if self.recording {
+                        self.cameraObject.startRecording()
+                    } else {
+                        self.cameraObject.stopRecording()
+                    }
                 }) {
                     Image(systemName: "video.fill")
                         .resizable()
