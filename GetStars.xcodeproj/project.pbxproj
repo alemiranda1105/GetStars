@@ -41,6 +41,8 @@
 		BE873F7824B249C40041247C /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE873F7724B249C40041247C /* DataBase.swift */; };
 		BE873F7A24B24CE60041247C /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE873F7924B24CE60041247C /* UserData.swift */; };
 		BE8C307E24C87E8500135AD9 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8C307D24C87E8500135AD9 /* TabBarView.swift */; };
+		BE8CF388250AB6F50055484E /* CameraLiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8CF387250AB6F50055484E /* CameraLiveView.swift */; };
+		BE8CF38A250ABE090055484E /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8CF389250ABE090055484E /* CameraController.swift */; };
 		BE8FA5EF24E9837200EAF22C /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FA5EE24E9837200EAF22C /* Person.swift */; };
 		BE962A0124EFD538009C8AA7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE962A0324EFD538009C8AA7 /* Localizable.strings */; };
 		BE962A0624F01B51009C8AA7 /* StarsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE962A0524F01B51009C8AA7 /* StarsManager.swift */; };
@@ -99,6 +101,8 @@
 		BE873F7724B249C40041247C /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		BE873F7924B24CE60041247C /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		BE8C307D24C87E8500135AD9 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		BE8CF387250AB6F50055484E /* CameraLiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraLiveView.swift; sourceTree = "<group>"; };
+		BE8CF389250ABE090055484E /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		BE8FA5EE24E9837200EAF22C /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		BE962A0224EFD538009C8AA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE962A0424EFD55B009C8AA7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -246,6 +250,7 @@
 		BE4DDDE5250803FB002DF5A2 /* Live */ = {
 			isa = PBXGroup;
 			children = (
+				BE8CF386250AB6D70055484E /* CameraViews */,
 				BE4DDDE625080413002DF5A2 /* CreateLiveView.swift */,
 				BE4DDDE825080BE9002DF5A2 /* LiveCard.swift */,
 			);
@@ -289,6 +294,15 @@
 				BE71A53B24FD401600D4150D /* StarProfileView.swift */,
 			);
 			path = StarsView;
+			sourceTree = "<group>";
+		};
+		BE8CF386250AB6D70055484E /* CameraViews */ = {
+			isa = PBXGroup;
+			children = (
+				BE8CF387250AB6F50055484E /* CameraLiveView.swift */,
+				BE8CF389250ABE090055484E /* CameraController.swift */,
+			);
+			path = CameraViews;
 			sourceTree = "<group>";
 		};
 		BE9F05F124DAF96400F47E68 /* Profile */ = {
@@ -500,6 +514,7 @@
 				BE67C0FD24EAB13F007AA0E6 /* Product.swift in Sources */,
 				BE873F7824B249C40041247C /* DataBase.swift in Sources */,
 				BE19C86B24EC2BAF00A2B975 /* LiveView.swift in Sources */,
+				BE8CF388250AB6F50055484E /* CameraLiveView.swift in Sources */,
 				BE4DDDE925080BE9002DF5A2 /* LiveCard.swift in Sources */,
 				BE962A0624F01B51009C8AA7 /* StarsManager.swift in Sources */,
 				BE67C10524EAB526007AA0E6 /* SubastaCardView.swift in Sources */,
@@ -516,6 +531,7 @@
 				BE67C10024EAB1D7007AA0E6 /* SubastaView.swift in Sources */,
 				BEFBA10924E2E6D500E0C883 /* AutographProfileView.swift in Sources */,
 				BE19C87024EC2DE700A2B975 /* SorteoProductView.swift in Sources */,
+				BE8CF38A250ABE090055484E /* CameraController.swift in Sources */,
 				BE7017BE24F40E810039A272 /* FamousItems.swift in Sources */,
 				BE19C86D24EC2D6F00A2B975 /* SorteosView.swift in Sources */,
 				BEFBA10724E2D8CF00E0C883 /* GridStack.swift in Sources */,

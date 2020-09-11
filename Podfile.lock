@@ -224,6 +224,7 @@ PODS:
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Interface (0.0.7)
   - CameraKit-iOS (1.2.1)
+  - CameraManager (5.1.3)
   - Firebase/Analytics (6.27.0):
     - Firebase/Core
   - Firebase/Auth (6.27.0):
@@ -380,6 +381,7 @@ PODS:
 
 DEPENDENCIES:
   - CameraKit-iOS
+  - CameraManager (~> 5.1)
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Core
@@ -395,6 +397,7 @@ SPEC REPOS:
     - AppAuth
     - BoringSSL-GRPC
     - CameraKit-iOS
+    - CameraManager
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -426,6 +429,7 @@ SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   CameraKit-iOS: 7a8aeb4b6ac93c59088ada934efb6010ed2394c1
+  CameraManager: 73936a52093081ba5e44914e8120ab511360f5d4
   Firebase: fc4cbf6f1592636431821ef9a3c557e4dfd9f268
   FirebaseAnalytics: 0ea640473474f036cabbc2576e20c2d63671c92f
   FirebaseAuth: b85c064e0ac60f82486728d50a4803f235687302
@@ -452,6 +456,6 @@ SPEC CHECKSUMS:
   SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   SDWebImageSwiftUI: 43687ffe232ddd33fe0659498b7ca9884fdd6b35
 
-PODFILE CHECKSUM: a277a9b42a2c00618aab7c1bf70e605d5a5eca86
+PODFILE CHECKSUM: aa4979c4b6fce3b747501d7b622dcce57d218a63
 
 COCOAPODS: 1.9.3

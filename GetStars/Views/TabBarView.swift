@@ -31,7 +31,8 @@ struct TabBarView: View {
                     ProfileView().environmentObject(self.session)
                     
                 } else {
-                    CreateAutograph().environmentObject(self.session)
+                    //CreateAutograph().environmentObject(self.session)
+                    CameraLiveView()
                 }
             }
             

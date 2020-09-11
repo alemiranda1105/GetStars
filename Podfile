@@ -16,6 +16,8 @@ target 'GetStars' do
   pod 'Firebase/Storage'
   pod 'SDWebImageSwiftUI'
 
+  pod 'CameraManager', '~> 5.1'
   pod 'CameraKit-iOS'
+  pod 'SwiftVideoRecorder'
 
 end
