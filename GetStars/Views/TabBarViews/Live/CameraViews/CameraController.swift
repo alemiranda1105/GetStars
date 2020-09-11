@@ -16,6 +16,7 @@ class CameraController: ObservableObject {
     
     static let shared = CameraController()
     
+    // Settings camara
     func changeCamera() {
         if self.camera.cameraDevice == .back {
             self.camera.cameraDevice = .front
@@ -24,16 +25,26 @@ class CameraController: ObservableObject {
         }
     }
     
+    func changeFlashMode() {
+        if self.camera.flashMode == .off {
+            self.camera.flashMode = .on
+        } else {
+            self.camera.flashMode = .off
+        }
+    }
+    
+    // Funciones camara
     func startRecording() {
         self.camera.startRecordingVideo()
     }
     
-    func stopRecording() {
+    func stopRecording(key: String, email: String) {
         self.camera.stopVideoRecording { (video, error) -> Void in
             if error != nil {
                 self.camera.showErrorBlock("Error ocurred", "Cannot save video")
             } else {
-                self.saveVideo(video: video)
+                let st = StarsST()
+                st.uploadLiveToUser(key: key, email: email, url: video!)
             }
         }
     }

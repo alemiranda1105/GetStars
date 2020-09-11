@@ -420,4 +420,19 @@ class StarsST: CloudStorage {
         return self.imagenSubasta!
     }
     
+    func uploadLiveToUser(key: String, email: String, url: URL) {
+        let path = "usuarios/" + email + "/live/" + key
+        let storageRef = storage.reference()
+        let liveRef = storageRef.child(path)
+        
+        liveRef.putFile(from: url, metadata: nil) { metadata, error in
+            if error != nil {
+                print(error?.localizedDescription ?? "")
+                print("Error subiendo el live bro")
+            } else {
+                print("----- LIVE SUBIDO -----")
+            }
+        }
+    }
+    
 }
