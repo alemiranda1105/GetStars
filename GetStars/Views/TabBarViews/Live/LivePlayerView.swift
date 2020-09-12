@@ -11,6 +11,8 @@ import AVKit
 import VideoPlayer
 
 struct LivePlayerView: View {
+    @ObservedObject var cameraObject = CameraController.shared
+    
     @State var video = URL(fileURLWithPath: "")
     
     // Video
@@ -18,17 +20,17 @@ struct LivePlayerView: View {
     @State var play = true
     
     private func getLive() {
-//        let st = StarsST()
-//        let dg = DispatchGroup()
-//        st.downloadLiveURL(key: "prueba", email: "amiranda110500@gmail.com", dg: dg)
-//        dg.notify(queue: DispatchQueue.global(qos: .background)) {
-//            self.video = st.getLiveURL()
-//        }
+        let st = StarsST()
+        let dg = DispatchGroup()
+        st.downloadLiveURL(key: "prueba", email: "amiranda110500@gmail.com", dg: dg)
+        dg.notify(queue: DispatchQueue.global(qos: .background)) {
+            self.video = st.getLiveURL()
+        }
     }
     
     var body: some View {
         VStack {
-            VideoPlayer(url: self.video, play: $play)
+            VideoPlayer(url: self.cameraObject.videoUrl!, play: $play)
             Button(action: {
                 self.play.toggle()
             }) {

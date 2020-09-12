@@ -53,7 +53,7 @@ struct CameraLiveView: View {
     var body: some View {
         Group {
             if self.recorded {
-                LivePlayerView()
+                LivePlayerView().environmentObject(self.cameraObject)
             } else {
                 VStack {
                     ZStack(alignment: .bottom) {
@@ -167,7 +167,7 @@ final class CameraViewController: UIViewController {
         self.cameraObject.camera.cameraDevice = .front
         self.cameraObject.camera.shouldFlipFrontCameraImage = true
         self.cameraObject.camera.cameraOutputQuality = .hd1920x1080
-        self.cameraObject.camera.videoAlbumName = "GetStarsTemp"
+        self.cameraObject.camera.videoAlbumName = "GetStarsLives"
         
         previewView = UIView(frame: CGRect(x:0, y:0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height))
         previewView.contentMode = UIView.ContentMode.scaleAspectFit

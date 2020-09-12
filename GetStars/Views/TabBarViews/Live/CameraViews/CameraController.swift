@@ -16,6 +16,8 @@ class CameraController: ObservableObject {
     
     static let shared = CameraController()
     
+    @Published var videoUrl = URL(string: "")
+    
     // Settings camara
     func changeCamera() {
         if self.camera.cameraDevice == .back {
@@ -44,6 +46,9 @@ class CameraController: ObservableObject {
             if error != nil {
                 self.camera.showErrorBlock("Error ocurred", "Cannot save video")
             } else {
+                DispatchQueue.main.async {
+                    self.videoUrl = video
+                }
                 let st = StarsST()
                 st.uploadTempLive(key: "prueba", url: video!, dg: dg)
             }

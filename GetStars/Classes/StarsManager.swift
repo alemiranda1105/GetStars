@@ -457,6 +457,22 @@ class StarsST: CloudStorage {
         }
     }
     
+    func downloadTempLive(key: String, url: URL, dg: DispatchGroup) {
+        dg.enter()
+        let path = "creadores/" + key + "/live/temp"
+        let storageRef = storage.reference()
+        let liveRef = storageRef.child(path)
+        
+        liveRef.getData(maxSize: 1*512*512) { data, error in
+            if error != nil {
+                print(error?.localizedDescription ?? "")
+                print("Error descargando el video temporal")
+            } else {
+                print("Video temporal descargado")
+            }
+        }
+    }
+    
     func downloadLiveURL(key: String, email: String, dg: DispatchGroup) {
         dg.enter()
         let path = "usuarios/" + email + "/live/" + key
