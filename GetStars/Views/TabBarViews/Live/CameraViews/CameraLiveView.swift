@@ -53,7 +53,7 @@ struct CameraLiveView: View {
     var body: some View {
         Group {
             if self.recorded {
-                LivePlayerView().environmentObject(self.cameraObject)
+                LivePlayerView(recorded: self.$recorded).environmentObject(self.cameraObject)
             } else {
                 VStack {
                     ZStack(alignment: .bottom) {
