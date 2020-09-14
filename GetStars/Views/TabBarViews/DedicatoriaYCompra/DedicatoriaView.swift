@@ -21,7 +21,7 @@ struct DedicatoriaView: View {
     // Opciones de texto
     @State var mensaje = ""
     
-    @State var color: Color = Color("naranja")
+    @State var color: Color = Color(hex: "FCA310")
     @State var size: CGFloat = 12
     @State var posX: CGFloat = 0.0
     @State var posY: CGFloat = 0.0
@@ -81,6 +81,10 @@ struct DedicatoriaView: View {
             }
             n += 1
         }
+        
+        // Datos de la dedicatoria
+        product.setDatosDedicatoria(pos: [self.posX, self.posY], color: self.color, size: self.size)
+        
         self.session.cart.append(self.product)
         
         return true

@@ -36,7 +36,14 @@ class Product: Identifiable {
         case fotoDedicada
         case fotoConAutografo
         case live
+        case subasta
+        case sorteo
     }
+    
+    // Datos dedicatoria
+    var posicion: [CGFloat] = [0.0, 0.0]
+    var color: Color = Color("naranja")
+    var size: CGFloat = 12
     
     init() {
         self.price = 0.0
@@ -105,6 +112,12 @@ class Product: Identifiable {
     
     func setProductID(id: String) {
         self.productID = id
+    }
+    
+    func setDatosDedicatoria(pos: [CGFloat], color: Color, size: CGFloat) {
+        self.posicion = pos
+        self.color = color
+        self.size = size
     }
     
     func equals(product: Product) -> Bool {

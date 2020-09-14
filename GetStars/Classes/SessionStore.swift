@@ -114,26 +114,33 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     }
     
     func restoreUser() {
-        let def = UserDefaults.standard
-        let name = def.string(forKey: "name")
-        let age = def.integer(forKey: "age")
-        let sex = def.string(forKey: "sex")
-        let fecha = def.string(forKey: "fechaNacimiento")
-        let autMan = def.integer(forKey: "AutMan")
-        def.synchronize()
-        
         let dg = DispatchGroup()
-        
-        if name == nil || sex == nil || fecha == nil {
-            print("Error leyendo userDefaults, probando a cargar desde la base de datos")
-            self.db.readDataUser(session: self, dg: dg)
-            dg.notify(queue: DispatchQueue.global(qos: .background)) {
-                print("Carga de datos terminada")
-            }
-            
-        } else {
-            self.data = UserData(nombre: name!, sexo: sex!, edad: age, fechaNacimiento: fecha!, autMan: autMan)
+        self.db.readDataUser(session: self, dg: dg)
+        dg.notify(queue: DispatchQueue.global(qos: .background)) {
+            print("Carga de datos terminada")
         }
+//        let def = UserDefaults.standard
+//        let name = def.string(forKey: "name")
+//        let age = def.integer(forKey: "age")
+//        let sex = def.string(forKey: "sex")
+//        let fecha = def.string(forKey: "fechaNacimiento")
+//        let autMan = def.integer(forKey: "AutMan")
+//        let isStar = def.bool(forKey: "isStar")
+//        let key = def.string(forKey: "key")
+//        def.synchronize()
+//
+//        let dg = DispatchGroup()
+//
+//        if name == nil || sex == nil || fecha == nil || key == nil {
+//            print("Error leyendo userDefaults, probando a cargar desde la base de datos")
+//            self.db.readDataUser(session: self, dg: dg)
+//            dg.notify(queue: DispatchQueue.global(qos: .background)) {
+//                print("Carga de datos terminada")
+//            }
+//
+//        } else {
+//            self.data = UserData(nombre: name!, sexo: sex!, edad: age, fechaNacimiento: fecha!, autMan: autMan, isStar: isStar, key: key!)
+//        }
         
     }
     

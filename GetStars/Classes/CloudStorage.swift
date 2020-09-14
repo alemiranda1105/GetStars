@@ -15,6 +15,7 @@ import FirebaseStorage
 class CloudStorage: ObservableObject {
     private let storage = Storage.storage()
     private var downloadImg = UIImage()
+    private var itemsUrl = [UrlLoader]()
     
     func uploadAutMan(session: SessionStore, img: UIImage, type: String) {
         if session.session?.email == nil {
@@ -76,6 +77,43 @@ class CloudStorage: ObservableObject {
             }
             dg.leave()
         }
+    }
+    
+    func downloadAllFiles(session: SessionStore, type: String, dg: DispatchGroup) {
+        self.itemsUrl = [UrlLoader]()
+        dg.enter()
+        let path = "usuarios/" + (session.session?.email)! + "/" + type + "/"
+        let storageRef = storage.reference()
+        let imgRef =  storageRef.child(path)
+        imgRef.listAll { list, error in
+            if error != nil {
+                print("Error obteniendo todos los articulos de \(type)")
+                print(error?.localizedDescription ?? "")
+            } else {
+                // Descargar todos los archivos
+                print("Articulos obtenidos de \(type)")
+                var n = 0
+                for fileRef in list.items {
+                    dg.enter()
+                    fileRef.downloadURL { url, error in
+                        if error != nil {
+                            print("Error obteniendo la url de un articulos de \(type)")
+                            print(error?.localizedDescription ?? "")
+                        } else {
+                            print("URL del item obtenida")
+                            self.itemsUrl.append(UrlLoader(url: url!, id: n))
+                            n+=1
+                        }
+                        dg.leave()
+                    }
+                }
+            }
+            dg.leave()
+        }
+    }
+    
+    func getItemsUrl() -> [UrlLoader] {
+        return self.itemsUrl
     }
     
     func deleteFile(userType: String, email: String, name: String, type: String) {

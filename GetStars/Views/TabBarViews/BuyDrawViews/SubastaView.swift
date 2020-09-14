@@ -42,7 +42,7 @@ struct SubastaView: View {
                 
                 let owner = Person(name: db.getName(), description: db.getDesc(), image: st.getProfileImgUrl(), key: datos["dueño"] as! String)
                 
-                let p = Product(price: datos["precio"] as! Double, name: datos["nombre"] as! String, description: datos["descripcion"] as! String, image: sorteoImg, owner: owner, isDedicated: false)
+                let p = Product(price: datos["precio"] as! Double, name: datos["nombre"] as! String, description: datos["descripcion"] as! String, image: sorteoImg, owner: owner, isDedicated: false, productType: .subasta)
                 p.setFecha(fecha: datos["fechaFinal"] as! String)
                 p.setProductID(id: i)
                 

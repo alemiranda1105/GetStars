@@ -28,17 +28,18 @@ struct ProfileView: View {
             self.session.st.downloadURL(session: self.session, type: "AutMan", index: i, dg: group)
             group.notify(queue: DispatchQueue.global(qos: .background)) {
                 print("Terminado")
-            }
-            self.session.url = self.session.url.sorted {
-                $0.name.lowercased() < $1.name.lowercased()
+                DispatchQueue.main.async {
+                    self.session.url = self.session.url.sorted {
+                        $0.name.lowercased() < $1.name.lowercased()
+                    }
+                }
             }
         }
-        self.downloading = false
-    }
-    
-    private func getCompras() {
-        //let group = DispatchGroup()
-        
+        self.session.db.readDataUser(session: self.session, dg: group)
+        group.notify(queue: DispatchQueue.global(qos: .background)) {
+            print("Terminado")
+            self.downloading = false
+        }
     }
     
     var body: some View {
@@ -97,11 +98,12 @@ struct ProfileView: View {
                     
                     
                     if self.downloading {
-                        Text("Cargando...").font(.system(size: 32, weight: .heavy)).multilineTextAlignment(.center).padding()
+                        ActivityIndicator(isAnimating: .constant(true), style: .large)
+                            .frame(width: g.size.width, height: g.size.height, alignment: .center)
                     } else {
                         if self.catSeleccionada == 0 {
                             ScrollView {
-                                NavigationLink(destination: Text("Foto")) {
+                                NavigationLink(destination: ArticleProfileView(type: .constant("aut"))) {
                                     VStack {
                                         HStack {
                                             VStack {
@@ -117,8 +119,9 @@ struct ProfileView: View {
                                             Spacer()
                                             
                                             VStack {
-                                                Text("Foto dedicada: 18")
-                                                Text("Foto: 25")
+                                                Text("Foto dedicada: \((self.session.data?.compras["fotDed"]) ?? 0)")
+                                                Text("Foto con autógrafo: \((self.session.data?.compras["autFot"]) ?? 0)")
+                                                Text("Foto: \((self.session.data?.compras["fot"])!)")
                                             }
                                             
                                         }.padding()
@@ -143,8 +146,8 @@ struct ProfileView: View {
                                             Spacer()
                                             
                                             VStack {
-                                                Text("Autógrafo dedicado: 30")
-                                                Text("Autógrafo: 25")
+                                                Text("Autógrafo dedicado: \((self.session.data?.compras["autDed"]) ?? 0)")
+                                                Text("Autógrafo: \((self.session.data?.compras["aut"]) ?? 0)")
                                             }.multilineTextAlignment(.center)
                                             
                                         }.padding()
@@ -169,7 +172,7 @@ struct ProfileView: View {
                                             Spacer()
                                             
                                             VStack {
-                                                Text("Videos dedicados: 12")
+                                                Text("Videos dedicados: \((self.session.data?.compras["live"]) ?? 0)")
                                             }.multilineTextAlignment(.center)
                                             
                                         }.padding()
@@ -177,7 +180,7 @@ struct ProfileView: View {
                                         .padding()
                                     }
                                 }.foregroundColor(.black)
-                            }.onAppear(perform: self.getCompras)
+                            }
                         } else {
                             GridStack(minCellWidth: 125, spacing: 5, numItems: self.session.url.count){ i, width in
                                 NavigationLink(destination: AutographProfileView(url: self.session.url[i])) {

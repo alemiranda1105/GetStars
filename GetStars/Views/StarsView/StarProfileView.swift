@@ -9,6 +9,10 @@
 import SwiftUI
 
 struct StarProfileView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
+    @EnvironmentObject var session: SessionStore
+    
     private var cats = ["Productos", "Sorteos", "Pujas"]
     @State var catSeleccionada = 0
     
@@ -112,6 +116,11 @@ struct StarProfileView: View {
                             }
                         }
                     }.navigationBarTitle("Profile")
+                    .navigationBarItems(trailing:
+                        NavigationLink(destination: ConfigurationView().environmentObject(self.session)) {
+                            Image(systemName: "gear").resizable().frame(width: 28.0, height: 28.0)
+                        }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+                    )
                 }
             }
         }

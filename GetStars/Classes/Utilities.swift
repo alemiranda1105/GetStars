@@ -79,7 +79,7 @@ extension Color {
         return UIColor(red: components.r, green: components.g, blue: components.b, alpha: components.a)
     }
 
-    private func components() -> (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
+    func components() -> (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
 
         let scanner = Scanner(string: self.description.trimmingCharacters(in: CharacterSet.alphanumerics.inverted))
         var hexNumber: UInt64 = 0
@@ -106,4 +106,9 @@ extension UIApplication {
     static var appVersion: String? {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     }
+}
+
+func generateDocumentId(length: Int) -> String {
+    let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    return String((0..<length).map{ _ in letters.randomElement()! })
 }

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Marquelo S.L. All rights reserved.
 //
 
+import SwiftUI
 import UIKit
 import Combine
 
@@ -37,7 +38,7 @@ class DataBase: ObservableObject {
                 return
             } else {
                 print("El archivo no existe, Creando...")
-                UserDefaults.standard.set(false, forKey: "sign")
+                UserDefaults.standard.set(true, forKey: "sign")
                 self.db.collection(self.dbCollection).document(email).setData(dbData)
             }
         }
@@ -56,7 +57,10 @@ class DataBase: ObservableObject {
                                         sexo: document.data()!["sexo"] as! String,
                                         edad: document.data()!["edad"] as! Int,
                                         fechaNacimiento: document.data()!["fechaNacimiento"] as! String,
-                                        autMan: document.data()!["AutMan"] as! Int)
+                                        autMan: document.data()!["AutMan"] as! Int,
+                                        compras: document.data()!["compras"] as! [String : Int],
+                                        isStar: document.data()!["isStar"] as! Bool,
+                                        key: document.data()!["key"] as! String)
                 
                 let defaults = UserDefaults.standard
                 defaults.set(document.data()!["nombre"] as! String, forKey: "name")
@@ -64,6 +68,8 @@ class DataBase: ObservableObject {
                 defaults.set(document.data()!["sexo"] as! String, forKey: "sex")
                 defaults.set(document.data()!["fechaNacimiento"] as! String, forKey: "fechaNacimiento")
                 defaults.set(document.data()!["AutMan"] as! Int, forKey: "AutMan")
+                defaults.set(document.data()!["isStar"] as! Bool, forKey: "isStar")
+                defaults.set(document.data()!["key"] as! String, forKey: "key")
                 defaults.synchronize()
                 
                 session.data = self.datos!
@@ -78,6 +84,53 @@ class DataBase: ObservableObject {
             }
             dg.leave()
         }
+    }
+    
+    func uploadDedicatoria(documentID: String, key: String, email: String, mensaje: String, color: Color, size: CGFloat, posicion: [CGFloat], tipo: String, dg: DispatchGroup) {
+        dg.enter()
+        
+        // Procesamiento datos
+        let colorDesc = "\(color.components().r), \(color.components().g), \(color.components().b)"
+        let posDesc = "\(posicion[0]), \(posicion[1])"
+        let sizeDesc = "\(size)"
+        
+        let data: [String: String] = ["key": key, "email": email, "mensaje": mensaje, "color": colorDesc, "posicion": posDesc, "tamañoFuente": sizeDesc, "tipo": tipo]
+        
+        let docRef = db.collection("revision").document(documentID)
+        docRef.getDocument { (document, error) in
+            
+            if let document = document, document.exists {
+                print("El documento ya existe")
+                let newDocumentId = generateDocumentId(length: 21)
+                self.db.collection("revision").document(newDocumentId).setData(data)
+            } else {
+                print("Document does not exist")
+                self.db.collection("revision").document(documentID).setData(data)
+            }
+            dg.leave()
+            
+        }
+    }
+    
+    func addDedicatoriaToUser(email: String, dedicatoria: String, dg: DispatchGroup) {
+        dg.enter()
+        db.collection(dbCollection).document(email).updateData([
+            "revisionesPendientes": FieldValue.arrayUnion([dedicatoria])
+        ]) { error in
+            if error != nil {
+                print("Error añadiendo la revision")
+                print(error?.localizedDescription ?? "")
+            }
+            dg.leave()
+        }
+    }
+    
+    func addCompraToUserDB(email: String, compra: String, dg: DispatchGroup) {
+        dg.enter()
+        db.collection(dbCollection).document(email).updateData([
+            "compras.\(compra)": FieldValue.increment(1.0)
+        ])
+        dg.leave()
     }
     
     func updateAutManDB(session: SessionStore) {

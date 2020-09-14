@@ -43,17 +43,69 @@ struct PaymentView: View {
         self.session.cart.append(self.product)
     }
     
+    private func getCat(i: Product) -> String{
+        var cat = ""
+        switch i.productType {
+            case .autografoManual:
+                break
+            case .autografo:
+                cat = "aut"
+                break
+            case .autografoDedicado:
+                cat = "autDed"
+                break
+            case .foto:
+                cat = "fot"
+                break
+            case .fotoDedicada:
+                cat = "fotDed"
+                break
+            case .fotoConAutografo:
+                cat = "autFot"
+                break
+            case .live:
+                break
+            case .subasta:
+                break
+            case .sorteo:
+                break
+        }
+        return cat
+    }
+    
     private func payment() {
         if self.session.cart.count <= 0 {
             self.paid = false
             return
         }
         for i in self.session.cart {
+            let cat = self.getCat(i: i)
             if i.isDedicated {
                 print("Dedicado ------ Subiendo a la nube para revisión")
                 print(i.message)
+                
+                let dg = DispatchGroup()
+                let documentID = generateDocumentId(length: 21)
+                
+                self.session.db.uploadDedicatoria(documentID: documentID, key: i.owner.getKey(), email: self.session.session?.email ?? "", mensaje: i.message, color: i.color, size: i.size, posicion: i.posicion, tipo: cat, dg: dg)
+                
+                dg.notify(queue: DispatchQueue.global(qos: .background)) {
+                    print("Dedicatoria subida a la nube correctamente")
+                    
+                    self.session.db.addDedicatoriaToUser(email: self.session.session?.email ?? "", dedicatoria: documentID, dg: dg)
+                    dg.wait()
+                    
+                    print("Dedicatoria en revision")
+                }
             } else {
                 print("No dedicado ------ Añadiendo a compras del usuario")
+            }
+            
+            let dg = DispatchGroup()
+            
+            self.session.db.addCompraToUserDB(email: self.session.session?.email ?? "", compra: cat, dg: dg)
+            dg.notify(queue: DispatchQueue.global(qos: .background)) {
+                print("Compra de \(cat) añadida")
             }
         }
         self.paid = true

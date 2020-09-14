@@ -493,4 +493,13 @@ class StarsST: CloudStorage {
         return self.urlLive!
     }
     
+    private func getDate() -> String {
+        var res = ""
+        let now = Date()
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        res += formatter.string(from: now)
+        return res
+    }
+    
 }

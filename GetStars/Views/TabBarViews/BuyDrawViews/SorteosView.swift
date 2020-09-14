@@ -44,7 +44,7 @@ struct SorteosView: View {
                 
                 let owner = Person(name: db.getName(), description: db.getDesc(), image: st.getProfileImgUrl(), key: datos["dueño"] as! String)
                 
-                let p = Product(price: 0.0, name: datos["nombre"] as! String, description: datos["descripcion"] as! String, image: sorteoImg, owner: owner, isDedicated: false)
+                let p = Product(price: 0.0, name: datos["nombre"] as! String, description: datos["descripcion"] as! String, image: sorteoImg, owner: owner, isDedicated: false, productType: .sorteo)
                 p.setFecha(fecha: datos["fechaFinal"] as! String)
                 p.setParticipantes(lista: datos["participantes"] as! [String])
                 p.setProductID(id: i)

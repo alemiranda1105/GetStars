@@ -28,11 +28,15 @@ struct TabBarView: View {
                     BuyDrawView().environmentObject(self.session)
                     
                 } else if self.index == 3 {
-                    ProfileView().environmentObject(self.session)
+                    
+                    if (self.session.data?.getIsStar())! {
+                        StarProfileView().environmentObject(self.session)
+                    } else {
+                        ProfileView().environmentObject(self.session)
+                    }
                     
                 } else {
-                    //CreateAutograph().environmentObject(self.session)
-                    CameraLiveView()
+                    CreateAutograph().environmentObject(self.session)
                 }
             }
             

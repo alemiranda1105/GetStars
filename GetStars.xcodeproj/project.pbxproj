@@ -20,6 +20,7 @@
 		BE2D821824AA631C0080A75F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE2D821724AA631C0080A75F /* Preview Assets.xcassets */; };
 		BE2D821B24AA631C0080A75F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE2D821924AA631C0080A75F /* LaunchScreen.storyboard */; };
 		BE2D822524AA656C0080A75F /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2D822424AA656C0080A75F /* SessionStore.swift */; };
+		BE37E3BD250E7B980016B8A1 /* ArticleProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE37E3BC250E7B980016B8A1 /* ArticleProfileView.swift */; };
 		BE41AA6824CF584C00511527 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE41AA6724CF584C00511527 /* HomeView.swift */; };
 		BE41AA6A24CF590500511527 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE41AA6924CF590500511527 /* SearchView.swift */; };
 		BE41AA6C24CF594A00511527 /* BuyDrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE41AA6B24CF594A00511527 /* BuyDrawView.swift */; };
@@ -82,6 +83,7 @@
 		BE2D821A24AA631C0080A75F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BE2D821C24AA631C0080A75F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE2D822424AA656C0080A75F /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
+		BE37E3BC250E7B980016B8A1 /* ArticleProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleProfileView.swift; sourceTree = "<group>"; };
 		BE41AA6724CF584C00511527 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		BE41AA6924CF590500511527 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		BE41AA6B24CF594A00511527 /* BuyDrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyDrawView.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 			children = (
 				BE9F05F224DAF98000F47E68 /* ConfigurationView.swift */,
 				BEFBA10824E2E6D500E0C883 /* AutographProfileView.swift */,
+				BE37E3BC250E7B980016B8A1 /* ArticleProfileView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -525,6 +528,7 @@
 				BE8CF388250AB6F50055484E /* CameraLiveView.swift in Sources */,
 				BE4DDDE925080BE9002DF5A2 /* LiveCard.swift in Sources */,
 				BE962A0624F01B51009C8AA7 /* StarsManager.swift in Sources */,
+				BE37E3BD250E7B980016B8A1 /* ArticleProfileView.swift in Sources */,
 				BE67C10524EAB526007AA0E6 /* SubastaCardView.swift in Sources */,
 				BE2D821324AA631A0080A75F /* ContentView.swift in Sources */,
 				BE41AA6E24CF596800511527 /* ProfileView.swift in Sources */,
@@ -714,7 +718,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.45;
+				MARKETING_VERSION = "0.5.0-PreAlpha";
 				PRODUCT_BUNDLE_IDENTIFIER = com.marquelodev.GetStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -737,7 +741,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.45;
+				MARKETING_VERSION = "0.5.0-PreAlpha";
 				PRODUCT_BUNDLE_IDENTIFIER = com.marquelodev.GetStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
