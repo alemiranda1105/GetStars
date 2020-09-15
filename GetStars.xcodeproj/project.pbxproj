@@ -711,7 +711,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9A5FBAB8B76B5B261D2A6D27 /* Pods-GetStars.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"GetStars/Preview Content\"";
 				DEVELOPMENT_TEAM = TY2A2B43TK;
@@ -734,7 +734,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 67F8D13B24058BB55BF8DC87 /* Pods-GetStars.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"GetStars/Preview Content\"";
 				DEVELOPMENT_TEAM = TY2A2B43TK;
