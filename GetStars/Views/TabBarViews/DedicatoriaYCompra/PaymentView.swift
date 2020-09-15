@@ -54,9 +54,6 @@ struct PaymentView: View {
             case .autografoDedicado:
                 cat = "autDed"
                 break
-            case .foto:
-                cat = "fot"
-                break
             case .fotoDedicada:
                 cat = "fotDed"
                 break
@@ -87,7 +84,7 @@ struct PaymentView: View {
                 let dg = DispatchGroup()
                 let documentID = generateDocumentId(length: 21)
                 
-                self.session.db.uploadDedicatoria(documentID: documentID, key: i.owner.getKey(), email: self.session.session?.email ?? "", mensaje: i.message, color: i.color, size: i.size, posicion: i.posicion, tipo: cat, dg: dg)
+                self.session.db.uploadDedicatoria(documentID: documentID, key: i.owner.getKey(), email: self.session.session?.email ?? "", mensaje: i.message, color: i.uiColor, size: i.size, posicion: i.posicion, tipo: cat, dg: dg)
                 
                 dg.notify(queue: DispatchQueue.global(qos: .background)) {
                     print("Dedicatoria subida a la nube correctamente")

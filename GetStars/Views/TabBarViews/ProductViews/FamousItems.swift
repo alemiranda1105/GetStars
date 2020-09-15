@@ -61,7 +61,7 @@ struct FamousItems: View {
             db.getProductPrice(product: "foto", key: self.person.getKey(), dg: dg)
             dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                 var autPrice = db.getPrice()
-                self.product.append(Product(price: autPrice, name: "Foto", description: "Foto de prueba", image: self.url, owner: self.person, isDedicated: false, productType: .foto))
+                self.product.append(Product(price: autPrice, name: "Foto", description: "Foto de prueba", image: self.url, owner: self.person, isDedicated: false, productType: .fotoConAutografo))
                 
                 db.getProductPrice(product: "foto ded", key: self.person.getKey(), dg: dg)
                 dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {

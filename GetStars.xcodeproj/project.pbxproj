@@ -37,6 +37,7 @@
 		BE67C10024EAB1D7007AA0E6 /* SubastaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE67C0FF24EAB1D7007AA0E6 /* SubastaView.swift */; };
 		BE67C10324EAB4E3007AA0E6 /* SubastaProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE67C10224EAB4E3007AA0E6 /* SubastaProductView.swift */; };
 		BE67C10524EAB526007AA0E6 /* SubastaCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE67C10424EAB526007AA0E6 /* SubastaCardView.swift */; };
+		BE6C36572510C16500D277B9 /* ColorPickerRing in Frameworks */ = {isa = PBXBuildFile; productRef = BE6C36562510C16500D277B9 /* ColorPickerRing */; };
 		BE7017BE24F40E810039A272 /* FamousItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7017BD24F40E810039A272 /* FamousItems.swift */; };
 		BE71A53C24FD401600D4150D /* StarProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE71A53B24FD401600D4150D /* StarProfileView.swift */; };
 		BE747581250BD3C800C8488E /* LivePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE747580250BD3C800C8488E /* LivePlayerView.swift */; };
@@ -136,6 +137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DD5D08A7A5B511358615028 /* Pods_GetStars.framework in Frameworks */,
+				BE6C36572510C16500D277B9 /* ColorPickerRing in Frameworks */,
 				BE747584250BD48F00C8488E /* VideoPlayer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -390,6 +392,7 @@
 			name = GetStars;
 			packageProductDependencies = (
 				BE747583250BD48F00C8488E /* VideoPlayer */,
+				BE6C36562510C16500D277B9 /* ColorPickerRing */,
 			);
 			productName = GetStars;
 			productReference = BE2D820B24AA631A0080A75F /* GetStars.app */;
@@ -422,6 +425,7 @@
 			mainGroup = BE2D820224AA631A0080A75F;
 			packageReferences = (
 				BE747582250BD48E00C8488E /* XCRemoteSwiftPackageReference "VideoPlayer" */,
+				BE6C36552510C16500D277B9 /* XCRemoteSwiftPackageReference "ColorPicker" */,
 			);
 			productRefGroup = BE2D820C24AA631A0080A75F /* Products */;
 			projectDirPath = "";
@@ -773,6 +777,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BE6C36552510C16500D277B9 /* XCRemoteSwiftPackageReference "ColorPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hendriku/ColorPicker.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
 		BE747582250BD48E00C8488E /* XCRemoteSwiftPackageReference "VideoPlayer" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/wxxsw/VideoPlayer.git";
@@ -784,6 +796,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BE6C36562510C16500D277B9 /* ColorPickerRing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE6C36552510C16500D277B9 /* XCRemoteSwiftPackageReference "ColorPicker" */;
+			productName = ColorPickerRing;
+		};
 		BE747583250BD48F00C8488E /* VideoPlayer */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BE747582250BD48E00C8488E /* XCRemoteSwiftPackageReference "VideoPlayer" */;

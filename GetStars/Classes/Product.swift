@@ -32,7 +32,6 @@ class Product: Identifiable {
         case autografoManual
         case autografo
         case autografoDedicado
-        case foto
         case fotoDedicada
         case fotoConAutografo
         case live
@@ -43,6 +42,7 @@ class Product: Identifiable {
     // Datos dedicatoria
     var posicion: [CGFloat] = [0.0, 0.0]
     var color: Color = Color("naranja")
+    var uiColor: UIColor = UIColor.orange
     var size: CGFloat = 12
     
     init() {
@@ -114,9 +114,10 @@ class Product: Identifiable {
         self.productID = id
     }
     
-    func setDatosDedicatoria(pos: [CGFloat], color: Color, size: CGFloat) {
+    func setDatosDedicatoria(pos: [CGFloat], color: UIColor, size: CGFloat) {
         self.posicion = pos
-        self.color = color
+        self.color = Color(color)
+        self.uiColor = color
         self.size = size
     }
     

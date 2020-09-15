@@ -86,11 +86,11 @@ class DataBase: ObservableObject {
         }
     }
     
-    func uploadDedicatoria(documentID: String, key: String, email: String, mensaje: String, color: Color, size: CGFloat, posicion: [CGFloat], tipo: String, dg: DispatchGroup) {
+    func uploadDedicatoria(documentID: String, key: String, email: String, mensaje: String, color: UIColor, size: CGFloat, posicion: [CGFloat], tipo: String, dg: DispatchGroup) {
         dg.enter()
         
         // Procesamiento datos
-        let colorDesc = "\(color.components().r), \(color.components().g), \(color.components().b)"
+        let colorDesc = hexToString(color: color)
         let posDesc = "\(posicion[0]), \(posicion[1])"
         let sizeDesc = "\(size)"
         

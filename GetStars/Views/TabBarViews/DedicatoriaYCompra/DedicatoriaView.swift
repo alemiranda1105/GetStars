@@ -9,6 +9,7 @@
 import SwiftUI
 import UIKit
 import SDWebImageSwiftUI
+import ColorPickerRing
 import Firebase
 
 struct DedicatoriaView: View {
@@ -22,6 +23,8 @@ struct DedicatoriaView: View {
     @State var mensaje = ""
     
     @State var color: Color = Color(hex: "FCA310")
+    @State var uiColor = Color(hex: "FCA310").uiColor()
+    
     @State var size: CGFloat = 12
     @State var posX: CGFloat = 0.0
     @State var posY: CGFloat = 0.0
@@ -83,7 +86,7 @@ struct DedicatoriaView: View {
         }
         
         // Datos de la dedicatoria
-        product.setDatosDedicatoria(pos: [self.posX, self.posY], color: self.color, size: self.size)
+        product.setDatosDedicatoria(pos: [self.posX, self.posY], color: self.uiColor, size: self.size)
         
         self.session.cart.append(self.product)
         
@@ -111,7 +114,8 @@ struct DedicatoriaView: View {
                             
                             Text(self.mensaje)
                                 .font(.system(size: self.size))
-                                .foregroundColor(self.color).offset(x: self.posX, y: self.posY)
+                                .foregroundColor(self.color)
+                                .offset(x: self.posX, y: self.posY)
                                 .frame(width: (g.size.width/1.80), height: g.size.width/1.80)
                                 .multilineTextAlignment(.leading)
                         }.onAppear {
@@ -257,22 +261,59 @@ struct DedicatoriaView: View {
                     }.sheet(isPresented: self.$showColorMenu) {
                         VStack {
                             Text("Seleccione un color:").font(.system(size: 32, weight: .bold)).padding()
+                            
                             Spacer()
-                            ForEach(self.colors, id: \.self) { color in
+                            
+                            ColorPickerRing(color: self.$uiColor, strokeWidth: 30)
+                                .frame(width: 300, height: 300, alignment: .center)
+                            
+                            HStack(spacing: 30) {
                                 Button(action: {
-                                    self.color = color
+                                    self.uiColor = UIColor.black
+                                    self.color = Color(self.uiColor)
                                     self.showColorMenu.toggle()
                                 }) {
-                                    Text(color.description)
-                                        .font(.system(size: 14, weight: .regular))
+                                    Text("Negro")
+                                        .font(.system(size: 14, weight: .semibold))
                                         .frame(minWidth: 0, maxWidth: 50)
                                         .padding(10)
-                                        .background(color)
-                                        .foregroundColor(color == .white ? .black: .white)
+                                        .background(Color.black)
+                                        .foregroundColor(.white)
                                         .cornerRadius(50)
-                                }.padding()
+                                }
+                                
+                                Button(action: {
+                                    self.uiColor = UIColor.white
+                                    self.color = Color(self.uiColor)
+                                    self.showColorMenu.toggle()
+                                }) {
+                                    Text("Blanco")
+                                        .font(.system(size: 14, weight: .semibold))
+                                        .frame(minWidth: 0, maxWidth: 50)
+                                        .padding(10)
+                                        .background(Color.white)
+                                        .foregroundColor(.black)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 50)
+                                                .stroke(Color.black, lineWidth: 0.5)
+                                        )
+                                }
                             }
+                            
                             Spacer()
+                            
+                            Button(action: {
+                                self.color = Color(self.uiColor)
+                                self.showColorMenu.toggle()
+                            }) {
+                                Text("Elegir color")
+                                    .font(.system(size: 18, weight: .semibold))
+                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                    .padding(10)
+                                    .background(Color(self.uiColor))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(50)
+                            }.padding()
                         }
                     }
                 }

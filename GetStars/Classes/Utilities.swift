@@ -112,3 +112,18 @@ func generateDocumentId(length: Int) -> String {
     let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     return String((0..<length).map{ _ in letters.randomElement()! })
 }
+
+func hexToString(color: UIColor) -> String {
+    if color == UIColor.black {
+        return "000000"
+    } else if color == UIColor.white {
+        return "FFFFFF"
+    }
+    
+    let components = color.cgColor.components
+    let r = components![0]
+    let g = components![1]
+    let b = components![2]
+    let hexString = String(format: "%02X%02X%02X", Int(r * 255), Int(g * 255), Int(b * 255))
+    return hexString
+}
