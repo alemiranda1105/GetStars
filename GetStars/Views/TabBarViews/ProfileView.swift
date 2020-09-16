@@ -14,13 +14,13 @@ struct ProfileView: View {
     
     @EnvironmentObject var session: SessionStore
     
-    private var cats = ["Compras", "Autógrafos manuales"]
+    private var cats = ["Compras", "Dedicatorias", "Autógrafos"]
     @State var catSeleccionada = 0
     
     @State var visible: Bool = false
     @State var downloading: Bool = true
     
-    private func loadImage() {
+    private func loadProfileData() {
         let group = DispatchGroup()
         print("Starting")
         let length = self.session.data?.autMan ?? 0
@@ -36,6 +36,11 @@ struct ProfileView: View {
             }
         }
         self.session.db.readDataUser(session: self.session, dg: group)
+        group.notify(queue: DispatchQueue.global(qos: .background)) {
+            print("Terminado")
+        }
+        
+        self.session.db.readRevisionesPendientes(session: self.session, type: "", dg: group)
         group.notify(queue: DispatchQueue.global(qos: .background)) {
             print("Terminado")
             self.downloading = false
@@ -103,7 +108,8 @@ struct ProfileView: View {
                     } else {
                         if self.catSeleccionada == 0 {
                             ScrollView {
-                                NavigationLink(destination: ArticleProfileView(type: .constant("aut"))) {
+                                
+                                NavigationLink(destination: ArticleProfileView(type: .constant("autFot"))) {
                                     VStack {
                                         HStack {
                                             VStack {
@@ -119,9 +125,7 @@ struct ProfileView: View {
                                             Spacer()
                                             
                                             VStack {
-                                                Text("Foto dedicada: \((self.session.data?.compras["fotDed"]) ?? 0)")
-                                                Text("Foto con autógrafo: \((self.session.data?.compras["autFot"]) ?? 0)")
-                                                Text("Foto: \((self.session.data?.compras["fot"])!)")
+                                                Text("Foto con autógrafo: \((self.session.data?.compras["autFot"]?.count) ?? 0)")
                                             }
                                             
                                         }.padding()
@@ -130,7 +134,7 @@ struct ProfileView: View {
                                     }
                                 }.foregroundColor(.black)
                                 
-                                NavigationLink(destination: Text("Autógrafo")) {
+                                NavigationLink(destination: ArticleProfileView(type: .constant("aut"))) {
                                     VStack {
                                         HStack {
                                             VStack {
@@ -146,8 +150,7 @@ struct ProfileView: View {
                                             Spacer()
                                             
                                             VStack {
-                                                Text("Autógrafo dedicado: \((self.session.data?.compras["autDed"]) ?? 0)")
-                                                Text("Autógrafo: \((self.session.data?.compras["aut"]) ?? 0)")
+                                                Text("Autógrafo: \((self.session.data?.compras["aut"]?.count) ?? 0)")
                                             }.multilineTextAlignment(.center)
                                             
                                         }.padding()
@@ -172,7 +175,7 @@ struct ProfileView: View {
                                             Spacer()
                                             
                                             VStack {
-                                                Text("Videos dedicados: \((self.session.data?.compras["live"]) ?? 0)")
+                                                Text("Videos dedicados: \((self.session.data?.compras["live"]?.count) ?? 0)")
                                             }.multilineTextAlignment(.center)
                                             
                                         }.padding()
@@ -180,6 +183,67 @@ struct ProfileView: View {
                                         .padding()
                                     }
                                 }.foregroundColor(.black)
+                            }
+                        } else if self.catSeleccionada == 1 {
+                            ScrollView {
+                                
+                                VStack {
+                                    Text("Artículos con dedicatoria pendientes de revisión:")
+                                    Text("\(self.session.revisonesPendientes.count)")
+                                }.font(.system(size: 18, weight: .regular))
+                                    .foregroundColor(.primary)
+                                    .padding()
+                                
+                                NavigationLink(destination: ArticleProfileView(type: .constant("fotDed"))) {
+                                    VStack {
+                                        HStack {
+                                            VStack {
+                                                Text("Foto")
+                                                    .font(.system(size: 22, weight: .bold))
+                                                Spacer()
+                                                Image(systemName: "camera")
+                                                    .resizable()
+                                                    .frame(width: 60, height: 60, alignment: .center)
+                                                    .scaledToFit()
+                                                Spacer()
+                                            }
+                                            Spacer()
+                                            
+                                            VStack {
+                                                Text("Foto dedicada: \((self.session.data?.compras["fotDed"]?.count) ?? 0)")
+                                            }
+                                            
+                                        }.padding()
+                                        .background(RoundedRectangle(cornerRadius: 16).fill(Color("gris")))
+                                        .padding()
+                                    }
+                                }.foregroundColor(.black)
+                                
+                                NavigationLink(destination: ArticleProfileView(type: .constant("autDed"))) {
+                                    VStack {
+                                        HStack {
+                                            VStack {
+                                                Text("Autógrafo")
+                                                    .font(.system(size: 22, weight: .bold))
+                                                Spacer()
+                                                Image(systemName: "hand.draw")
+                                                    .resizable()
+                                                    .frame(width: 60, height: 60, alignment: .center)
+                                                    .scaledToFit()
+                                                Spacer()
+                                            }
+                                            Spacer()
+                                            
+                                            VStack {
+                                                Text("Autógrafo dedicado: \((self.session.data?.compras["autDed"]?.count) ?? 0)")
+                                            }.multilineTextAlignment(.center)
+                                            
+                                        }.padding()
+                                        .background(RoundedRectangle(cornerRadius: 16).fill(Color("gris")))
+                                        .padding()
+                                    }
+                                }.foregroundColor(.black)
+                                
                             }
                         } else {
                             GridStack(minCellWidth: 125, spacing: 5, numItems: self.session.url.count){ i, width in
@@ -207,7 +271,7 @@ struct ProfileView: View {
                         Image(systemName: "gear").resizable().frame(width: 28.0, height: 28.0)
                     }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                 )
-            }.onAppear(perform: self.loadImage)
+            }.onAppear(perform: self.loadProfileData)
             .navigationViewStyle(StackNavigationViewStyle())
         }
     }

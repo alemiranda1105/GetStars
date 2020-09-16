@@ -51,8 +51,15 @@ class UrlLoader: Identifiable {
             if i.id == url.id {
                 return true
             }
+            if i.url == url.url {
+                return true
+            }
         }
         return false
+    }
+    
+    func getNewId(array: [UrlLoader]) -> Int {
+        return array.count+1
     }
 }
 

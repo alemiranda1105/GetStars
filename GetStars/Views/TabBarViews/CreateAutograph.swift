@@ -9,6 +9,7 @@
 import UIKit
 import SwiftUI
 import CoreGraphics
+import ColorPickerRing
 import Photos
 
 struct CreateAutograph: View {
@@ -19,6 +20,7 @@ struct CreateAutograph: View {
     @State var currentDrawing: Drawing = Drawing()
     @State var drawings: [Drawing] = [Drawing]()
     @State var color: Color = Color.black
+    @State var uiColor: UIColor = UIColor.black
     @State var lineWidth: CGFloat = 3.0
     
     @State var origin: CGPoint = CGPoint(x: 0, y: 0)
@@ -26,6 +28,8 @@ struct CreateAutograph: View {
     
     @State var saved: Bool = false
     @State var error: String = ""
+    
+    @State var showColorMenu = false
     
     private func add(drawing: Drawing, toPath path: inout Path) {
         let points = drawing.points
@@ -51,7 +55,7 @@ struct CreateAutograph: View {
                         self.add(drawing: self.currentDrawing, toPath: &path)
                     }
                     .stroke(self.color, lineWidth: self.lineWidth)
-                        .background(Color(white: 0.95))
+                    .background(Color.white)
                         .gesture(
                             DragGesture(minimumDistance: 0.005)
                                 .onChanged({ (value) in
@@ -95,6 +99,18 @@ struct CreateAutograph: View {
                             .padding()
                     }
                     
+                    Button(action: {
+                        self.showColorMenu.toggle()
+                    }) {
+                        Text("Color")
+                            .frame(minWidth: 0, maxWidth: 50)
+                            .padding(10)
+                            .background(Color("gris"))
+                            .foregroundColor(.white)
+                            .cornerRadius(50)
+                        
+                    }
+                    
                     Spacer()
                     
                     Button(action: {
@@ -129,6 +145,65 @@ struct CreateAutograph: View {
                         .foregroundColor(.white)
                         .cornerRadius(50)
                     }.padding()
+                }.sheet(isPresented: self.$showColorMenu) {
+                    VStack {
+                        Text("Seleccione un color:").font(.system(size: 32, weight: .bold)).padding()
+                        
+                        Spacer()
+                        
+                        ColorPickerRing(color: self.$uiColor, strokeWidth: 30)
+                            .frame(width: 300, height: 300, alignment: .center)
+                        
+                        HStack(spacing: 30) {
+                            Button(action: {
+                                self.uiColor = UIColor.black
+                                self.color = Color(self.uiColor)
+                                self.showColorMenu.toggle()
+                            }) {
+                                Text("Negro")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .frame(minWidth: 0, maxWidth: 50)
+                                    .padding(10)
+                                    .background(Color.black)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(50)
+                            }
+                            
+                            Button(action: {
+                                self.uiColor = UIColor.white
+                                self.color = Color(self.uiColor)
+                                self.showColorMenu.toggle()
+                            }) {
+                                Text("Blanco")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .frame(minWidth: 0, maxWidth: 50)
+                                    .padding(10)
+                                    .background(Color.white)
+                                    .foregroundColor(.black)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 50)
+                                            .stroke(Color.black, lineWidth: 0.5)
+                                    )
+                            }
+                        }
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            self.color = Color(self.uiColor)
+                            self.showColorMenu.toggle()
+                        }) {
+                            Text("Elegir color")
+                                .font(.system(size: 18, weight: .semibold))
+                                .frame(minWidth: 0, maxWidth: .infinity)
+                                .padding(10)
+                                .background(Color(self.uiColor))
+                                .foregroundColor(.white)
+                                .cornerRadius(50)
+                        }.padding()
+                    }.onDisappear {
+                        self.color = Color(self.uiColor)
+                    }
                 }
             } else {
                 VStack {

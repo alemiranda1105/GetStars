@@ -24,7 +24,8 @@ class DataBase: ObservableObject {
     
     func createUserDB(session: SessionStore) {
         let email = session.session?.email
-        let dbData = (session.data?.getData())!
+        var dbData = (session.data?.getData())!
+        dbData["revisionesPendientes"] = [String]()
         
         db.collection(dbCollection).document(email!).setData(dbData)
     }
@@ -58,7 +59,7 @@ class DataBase: ObservableObject {
                                         edad: document.data()!["edad"] as! Int,
                                         fechaNacimiento: document.data()!["fechaNacimiento"] as! String,
                                         autMan: document.data()!["AutMan"] as! Int,
-                                        compras: document.data()!["compras"] as! [String : Int],
+                                        compras: document.data()!["compras"] as! [String : [String]],
                                         isStar: document.data()!["isStar"] as! Bool,
                                         key: document.data()!["key"] as! String)
                 
@@ -125,10 +126,10 @@ class DataBase: ObservableObject {
         }
     }
     
-    func addCompraToUserDB(email: String, compra: String, dg: DispatchGroup) {
+    func addCompraToUserDB(email: String, compra: String, owner: String, dg: DispatchGroup) {
         dg.enter()
         db.collection(dbCollection).document(email).updateData([
-            "compras.\(compra)": FieldValue.increment(1.0)
+            "compras.\(compra)": FieldValue.arrayUnion([owner])
         ])
         dg.leave()
     }
@@ -159,6 +160,23 @@ class DataBase: ObservableObject {
             }
             dg.leave()
         }
+    }
+    
+    func readRevisionesPendientes(session: SessionStore, type: String, dg: DispatchGroup) {
+        dg.enter()
+        let email = session.session?.email ?? ""
+        let documentRef = db.collection(dbCollection).document(email)
+        
+        documentRef.getDocument { document, error in
+            if let document = document, document.exists {
+                session.revisonesPendientes = document.data()?["revisionesPendientes"] as! [String]
+            } else {
+                print(error?.localizedDescription ?? "")
+                print("Error obteniendo las revisiones pendientes")
+            }
+            dg.leave()
+        }
+        
     }
     
     func deleteDB(session: SessionStore) {

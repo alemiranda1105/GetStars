@@ -17,7 +17,7 @@ struct UserData {
     
     // Articulos
     var autMan: Int
-    var compras: [String: Int]
+    var compras: [String: [String]]
 //    var aut: Int
 //    var autFot: Int
 //    var fotDed: Int
@@ -36,7 +36,7 @@ struct UserData {
         
         // Articulos
         self.autMan = autMan
-        self.compras = ["aut": 0, "autFot": 0, "fot": 0, "fotDed": 0, "live": 0]
+        self.compras = ["aut": [String](), "autFot": [String](), "fot": [String](), "fotDed": [String](), "live": [String]()]
         
         // Famoso
         self.isStar = false
@@ -49,7 +49,8 @@ struct UserData {
             "fechaNacimiento": fechaNacimiento,
             "AutMan": autMan,
             "isStar": false,
-            "key": self.key]
+            "key": self.key,
+            "compras": self.compras]
     }
     
 //    init(data: [String: Any]) {
@@ -74,7 +75,7 @@ struct UserData {
 //    }
     
     // Usuarios famosos
-    init(nombre: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int, compras: [String: Int], isStar: Bool, key: String) {
+    init(nombre: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int, compras: [String: [String]], isStar: Bool, key: String) {
         self.nombre = nombre
         self.sexo = sexo
         self.edad = edad

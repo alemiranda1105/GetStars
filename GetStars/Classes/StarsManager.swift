@@ -296,6 +296,31 @@ class StarsST: CloudStorage {
     // Live
     private var urlLive = URL(string: "")
     
+    // Compras
+    private var urlCompras = [URL]()
+    private var compra = URL(string: "")
+    
+    func readUrlCompra(type: String, key: String, dg: DispatchGroup) {
+        dg.enter()
+        compra = URL(string: "")
+        let path = "creadores/\(key)/\(type).jpg"
+        let storageRef = storage.reference()
+        let imgRef =  storageRef.child(path)
+        imgRef.downloadURL { url, error in
+            if error != nil {
+                print("error obteniendo el enlace de esta compra")
+                print(error?.localizedDescription ?? "")
+            } else {
+                self.compra = url
+            }
+            dg.leave()
+        }
+    }
+    
+    func getUrlCompra() -> URL {
+        return self.compra!
+    }
+    
     func downloadFile(key: String, dg: DispatchGroup) {
         dg.enter()
         let path = "creadores/" + "93cnbY5xxelS73sSsWnm" + "/profileImage.jpg"
@@ -348,7 +373,8 @@ class StarsST: CloudStorage {
                 print("Error obteniendo el autográfo")
             } else {
                 self.autUrl = url
-                print("URL de autógrafo obtenida")
+                self.urlCompras.append(url!)
+                print("URL de autógrafo de \(key) obtenida")
             }
             dg.leave()
         }
@@ -358,9 +384,13 @@ class StarsST: CloudStorage {
         return self.autUrl!
     }
     
-    func getPhoto(key: String, dg: DispatchGroup) {
+    func getUrlCompras() -> [URL] {
+        return self.urlCompras
+    }
+    
+    func getAutPhoto(key: String, dg: DispatchGroup) {
         dg.enter()
-        let path = "creadores/" + key + "/" + "photo.jpg"
+        let path = "creadores/" + key + "/" + "autFot.jpg"
         let storageRef = storage.reference()
         let imgRef =  storageRef.child(path)
         
@@ -369,6 +399,7 @@ class StarsST: CloudStorage {
                 print("Error obteniendo la foto")
             } else {
                 self.phoUrl = url
+                self.urlCompras.append(url!)
                 print("URL de foto obtenida")
             }
             dg.leave()

@@ -16,6 +16,15 @@ struct StarProfileView: View {
     private var cats = ["Productos", "Sorteos", "Pujas"]
     @State var catSeleccionada = 0
     
+    private func getData() {
+        let group = DispatchGroup()
+        
+        self.session.db.readDataUser(session: self.session, dg: group)
+        group.notify(queue: DispatchQueue.global(qos: .background)) {
+            print("Terminado")
+        }
+    }
+    
     var body: some View {
         GeometryReader { g in
             NavigationView {
@@ -121,7 +130,7 @@ struct StarProfileView: View {
                             Image(systemName: "gear").resizable().frame(width: 28.0, height: 28.0)
                         }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                     )
-                }
+                }.onAppear(perform: self.getData)
             }
         }
     }

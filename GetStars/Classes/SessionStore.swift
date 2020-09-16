@@ -34,6 +34,13 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     //Inidica si el usuario esta iniciando sesion
     @Published var signing: Bool = false
     
+    // Revisiones Pendientes de compra
+    @Published var revisonesPendientes = [String]()
+    @Published var articulosRevision = [Product]()
+    
+    // Compras
+    @Published var compras = [UrlLoader]()
+    
     
     func listen(dg: DispatchGroup){
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in

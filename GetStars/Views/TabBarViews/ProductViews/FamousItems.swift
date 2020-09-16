@@ -53,7 +53,7 @@ struct FamousItems: View {
         let st = StarsST()
         let db = StarsDB()
         let dg = DispatchGroup()
-        st.getPhoto(key: self.person.getKey(), dg: dg)
+        st.getAutPhoto(key: self.person.getKey(), dg: dg)
         dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
             let url = st.getPhoUrl()
             self.url = url

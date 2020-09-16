@@ -96,13 +96,13 @@ struct PaymentView: View {
                 }
             } else {
                 print("No dedicado ------ Añadiendo a compras del usuario")
-            }
-            
-            let dg = DispatchGroup()
-            
-            self.session.db.addCompraToUserDB(email: self.session.session?.email ?? "", compra: cat, dg: dg)
-            dg.notify(queue: DispatchQueue.global(qos: .background)) {
-                print("Compra de \(cat) añadida")
+                let dg = DispatchGroup()
+                
+                self.session.db.addCompraToUserDB(email: self.session.session?.email ?? "", compra: cat, owner: i.image, dg: dg)
+                dg.notify(queue: DispatchQueue.global(qos: .background)) {
+                    print("Compra de \(cat) añadida")
+                }
+                
             }
         }
         self.paid = true
