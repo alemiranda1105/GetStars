@@ -136,7 +136,7 @@ struct ProfileView: View {
                                         .background(RoundedRectangle(cornerRadius: 16).fill(Color("gris")))
                                         .padding()
                                     }
-                                }.foregroundColor(.black)
+                                }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                                 
                                 NavigationLink(destination: ArticleProfileView(type: .constant("aut"), title: .constant("Autógrafos"))) {
                                     VStack {
@@ -161,7 +161,7 @@ struct ProfileView: View {
                                         .background(RoundedRectangle(cornerRadius: 16).fill(Color("gris")))
                                         .padding()
                                     }
-                                }.foregroundColor(.black)
+                                }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                                 
                                 NavigationLink(destination: Text("Live")) {
                                     VStack {
@@ -186,7 +186,7 @@ struct ProfileView: View {
                                         .background(RoundedRectangle(cornerRadius: 16).fill(Color("gris")))
                                         .padding()
                                     }
-                                }.foregroundColor(.black)
+                                }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                             }
                         } else if self.catSeleccionada == 1 {
                             ScrollView {
@@ -221,7 +221,7 @@ struct ProfileView: View {
                                         .background(RoundedRectangle(cornerRadius: 16).fill(Color("gris")))
                                         .padding()
                                     }
-                                }.foregroundColor(.black)
+                                }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                                 
                                 NavigationLink(destination: ArticleProfileView(type: .constant("autDed"), title: .constant("Aut. dedicados"))) {
                                     VStack {
@@ -246,7 +246,7 @@ struct ProfileView: View {
                                         .background(RoundedRectangle(cornerRadius: 16).fill(Color("gris")))
                                         .padding()
                                     }
-                                }.foregroundColor(.black)
+                                }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                                 
                             }
                         } else {
