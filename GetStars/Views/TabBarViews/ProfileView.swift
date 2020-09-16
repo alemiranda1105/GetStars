@@ -58,8 +58,12 @@ struct ProfileView: View {
                             .frame(width: 80, height: 80)
                             .padding()
                         
-                        Text(self.session.data?.getName() ?? "Dev")
-                            .font(.system(size: 20, weight: .thin))
+                        VStack {
+                            Text(self.session.data?.getName() ?? "Dev")
+                            .font(.system(size: 20, weight: .regular))
+                            Text(self.session.session?.email ?? "Dev")
+                            .font(.system(size: 18, weight: .thin))
+                        }
                         
                         HStack(alignment: .center) {
                             Button(action: {
@@ -109,7 +113,7 @@ struct ProfileView: View {
                         if self.catSeleccionada == 0 {
                             ScrollView {
                                 
-                                NavigationLink(destination: ArticleProfileView(type: .constant("autFot"))) {
+                                NavigationLink(destination: ArticleProfileView(type: .constant("autFot"), title: .constant("Fotos"))) {
                                     VStack {
                                         HStack {
                                             VStack {
@@ -134,7 +138,7 @@ struct ProfileView: View {
                                     }
                                 }.foregroundColor(.black)
                                 
-                                NavigationLink(destination: ArticleProfileView(type: .constant("aut"))) {
+                                NavigationLink(destination: ArticleProfileView(type: .constant("aut"), title: .constant("Autógrafos"))) {
                                     VStack {
                                         HStack {
                                             VStack {
@@ -194,7 +198,7 @@ struct ProfileView: View {
                                     .foregroundColor(.primary)
                                     .padding()
                                 
-                                NavigationLink(destination: ArticleProfileView(type: .constant("fotDed"))) {
+                                NavigationLink(destination: ArticleProfileView(type: .constant("fotDed"), title: .constant("Fotos dedicadas"))) {
                                     VStack {
                                         HStack {
                                             VStack {
@@ -219,7 +223,7 @@ struct ProfileView: View {
                                     }
                                 }.foregroundColor(.black)
                                 
-                                NavigationLink(destination: ArticleProfileView(type: .constant("autDed"))) {
+                                NavigationLink(destination: ArticleProfileView(type: .constant("autDed"), title: .constant("Aut. dedicados"))) {
                                     VStack {
                                         HStack {
                                             VStack {

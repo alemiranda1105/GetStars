@@ -112,6 +112,13 @@ struct DedicatoriaView: View {
                             .scaledToFit()
                             .frame(width: g.size.width, height: g.size.height/1.5, alignment: .center)
                             
+                            VStack {
+                                Image("watermark")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .opacity(0.35)
+                            }.frame(width: g.size.width/2, height: g.size.height/2, alignment: .center)
+                            
                             Text(self.mensaje)
                                 .font(.system(size: self.size))
                                 .foregroundColor(self.color)
@@ -291,12 +298,14 @@ struct DedicatoriaView: View {
                                         .font(.system(size: 14, weight: .semibold))
                                         .frame(minWidth: 0, maxWidth: 50)
                                         .padding(10)
-                                        .background(Color.white)
-                                        .foregroundColor(.black)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 50)
-                                                .stroke(Color.black, lineWidth: 0.5)
+                                                .stroke(Color.black, lineWidth: 2)
                                         )
+                                        .background(Color.white)
+                                        .foregroundColor(.black)
+                                        .border(Color.black)
+                                        .cornerRadius(50)
                                 }
                             }
                             

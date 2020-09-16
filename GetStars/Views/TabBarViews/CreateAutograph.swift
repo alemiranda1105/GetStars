@@ -178,12 +178,14 @@ struct CreateAutograph: View {
                                     .font(.system(size: 14, weight: .semibold))
                                     .frame(minWidth: 0, maxWidth: 50)
                                     .padding(10)
-                                    .background(Color.white)
-                                    .foregroundColor(.black)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 50)
-                                            .stroke(Color.black, lineWidth: 0.5)
+                                            .stroke(Color.black, lineWidth: 2)
                                     )
+                                    .background(Color.white)
+                                    .foregroundColor(.black)
+                                    .border(Color.black)
+                                    .cornerRadius(50)
                             }
                         }
                         

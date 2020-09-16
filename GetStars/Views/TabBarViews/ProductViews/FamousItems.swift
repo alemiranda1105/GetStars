@@ -122,19 +122,28 @@ private struct AutView: View {
                     ScrollView {
                         Spacer(minLength: 12)
                         
-                        WebImage(url: self.url)
-                            .resizable()
-                            .placeholder(Image(systemName: "photo"))
-                            .placeholder {
-                                Rectangle().foregroundColor(Color("gris"))
-                            }
-                            .indicator(.activity)
-                            .transition(.fade(duration: 0.5))
-                            .scaledToFit()
-                            .frame(width: g.size.width/2, height: g.size.height/2, alignment: .center)
-                            .cornerRadius(15)
-                            .overlay(RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color.clear, lineWidth: 1))
+                        ZStack {
+                            WebImage(url: self.url)
+                                .resizable()
+                                .placeholder(Image(systemName: "photo"))
+                                .placeholder {
+                                    Rectangle().foregroundColor(Color("gris"))
+                                }
+                                .indicator(.activity)
+                                .transition(.fade(duration: 0.5))
+                                .cornerRadius(15)
+                                .overlay(RoundedRectangle(cornerRadius: 15)
+                                    .stroke(Color.clear, lineWidth: 1))
+                                .scaledToFit()
+                                .frame(width: g.size.width/2, height: g.size.height/2, alignment: .center)
+                            
+                            VStack {
+                                Image("watermark")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .opacity(0.35)
+                            }.frame(width: g.size.width/3.6, height: g.size.height/2, alignment: .center)
+                        }
                         
                         Spacer(minLength: 32)
                         
@@ -167,7 +176,7 @@ private struct AutView: View {
                                 .cornerRadius(8)
                             }
                         }
-                    }
+                    }.navigationBarTitle(Text("Autógrafo"), displayMode: .inline)
                 }
             }
         }
@@ -200,19 +209,28 @@ private struct PhotoView: View {
                     ScrollView {
                         Spacer(minLength: 12)
                         
-                        WebImage(url: self.url)
+                        ZStack {
+                            WebImage(url: self.url)
                             .resizable()
                             .placeholder(Image(systemName: "photo"))
                             .placeholder {
                                 Rectangle().foregroundColor(Color("gris"))
                             }
                             .indicator(.activity)
-                            .transition(.fade(duration: 0.5))
-                            .scaledToFit()
-                            .frame(width: g.size.width/2, height: g.size.height/2, alignment: .center)
-                            .cornerRadius(15)
-                            .overlay(RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color.clear, lineWidth: 1))
+                                .transition(.fade(duration: 0.5))
+                                .cornerRadius(15)
+                                .overlay(RoundedRectangle(cornerRadius: 15)
+                                    .stroke(Color.clear, lineWidth: 1))
+                                .scaledToFit()
+                                .frame(width: g.size.width/2, height: g.size.height/2, alignment: .center)
+                            
+                            VStack {
+                                Image("watermark")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .opacity(0.35)
+                            }.frame(width: g.size.width/3.6, height: g.size.height/2, alignment: .center)
+                        }
                         
                         Spacer(minLength: 32)
                         
@@ -245,7 +263,7 @@ private struct PhotoView: View {
                                 .cornerRadius(8)
                             }
                         }
-                    }
+                    }.navigationBarTitle(Text("Fotos"), displayMode: .inline)
                 }
             }
         }
