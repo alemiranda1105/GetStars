@@ -25,8 +25,9 @@ struct PaymentView: View {
     private func readCart() {
         self.session.cart = session.getCart()
         self.addProduct()
+        self.total = 0.0
         for item in self.session.cart {
-            total += item.price
+            self.total += item.price
         }
     }
     
@@ -160,6 +161,7 @@ struct PaymentView: View {
                         
                         Button(action: {
                             self.editing.toggle()
+                            self.readCart()
                         }) {
                             if self.editing {
                                 Text("Hecho")
