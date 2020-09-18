@@ -27,6 +27,7 @@ struct UserData {
     // Famoso
     private let isStar: Bool
     private let key: String
+    var ventas = [String: Int]()
     
     init(nombre: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int) {
         self.nombre = nombre
@@ -109,6 +110,10 @@ struct UserData {
     
     func getIsStar() -> Bool {
         return self.isStar
+    }
+    
+    func getUserKey() -> String {
+        return self.key
     }
     
 }

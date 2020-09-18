@@ -72,6 +72,7 @@ struct PaymentView: View {
     }
     
     private func payment() {
+        let db = StarsDB()
         if self.session.cart.count <= 0 {
             self.paid = false
             return
@@ -103,8 +104,8 @@ struct PaymentView: View {
                 dg.notify(queue: DispatchQueue.global(qos: .background)) {
                     print("Compra de \(cat) añadida")
                 }
-                
             }
+            db.addVenta(product: cat, key: i.owner.getKey())
         }
         self.paid = true
         self.session.cart.removeAll()

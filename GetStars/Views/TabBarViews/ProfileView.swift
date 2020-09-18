@@ -170,7 +170,7 @@ struct ProfileView: View {
                                                 Text("Live")
                                                     .font(.system(size: 22, weight: .bold))
                                                 Spacer()
-                                                Image(systemName: "hand.draw")
+                                                Image(systemName: "camera.on.rectangle")
                                                     .resizable()
                                                     .frame(width: 60, height: 60, alignment: .center)
                                                     .scaledToFit()
