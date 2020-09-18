@@ -31,28 +31,37 @@ struct StarProfileView: View {
         self.session.db.readDataUser(session: self.session, dg: group)
         group.notify(queue: DispatchQueue.global(qos: .background)) {
             print("Terminado")
-        }
-        
-        db.readVentas(session: self.session, dg: group)
-        self.session.db.readDataUser(session: self.session, dg: group)
-        group.notify(queue: DispatchQueue.global(qos: .background)) {
+            
+            db.readVentas(session: self.session, dg: group)
+            group.wait()
             print("Terminada lectura ventas")
             self.loading = false
         }
+        
+//        let dg = DispatchGroup()
+//        db.readVentas(session: self.session, dg: dg)
+//        dg.notify(queue: DispatchQueue.global(qos: .background)) {
+//            print("Terminada lectura ventas")
+//            self.loading = false
+//        }
     }
     
     private func loadProduct() {
-        // let db = StarsDB()
-        // let st = StarsST()
+        let st = StarsST()
+        let dg = DispatchGroup()
         
-        if self.product == "autFot" {
-            
-        } else if self.product == "fotDed" {
-            
-        } else if self.product == "aut" {
-            
-        } else if self.product == "autDed" {
-            
+        if self.product == "autFot" || self.product == "fotDed"{
+            st.getAutPhoto(key: self.session.data?.getUserKey() ?? "", dg: dg)
+            dg.notify(queue: DispatchQueue.global(qos: .background)) {
+                print("foto cargada")
+                self.url = st.getPhoUrl()
+            }
+        } else if self.product == "aut" || self.product == "autDed"{
+            st.getAut(key: self.session.data?.getUserKey() ?? "", dg: dg)
+            dg.notify(queue: DispatchQueue.global(qos: .background)) {
+                print("autógrafo cargado")
+                self.url = st.getAutUrl()
+            }
         }
         
     }
@@ -97,6 +106,7 @@ struct StarProfileView: View {
                                     HStack(spacing: 8) {
                                         Button(action: {
                                             self.product = "autFot"
+                                            self.loadProduct()
                                             self.showProductDetail = true
                                         }) {
                                             VStack {
@@ -117,6 +127,7 @@ struct StarProfileView: View {
                                         
                                         Button(action: {
                                             self.product = "aut"
+                                            self.loadProduct()
                                             self.showProductDetail = true
                                         }) {
                                             VStack {
@@ -149,6 +160,7 @@ struct StarProfileView: View {
                                     HStack(spacing: 8) {
                                         Button(action: {
                                             self.product = "fotDed"
+                                            self.loadProduct()
                                             self.showProductDetail = true
                                         }) {
                                             VStack {
@@ -169,6 +181,7 @@ struct StarProfileView: View {
                                         
                                         Button(action: {
                                             self.product = "autDed"
+                                            self.loadProduct()
                                             self.showProductDetail = true
                                         }) {
                                             VStack {
@@ -244,7 +257,6 @@ struct StarProfileView: View {
                 .sheet(isPresented: self.$showProductDetail) {
                     GeometryReader { g in
                         VStack {
-                            
                             HStack {
                                 Spacer()
                                 
@@ -284,8 +296,7 @@ struct StarProfileView: View {
                             }) {
                                 Text("Cambiar precio")
                             }
-                        }.onAppear(perform: self.loadProduct)
-                        .frame(width: g.size.width, height: g.size.height, alignment: .center)
+                        }.frame(width: g.size.width, height: g.size.height, alignment: .center)
                     }
                 }
             }

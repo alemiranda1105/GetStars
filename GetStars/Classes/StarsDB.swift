@@ -264,8 +264,8 @@ class StarsDB: DataBase {
             } else {
                 session.data?.ventas = document?.data()!["ventas"] as! [String: Int]
             }
+            dg.leave()
         }
-        dg.leave()
     }
     
     func getPrice() -> Double {
