@@ -41,7 +41,6 @@
 		BE7017BE24F40E810039A272 /* FamousItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7017BD24F40E810039A272 /* FamousItems.swift */; };
 		BE71A53C24FD401600D4150D /* StarProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE71A53B24FD401600D4150D /* StarProfileView.swift */; };
 		BE747581250BD3C800C8488E /* LivePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE747580250BD3C800C8488E /* LivePlayerView.swift */; };
-		BE747584250BD48F00C8488E /* VideoPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = BE747583250BD48F00C8488E /* VideoPlayer */; };
 		BE80F1D62512959B00D96074 /* DetailedArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE80F1D52512959B00D96074 /* DetailedArticleView.swift */; };
 		BE873F7824B249C40041247C /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE873F7724B249C40041247C /* DataBase.swift */; };
 		BE873F7A24B24CE60041247C /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE873F7924B24CE60041247C /* UserData.swift */; };
@@ -58,7 +57,7 @@
 		BEB32DDC24D81266007BA071 /* TrendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB32DDB24D81266007BA071 /* TrendingView.swift */; };
 		BEB32DDE24D81282007BA071 /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB32DDD24D81282007BA071 /* NewsView.swift */; };
 		BEB32DE024D8129B007BA071 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB32DDF24D8129B007BA071 /* CategoryView.swift */; };
-		BEB5BA762513B9660054485F /* DetailProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB5BA752513B9660054485F /* DetailProductView.swift */; };
+		BEBC381925150DF8005E817C /* CustomLivePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBC381825150DF8005E817C /* CustomLivePlayerView.swift */; };
 		BEC0488B24DC174500393EFB /* GoogleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC0488A24DC174500393EFB /* GoogleLoginView.swift */; };
 		BEC1097A24AB3FEF00695160 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC1097924AB3FEF00695160 /* WelcomeView.swift */; };
 		BEC6F2CE25136BCB00DFAC19 /* StarsST.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC6F2CD25136BCB00DFAC19 /* StarsST.swift */; };
@@ -124,7 +123,7 @@
 		BEB32DDB24D81266007BA071 /* TrendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingView.swift; sourceTree = "<group>"; };
 		BEB32DDD24D81282007BA071 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
 		BEB32DDF24D8129B007BA071 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
-		BEB5BA752513B9660054485F /* DetailProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProductView.swift; sourceTree = "<group>"; };
+		BEBC381825150DF8005E817C /* CustomLivePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLivePlayerView.swift; sourceTree = "<group>"; };
 		BEC0488A24DC174500393EFB /* GoogleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginView.swift; sourceTree = "<group>"; };
 		BEC1097924AB3FEF00695160 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		BEC6F2CD25136BCB00DFAC19 /* StarsST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsST.swift; sourceTree = "<group>"; };
@@ -144,7 +143,6 @@
 			files = (
 				4DD5D08A7A5B511358615028 /* Pods_GetStars.framework in Frameworks */,
 				BE6C36572510C16500D277B9 /* ColorPickerRing in Frameworks */,
-				BE747584250BD48F00C8488E /* VideoPlayer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +267,7 @@
 				BE4DDDE625080413002DF5A2 /* CreateLiveView.swift */,
 				BE4DDDE825080BE9002DF5A2 /* LiveCard.swift */,
 				BE747580250BD3C800C8488E /* LivePlayerView.swift */,
+				BEBC381825150DF8005E817C /* CustomLivePlayerView.swift */,
 			);
 			path = Live;
 			sourceTree = "<group>";
@@ -308,7 +307,6 @@
 			isa = PBXGroup;
 			children = (
 				BE71A53B24FD401600D4150D /* StarProfileView.swift */,
-				BEB5BA752513B9660054485F /* DetailProductView.swift */,
 			);
 			path = StarsView;
 			sourceTree = "<group>";
@@ -400,7 +398,6 @@
 			);
 			name = GetStars;
 			packageProductDependencies = (
-				BE747583250BD48F00C8488E /* VideoPlayer */,
 				BE6C36562510C16500D277B9 /* ColorPickerRing */,
 			);
 			productName = GetStars;
@@ -433,7 +430,6 @@
 			);
 			mainGroup = BE2D820224AA631A0080A75F;
 			packageReferences = (
-				BE747582250BD48E00C8488E /* XCRemoteSwiftPackageReference "VideoPlayer" */,
 				BE6C36552510C16500D277B9 /* XCRemoteSwiftPackageReference "ColorPicker" */,
 			);
 			productRefGroup = BE2D820C24AA631A0080A75F /* Products */;
@@ -524,6 +520,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEBC381925150DF8005E817C /* CustomLivePlayerView.swift in Sources */,
 				BE2D820F24AA631A0080A75F /* AppDelegate.swift in Sources */,
 				BECB173624E8543400E78176 /* PersonView.swift in Sources */,
 				BE67C10324EAB4E3007AA0E6 /* SubastaProductView.swift in Sources */,
@@ -534,7 +531,6 @@
 				BE2D822524AA656C0080A75F /* SessionStore.swift in Sources */,
 				BE41AA6C24CF594A00511527 /* BuyDrawView.swift in Sources */,
 				BE4DDDE725080413002DF5A2 /* CreateLiveView.swift in Sources */,
-				BEB5BA762513B9660054485F /* DetailProductView.swift in Sources */,
 				BEC1097A24AB3FEF00695160 /* WelcomeView.swift in Sources */,
 				BE67C0FD24EAB13F007AA0E6 /* Product.swift in Sources */,
 				BE873F7824B249C40041247C /* DataBase.swift in Sources */,
@@ -797,14 +793,6 @@
 				minimumVersion = 2.1.0;
 			};
 		};
-		BE747582250BD48E00C8488E /* XCRemoteSwiftPackageReference "VideoPlayer" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/wxxsw/VideoPlayer.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.5;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -812,11 +800,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BE6C36552510C16500D277B9 /* XCRemoteSwiftPackageReference "ColorPicker" */;
 			productName = ColorPickerRing;
-		};
-		BE747583250BD48F00C8488E /* VideoPlayer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BE747582250BD48E00C8488E /* XCRemoteSwiftPackageReference "VideoPlayer" */;
-			productName = VideoPlayer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

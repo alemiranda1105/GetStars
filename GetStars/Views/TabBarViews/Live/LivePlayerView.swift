@@ -8,7 +8,6 @@
 
 import SwiftUI
 import AVKit
-import VideoPlayer
 
 struct LivePlayerView: View {
     @Binding var recorded: Bool
@@ -73,33 +72,13 @@ struct LivePlayerView: View {
                     
                     ZStack(alignment: .bottom) {
                         
-                        VideoPlayer(url: self.cameraObject.videoUrl!, play: self.$play)
-                        .autoReplay(true)
-                        .mute(self.mute)
+                        CustomLivePlayerView(url: self.video)
                         
                         HStack(spacing: 10) {
                             Button(action: {
                                 self.recorded = false
                             }) {
                                 Image(systemName: "trash")
-                                .resizable()
-                                .frame(width: 30, height: 30, alignment: .center)
-                            }
-                            
-                            Spacer()
-                            
-                            Button(action: {
-                                self.play.toggle()
-                            }) {
-                                Image(systemName: self.play ? "pause.fill": "play.fill")
-                                .resizable()
-                                .frame(width: 30, height: 30, alignment: .center)
-                            }
-                            
-                            Button(action: {
-                                self.mute.toggle()
-                            }) {
-                                Image(systemName: self.mute ? "speaker.fill": "speaker.slash.fill")
                                 .resizable()
                                 .frame(width: 30, height: 30, alignment: .center)
                             }
@@ -117,9 +96,6 @@ struct LivePlayerView: View {
                         }.padding()
                         
                     }.frame(width: g.size.width, height: g.size.height * 0.9, alignment: .center)
-                    .onDisappear {
-                        VideoPlayer.cleanAllCache()
-                    }
                         
                     Spacer()
                         

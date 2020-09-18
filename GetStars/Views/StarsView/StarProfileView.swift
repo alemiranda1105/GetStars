@@ -288,14 +288,25 @@ struct StarProfileView: View {
                                 
                             }) {
                                 Text("Editar imagen")
-                            }
+                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                    .padding(14)
+                                    .background(Color("navyBlue"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(50)
+                            }.padding(8)
                             
                             Button(action: {
                                 // Cambiar precio
                                 
                             }) {
                                 Text("Cambiar precio")
-                            }
+                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                    .padding(14)
+                                    .background(Color("naranja"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(50)
+                            }.padding(8)
+                            
                         }.frame(width: g.size.width, height: g.size.height, alignment: .center)
                     }
                 }
