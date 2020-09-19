@@ -40,6 +40,11 @@ class StarsDB: DataBase {
     private var nParticipantesLive: Int = 0
     private var listaParticipantesLive: [String] = [String]()
     
+    func updatePrice(price: Double, article: String, key: String) {
+        db.collection(self.dbCollection).document(key).updateData([
+            "ventas.\(article)": price
+        ])
+    }
     
     func readKeys(dg: DispatchGroup) {
         dg.enter()

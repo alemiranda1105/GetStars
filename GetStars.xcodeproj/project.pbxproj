@@ -13,6 +13,8 @@
 		BE19C87024EC2DE700A2B975 /* SorteoProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE19C86F24EC2DE700A2B975 /* SorteoProductView.swift */; };
 		BE19C87224EC2DF500A2B975 /* SorteoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE19C87124EC2DF500A2B975 /* SorteoCardView.swift */; };
 		BE1B821D24DD8A3400BE59B8 /* CustomPhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1B821C24DD8A3400BE59B8 /* CustomPhotoAlbum.swift */; };
+		BE2827822515170900A97C2E /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2827812515170900A97C2E /* ImagePickerView.swift */; };
+		BE2827842515197000A97C2E /* ChangeProductImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2827832515197000A97C2E /* ChangeProductImageView.swift */; };
 		BE2D820F24AA631A0080A75F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2D820E24AA631A0080A75F /* AppDelegate.swift */; };
 		BE2D821124AA631A0080A75F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2D821024AA631A0080A75F /* SceneDelegate.swift */; };
 		BE2D821324AA631A0080A75F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2D821224AA631A0080A75F /* ContentView.swift */; };
@@ -77,6 +79,8 @@
 		BE19C86F24EC2DE700A2B975 /* SorteoProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SorteoProductView.swift; sourceTree = "<group>"; };
 		BE19C87124EC2DF500A2B975 /* SorteoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SorteoCardView.swift; sourceTree = "<group>"; };
 		BE1B821C24DD8A3400BE59B8 /* CustomPhotoAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhotoAlbum.swift; sourceTree = "<group>"; };
+		BE2827812515170900A97C2E /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		BE2827832515197000A97C2E /* ChangeProductImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeProductImageView.swift; sourceTree = "<group>"; };
 		BE2D820B24AA631A0080A75F /* GetStars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetStars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2D820E24AA631A0080A75F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2D821024AA631A0080A75F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -307,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				BE71A53B24FD401600D4150D /* StarProfileView.swift */,
+				BE2827832515197000A97C2E /* ChangeProductImageView.swift */,
 			);
 			path = StarsView;
 			sourceTree = "<group>";
@@ -327,6 +332,7 @@
 				BEFBA10824E2E6D500E0C883 /* AutographProfileView.swift */,
 				BE37E3BC250E7B980016B8A1 /* ArticleProfileView.swift */,
 				BE80F1D52512959B00D96074 /* DetailedArticleView.swift */,
+				BE2827812515170900A97C2E /* ImagePickerView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -531,6 +537,7 @@
 				BE2D822524AA656C0080A75F /* SessionStore.swift in Sources */,
 				BE41AA6C24CF594A00511527 /* BuyDrawView.swift in Sources */,
 				BE4DDDE725080413002DF5A2 /* CreateLiveView.swift in Sources */,
+				BE2827842515197000A97C2E /* ChangeProductImageView.swift in Sources */,
 				BEC1097A24AB3FEF00695160 /* WelcomeView.swift in Sources */,
 				BE67C0FD24EAB13F007AA0E6 /* Product.swift in Sources */,
 				BE873F7824B249C40041247C /* DataBase.swift in Sources */,
@@ -542,6 +549,7 @@
 				BE37E3BD250E7B980016B8A1 /* ArticleProfileView.swift in Sources */,
 				BE67C10524EAB526007AA0E6 /* SubastaCardView.swift in Sources */,
 				BE2D821324AA631A0080A75F /* ContentView.swift in Sources */,
+				BE2827822515170900A97C2E /* ImagePickerView.swift in Sources */,
 				BE41AA6E24CF596800511527 /* ProfileView.swift in Sources */,
 				BE9F05F524DB039300F47E68 /* CloudStorage.swift in Sources */,
 				BE4A7A7024B4F95200336760 /* SignInView.swift in Sources */,

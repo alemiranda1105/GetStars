@@ -27,6 +27,22 @@ class StarsST: CloudStorage {
     private var urlCompras = [URL]()
     private var compra = URL(string: "")
     
+    func uploadNewImage(key: String, type: String, data: Data, dg: DispatchGroup) {
+        dg.enter()
+        let path = "creadores/\(key)/\(type).jpg"
+        let storageRef = storage.reference()
+        let imgRef =  storageRef.child(path)
+        imgRef.putData(data, metadata: nil) { meta, error in
+            if error != nil {
+                print("error subiendo el nuevo archivo")
+                print(error?.localizedDescription ?? "")
+            } else {
+                print("Nuevo archivo subido")
+            }
+            dg.leave()
+        }
+    }
+    
     func readUrlCompra(type: String, key: String, dg: DispatchGroup) {
         dg.enter()
         compra = URL(string: "")

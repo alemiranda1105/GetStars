@@ -23,6 +23,11 @@ struct StarProfileView: View {
     @State var showProductDetail = false
     @State var product = ""
     @State var url: URL = URL(string: "https://firebasestorage.googleapis.com/v0/b/getstars-a36bb.appspot.com/o/creadores%2F93cnbY5xxelS73sSsWnm%2FautFot.jpg?alt=media&token=16d5706c-73f9-40e7-b21d-d2a4b1c66e8a")!
+    @State var showImagePicker = false
+    @State var image: UIImage = UIImage()
+    
+    @State var priceUpdateMenu = false
+    @State var price: Double = 0.0
     
     private func getData() {
         let group = DispatchGroup()
@@ -37,13 +42,6 @@ struct StarProfileView: View {
             print("Terminada lectura ventas")
             self.loading = false
         }
-        
-//        let dg = DispatchGroup()
-//        db.readVentas(session: self.session, dg: dg)
-//        dg.notify(queue: DispatchQueue.global(qos: .background)) {
-//            print("Terminada lectura ventas")
-//            self.loading = false
-//        }
     }
     
     private func loadProduct() {
@@ -55,15 +53,21 @@ struct StarProfileView: View {
             dg.notify(queue: DispatchQueue.global(qos: .background)) {
                 print("foto cargada")
                 self.url = st.getPhoUrl()
+                self.product = "autFot"
             }
         } else if self.product == "aut" || self.product == "autDed"{
             st.getAut(key: self.session.data?.getUserKey() ?? "", dg: dg)
             dg.notify(queue: DispatchQueue.global(qos: .background)) {
                 print("autógrafo cargado")
                 self.url = st.getAutUrl()
+                self.product = "aut"
             }
         }
-        
+    }
+    
+    private func changePrice() {
+        let db = StarsDB()
+        db.updatePrice(price: self.price, article: self.product, key: self.session.data?.getUserKey() ?? "")
     }
     
     var body: some View {
@@ -255,59 +259,72 @@ struct StarProfileView: View {
                     }
                 }.onAppear(perform: self.getData)
                 .sheet(isPresented: self.$showProductDetail) {
-                    GeometryReader { g in
-                        VStack {
-                            HStack {
-                                Spacer()
-                                
-                                Button(action: {
-                                    self.showProductDetail = false
-                                }) {
-                                    Text("Cancelar")
-                                }
-                            }.padding()
-                            
-                            WebImage(url: self.url)
-                                .resizable()
-                                .placeholder(Image(systemName: "photo"))
-                                .placeholder {
-                                    Rectangle().foregroundColor(Color("gris"))
-                                }
-                                .indicator(.activity)
-                                .transition(.fade(duration: 0.5))
-                                .cornerRadius(15)
-                                .overlay(RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color.clear, lineWidth: 1))
-                                .scaledToFit()
-                                .frame(width: g.size.width, height: g.size.height/2, alignment: .center)
-                            
-                            Spacer()
-                            
-                            Button(action: {
-                                // Editar imagen
-                                
-                            }) {
-                                Text("Editar imagen")
-                                    .frame(minWidth: 0, maxWidth: .infinity)
-                                    .padding(14)
-                                    .background(Color("navyBlue"))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(50)
-                            }.padding(8)
-                            
-                            Button(action: {
-                                // Cambiar precio
-                                
-                            }) {
-                                Text("Cambiar precio")
-                                    .frame(minWidth: 0, maxWidth: .infinity)
-                                    .padding(14)
-                                    .background(Color("naranja"))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(50)
-                            }.padding(8)
-                            
-                        }.frame(width: g.size.width, height: g.size.height, alignment: .center)
+                    Group {
+                        if self.showImagePicker {
+                            ChangeProductImageView(goBack: self.$showImagePicker, product: self.$product).environmentObject(self.session)
+                        } else {
+                            GeometryReader { g in
+                                VStack {
+                                    HStack {
+                                        Spacer()
+                                        
+                                        Button(action: {
+                                            self.showProductDetail = false
+                                        }) {
+                                            Text("Cancelar")
+                                        }
+                                    }.padding()
+                                    
+                                    WebImage(url: self.url)
+                                        .resizable()
+                                        .placeholder(Image(systemName: "photo"))
+                                        .placeholder {
+                                            Rectangle().foregroundColor(Color("gris"))
+                                        }
+                                        .indicator(.activity)
+                                        .transition(.fade(duration: 0.5))
+                                        .cornerRadius(15)
+                                        .overlay(RoundedRectangle(cornerRadius: 15)
+                                            .stroke(Color.clear, lineWidth: 1))
+                                        .scaledToFit()
+                                        .frame(width: g.size.width, height: g.size.height/2, alignment: .center)
+                                    
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        // Editar imagen
+                                        self.showImagePicker.toggle()
+                                        
+                                    }) {
+                                        Text("Editar imagen")
+                                            .frame(minWidth: 0, maxWidth: .infinity)
+                                            .padding(14)
+                                            .background(Color("navyBlue"))
+                                            .foregroundColor(.white)
+                                            .cornerRadius(50)
+                                    }.padding(8)
+                                    
+                                    Button(action: {
+                                        // Cambiar precio
+                                        self.priceUpdateMenu = true
+                                        
+                                    }) {
+                                        Text("Cambiar precio")
+                                            .frame(minWidth: 0, maxWidth: .infinity)
+                                            .padding(14)
+                                            .background(Color("naranja"))
+                                            .foregroundColor(.white)
+                                            .cornerRadius(50)
+                                    }.padding(8)
+                                    .sheet(isPresented: self.$priceUpdateMenu) {
+                                        VStack {
+                                            Text("Actualiza")
+                                        }
+                                    }
+                                    
+                                }.frame(width: g.size.width, height: g.size.height, alignment: .center)
+                            }
+                        }
                     }
                 }
             }
@@ -322,3 +339,5 @@ struct StarProfileView_Previews: PreviewProvider {
     }
 }
 #endif
+
+
