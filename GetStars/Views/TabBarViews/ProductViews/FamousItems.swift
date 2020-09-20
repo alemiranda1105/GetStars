@@ -58,7 +58,7 @@ struct FamousItems: View {
             let url = st.getPhoUrl()
             self.url = url
             
-            db.getProductPrice(product: "autFot", key: self.person.getKey(), dg: dg)
+            db.getProductPrice(product: "fot", key: self.person.getKey(), dg: dg)
             dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                 var autPrice = db.getPrice()
                 self.product.append(Product(price: autPrice, name: "Foto", description: "Foto de prueba", image: self.url, owner: self.person, isDedicated: false, productType: .fotoConAutografo))
@@ -79,8 +79,12 @@ struct FamousItems: View {
         Group {
             if self.item == "aut" {
                 AutView(url: self.$url, product: self.$product, loading: self.$loading).environmentObject(self.session).onAppear(perform: self.getAutografo)
+                    .navigationBarTitle(Text("Autógrafo"), displayMode: .inline)
+                    .navigationBarHidden(false)
             } else if self.item == "foto" {
                 PhotoView(url: self.$url, product: self.$product, loading: self.$loading).environmentObject(self.session).onAppear(perform: self.getFoto)
+                    .navigationBarTitle(Text("Fotos"), displayMode: .inline)
+                    .navigationBarHidden(false)
             } else {
                 VStack {
                     Text("Próximamente")
@@ -92,7 +96,7 @@ struct FamousItems: View {
                         .multilineTextAlignment(.center)
                 }
             }
-        }
+        }.navigationBarHidden(false)
     }
 }
 
@@ -117,7 +121,7 @@ private struct AutView: View {
                 if self.showDedicatoryView {
                     DedicatoriaView(product: self.dedicatoryItem).environmentObject(self.session)
                 } else if self.showCart {
-                    PaymentView(product: Product()).environmentObject(self.session)
+                    PaymentView(product: Product()).environmentObject(self.session).navigationBarTitle("")
                 } else {
                     ScrollView {
                         Spacer(minLength: 12)
@@ -176,9 +180,9 @@ private struct AutView: View {
                                 .cornerRadius(8)
                             }
                         }
-                    }.navigationBarTitle(Text("Autógrafo"), displayMode: .inline)
+                    }
                 }
-            }
+            }.frame(width: g.size.width, height: g.size.height, alignment: .center)
         }
     }
 }
@@ -204,7 +208,7 @@ private struct PhotoView: View {
                 if self.showDedicatoryView {
                     DedicatoriaView(product: self.dedicatoryItem).environmentObject(self.session)
                 } else if self.showCart {
-                    PaymentView(product: Product()).environmentObject(self.session)
+                    PaymentView(product: Product()).environmentObject(self.session).navigationBarTitle("")
                 } else {
                     ScrollView {
                         Spacer(minLength: 12)
@@ -263,9 +267,9 @@ private struct PhotoView: View {
                                 .cornerRadius(8)
                             }
                         }
-                    }.navigationBarTitle(Text("Fotos"), displayMode: .inline)
+                    }
                 }
-            }
+            }.frame(width: g.size.width, height: g.size.height, alignment: .center)
         }
     }
 }
