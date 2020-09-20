@@ -32,6 +32,8 @@
 		BE4DDDE725080413002DF5A2 /* CreateLiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4DDDE625080413002DF5A2 /* CreateLiveView.swift */; };
 		BE4DDDE925080BE9002DF5A2 /* LiveCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4DDDE825080BE9002DF5A2 /* LiveCard.swift */; };
 		BE56558824FBB1C700A3CC24 /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE56558724FBB1C700A3CC24 /* CartView.swift */; };
+		BE57A53225175E2500C2FD7B /* ManageLiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE57A53125175E2500C2FD7B /* ManageLiveView.swift */; };
+		BE57A5342517612000C2FD7B /* LiveUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE57A5332517612000C2FD7B /* LiveUserView.swift */; };
 		BE5A37C024F69E96001EBF57 /* DedicatoriaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5A37BF24F69E96001EBF57 /* DedicatoriaView.swift */; };
 		BE5A37C224F69EB9001EBF57 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5A37C124F69EB9001EBF57 /* PaymentView.swift */; };
 		BE67C0FB24EA7D60007AA0E6 /* SubcategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE67C0FA24EA7D60007AA0E6 /* SubcategoryView.swift */; };
@@ -100,6 +102,8 @@
 		BE4DDDE625080413002DF5A2 /* CreateLiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLiveView.swift; sourceTree = "<group>"; };
 		BE4DDDE825080BE9002DF5A2 /* LiveCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCard.swift; sourceTree = "<group>"; };
 		BE56558724FBB1C700A3CC24 /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
+		BE57A53125175E2500C2FD7B /* ManageLiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageLiveView.swift; sourceTree = "<group>"; };
+		BE57A5332517612000C2FD7B /* LiveUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveUserView.swift; sourceTree = "<group>"; };
 		BE5A37BF24F69E96001EBF57 /* DedicatoriaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DedicatoriaView.swift; sourceTree = "<group>"; };
 		BE5A37C124F69EB9001EBF57 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		BE67C0FA24EA7D60007AA0E6 /* SubcategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcategoryView.swift; sourceTree = "<group>"; };
@@ -312,6 +316,8 @@
 			children = (
 				BE71A53B24FD401600D4150D /* StarProfileView.swift */,
 				BE2827832515197000A97C2E /* ChangeProductImageView.swift */,
+				BE57A53125175E2500C2FD7B /* ManageLiveView.swift */,
+				BE57A5332517612000C2FD7B /* LiveUserView.swift */,
 			);
 			path = StarsView;
 			sourceTree = "<group>";
@@ -561,6 +567,7 @@
 				BE56558824FBB1C700A3CC24 /* CartView.swift in Sources */,
 				BE67C10024EAB1D7007AA0E6 /* SubastaView.swift in Sources */,
 				BEFBA10924E2E6D500E0C883 /* AutographProfileView.swift in Sources */,
+				BE57A53225175E2500C2FD7B /* ManageLiveView.swift in Sources */,
 				BE19C87024EC2DE700A2B975 /* SorteoProductView.swift in Sources */,
 				BE8CF38A250ABE090055484E /* CameraController.swift in Sources */,
 				BE7017BE24F40E810039A272 /* FamousItems.swift in Sources */,
@@ -570,6 +577,7 @@
 				BEB32DE024D8129B007BA071 /* CategoryView.swift in Sources */,
 				BE1B821D24DD8A3400BE59B8 /* CustomPhotoAlbum.swift in Sources */,
 				BE5A37C224F69EB9001EBF57 /* PaymentView.swift in Sources */,
+				BE57A5342517612000C2FD7B /* LiveUserView.swift in Sources */,
 				BE41AA6A24CF590500511527 /* SearchView.swift in Sources */,
 				BE4A7A7224B4F9B900336760 /* SignUpView.swift in Sources */,
 				BE8C307E24C87E8500135AD9 /* TabBarView.swift in Sources */,

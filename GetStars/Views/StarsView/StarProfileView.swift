@@ -22,12 +22,15 @@ struct StarProfileView: View {
     
     @State var showProductDetail = false
     @State var product = ""
+    @State var imgProduct = ""
     @State var url: URL = URL(string: "https://firebasestorage.googleapis.com/v0/b/getstars-a36bb.appspot.com/o/creadores%2F93cnbY5xxelS73sSsWnm%2FautFot.jpg?alt=media&token=16d5706c-73f9-40e7-b21d-d2a4b1c66e8a")!
     @State var showImagePicker = false
     @State var image: UIImage = UIImage()
     
     @State var priceUpdateMenu = false
     @State var price: Double = 0.0
+    @State var newPrice: Double = 0.0
+    @State var priceString = ""
     
     private func getData() {
         let group = DispatchGroup()
@@ -53,21 +56,34 @@ struct StarProfileView: View {
             dg.notify(queue: DispatchQueue.global(qos: .background)) {
                 print("foto cargada")
                 self.url = st.getPhoUrl()
-                self.product = "autFot"
+                self.imgProduct = "autFot"
             }
         } else if self.product == "aut" || self.product == "autDed"{
             st.getAut(key: self.session.data?.getUserKey() ?? "", dg: dg)
             dg.notify(queue: DispatchQueue.global(qos: .background)) {
                 print("autógrafo cargado")
                 self.url = st.getAutUrl()
-                self.product = "aut"
+                self.imgProduct = "aut"
             }
         }
     }
     
     private func changePrice() {
+        print("Hola")
         let db = StarsDB()
-        db.updatePrice(price: self.price, article: self.product, key: self.session.data?.getUserKey() ?? "")
+        db.updatePrice(price: self.newPrice, article: self.product, key: self.session.data?.getUserKey() ?? "")
+        self.newPrice = 0.0
+    }
+    
+    private func readPrice() {
+        let db = StarsDB()
+        let dg = DispatchGroup()
+        
+        db.getProductPrice(product: self.product, key: self.session.data?.getUserKey() ?? "", dg: dg)
+        dg.notify(queue: DispatchQueue.global(qos: .background)) {
+            print("Precio leído")
+            self.price = db.getPrice()
+        }
     }
     
     var body: some View {
@@ -214,7 +230,7 @@ struct StarProfileView: View {
                                     Spacer()
                                 }
                                 
-                                NavigationLink(destination: Text("Live")) {
+                                NavigationLink(destination: ManageLiveView().environmentObject(self.session)) {
                                     VStack {
                                         HStack {
                                             VStack {
@@ -261,7 +277,7 @@ struct StarProfileView: View {
                 .sheet(isPresented: self.$showProductDetail) {
                     Group {
                         if self.showImagePicker {
-                            ChangeProductImageView(goBack: self.$showImagePicker, product: self.$product).environmentObject(self.session)
+                            ChangeProductImageView(goBack: self.$showImagePicker, product: self.$imgProduct, image: self.$image).environmentObject(self.session)
                         } else {
                             GeometryReader { g in
                                 VStack {
@@ -306,6 +322,7 @@ struct StarProfileView: View {
                                     
                                     Button(action: {
                                         // Cambiar precio
+                                        self.readPrice()
                                         self.priceUpdateMenu = true
                                         
                                     }) {
@@ -317,8 +334,44 @@ struct StarProfileView: View {
                                             .cornerRadius(50)
                                     }.padding(8)
                                     .sheet(isPresented: self.$priceUpdateMenu) {
-                                        VStack {
-                                            Text("Actualiza")
+                                        Group {
+                                            HStack {
+                                                Spacer()
+                                                
+                                                Button(action: {
+                                                    self.newPrice = (self.priceString as NSString).doubleValue
+                                                    if self.price != self.newPrice && self.newPrice > 0.0 {
+                                                        self.changePrice()
+                                                    }
+                                                    self.priceUpdateMenu = false
+                                                }) {
+                                                    
+                                                    Text("Actualizar")
+                                                    
+                                                }.padding()
+                                            }
+                                            
+                                            VStack(spacing: 60) {
+                                                Text("Precio actual: \(self.price.dollarString)€")
+                                                    .font(.system(size: 22, weight: .bold))
+                                                    .padding()
+                                                
+                                                VStack {
+                                                    Text("Introduzca el nuevo precio")
+                                                        .font(.system(size: 16, weight: .regular))
+                                                    
+                                                    TextField("Nuevo precio", text: self.$priceString)
+                                                        .padding(6)
+                                                        .background(
+                                                            RoundedRectangle(cornerRadius: 5)
+                                                                .strokeBorder(Color("naranja"), lineWidth: 1))
+                                                        .keyboardType(.decimalPad)
+                                                        .frame(minWidth: 0, maxWidth: .infinity)
+                                                }.padding()
+                                                
+                                                Spacer()
+                                                
+                                            }
                                         }
                                     }
                                     

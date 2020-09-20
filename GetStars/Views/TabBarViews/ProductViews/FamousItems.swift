@@ -31,12 +31,12 @@ struct FamousItems: View {
             let url = st.getAutUrl()
             self.url = url
             
-            db.getProductPrice(product: "autografo", key: self.person.getKey(), dg: dg)
+            db.getProductPrice(product: "aut", key: self.person.getKey(), dg: dg)
             dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                 var autPrice = db.getPrice()
                 self.product.append(Product(price: autPrice, name: "Autógrafo", description: "Autógrafo de prueba", image: self.url, owner: self.person, isDedicated: false, productType: .autografo))
                 
-                db.getProductPrice(product: "autografo ded", key: self.person.getKey(), dg: dg)
+                db.getProductPrice(product: "autDed", key: self.person.getKey(), dg: dg)
                 dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                     autPrice = db.getPrice()
                     self.product.append(Product(price: autPrice, name: "Autógrafo dedicado", description: "Autógrafo dedicado de prueba", image: self.url, owner: self.person, isDedicated: true, productType: .autografoDedicado))
@@ -58,12 +58,12 @@ struct FamousItems: View {
             let url = st.getPhoUrl()
             self.url = url
             
-            db.getProductPrice(product: "foto", key: self.person.getKey(), dg: dg)
+            db.getProductPrice(product: "autFot", key: self.person.getKey(), dg: dg)
             dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                 var autPrice = db.getPrice()
                 self.product.append(Product(price: autPrice, name: "Foto", description: "Foto de prueba", image: self.url, owner: self.person, isDedicated: false, productType: .fotoConAutografo))
                 
-                db.getProductPrice(product: "foto ded", key: self.person.getKey(), dg: dg)
+                db.getProductPrice(product: "fotDed", key: self.person.getKey(), dg: dg)
                 dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                     autPrice = db.getPrice()
                     self.product.append(Product(price: autPrice, name: "Foto dedicada", description: "Foto dedicado de prueba", image: self.url, owner: self.person, isDedicated: true, productType: .fotoDedicada))

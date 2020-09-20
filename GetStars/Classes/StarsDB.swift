@@ -41,9 +41,18 @@ class StarsDB: DataBase {
     private var listaParticipantesLive: [String] = [String]()
     
     func updatePrice(price: Double, article: String, key: String) {
+        print("Actualizando el precio de \(article) de \(key)")
+        print(price.dollarString)
         db.collection(self.dbCollection).document(key).updateData([
-            "ventas.\(article)": price
-        ])
+            "prod.\(article)": price
+        ]) { error in
+            if error != nil {
+                print("Error actualizando el precio")
+                print(error?.localizedDescription ?? "")
+            } else {
+                print("Precio actualizado")
+            }
+        }
     }
     
     func readKeys(dg: DispatchGroup) {
