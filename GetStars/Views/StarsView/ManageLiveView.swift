@@ -35,8 +35,14 @@ struct ManageLiveView: View {
                 HStack {
                     Button(action: {
                         // Cambiar precio
+                        
                     }) {
                         Text("Cambiar precio")
+                            .frame(minWidth: 0, maxWidth: .infinity)
+                            .padding(14)
+                            .background(Color("naranja"))
+                            .foregroundColor(.white)
+                            .cornerRadius(50)
                     }
                 }
                 
