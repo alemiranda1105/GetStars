@@ -20,7 +20,6 @@ struct CameraLiveView: View {
     
     @State var recording: Bool = false
     @State var time = 0
-    @State var progress: Float = 0.0
     
     // El timer no funciona de manera correcta, una iteración = 4x 
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -37,7 +36,6 @@ struct CameraLiveView: View {
             self.uploadRecord()
         } else {
             self.time += 1
-            self.progress += 0.25
         }
         print("\(self.time)")
     }

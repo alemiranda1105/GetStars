@@ -8,12 +8,20 @@
 
 import SwiftUI
 
+private struct Participante: Identifiable {
+    let email: String
+    let mensaje: String
+    let id = UUID()
+}
+
 struct ManageLiveView: View {
     @EnvironmentObject var session: SessionStore
     
     @State var loading = true
     
-    @State var participantes = [String]()
+    @State var participantes = [[String: String]]()
+    
+    @State private var listaParticipantes = [Participante]()
     
     private func readParticipantes() {
         let dg = DispatchGroup()
@@ -23,6 +31,14 @@ struct ManageLiveView: View {
         dg.notify(queue: DispatchQueue.global(qos: .background)) {
             self.participantes = db.getListaParticipantesLive()
             self.loading = false
+            
+            for i in self.participantes {
+                for j in i {
+                    let p = Participante(email: j.key, mensaje: j.value)
+                    self.listaParticipantes.append(p)
+                }
+            }
+            
         }
     }
     
@@ -46,11 +62,11 @@ struct ManageLiveView: View {
                     }
                 }.padding()
                 
-                List(self.participantes, id: \.self) { participante in
-                    NavigationLink(destination: LiveUserView(participante: .constant(participante), mensaje: .constant("Hola saludos a todos"))
+                List(self.listaParticipantes) { participante in
+                    NavigationLink(destination: LiveUserView(participante: .constant(participante.email), mensaje: .constant(participante.mensaje))
                                     .navigationViewStyle(StackNavigationViewStyle())
                     ) {
-                        Text(participante)
+                        Text(participante.email)
                     }
                 }
             }

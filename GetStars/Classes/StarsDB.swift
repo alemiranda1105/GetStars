@@ -38,7 +38,7 @@ class StarsDB: DataBase {
     
     // Lives
     private var nParticipantesLive: Int = 0
-    private var listaParticipantesLive: [String] = [String]()
+    private var listaParticipantesLive: [[String: String]] = [[String: String]]()
     
     func updatePrice(price: Double, article: String, key: String) {
         print("Actualizando el precio de \(article) de \(key)")
@@ -208,24 +208,25 @@ class StarsDB: DataBase {
     
     func readListaLive(key: String, dg: DispatchGroup) {
         dg.enter()
+        self.listaParticipantesLive.removeAll()
         db.collection("lives").document(key).getDocument { (document, error) in
             if error != nil {
                 print("Error leyendo los datos del live")
             } else {
                 print("Obteniendo datos del live")
                 self.nParticipantesLive = document!.data()!["numeroParticipantes"] as! Int
-                self.listaParticipantesLive = document!.data()!["listaParticipantes"] as! [String]
+                self.listaParticipantesLive = document!.data()!["listaParticipantes"] as! [[String: String]]
                 print("Datos del live obtenidos")
             }
             dg.leave()
         }
     }
     
-    func añadirAlLive(key: String, email: String, dg: DispatchGroup) {
+    func añadirAlLive(key: String, email: String, mensaje: String, dg: DispatchGroup) {
         dg.enter()
         let documentRef = db.collection("lives").document(key)
         documentRef.updateData([
-            "listaParticipantes": FieldValue.arrayUnion([email as Any]),
+            "listaParticipantes": FieldValue.arrayUnion([[email: mensaje]]),
             "numeroParticipantes": FieldValue.increment(1.0)
         ])
         dg.leave()
@@ -315,7 +316,7 @@ class StarsDB: DataBase {
         return self.nParticipantesLive
     }
     
-    func getListaParticipantesLive() -> [String] {
+    func getListaParticipantesLive() -> [[String: String]] {
         return self.listaParticipantesLive
     }
     

@@ -66,6 +66,7 @@ struct PaymentView: View {
                 cat = "autFot"
                 break
             case .live:
+                cat = "live"
                 break
             case .subasta:
                 break
@@ -83,7 +84,7 @@ struct PaymentView: View {
         }
         for i in self.session.cart {
             let cat = self.getCat(i: i)
-            if i.isDedicated {
+            if i.isDedicated && i.productType != .live{
                 print("Dedicado ------ Subiendo a la nube para revisión")
                 print(i.message)
                 
@@ -100,7 +101,15 @@ struct PaymentView: View {
                     
                     print("Dedicatoria en revision")
                 }
-            } else {
+            } else if i.productType == .live {
+                print("Live ------ Subiendo a la cola de lives")
+                let db = StarsDB()
+                let dg = DispatchGroup()
+                db.añadirAlLive(key: i.owner.getKey(), email: (self.session.session?.email)!, mensaje: i.message, dg: dg)
+                dg.notify(queue: DispatchQueue.global(qos: .background)) {
+                    print("Añadido a la cola de lives de \(i.owner.getKey())")
+                }
+            }else {
                 print("No dedicado ------ Añadiendo a compras del usuario")
                 let dg = DispatchGroup()
                 
