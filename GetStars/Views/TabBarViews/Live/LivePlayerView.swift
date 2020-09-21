@@ -10,29 +10,49 @@ import SwiftUI
 import AVKit
 
 struct LivePlayerView: View {
+    @EnvironmentObject var session: SessionStore
+    
     @Binding var recorded: Bool
     
     @ObservedObject var cameraObject = CameraController.shared
     
     @State var video = URL(fileURLWithPath: "")
     
+    // Usuario
+    @Binding var email: String
+    
     // Video
     @State var mute = false
     @State var play = true
     
     @State var subido = false
-    @State var subiendo = false
+    @State var subiendo = true
     
     private func uploadVideoToUser() {
-        self.subiendo = true
+        self.subiendo = false
         let dg = DispatchGroup()
         let st = StarsST()
+        let db = StarsDB()
         
-        st.uploadLiveToUser(key: "prueba", email: "amiranda110500@gmail.com", url: self.cameraObject.videoUrl!, dg: dg)
+        st.uploadLiveToUser(key: self.session.data?.getUserKey() ?? "", email: self.email, url: self.video, dg: dg)
         dg.notify(queue: DispatchQueue.global(qos: .background)) {
             print("Video subido a la cuenta del usuario")
+            db.eliminarUsuarioLive(key: self.session.data?.getUserKey() ?? "", email: self.email)
+            print("Base de datos live actualizado")
             self.subiendo = false
             self.subido = true
+        }
+    }
+    
+    private func getVideoURL() {
+        let st = StarsST()
+        let dg = DispatchGroup()
+        
+        st.downloadTempLive(key: self.session.data?.getUserKey() ?? "", dg: dg)
+        dg.notify(queue: DispatchQueue.global(qos: .background)) {
+            print("URL del live obtenido")
+            self.video = st.getLiveURL()
+            self.subiendo = false
         }
     }
     
@@ -70,9 +90,12 @@ struct LivePlayerView: View {
             } else {
                 GeometryReader { g in
                     
-                    ZStack(alignment: .bottom) {
-                        
+                    VStack {
                         CustomLivePlayerView(url: self.video)
+                            .scaledToFill()
+                            .frame(width: g.size.width, height: 400, alignment: .center)
+                        
+                        Spacer()
                         
                         HStack(spacing: 10) {
                             Button(action: {
@@ -95,19 +118,18 @@ struct LivePlayerView: View {
                             
                         }.padding()
                         
-                    }.frame(width: g.size.width, height: g.size.height * 0.9, alignment: .center)
+                    }.frame(width: g.size.width, alignment: .center)
                         
-                    Spacer()
-                        
-                    
                 }
             }
-        }
+        }.onAppear(perform: self.getVideoURL)
     }
 }
 
+#if DEBUG
 struct LivePlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        LivePlayerView(recorded: .constant(true))
+        LivePlayerView(recorded: .constant(true), email: .constant(""))
     }
 }
+#endif

@@ -50,7 +50,7 @@ class CameraController: ObservableObject {
                     self.videoUrl = video
                 }
                 let st = StarsST()
-                st.uploadTempLive(key: "prueba", url: video!, dg: dg)
+                st.uploadTempLive(key: key, url: video!, dg: dg)
             }
             dg.leave()
         }

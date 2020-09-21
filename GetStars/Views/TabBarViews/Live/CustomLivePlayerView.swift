@@ -8,6 +8,7 @@
 
 import SwiftUI
 import AVKit
+import AVFoundation
 
 struct CustomLivePlayerView: View {
     @State var url: URL
@@ -21,7 +22,7 @@ struct CustomLivePlayer: UIViewControllerRepresentable {
     @Binding var url: URL
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<CustomLivePlayer>) -> AVPlayerViewController {
-        
+        print(url.absoluteString)
         let controller = AVPlayerViewController()
         let player1 = AVPlayer(url: self.url)
         controller.player = player1

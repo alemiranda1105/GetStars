@@ -56,8 +56,8 @@ struct DedicatoriaView: View {
         }
         
         //Longitud del mensaje
-        if self.mensaje.count >= 50 {
-            self.error = "El mensaje supera los 50 caracteres"
+        if self.mensaje.count >= 80 {
+            self.error = "El mensaje supera los 80 caracteres"
             self.showError = true
             return false
         }

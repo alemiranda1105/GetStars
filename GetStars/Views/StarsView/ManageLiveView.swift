@@ -44,15 +44,17 @@ struct ManageLiveView: View {
                             .foregroundColor(.white)
                             .cornerRadius(50)
                     }
-                }
+                }.padding()
                 
                 List(self.participantes, id: \.self) { participante in
-                    NavigationLink(destination: LiveUserView(participante: .constant(participante), mensaje: .constant("Esto es mensaje de prueba"))) {
+                    NavigationLink(destination: LiveUserView(participante: .constant(participante), mensaje: .constant("Hola saludos a todos"))
+                                    .navigationViewStyle(StackNavigationViewStyle())
+                    ) {
                         Text(participante)
                     }
                 }
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

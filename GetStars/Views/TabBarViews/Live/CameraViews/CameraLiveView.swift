@@ -14,30 +14,32 @@ import AVFoundation
 import CameraManager
 
 struct CameraLiveView: View {
+    @EnvironmentObject var session: SessionStore
+    
     @ObservedObject var cameraObject: CameraController = CameraController.shared
     
     @State var recording: Bool = false
-    @State var time = 15
+    @State var time = 0
+    @State var progress: Float = 0.0
+    
+    // El timer no funciona de manera correcta, una iteración = 4x 
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     @State var recorded = false
     
-    @State var message = ""
-    
-    private func readMessage() {
-        self.message = "Esto es un mensaje de prueba"
-    }
+    @Binding var message: String
+    @Binding var email: String
     
     private func checkGrabacion() {
-        if self.time <= 0 && self.recording {
-            self.time = 15
+        print("Timer hit")
+        if self.time >= 60 {
+            self.time = 0
             self.uploadRecord()
-        } else if !self.recording {
-            self.time = 15
-            return
         } else {
-            self.time -= 1
+            self.time += 1
+            self.progress += 0.25
         }
+        print("\(self.time)")
     }
     
     private func uploadRecord() {
@@ -53,7 +55,9 @@ struct CameraLiveView: View {
     var body: some View {
         Group {
             if self.recorded {
-                LivePlayerView(recorded: self.$recorded).environmentObject(self.cameraObject)
+                LivePlayerView(recorded: self.$recorded, email: self.$email)
+                    .environmentObject(self.cameraObject)
+                    .environmentObject(self.session)
             } else {
                 VStack {
                     ZStack(alignment: .bottom) {
@@ -112,7 +116,7 @@ struct CameraLiveView: View {
                                     .cornerRadius(100)
                                     
                                 } else {
-                                   Text("\(self.time)")
+                                   Text("\(self.time/4)")
                                        .frame(width: 40, height: 40)
                                        .padding()
                                        .background(Color.red)
@@ -150,7 +154,7 @@ struct CameraLiveView: View {
                         }.padding()
                         .zIndex(1000002)
                     }
-                }.onAppear(perform: self.readMessage)
+                }
             }
         }
     }
@@ -165,7 +169,7 @@ final class CameraViewController: UIViewController {
         self.cameraObject.camera.shouldUseLocationServices = false
         self.cameraObject.camera.cameraOutputMode = .videoWithMic
         self.cameraObject.camera.cameraDevice = .front
-        self.cameraObject.camera.shouldFlipFrontCameraImage = true
+        self.cameraObject.camera.shouldFlipFrontCameraImage = false
         self.cameraObject.camera.cameraOutputQuality = .hd1920x1080
         self.cameraObject.camera.videoAlbumName = "GetStarsLives"
         
@@ -187,12 +191,5 @@ extension CameraViewController : UIViewControllerRepresentable{
     
     public func updateUIViewController(_ uiViewController: CameraViewController, context: UIViewControllerRepresentableContext<CameraViewController>) {
         
-    }
-}
-
-
-struct CameraLiveView_Previews: PreviewProvider {
-    static var previews: some View {
-        CameraLiveView()
     }
 }

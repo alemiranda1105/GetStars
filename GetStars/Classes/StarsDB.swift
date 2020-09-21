@@ -282,6 +282,15 @@ class StarsDB: DataBase {
         }
     }
     
+    func eliminarUsuarioLive(key: String, email: String) {
+        let documentRef = db.collection("lives").document(key)
+        
+        documentRef.updateData([
+            "listaParticipantes": FieldValue.arrayRemove([email]),
+            "numeroParticipantes": FieldValue.increment(-1.0)
+        ])
+    }
+    
     func getPrice() -> Double {
         return self.price
     }

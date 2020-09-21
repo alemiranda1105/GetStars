@@ -274,6 +274,7 @@ struct StarProfileView: View {
                         )
                     }
                 }.onAppear(perform: self.getData)
+                .navigationViewStyle(StackNavigationViewStyle())
                 .sheet(isPresented: self.$showProductDetail) {
                     Group {
                         if self.showImagePicker {

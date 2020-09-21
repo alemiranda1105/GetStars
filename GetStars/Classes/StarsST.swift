@@ -199,18 +199,29 @@ class StarsST: CloudStorage {
     
     func uploadLiveToUser(key: String, email: String, url: URL, dg: DispatchGroup) {
         dg.enter()
-        let path = "usuarios/" + email + "/live/" + key
+        let path = "usuarios/" + email + "/live/" + key + "/" + generateDocumentId(length: 11) + ".mp4"
         let storageRef = storage.reference()
         let liveRef = storageRef.child(path)
         
-        liveRef.putFile(from: url, metadata: nil) { metadata, error in
+        let famousPath = "creadores/" + key + "/live/temp"
+        let tempRef = storageRef.child(famousPath)
+        
+        tempRef.getData(maxSize: 1 * 8192 * 8192) { video, error in
             if error != nil {
+                print("Error obteniendo el video para subirlo")
                 print(error?.localizedDescription ?? "")
-                print("Error subiendo el live bro")
             } else {
-                print("----- LIVE SUBIDO -----")
+                print("Video descargado")
+                liveRef.putData(video!, metadata: nil) { metadata, error in
+                    if error != nil {
+                        print(error?.localizedDescription ?? "")
+                        print("Error subiendo el live bro")
+                    } else {
+                        print("----- LIVE SUBIDO -----")
+                    }
+                    dg.leave()
+                }
             }
-            dg.leave()
         }
     }
     
@@ -231,19 +242,20 @@ class StarsST: CloudStorage {
         }
     }
     
-    func downloadTempLive(key: String, url: URL, dg: DispatchGroup) {
+    func downloadTempLive(key: String, dg: DispatchGroup) {
         dg.enter()
         let path = "creadores/" + key + "/live/temp"
         let storageRef = storage.reference()
         let liveRef = storageRef.child(path)
         
-        liveRef.getData(maxSize: 1*512*512) { data, error in
+        liveRef.downloadURL { url, error in
             if error != nil {
+                print("Error obteniendo la url temporal")
                 print(error?.localizedDescription ?? "")
-                print("Error descargando el video temporal")
             } else {
-                print("Video temporal descargado")
+                self.urlLive = url!
             }
+            dg.leave()
         }
     }
     

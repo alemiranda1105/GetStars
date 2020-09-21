@@ -14,42 +14,54 @@ struct LiveUserView: View {
     @Binding var participante: String
     @Binding var mensaje: String
     
+    @State var showCamera: Bool = false
+    
     var body: some View {
         Group {
-            VStack {
-                Text(participante)
-                    .font(.system(size: 20, weight: .bold))
-                Text(mensaje)
-                    .font(.system(size: 20, weight: .regular))
-                
-                Spacer()
-                
-                HStack {
-                    Button(action: {
-                        // Reportar mensaje ofensivo
-                        
-                    }) {
-                        HStack(spacing: 5) {
-                            Text("Reportar")
-                            Image(systemName: "exclamationmark.triangle")
-                        }
-                        .padding(14)
-                        .foregroundColor(.white)
-                        .background(Color.red)
-                        .cornerRadius(60)
-                    }
+            if self.showCamera {
+                CameraLiveView(message: self.$mensaje, email: self.$participante)
+                    .navigationViewStyle(StackNavigationViewStyle())
+                    .environmentObject(self.session)
+            } else {
+                VStack {
+                    Text(self.participante)
+                        .font(.system(size: 20, weight: .bold))
+                    Text(self.mensaje)
+                        .font(.system(size: 20, weight: .regular))
                     
                     Spacer()
                     
-                    NavigationLink(destination: CameraLiveView()) {
-                        Text("Crear")
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .padding(14)
-                        .background(Color("navyBlue"))
-                        .foregroundColor(.white)
-                        .cornerRadius(50)
-                    }
-                }.padding()
+                    HStack {
+                        Button(action: {
+                            // Reportar mensaje ofensivo
+                            
+                        }) {
+                            HStack(spacing: 5) {
+                                Text("Reportar")
+                                Image(systemName: "exclamationmark.triangle")
+                            }
+                            .padding(14)
+                            .foregroundColor(.white)
+                            .background(Color.red)
+                            .cornerRadius(60)
+                        }
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            // Muestra el menú de camara
+                            self.showCamera.toggle()
+                        }) {
+                            Text("Crear")
+                                .frame(minWidth: 0, maxWidth: .infinity)
+                                .padding(14)
+                                .background(Color("navyBlue"))
+                                .foregroundColor(.white)
+                                .cornerRadius(50)
+                        }
+                        
+                    }.padding()
+                }.navigationViewStyle(StackNavigationViewStyle())
             }
         }
     }
