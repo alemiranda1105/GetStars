@@ -163,7 +163,7 @@ struct ProfileView: View {
                                     }
                                 }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                                 
-                                NavigationLink(destination: Text("Live")) {
+                                NavigationLink(destination: UserLiveList().environmentObject(self.session)) {
                                     VStack {
                                         HStack {
                                             VStack {
@@ -179,7 +179,7 @@ struct ProfileView: View {
                                             Spacer()
                                             
                                             VStack {
-                                                Text("Videos dedicados: \((self.session.data?.compras["live"]?.count) ?? 0)")
+                                                Text("Ver Lives recibidos")
                                             }.multilineTextAlignment(.center)
                                             
                                         }.padding()

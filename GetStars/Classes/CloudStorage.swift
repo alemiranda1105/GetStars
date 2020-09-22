@@ -102,7 +102,40 @@ class CloudStorage: ObservableObject {
                         } else {
                             print("URL del item obtenida")
                             self.itemsUrl.append(UrlLoader(url: url!, id: n))
-                            n+=1
+                            n = self.itemsUrl[n].getNewId(array: self.itemsUrl)
+                        }
+                        dg.leave()
+                    }
+                }
+            }
+            dg.leave()
+        }
+    }
+    
+    func getAllLives(email: String, key: String, dg: DispatchGroup) {
+        dg.enter()
+        self.itemsUrl = [UrlLoader]()
+        let path = "usuarios/" + email + "/" + "live/" + key + "/"
+        let storageRef = storage.reference()
+        let imgRef =  storageRef.child(path)
+        imgRef.listAll { list, error in
+            if error != nil {
+                print("Error obteniendo todos los live de \(key) en \(email)")
+                print(error?.localizedDescription ?? "")
+            } else {
+                // Descargar todos los archivos
+                print("live obtenidos de \(key) en \(email)")
+                var n = 0
+                for fileRef in list.items {
+                    dg.enter()
+                    fileRef.downloadURL { url, error in
+                        if error != nil {
+                            print("Error obteniendo la url de un live de de \(key) en \(email)")
+                            print(error?.localizedDescription ?? "")
+                        } else {
+                            print("URL del item obtenida")
+                            self.itemsUrl.append(UrlLoader(url: url!, id: n))
+                            n = self.itemsUrl[n].getNewId(array: self.itemsUrl)
                         }
                         dg.leave()
                     }

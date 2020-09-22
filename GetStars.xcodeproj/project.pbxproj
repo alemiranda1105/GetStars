@@ -51,6 +51,8 @@
 		BE8C307E24C87E8500135AD9 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8C307D24C87E8500135AD9 /* TabBarView.swift */; };
 		BE8CF388250AB6F50055484E /* CameraLiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8CF387250AB6F50055484E /* CameraLiveView.swift */; };
 		BE8CF38A250ABE090055484E /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8CF389250ABE090055484E /* CameraController.swift */; };
+		BE8EED8E2519F49000379386 /* UserLivePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EED8D2519F49000379386 /* UserLivePlayerView.swift */; };
+		BE8EED932519FD5000379386 /* UserLiveList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EED922519FD5000379386 /* UserLiveList.swift */; };
 		BE8FA5EF24E9837200EAF22C /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FA5EE24E9837200EAF22C /* Person.swift */; };
 		BE962A0124EFD538009C8AA7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE962A0324EFD538009C8AA7 /* Localizable.strings */; };
 		BE962A0624F01B51009C8AA7 /* StarsDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE962A0524F01B51009C8AA7 /* StarsDB.swift */; };
@@ -120,6 +122,8 @@
 		BE8C307D24C87E8500135AD9 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		BE8CF387250AB6F50055484E /* CameraLiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraLiveView.swift; sourceTree = "<group>"; };
 		BE8CF389250ABE090055484E /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
+		BE8EED8D2519F49000379386 /* UserLivePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLivePlayerView.swift; sourceTree = "<group>"; };
+		BE8EED922519FD5000379386 /* UserLiveList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLiveList.swift; sourceTree = "<group>"; };
 		BE8FA5EE24E9837200EAF22C /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		BE962A0224EFD538009C8AA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE962A0424EFD55B009C8AA7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -331,9 +335,19 @@
 			path = CameraViews;
 			sourceTree = "<group>";
 		};
+		BE8EED902519F5CF00379386 /* UserLive */ = {
+			isa = PBXGroup;
+			children = (
+				BE8EED8D2519F49000379386 /* UserLivePlayerView.swift */,
+				BE8EED922519FD5000379386 /* UserLiveList.swift */,
+			);
+			path = UserLive;
+			sourceTree = "<group>";
+		};
 		BE9F05F124DAF96400F47E68 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				BE8EED902519F5CF00379386 /* UserLive */,
 				BE9F05F224DAF98000F47E68 /* ConfigurationView.swift */,
 				BEFBA10824E2E6D500E0C883 /* AutographProfileView.swift */,
 				BE37E3BC250E7B980016B8A1 /* ArticleProfileView.swift */,
@@ -559,6 +573,7 @@
 				BE41AA6E24CF596800511527 /* ProfileView.swift in Sources */,
 				BE9F05F524DB039300F47E68 /* CloudStorage.swift in Sources */,
 				BE4A7A7024B4F95200336760 /* SignInView.swift in Sources */,
+				BE8EED932519FD5000379386 /* UserLiveList.swift in Sources */,
 				BEC0488B24DC174500393EFB /* GoogleLoginView.swift in Sources */,
 				BEA7AA7B24CCA1FD003A4367 /* CreateAutograph.swift in Sources */,
 				BEB32DDC24D81266007BA071 /* TrendingView.swift in Sources */,
@@ -574,6 +589,7 @@
 				BE19C86D24EC2D6F00A2B975 /* SorteosView.swift in Sources */,
 				BEFBA10724E2D8CF00E0C883 /* GridStack.swift in Sources */,
 				BE71A53C24FD401600D4150D /* StarProfileView.swift in Sources */,
+				BE8EED8E2519F49000379386 /* UserLivePlayerView.swift in Sources */,
 				BEB32DE024D8129B007BA071 /* CategoryView.swift in Sources */,
 				BE1B821D24DD8A3400BE59B8 /* CustomPhotoAlbum.swift in Sources */,
 				BE5A37C224F69EB9001EBF57 /* PaymentView.swift in Sources */,

@@ -20,6 +20,7 @@ struct LivePlayerView: View {
     
     // Usuario
     @Binding var email: String
+    @Binding var mensaje: String
     
     // Video
     @State var mute = false
@@ -37,7 +38,8 @@ struct LivePlayerView: View {
         st.uploadLiveToUser(key: self.session.data?.getUserKey() ?? "", email: self.email, url: self.video, dg: dg)
         dg.notify(queue: DispatchQueue.global(qos: .background)) {
             print("Video subido a la cuenta del usuario")
-            db.eliminarUsuarioLive(key: self.session.data?.getUserKey() ?? "", email: self.email)
+            db.eliminarUsuarioLive(key: self.session.data?.getUserKey() ?? "", email: self.email, mensaje: self.mensaje)
+            db.añadirLiveSubido(key: self.session.data?.getUserKey() ?? "", email: self.email)
             print("Base de datos live actualizado")
             self.subiendo = false
             self.subido = true
@@ -125,11 +127,3 @@ struct LivePlayerView: View {
         }.onAppear(perform: self.getVideoURL)
     }
 }
-
-#if DEBUG
-struct LivePlayerView_Previews: PreviewProvider {
-    static var previews: some View {
-        LivePlayerView(recorded: .constant(true), email: .constant(""))
-    }
-}
-#endif

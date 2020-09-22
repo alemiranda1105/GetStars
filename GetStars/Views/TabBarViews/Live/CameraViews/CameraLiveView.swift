@@ -53,7 +53,7 @@ struct CameraLiveView: View {
     var body: some View {
         Group {
             if self.recorded {
-                LivePlayerView(recorded: self.$recorded, email: self.$email)
+                LivePlayerView(recorded: self.$recorded, email: self.$email, mensaje: self.$message)
                     .environmentObject(self.cameraObject)
                     .environmentObject(self.session)
             } else {

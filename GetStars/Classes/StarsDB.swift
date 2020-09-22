@@ -283,13 +283,19 @@ class StarsDB: DataBase {
         }
     }
     
-    func eliminarUsuarioLive(key: String, email: String) {
+    func eliminarUsuarioLive(key: String, email: String, mensaje: String) {
         let documentRef = db.collection("lives").document(key)
         
         documentRef.updateData([
-            "listaParticipantes": FieldValue.arrayRemove([email]),
+            "listaParticipantes": FieldValue.arrayRemove([[email: mensaje]]),
             "numeroParticipantes": FieldValue.increment(-1.0)
         ])
+    }
+    
+    func añadirLiveSubido(key: String, email: String) {
+        let documentRef = db.collection("usuarios").document(email)
+        
+        documentRef.updateData(["compras.live": FieldValue.arrayUnion([key])])
     }
     
     func getPrice() -> Double {

@@ -36,18 +36,26 @@ struct ArticleProfileView: View {
                 }
                 
                 GridStack(minCellWidth: 125, spacing: 5, numItems: (self.session.data?.compras[type]?.count) ?? 0){ i, width in
-                    NavigationLink(destination: DetailedArticleView(url: self.session.data?.compras[self.type]?[i] ?? "")) {
-                        WebImage(url: URL(string: self.session.data?.compras[self.type]?[i] ?? "")!)
-                        .resizable()
-                        .placeholder(Image(systemName: "photo"))
-                        .placeholder {
-                            Rectangle().foregroundColor(.gray)
-                        }
-                        .indicator(.activity)
-                        .transition(.fade(duration: 0.5))
-                        .frame(width: width, height: width, alignment: .center)
-                        .border(Color.black, width: 1)
-                    }.buttonStyle(PlainButtonStyle()).padding(.vertical, 5)
+                    ZStack {
+                        Image("watermark")
+                            .resizable()
+                            .scaledToFit()
+                            .opacity(0.35)
+                            .frame(width: width, height: width, alignment: .center)
+                            .zIndex(1000)
+                        NavigationLink(destination: DetailedArticleView(url: self.session.data?.compras[self.type]?[i] ?? "")) {
+                            WebImage(url: URL(string: self.session.data?.compras[self.type]?[i] ?? "")!)
+                            .resizable()
+                            .placeholder(Image(systemName: "photo"))
+                            .placeholder {
+                                Rectangle().foregroundColor(.gray)
+                            }
+                            .indicator(.activity)
+                            .transition(.fade(duration: 0.5))
+                            .frame(width: width, height: width, alignment: .center)
+                            .border(Color.black, width: 1)
+                        }.buttonStyle(PlainButtonStyle()).padding(.vertical, 5)
+                    }
                 }
             }
         }.navigationBarTitle(Text(LocalizedStringKey(self.title)), displayMode: .large)

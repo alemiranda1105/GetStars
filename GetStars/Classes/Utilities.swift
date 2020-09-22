@@ -59,7 +59,7 @@ class UrlLoader: Identifiable {
     }
     
     func getNewId(array: [UrlLoader]) -> Int {
-        return array.count+1
+        return array.count
     }
 }
 

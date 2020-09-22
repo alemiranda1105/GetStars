@@ -113,6 +113,7 @@ struct PaymentView: View {
                 print("No dedicado ------ Añadiendo a compras del usuario")
                 let dg = DispatchGroup()
                 
+                // owner = imagen del articulo
                 self.session.db.addCompraToUserDB(email: self.session.session?.email ?? "", compra: cat, owner: i.image, dg: dg)
                 dg.notify(queue: DispatchQueue.global(qos: .background)) {
                     print("Compra de \(cat) añadida")
