@@ -132,7 +132,11 @@ struct PersonView: View {
                     Image(systemName: "multiply.circle.fill").resizable().frame(width: 28.0, height: 28.0)
                         .foregroundColor(Color("gris"))
                 }.shadow(color: Color.black.opacity(0.5), radius: 2, x: 0, y: 0)
-            )
+        )
+        .background(NavigationConfigurator { nc in
+            nc.navigationBar.barTintColor = .clear
+            nc.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        })
     }
 }
 

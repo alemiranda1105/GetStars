@@ -26,7 +26,8 @@ struct PaymentView: View {
         self.session.cart = session.getCart()
         var dis: Double = 0.0
         if self.session.cart.count >= 2 {
-            dis = 0.1 * Double(self.session.cart.count)-1
+            dis = 0.1 * Double(self.session.cart.count-1)
+            print("El descuento es \(dis.dollarString)€")
         }
         self.addProduct()
         self.total = 0.0
@@ -48,7 +49,7 @@ struct PaymentView: View {
         self.session.cart.append(self.product)
     }
     
-    private func getCat(i: Product) -> String{
+    private func getCat(i: Product) -> String {
         var cat = ""
         switch i.productType {
             case .autografoManual:
