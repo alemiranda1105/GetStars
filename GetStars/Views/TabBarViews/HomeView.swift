@@ -19,7 +19,7 @@ struct HomeView: View {
     
     private func getFamous() {
         if self.data.count >= 1 {
-            self.loading = false
+            self.data = [Person]()
         }
         let st = StarsST()
         let db = StarsDB()

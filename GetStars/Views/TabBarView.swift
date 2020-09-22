@@ -8,6 +8,47 @@
 
 import SwiftUI
 
+struct newTabBarView: View {
+    @EnvironmentObject var session: SessionStore
+    
+    var body: some View {
+        TabView {
+            HomeView().environmentObject(self.session)
+                .tabItem {
+                    Image(systemName: "house")
+                }
+            
+            SearchView().environmentObject(self.session)
+                .tabItem {
+                    Image(systemName: "magnifyingglass")
+                }
+            
+            CreateAutograph().environmentObject(self.session)
+                .tabItem {
+                    Image(systemName: "hand.draw")
+                }
+            
+            BuyDrawView().environmentObject(self.session)
+                .tabItem {
+                    Image(systemName: "bag")
+                }
+            
+            if (self.session.data?.getIsStar()) ?? false {
+                StarProfileView().environmentObject(self.session)
+                    .tabItem {
+                        Image(systemName: "person")
+                    }
+            } else {
+                ProfileView().environmentObject(self.session)
+                    .tabItem {
+                        Image(systemName: "person")
+                    }
+            }
+            
+        }
+    }
+}
+
 struct TabBarView: View {
     @EnvironmentObject var session: SessionStore
     

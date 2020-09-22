@@ -78,10 +78,11 @@ struct AutographProfileView: View {
                                 .font(.system(size: 18, weight: .bold))
                         }.padding(15)
                         
-                    }.frame(minWidth: 0, maxWidth: g.size.width-15)
+                    }.frame(minWidth: 0, maxWidth: .infinity)
                         .background(Color("gris"))
                         .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                         .cornerRadius(8)
+                        .padding(15)
                     
                     Spacer(minLength: 8)
                     
@@ -95,10 +96,11 @@ struct AutographProfileView: View {
                                 .font(.system(size: 18, weight: .bold))
                         }.padding(15)
                         
-                    }.frame(minWidth: 0, maxWidth: g.size.width-15)
+                    }.frame(minWidth: 0, maxWidth: .infinity)
                         .background(Color("gris"))
                         .foregroundColor(Color.red)
                         .cornerRadius(8)
+                        .padding(15)
                 }
             }
         }

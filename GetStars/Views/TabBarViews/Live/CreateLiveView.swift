@@ -110,6 +110,7 @@ struct CreateLiveView: View {
                 Text("Enhorabuena, tu video ha sido añadido a la cesta")
                     .font(.system(size: 22, weight: .bold))
                     .multilineTextAlignment(.center)
+                    .padding()
                 
                 Spacer()
                 
@@ -127,7 +128,7 @@ struct CreateLiveView: View {
                 
             } else {
                 
-                Text("Aviso: el precio de este producto es de \(self.precio.dollarString)")
+                Text("Aviso: el precio de este producto es de \(self.precio.dollarString)€")
                     .multilineTextAlignment(.center)
                     .font(.system(size: 18, weight: .semibold))
                     .frame(width: 150, height: 80, alignment: .center)

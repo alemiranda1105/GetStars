@@ -35,28 +35,59 @@ struct ArticleProfileView: View {
                     .multilineTextAlignment(.center)
                 }
                 
-                GridStack(minCellWidth: 125, spacing: 5, numItems: (self.session.data?.compras[type]?.count) ?? 0){ i, width in
-                    ZStack {
-                        Image("watermark")
-                            .resizable()
-                            .scaledToFit()
-                            .opacity(0.35)
-                            .frame(width: width, height: width, alignment: .center)
-                            .zIndex(1000)
-                        NavigationLink(destination: DetailedArticleView(url: self.session.data?.compras[self.type]?[i] ?? "")) {
-                            WebImage(url: URL(string: self.session.data?.compras[self.type]?[i] ?? "")!)
-                            .resizable()
-                            .placeholder(Image(systemName: "photo"))
-                            .placeholder {
-                                Rectangle().foregroundColor(.gray)
+                if #available(iOS 14.0, *) {
+                    ScrollView {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 125, maximum: 200))], spacing: 5) {
+                            ForEach(0..<((self.session.data?.compras[type]?.count) ?? 0)) { i in
+                                NavigationLink(destination: DetailedArticleView(url: self.session.data?.compras[self.type]?[i] ?? "")) {
+                                    ZStack {
+                                        Image("watermark")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .opacity(0.35)
+                                            .frame(minWidth: 0, maxWidth: 200, minHeight: 0, maxHeight: 200)
+                                            .zIndex(1000)
+                                        WebImage(url: URL(string: self.session.data?.compras[self.type]?[i] ?? "")!)
+                                        .resizable()
+                                        .placeholder(Image(systemName: "photo"))
+                                        .placeholder {
+                                            Rectangle().foregroundColor(.gray)
+                                        }
+                                        .indicator(.activity)
+                                        .transition(.fade(duration: 0.5))
+                                        .frame(minWidth: 0, maxWidth: 200, minHeight: 0, maxHeight: 200)
+                                        .border(Color.black, width: 1)
+                                    }
+                                }.buttonStyle(PlainButtonStyle()).padding(.vertical, 5)
                             }
-                            .indicator(.activity)
-                            .transition(.fade(duration: 0.5))
-                            .frame(width: width, height: width, alignment: .center)
-                            .border(Color.black, width: 1)
-                        }.buttonStyle(PlainButtonStyle()).padding(.vertical, 5)
+                        }.padding(.horizontal, 5)
+                    }
+                } else {
+                    // Fallback on earlier versions
+                    GridStack(minCellWidth: 125, spacing: 5, numItems: (self.session.data?.compras[type]?.count) ?? 0){ i, width in
+                        ZStack {
+                            Image("watermark")
+                                .resizable()
+                                .scaledToFit()
+                                .opacity(0.35)
+                                .frame(width: width, height: width, alignment: .center)
+                                .zIndex(1000)
+                            NavigationLink(destination: DetailedArticleView(url: self.session.data?.compras[self.type]?[i] ?? "")) {
+                                WebImage(url: URL(string: self.session.data?.compras[self.type]?[i] ?? "")!)
+                                .resizable()
+                                .placeholder(Image(systemName: "photo"))
+                                .placeholder {
+                                    Rectangle().foregroundColor(.gray)
+                                }
+                                .indicator(.activity)
+                                .transition(.fade(duration: 0.5))
+                                .frame(width: width, height: width, alignment: .center)
+                                .border(Color.black, width: 1)
+                            }.buttonStyle(PlainButtonStyle()).padding(.vertical, 5)
+                        }
                     }
                 }
+                
             }
         }.navigationBarTitle(Text(LocalizedStringKey(self.title)), displayMode: .large)
     }

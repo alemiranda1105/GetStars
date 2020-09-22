@@ -31,7 +31,7 @@ struct ContentView: View {
             } else if ((self.session.signing || def.bool(forKey: "sign")) && !self.loading) {
                 LoadIndicatorView().environmentObject(self.session)
             } else if !self.loading {
-                TabBarView().environmentObject(self.session)
+                newTabBarView().environmentObject(self.session)
             }
         }.onAppear {
             self.getUser()
