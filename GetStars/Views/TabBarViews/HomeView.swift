@@ -18,9 +18,8 @@ struct HomeView: View {
     @State var loading = true
     
     private func getFamous() {
-        if self.data.count >= 1 {
-            self.data = [Person]()
-        }
+        self.data = [Person]()
+        
         let st = StarsST()
         let db = StarsDB()
         var url = URL(string: "")
