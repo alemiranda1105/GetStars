@@ -158,7 +158,6 @@ struct PaymentView: View {
                     
                     Text("Productos en la cesta:")
                         .font(.system(size: 24, weight: .semibold))
-                    Spacer()
                     
                     CartView(editing: self.$editing).environmentObject(self.session)
                     

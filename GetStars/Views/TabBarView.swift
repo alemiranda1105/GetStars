@@ -11,41 +11,46 @@ import SwiftUI
 struct newTabBarView: View {
     @EnvironmentObject var session: SessionStore
     
+    @Environment(\.colorScheme) var colorScheme
+    
+    @State var index = 1
+    
     var body: some View {
-        TabView {
+        TabView(selection: self.$index) {
             HomeView().environmentObject(self.session)
                 .tabItem {
                     Image(systemName: "house")
-                }
+                }.tag(1)
             
             SearchView().environmentObject(self.session)
                 .tabItem {
                     Image(systemName: "magnifyingglass")
-                }
+                }.tag(2)
             
             CreateAutograph().environmentObject(self.session)
                 .tabItem {
                     Image(systemName: "hand.draw")
-                }
+                }.tag(3)
             
             BuyDrawView().environmentObject(self.session)
                 .tabItem {
                     Image(systemName: "bag")
-                }
+                }.tag(4)
             
             if (self.session.data?.getIsStar()) ?? false {
                 StarProfileView().environmentObject(self.session)
                     .tabItem {
                         Image(systemName: "person")
-                    }
+                    }.tag(5)
             } else {
                 ProfileView().environmentObject(self.session)
                     .tabItem {
                         Image(systemName: "person")
-                    }
+                    }.tag(5)
             }
             
         }
+        .accentColor(Color("tabbarColor"))
     }
 }
 
@@ -57,7 +62,7 @@ struct TabBarView: View {
     var body: some View {
         VStack {
             
-            ZStack {
+            ZStack(alignment: .bottom) {
                 
                 if self.index == 0 {
                     HomeView().environmentObject(self.session)
@@ -79,11 +84,9 @@ struct TabBarView: View {
                 } else {
                     CreateAutograph().environmentObject(self.session)
                 }
+                
+                BarraNavegacionView(index: self.$index).zIndex(200000)
             }
-            
-            Spacer()
-            
-            BarraNavegacionView(index: self.$index)
             
         }.onAppear(perform: {
             self.session.restoreUser()
@@ -156,8 +159,17 @@ struct BarraNavegacionView: View {
                 
             }.foregroundColor(colorScheme == .dark ? Color.white.opacity(self.index == 3 ? 1 : 0.35): Color.black.opacity(self.index == 3 ? 1 : 0.2))
         }
-        .padding(.horizontal, 16)
+        .frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width-10)
+        .padding(8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 50)
+                .stroke(colorScheme == .dark ? Color.white: Color.black, lineWidth: 1))
         .background(colorScheme == .dark ? Color.black: Color.white)
+        .border(Color.clear)
+        .cornerRadius(50)
+        .padding()
+//        .padding(.horizontal, 16)
+//        .background(colorScheme == .dark ? Color.black: Color.white)
     }
 }
 
