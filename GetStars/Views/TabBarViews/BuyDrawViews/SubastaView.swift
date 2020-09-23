@@ -55,8 +55,8 @@ struct SubastaView: View {
                 } else {
                    self.subastas.append(p)
                 }
-                self.loading = false
             }
+            self.loading = false
         }
     }
     

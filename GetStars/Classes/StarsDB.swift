@@ -179,23 +179,25 @@ class StarsDB: DataBase {
     func uploadSorteo(datos: [String: String], dg: DispatchGroup) {
         dg.enter()
         let documentRef = db.collection("sorteos").document(datos["nombre"]!)
+        var dat: [String: Any] = datos as [String: Any]
+        dat["participantes"] = [String]()
         
         documentRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 print("El sorteo existe, cambiándole el nombre")
-                return self.uploadSorteo(datos: datos, dg: dg, n: 1)
+                return self.uploadSorteo(datos: dat, dg: dg, n: 1)
             } else {
                 print("El sorteo no existe, creando...")
-                self.sorteoName = datos["nombre"]!
+                self.sorteoName = dat["nombre"] as! String
                 documentRef.setData(datos)
             }
             dg.leave()
         }
     }
     
-    private func uploadSorteo(datos: [String: String], dg: DispatchGroup, n: Int) {
+    private func uploadSorteo(datos: [String: Any], dg: DispatchGroup, n: Int) {
         dg.enter()
-        let documentRef = db.collection("sorteos").document(datos["nombre"]! + "\(n)")
+        let documentRef = db.collection("sorteos").document(datos["nombre"] as! String + "\(n)")
         
         documentRef.getDocument { (document, error) in
             if let document = document, document.exists {
@@ -203,15 +205,50 @@ class StarsDB: DataBase {
                 return self.uploadSorteo(datos: datos, dg: dg, n: n+1)
             } else {
                 print("El sorteo no existe, creando...")
-                self.sorteoName = datos["nombre"]! + "\(n)"
+                self.sorteoName = datos["nombre"] as! String + "\(n)"
                 documentRef.setData(datos)
             }
             dg.leave()
         }
     }
     
+    // Usado para el nombre de la subasta
     func getSorteoName() -> String {
         return self.sorteoName
+    }
+    
+    func uploadSubasta(datos: [String: Any], dg: DispatchGroup) {
+        dg.enter()
+        let documentRef = db.collection("subastas").document(datos["nombre"] as! String)
+        
+        documentRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                print("La subasta existe, cambiándole el nombre")
+                return self.uploadSubasta(datos: datos, dg: dg, n: 1)
+            } else {
+                print("La subasta no existe, creando...")
+                self.sorteoName = datos["nombre"] as! String
+                documentRef.setData(datos)
+            }
+            dg.leave()
+        }
+    }
+    
+    private func uploadSubasta(datos: [String: Any], dg: DispatchGroup, n: Int) {
+        dg.enter()
+        let documentRef = db.collection("subastas").document(datos["nombre"] as! String + "\(n)")
+        
+        documentRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                print("La subasta existe, cambiándole el nombre")
+                return self.uploadSorteo(datos: datos, dg: dg, n: n+1)
+            } else {
+                print("La subasta no existe, creando...")
+                self.sorteoName = datos["nombre"] as! String + "\(n)"
+                documentRef.setData(datos)
+            }
+            dg.leave()
+        }
     }
     
     func readSubastas(dg: DispatchGroup) {

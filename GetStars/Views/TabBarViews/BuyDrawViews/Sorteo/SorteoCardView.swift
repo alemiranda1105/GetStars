@@ -38,6 +38,8 @@ struct SorteoCardView: View {
                                 .foregroundColor(Color.white)
                                 .cornerRadius(16)
                                 .font(.system(size: 32, weight: .bold))
+                                .lineLimit(1)
+                                .frame(width: 350)
                             Text("Hasta: \(self.product.fecha)")
                                 .foregroundColor(.white)
                                 .font(.system(size: 24, weight: .bold))

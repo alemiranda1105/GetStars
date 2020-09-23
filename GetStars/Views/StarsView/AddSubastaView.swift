@@ -1,5 +1,5 @@
 //
-//  AddSorteoView.swift
+//  AddSubastaView.swift
 //  GetStars
 //
 //  Created by Alejandro Miranda on 23/09/2020.
@@ -8,28 +8,28 @@
 
 import SwiftUI
 
-struct AddSorteoView: View {
+struct AddSubastaView: View {
     @EnvironmentObject var session: SessionStore
     
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     
+    // Datos subasta
     @State var image = UIImage()
-    @State var showImagePicker = false
-    
-    @State var name = ""
     @State var desc = ""
-    @State var fecha = ""
+    @State var name = ""
+    @State var date = Date()
+    @State var price: Double = 0.0
     
-    @State private var date = Date()
-    
+    // Manejo pantallas
     @State var subido = false
+    @State var showImagePicker = false
     
     // Manejo de errores
     @State var error = ""
     @State var showError = false
     
-    private func uploadSorteo() {
+    private func uploadSubasta() {
         let key: String = (self.session.data?.getUserKey())!
         let format = DateFormatter()
         format.dateFormat = "d/MM/y"
@@ -58,19 +58,24 @@ struct AddSorteoView: View {
             return
         }
         
-        let datos: [String: String] = ["dueño": key,
-                                       "nombre": self.name,
-                                       "descripcion": self.desc,
-                                       "fechaFinal": format.string(from: self.date)]
+        self.price = Double(round(1000 * self.price) / 1000)
+        print(self.price)
+        
+        let datos: [String: Any] = ["descripcion": self.desc,
+                                    "dueño": key,
+                                    "fechaFinal": format.string(from: self.date),
+                                    "nombre": self.name,
+                                    "precio": self.price,
+                                    "ultimoParticipante": ""]
         
         let dg = DispatchGroup()
         let db = StarsDB()
         let st = StarsST()
-        db.uploadSorteo(datos: datos, dg: dg)
+        db.uploadSubasta(datos: datos, dg: dg)
         dg.notify(queue: DispatchQueue.global(qos: .background)) {
-            print("Sorteo subido a la base de datos")
-            let sorteoName = db.getSorteoName()
-            st.uploadFotoSorteo(image: self.image, key: key, name: sorteoName, dg: dg)
+            print("Subasta subida a la base de datos")
+            let subastaName = db.getSorteoName()
+            st.uploadFotoSubasta(image: self.image, key: key, name: subastaName, dg: dg)
             dg.wait()
             print("Imagen del sorteo subida")
             self.subido = true
@@ -78,12 +83,11 @@ struct AddSorteoView: View {
         
     }
     
-    
     var body: some View {
         Group {
             if self.subido {
                 VStack {
-                    Text("El sorteo ha sido subido correctamente")
+                    Text("La subasta ha sido subida correctamente")
                         .font(.system(size: 22, weight: .bold))
                     Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
@@ -115,8 +119,8 @@ struct AddSorteoView: View {
                         .padding()
                     }
                     
-                    Section(header: Text("Datos del sorteo:")) {
-                        TextField("Nombre del sorteo", text: self.$name)
+                    Section(header: Text("Datos de la subasta:")) {
+                        TextField("Nombre de la subasta", text: self.$name)
                         
                         if #available(iOS 14.0, *) {
                             NavigationLink(destination: (
@@ -146,6 +150,17 @@ struct AddSorteoView: View {
                             }
                             
                         }
+                        
+                    }
+                    
+                    Section(header: Text("Precio inicial")) {
+                        Stepper("\(self.price.dollarString)€", onIncrement: {
+                            self.price += 0.1
+                        }, onDecrement: {
+                            if (self.price - 0.1) > 0 {
+                                self.price -= 0.1
+                            }
+                        })
                     }
                     
                     Section(header: Text("Fecha de finalización")) {
@@ -161,9 +176,9 @@ struct AddSorteoView: View {
                     
                     
                     Button(action: {
-                        self.uploadSorteo()
+                        self.uploadSubasta()
                     }) {
-                        Text("Subir sorteo")
+                        Text("Subir subasta")
                     }
                     .padding()
                     .alert(isPresented: self.$showError) {
@@ -171,7 +186,7 @@ struct AddSorteoView: View {
                     }
                     
                 }
-                .navigationBarTitle(Text("Nuevo sorteo"))
+                .navigationBarTitle(Text("Nueva subasta"))
                 .sheet(isPresented: self.$showImagePicker) {
                     ImagePickerView(sourceType: .photoLibrary) { image in
                         self.image = image
@@ -182,8 +197,8 @@ struct AddSorteoView: View {
     }
 }
 
-struct AddSorteoView_Previews: PreviewProvider {
+struct AddSubastaView_Previews: PreviewProvider {
     static var previews: some View {
-        AddSorteoView()
+        AddSubastaView()
     }
 }

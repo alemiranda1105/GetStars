@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4DD5D08A7A5B511358615028 /* Pods_GetStars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67F7E4CBD35CF25BD3E2D4F /* Pods_GetStars.framework */; };
 		BE08D89C251B59C2003426AB /* AddSorteoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE08D89B251B59C2003426AB /* AddSorteoView.swift */; };
+		BE08D8A1251BA9AF003426AB /* AddSubastaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE08D8A0251BA9AF003426AB /* AddSubastaView.swift */; };
 		BE19C86B24EC2BAF00A2B975 /* LiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE19C86A24EC2BAF00A2B975 /* LiveView.swift */; };
 		BE19C86D24EC2D6F00A2B975 /* SorteosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE19C86C24EC2D6F00A2B975 /* SorteosView.swift */; };
 		BE19C87024EC2DE700A2B975 /* SorteoProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE19C86F24EC2DE700A2B975 /* SorteoProductView.swift */; };
@@ -80,6 +81,7 @@
 		67F8D13B24058BB55BF8DC87 /* Pods-GetStars.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetStars.release.xcconfig"; path = "Target Support Files/Pods-GetStars/Pods-GetStars.release.xcconfig"; sourceTree = "<group>"; };
 		9A5FBAB8B76B5B261D2A6D27 /* Pods-GetStars.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetStars.debug.xcconfig"; path = "Target Support Files/Pods-GetStars/Pods-GetStars.debug.xcconfig"; sourceTree = "<group>"; };
 		BE08D89B251B59C2003426AB /* AddSorteoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSorteoView.swift; sourceTree = "<group>"; };
+		BE08D8A0251BA9AF003426AB /* AddSubastaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubastaView.swift; sourceTree = "<group>"; };
 		BE19C86A24EC2BAF00A2B975 /* LiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveView.swift; sourceTree = "<group>"; };
 		BE19C86C24EC2D6F00A2B975 /* SorteosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SorteosView.swift; sourceTree = "<group>"; };
 		BE19C86F24EC2DE700A2B975 /* SorteoProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SorteoProductView.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				BE57A53125175E2500C2FD7B /* ManageLiveView.swift */,
 				BE57A5332517612000C2FD7B /* LiveUserView.swift */,
 				BE08D89B251B59C2003426AB /* AddSorteoView.swift */,
+				BE08D8A0251BA9AF003426AB /* AddSubastaView.swift */,
 			);
 			path = StarsView;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				BE2827842515197000A97C2E /* ChangeProductImageView.swift in Sources */,
 				BEC1097A24AB3FEF00695160 /* WelcomeView.swift in Sources */,
 				BE67C0FD24EAB13F007AA0E6 /* Product.swift in Sources */,
+				BE08D8A1251BA9AF003426AB /* AddSubastaView.swift in Sources */,
 				BE873F7824B249C40041247C /* DataBase.swift in Sources */,
 				BE19C86B24EC2BAF00A2B975 /* LiveView.swift in Sources */,
 				BE8CF388250AB6F50055484E /* CameraLiveView.swift in Sources */,
@@ -766,7 +770,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "0.5.3-PreAlpha";
+				MARKETING_VERSION = "0.6-PreAlpha";
 				PRODUCT_BUNDLE_IDENTIFIER = com.marquelodev.GetStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -789,7 +793,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "0.5.3-PreAlpha";
+				MARKETING_VERSION = "0.6-PreAlpha";
 				PRODUCT_BUNDLE_IDENTIFIER = com.marquelodev.GetStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

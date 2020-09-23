@@ -18,7 +18,7 @@ struct SubastaCardView: View {
         let db = Firestore.firestore()
         db.collection("subastas").document("prueba").getDocument { document, error in
             if error != nil {
-                print("error leyendo el precio")
+                print("Error leyendo el precio")
                 print(error?.localizedDescription ?? "")
             } else {
                 self.product.setPrice(newPrice: document?.data()!["precio"] as! Double)
@@ -50,6 +50,8 @@ struct SubastaCardView: View {
                                 .foregroundColor(Color.white)
                                 .cornerRadius(16)
                                 .font(.system(size: 32, weight: .bold))
+                                .lineLimit(1)
+                                .frame(width: 350)
                             Text("\(self.product.price.dollarString) €")
                                 .foregroundColor(.white)
                                 .font(.system(size: 24, weight: .bold))

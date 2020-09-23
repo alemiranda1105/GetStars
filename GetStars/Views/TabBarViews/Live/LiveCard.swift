@@ -51,6 +51,8 @@ struct LiveCard: View {
                                 .foregroundColor(Color.white)
                                 .cornerRadius(16)
                                 .font(.system(size: 32, weight: .bold))
+                                .lineLimit(1)
+                                .frame(width: 350)
                             Text("Participantes: \(self.nParticipantes) de 1000")
                                 .foregroundColor(.white)
                                 .font(.system(size: 24, weight: .bold))

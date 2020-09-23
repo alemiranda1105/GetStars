@@ -14,7 +14,7 @@ struct StarProfileView: View {
     
     @EnvironmentObject var session: SessionStore
     
-    private var cats = ["Productos", "Sorteos", "Pujas"]
+    private var cats = ["Productos", "Sorteos", "Subastas"]
     @State var catSeleccionada = 0
     
     @State var loading = true
@@ -256,11 +256,11 @@ struct StarProfileView: View {
                                 }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                                 
                             } else if self.catSeleccionada == 1 {
-                                NavigationLink(destination: AddSorteoView()) {
+                                NavigationLink(destination: AddSorteoView().environmentObject(self.session)) {
                                     Text("Crear un nuevo sorteo")
                                         .frame(minWidth: 0, maxWidth: .infinity)
                                         .padding()
-                                        .background(Color("navyBlue"))
+                                        .background(Color.init(hex: "00b0ff"))
                                         .foregroundColor(.white)
                                         .cornerRadius(50)
                                         .font(.system(size: 18, weight: .bold))
@@ -270,17 +270,32 @@ struct StarProfileView: View {
                                     Text("Ver todos los sorteos")
                                         .frame(minWidth: 0, maxWidth: .infinity)
                                         .padding(50)
-                                        .background(Color.init(hex: "00b0ff"))
-                                        .foregroundColor(.white)
+                                        .background(Color("gris"))
+                                        .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                                         .cornerRadius(16)
                                         .font(.system(size: 18, weight: .bold))
                                 }.padding()
                                 
                             } else {
-                                VStack {
-                                    Text("Pujas")
-                                        .font(.system(size: 32, weight: .bold))
-                                }
+                                NavigationLink(destination: AddSubastaView().environmentObject(self.session)) {
+                                    Text("Crear una nueva subasta")
+                                        .frame(minWidth: 0, maxWidth: .infinity)
+                                        .padding()
+                                        .background(Color("naranja"))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(50)
+                                        .font(.system(size: 18, weight: .bold))
+                                }.padding()
+                                
+                                NavigationLink(destination: SubastaView().environmentObject(self.session)){
+                                    Text("Ver todas las subastas")
+                                        .frame(minWidth: 0, maxWidth: .infinity)
+                                        .padding(50)
+                                        .background(Color("gris"))
+                                        .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+                                        .cornerRadius(16)
+                                        .font(.system(size: 18, weight: .bold))
+                                }.padding()
                             }
                         }.navigationBarTitle("Profile")
                         .navigationBarItems(trailing:

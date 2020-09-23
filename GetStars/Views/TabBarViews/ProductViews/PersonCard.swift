@@ -39,6 +39,8 @@ struct PersonCard: View {
                                 .foregroundColor(Color.white)
                                 .cornerRadius(16)
                                 .font(.system(size: 32, weight: .bold))
+                                .lineLimit(1)
+                                .frame(width: 350)
                         }.shadow(color: Color.black.opacity(0.9), radius: 5, x: 2, y: 0)
                             .padding(.top, 280)
                     }
