@@ -78,7 +78,7 @@ struct HomeView: View {
                             
                         }
                     }.frame(width: g.size.width)
-                    .navigationBarTitle(Text("Inicio"), displayMode: .automatic)
+                    .navigationBarTitle(Text("Inicio"))
                     .navigationBarItems(trailing:
                         NavigationLink(destination: PaymentView(product: Product()).environmentObject(self.session)) {
                             Image(systemName: "cart").resizable().frame(width: 28.0, height: 28.0)

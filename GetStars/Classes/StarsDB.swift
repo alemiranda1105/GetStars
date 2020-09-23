@@ -31,6 +31,7 @@ class StarsDB: DataBase {
     // Sorteos
     private var sorteos = [String]()
     private var datosSorteo = [String: Any]()
+    private var sorteoName = ""
     
     // Subastas
     private var subastas = [String]()
@@ -173,6 +174,44 @@ class StarsDB: DataBase {
             }
             dg.leave()
         }
+    }
+    
+    func uploadSorteo(datos: [String: String], dg: DispatchGroup) {
+        dg.enter()
+        let documentRef = db.collection("sorteos").document(datos["nombre"]!)
+        
+        documentRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                print("El sorteo existe, cambiándole el nombre")
+                return self.uploadSorteo(datos: datos, dg: dg, n: 1)
+            } else {
+                print("El sorteo no existe, creando...")
+                self.sorteoName = datos["nombre"]!
+                documentRef.setData(datos)
+            }
+            dg.leave()
+        }
+    }
+    
+    private func uploadSorteo(datos: [String: String], dg: DispatchGroup, n: Int) {
+        dg.enter()
+        let documentRef = db.collection("sorteos").document(datos["nombre"]! + "\(n)")
+        
+        documentRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                print("El sorteo existe, cambiándole el nombre")
+                return self.uploadSorteo(datos: datos, dg: dg, n: n+1)
+            } else {
+                print("El sorteo no existe, creando...")
+                self.sorteoName = datos["nombre"]! + "\(n)"
+                documentRef.setData(datos)
+            }
+            dg.leave()
+        }
+    }
+    
+    func getSorteoName() -> String {
+        return self.sorteoName
     }
     
     func readSubastas(dg: DispatchGroup) {

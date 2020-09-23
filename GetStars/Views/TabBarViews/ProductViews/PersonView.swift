@@ -133,10 +133,8 @@ struct PersonView: View {
                         .foregroundColor(Color("gris"))
                 }.shadow(color: Color.black.opacity(0.5), radius: 2, x: 0, y: 0)
         )
-        .background(NavigationConfigurator { nc in
-            nc.navigationBar.barTintColor = .clear
-            nc.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        })
+        
+        
     }
 }
 

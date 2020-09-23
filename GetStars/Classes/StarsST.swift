@@ -153,6 +153,23 @@ class StarsST: CloudStorage {
         return self.phoUrl!
     }
     
+    func uploadFotoSorteo(image: UIImage, key: String, name: String, dg: DispatchGroup) {
+        dg.enter()
+        let path = "creadores/" + key + "/sorteos/" + name.replacingOccurrences(of: " ", with: "") + ".jpg"
+        let storageRef = storage.reference()
+        let imgRef = storageRef.child(path)
+        
+        let data = image.jpegData(compressionQuality: 0.8)!
+        
+        imgRef.putData(data, metadata: nil) { (meta, error) in
+            if error != nil {
+                print("Error subiendo la imagen")
+            } else {
+                print("Imagen subida")
+            }
+        }
+    }
+    
     func readSorteoImage(key: String, name: String, dg: DispatchGroup) {
         dg.enter()
         let path = "creadores/" + key + "/sorteos/" + name.replacingOccurrences(of: " ", with: "") + ".jpg"

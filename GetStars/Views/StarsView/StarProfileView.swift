@@ -89,7 +89,7 @@ struct StarProfileView: View {
     var body: some View {
         GeometryReader { g in
             NavigationView {
-                VStack {
+                Group {
                     if self.loading {
                         ActivityIndicator(isAnimating: .constant(true), style: .large)
                             .frame(width: g.size.width, height: g.size.height, alignment: .center)
@@ -256,10 +256,26 @@ struct StarProfileView: View {
                                 }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                                 
                             } else if self.catSeleccionada == 1 {
-                                VStack {
-                                    Text("Sorteos")
-                                        .font(.system(size: 32, weight: .bold))
-                                }
+                                NavigationLink(destination: AddSorteoView()) {
+                                    Text("Crear un nuevo sorteo")
+                                        .frame(minWidth: 0, maxWidth: .infinity)
+                                        .padding()
+                                        .background(Color("navyBlue"))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(50)
+                                        .font(.system(size: 18, weight: .bold))
+                                }.padding()
+                                
+                                NavigationLink(destination: SorteosView().environmentObject(self.session)){
+                                    Text("Ver todos los sorteos")
+                                        .frame(minWidth: 0, maxWidth: .infinity)
+                                        .padding(50)
+                                        .background(Color.init(hex: "00b0ff"))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(16)
+                                        .font(.system(size: 18, weight: .bold))
+                                }.padding()
+                                
                             } else {
                                 VStack {
                                     Text("Pujas")
