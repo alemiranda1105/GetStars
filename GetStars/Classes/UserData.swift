@@ -15,6 +15,9 @@ struct UserData {
     private let fechaNacimiento: String
     private let data: [String: Any]
     
+    // Pro
+    private let isPro: Bool
+    
     // Articulos
     var autMan: Int
     var compras: [String: [String]]
@@ -29,7 +32,7 @@ struct UserData {
     private let key: String
     var ventas = [String: Int]()
     
-    init(nombre: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int) {
+    init(nombre: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int, isPro: Bool) {
         self.nombre = nombre
         self.sexo = sexo
         self.edad = edad
@@ -43,6 +46,9 @@ struct UserData {
         self.isStar = false
         self.key = ""
         
+        // Pro
+        self.isPro = isPro
+        
         self.data = [
             "nombre" : nombre,
             "edad" : edad,
@@ -51,7 +57,8 @@ struct UserData {
             "AutMan": autMan,
             "isStar": false,
             "key": self.key,
-            "compras": self.compras]
+            "compras": self.compras,
+            "pro": isPro]
     }
     
 //    init(data: [String: Any]) {
@@ -76,7 +83,7 @@ struct UserData {
 //    }
     
     // Usuarios famosos
-    init(nombre: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int, compras: [String: [String]], isStar: Bool, key: String) {
+    init(nombre: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int, compras: [String: [String]], isStar: Bool, key: String, isPro: Bool) {
         self.nombre = nombre
         self.sexo = sexo
         self.edad = edad
@@ -90,6 +97,9 @@ struct UserData {
         self.isStar = isStar
         self.key = key
         
+        // Pro
+        self.isPro = isPro
+        
         self.data = [
             "nombre" : nombre,
             "edad" : edad,
@@ -97,7 +107,8 @@ struct UserData {
             "fechaNacimiento": fechaNacimiento,
             "AutMan": autMan,
             "isStar": isStar,
-            "key": key]
+            "key": key,
+            "pro": isPro]
     }
     
     func getData() -> [String: Any]{
@@ -110,6 +121,10 @@ struct UserData {
     
     func getIsStar() -> Bool {
         return self.isStar
+    }
+    
+    func getIsPro() -> Bool {
+        return self.isPro
     }
     
     func getUserKey() -> String {

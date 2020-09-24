@@ -111,6 +111,23 @@ struct ProfileView: View {
                         } else {
                             if self.catSeleccionada == 0 {
                                 ScrollView {
+                                    if !(self.session.data?.getIsPro() ?? true) {
+                                        NavigationLink(destination: BuyProView()){
+                                            ZStack {
+                                                Text("¡PÁSATE AL PRO!")
+                                                    .font(.system(size: 25, weight: .bold))
+                                                    .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+                                                    .scaledToFill()
+                                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                                    .frame(width: 350, height: 120)
+                                                    .background(Color("gris"))
+                                                    .cornerRadius(16)
+                                                    .overlay(RoundedRectangle(cornerRadius: 15)
+                                                        .stroke(Color.clear, lineWidth: 1))
+                                            }
+                                            
+                                        }.buttonStyle(PlainButtonStyle())
+                                    }
                                     
                                     NavigationLink(destination: ArticleProfileView(type: .constant("autFot"), title: .constant("Fotos"))) {
                                         VStack {
@@ -190,6 +207,23 @@ struct ProfileView: View {
                                 .frame(width: g1.size.width, height: g1.size.height, alignment: .center)
                             } else if self.catSeleccionada == 1 {
                                 ScrollView {
+                                    if !(self.session.data?.getIsPro() ?? false) {
+                                        NavigationLink(destination: BuyProView()){
+                                            ZStack {
+                                                Text("¡PÁSATE AL PRO!")
+                                                    .font(.system(size: 25, weight: .bold))
+                                                    .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+                                                    .scaledToFill()
+                                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                                    .frame(width: 350, height: 120)
+                                                    .background(Color("gris"))
+                                                    .cornerRadius(16)
+                                                    .overlay(RoundedRectangle(cornerRadius: 15)
+                                                        .stroke(Color.clear, lineWidth: 1))
+                                            }
+                                            
+                                        }.buttonStyle(PlainButtonStyle())
+                                    }
                                     
                                     VStack {
                                         Text("Artículos con dedicatoria pendientes de revisión:")

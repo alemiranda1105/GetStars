@@ -27,6 +27,9 @@ struct HomeView: View {
         db.readKeys(dg: dg)
         dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
             let keys = db.getKeys()
+            self.session.db.readDataUser(session: self.session, dg: dg)
+            dg.wait()
+            print("DATOS USUARIOS LEIDOS HOME")
             for i in keys {
                 st.getProfileImage(key: i, dg: dg)
                 dg.wait()
@@ -38,7 +41,10 @@ struct HomeView: View {
                 print("Famoso HOME leído")
                 let name = db.getName()
                 let desc = db.getDesc()
-                self.data.append(Person(name: name, description: desc, image: url!, key: i))
+                let p = Person(name: name, description: desc, image: url!, key: i)
+                if !p.isContained(array: self.data) {
+                    self.data.append(p)
+                }
                 self.loading = false
             }
         }
@@ -54,22 +60,23 @@ struct HomeView: View {
                 } else {
                     ScrollView {
                         Group {
-                            NavigationLink(destination: Text("¡PÁSATE AL PRO!")){
-                                ZStack {
-                                    Text("¡PÁSATE AL PRO!")
-                                        .font(.system(size: 25, weight: .bold))
-                                        .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
-                                        .scaledToFill()
-                                        .frame(minWidth: 0, maxWidth: .infinity)
-                                        .frame(width: 350, height: 120)
-                                        .background(Color("gris"))
-                                        .cornerRadius(16)
-                                        .overlay(RoundedRectangle(cornerRadius: 15)
-                                            .stroke(Color.clear, lineWidth: 1))
-                                }
-                                
-                            }.buttonStyle(PlainButtonStyle())
-                            
+                            if !(self.session.data?.getIsPro() ?? false) {
+                                NavigationLink(destination: BuyProView()){
+                                    ZStack {
+                                        Text("¡PÁSATE AL PRO!")
+                                            .font(.system(size: 25, weight: .bold))
+                                            .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+                                            .scaledToFill()
+                                            .frame(minWidth: 0, maxWidth: .infinity)
+                                            .frame(width: 350, height: 120)
+                                            .background(Color("gris"))
+                                            .cornerRadius(16)
+                                            .overlay(RoundedRectangle(cornerRadius: 15)
+                                                .stroke(Color.clear, lineWidth: 1))
+                                    }
+                                    
+                                }.buttonStyle(PlainButtonStyle())
+                            }
                             
                             ForEach(0..<self.data.count, id: \.self) { item in
                                 PersonCard(person: self.$data[item]).environmentObject(self.session)

@@ -15,9 +15,14 @@ struct BuyDrawView: View {
     
     @Environment(\.colorScheme) var colorScheme
     
-     var body: some View {
-           NavigationView {
-               ScrollView {
+    var body: some View {
+        NavigationView {
+            if !(self.session.data?.getIsPro() ?? false) {
+                BuyProView()
+                    .environmentObject(self.session)
+                    .navigationBarTitle(Text("¡PÁSATE AL PRO!"))
+            } else {
+                ScrollView {
                    VStack {
                        TextField("Buscar", text: $search)
                            .padding(7)
@@ -73,8 +78,9 @@ struct BuyDrawView: View {
                        
                    }.padding(.horizontal, 8)
                }.navigationBarTitle("Subastas y sorteos")
-           }.navigationViewStyle(StackNavigationViewStyle())
-       }
+            }
+       }.navigationViewStyle(StackNavigationViewStyle())
+    }
 }
 
 struct BuyDrawView_Previews: PreviewProvider {

@@ -40,5 +40,14 @@ class Person: Identifiable {
     func getKey() -> String {
         return self.key
     }
+    
+    func isContained(array: [Person]) -> Bool {
+        for p in array {
+            if self.key == p.getKey() {
+                return true
+            }
+        }
+        return false
+    }
 
 }

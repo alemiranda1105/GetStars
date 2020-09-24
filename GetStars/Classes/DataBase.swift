@@ -61,7 +61,8 @@ class DataBase: ObservableObject {
                                         autMan: document.data()!["AutMan"] as! Int,
                                         compras: document.data()!["compras"] as! [String : [String]],
                                         isStar: document.data()!["isStar"] as! Bool,
-                                        key: document.data()!["key"] as! String)
+                                        key: document.data()!["key"] as! String,
+                                        isPro: document.data()!["isPro"] as! Bool)
                 
                 let defaults = UserDefaults.standard
                 defaults.set(document.data()!["nombre"] as! String, forKey: "name")
@@ -177,6 +178,20 @@ class DataBase: ObservableObject {
             dg.leave()
         }
         
+    }
+    
+    func startPro(email: String, dg: DispatchGroup) {
+        dg.enter()
+        let documentRef = db.collection(dbCollection).document(email)
+        documentRef.updateData(["isPro": true])
+        dg.leave()
+    }
+    
+    func finishPro(email: String, dg: DispatchGroup) {
+        dg.enter()
+        let documentRef = db.collection(dbCollection).document(email)
+        documentRef.updateData(["isPro": false])
+        dg.leave()
     }
     
     func deleteDB(session: SessionStore) {

@@ -56,6 +56,7 @@
 		BE8EED8E2519F49000379386 /* UserLivePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EED8D2519F49000379386 /* UserLivePlayerView.swift */; };
 		BE8EED932519FD5000379386 /* UserLiveList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EED922519FD5000379386 /* UserLiveList.swift */; };
 		BE8FA5EF24E9837200EAF22C /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FA5EE24E9837200EAF22C /* Person.swift */; };
+		BE8FE224251C9A95005686A1 /* BuyProView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8FE223251C9A95005686A1 /* BuyProView.swift */; };
 		BE962A0124EFD538009C8AA7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE962A0324EFD538009C8AA7 /* Localizable.strings */; };
 		BE962A0624F01B51009C8AA7 /* StarsDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE962A0524F01B51009C8AA7 /* StarsDB.swift */; };
 		BE9F05F324DAF98000F47E68 /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9F05F224DAF98000F47E68 /* ConfigurationView.swift */; };
@@ -129,6 +130,7 @@
 		BE8EED8D2519F49000379386 /* UserLivePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLivePlayerView.swift; sourceTree = "<group>"; };
 		BE8EED922519FD5000379386 /* UserLiveList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLiveList.swift; sourceTree = "<group>"; };
 		BE8FA5EE24E9837200EAF22C /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		BE8FE223251C9A95005686A1 /* BuyProView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyProView.swift; sourceTree = "<group>"; };
 		BE962A0224EFD538009C8AA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE962A0424EFD55B009C8AA7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE962A0524F01B51009C8AA7 /* StarsDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsDB.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				BE19C86C24EC2D6F00A2B975 /* SorteosView.swift */,
 				BE19C86E24EC2DD500A2B975 /* Sorteo */,
 				BE19C86A24EC2BAF00A2B975 /* LiveView.swift */,
+				BE8FE223251C9A95005686A1 /* BuyProView.swift */,
 			);
 			path = BuyDrawViews;
 			sourceTree = "<group>";
@@ -605,6 +608,7 @@
 				BE41AA6A24CF590500511527 /* SearchView.swift in Sources */,
 				BE4A7A7224B4F9B900336760 /* SignUpView.swift in Sources */,
 				BE8C307E24C87E8500135AD9 /* TabBarView.swift in Sources */,
+				BE8FE224251C9A95005686A1 /* BuyProView.swift in Sources */,
 				BE67C0FB24EA7D60007AA0E6 /* SubcategoryView.swift in Sources */,
 				BE19C87224EC2DF500A2B975 /* SorteoCardView.swift in Sources */,
 				BEB32DDE24D81282007BA071 /* NewsView.swift in Sources */,

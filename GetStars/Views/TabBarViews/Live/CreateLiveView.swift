@@ -106,69 +106,75 @@ struct CreateLiveView: View {
     
     var body: some View {
         VStack {
-            if self.participando {
-                Text("Enhorabuena, tu video ha sido añadido a la cesta")
-                    .font(.system(size: 22, weight: .bold))
-                    .multilineTextAlignment(.center)
-                    .padding()
-                
-                Spacer()
-                
-                Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                }) {
-                    Text("Volver atrás")
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .padding()
-                        .background(Color("navyBlue"))
-                        .foregroundColor(.white)
-                        .cornerRadius(50)
-                        .font(.system(size: 18, weight: .bold))
-                }.padding()
-                
+            if !(self.session.data?.getIsPro() ?? false) {
+                BuyProView()
+                    .environmentObject(self.session)
+                    .navigationBarTitle(Text("¡PÁSATE AL PRO!"))
             } else {
-                
-                Text("Aviso: el precio de este producto es de \(self.precio.dollarString)€")
-                    .multilineTextAlignment(.center)
-                    .font(.system(size: 18, weight: .semibold))
-                    .frame(width: 150, height: 80, alignment: .center)
-                
-                Spacer()
-                
-                Text("Su mensaje: \(80 - self.mensaje.count) caracteres restantes")
-                    .font(.system(size: 17, weight: .regular))
-                
-                if #available(iOS 14.0, *) {
-                    TextEditor(text: self.$mensaje)
-                        .border(colorScheme == .dark ? Color("naranja"): Color("navyBlue"))
+                if self.participando {
+                    Text("Enhorabuena, tu video ha sido añadido a la cesta")
+                        .font(.system(size: 22, weight: .bold))
+                        .multilineTextAlignment(.center)
                         .padding()
-                        .frame(width: UIScreen.main.bounds.width-10.0, height: 200, alignment: .center)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Text("Volver atrás")
+                            .frame(minWidth: 0, maxWidth: .infinity)
+                            .padding()
+                            .background(Color("navyBlue"))
+                            .foregroundColor(.white)
+                            .cornerRadius(50)
+                            .font(.system(size: 18, weight: .bold))
+                    }.padding()
                     
                 } else {
-                    // Fallback on earlier versions
-                    TextView(text: self.$mensaje)
-                        .border(colorScheme == .dark ? Color("naranja"): Color("navyBlue"))
-                        .padding()
-                        .frame(width: UIScreen.main.bounds.width-10.0, height: 200, alignment: .center)
                     
-                }
-                
-                Spacer()
-                
-                Button(action: {
-                    self.uploadDedicatoria()
-                }) {
-                    Text("Añadirme: Quedan \(1000 - self.nParticipantes) puestos")
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .padding()
-                        .background(Color("naranja"))
-                        .foregroundColor(.white)
-                        .cornerRadius(50)
-                        .font(.system(size: 18, weight: .bold))
-                }.padding()
-                
-                .alert(isPresented: self.$showError) {
-                    Alert(title: Text("Error"), message: Text(LocalizedStringKey(self.error)), dismissButton: .default(Text("OK")))
+                    Text("Aviso: el precio de este producto es de \(self.precio.dollarString)€")
+                        .multilineTextAlignment(.center)
+                        .font(.system(size: 18, weight: .semibold))
+                        .frame(width: 150, height: 80, alignment: .center)
+                    
+                    Spacer()
+                    
+                    Text("Su mensaje: \(80 - self.mensaje.count) caracteres restantes")
+                        .font(.system(size: 17, weight: .regular))
+                    
+                    if #available(iOS 14.0, *) {
+                        TextEditor(text: self.$mensaje)
+                            .border(colorScheme == .dark ? Color("naranja"): Color("navyBlue"))
+                            .padding()
+                            .frame(width: UIScreen.main.bounds.width-10.0, height: 200, alignment: .center)
+                        
+                    } else {
+                        // Fallback on earlier versions
+                        TextView(text: self.$mensaje)
+                            .border(colorScheme == .dark ? Color("naranja"): Color("navyBlue"))
+                            .padding()
+                            .frame(width: UIScreen.main.bounds.width-10.0, height: 200, alignment: .center)
+                        
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        self.uploadDedicatoria()
+                    }) {
+                        Text("Añadirme: Quedan \(1000 - self.nParticipantes) puestos")
+                            .frame(minWidth: 0, maxWidth: .infinity)
+                            .padding()
+                            .background(Color("naranja"))
+                            .foregroundColor(.white)
+                            .cornerRadius(50)
+                            .font(.system(size: 18, weight: .bold))
+                    }.padding()
+                    
+                    .alert(isPresented: self.$showError) {
+                        Alert(title: Text("Error"), message: Text(LocalizedStringKey(self.error)), dismissButton: .default(Text("OK")))
+                    }
                 }
             }
         }.onAppear(perform: self.getLiveData)
