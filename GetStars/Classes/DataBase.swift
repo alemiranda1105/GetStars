@@ -45,6 +45,11 @@ class DataBase: ObservableObject {
         }
     }
     
+    func updateData(data: [String: Any], email: String) {
+        let ref = db.collection(dbCollection).document(email)
+        ref.updateData(data)
+    }
+    
     func readDataUser(session: SessionStore, dg: DispatchGroup) {
         dg.enter()
         let email = (session.session?.email)!
