@@ -46,7 +46,7 @@ struct newTabBarView: View {
                 ProfileView().environmentObject(self.session)
                     .tabItem {
                         Image(systemName: "person")
-                    }.tag(5)
+                    }.tag(6)
             }
             
         }

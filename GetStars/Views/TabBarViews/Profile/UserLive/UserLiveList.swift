@@ -49,6 +49,8 @@ struct UserLiveList: View {
         let liveList = self.session.data?.compras["live"] ?? [String]()
         if liveList.count <= 0 {
             self.error = "No se ha adquirido ningún live, acuda a nuestra tienda para descubrir una nueva experiencia"
+            self.loading = false
+            return
         }
         let db = StarsDB()
         let dg = DispatchGroup()

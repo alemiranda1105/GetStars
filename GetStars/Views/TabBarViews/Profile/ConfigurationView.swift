@@ -37,7 +37,7 @@ struct ConfigurationView: View {
                     Spacer()
                     Text(self.appVersion ?? "1.0")
                 }
-                NavigationLink(destination: Text("Contactanos")) {
+                NavigationLink(destination: SupportView()) {
                     Text("Soporte")
                 }
             }
