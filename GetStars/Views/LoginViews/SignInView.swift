@@ -28,6 +28,13 @@ struct SignInView: View {
         }
     }
     
+    private func restorePassword() {
+        Auth.auth().sendPasswordReset(withEmail: self.email) { error in
+            self.error = error?.localizedDescription ?? "Error al recuperar su contraseña"
+            print(error?.localizedDescription ?? "")
+        }
+    }
+    
     var body: some View {
         VStack {
             VStack(spacing: 18) {
@@ -56,6 +63,13 @@ struct SignInView: View {
                     .background(
                         RoundedRectangle(cornerRadius: 5)
                           .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
+                    
+                    Button(action: {
+                        self.restorePassword()
+                    }) {
+                        Text("Recuperar contraseña")
+                            .foregroundColor(colorScheme == .dark ? Color("naranja"): Color("navyBlue"))
+                    }
                 }
                 
             }.padding(.vertical, 64)

@@ -58,7 +58,7 @@ struct UserData {
             "isStar": false,
             "key": self.key,
             "compras": self.compras,
-            "pro": isPro]
+            "isPro": isPro]
     }
     
 //    init(data: [String: Any]) {
@@ -108,7 +108,7 @@ struct UserData {
             "AutMan": autMan,
             "isStar": isStar,
             "key": key,
-            "pro": isPro]
+            "isPro": isPro]
     }
     
     func getData() -> [String: Any]{
