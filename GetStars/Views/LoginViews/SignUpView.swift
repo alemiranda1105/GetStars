@@ -26,86 +26,12 @@ struct SignUpView: View {
     @State private var generoSeleccionado = 0
     
     @State private var birthDate: String = ""
-    @State private var day: String = ""
-    @State private var month: String = ""
-    @State private var year: String = ""
-    
-    private func checkDate() -> Bool {
-        let actualY = Calendar.current.component(.year, from: Date())
-        if (Int(year)! < 1900 || Int(year)! > actualY - 1) {
-            self.error = "Fecha incorrecta"
-            return false
-        }
-        switch Int(month)! {
-        case 01,03,05,07,08,10,12:
-            if (Int(day)! < 1 || Int(day)! > 31) {
-                self.error = "Fecha incorrecta"
-                return false
-            }
-            return true
-        case 02:
-            if esBisiesto() {
-                if (Int(day)! < 1 || Int(day)! > 29) {
-                    self.error = "Fecha incorrecta"
-                    return false
-                }
-                return true
-            } else {
-                if (Int(day)! < 1 || Int(day)! > 28) {
-                    self.error = "Fecha incorrecta"
-                    return false
-                }
-                return true
-            }
+    @State var fechaNacimiento = Date()
+    var closedRange: ClosedRange<Date> {
+        let start = Calendar.current.date(byAdding: .year, value: -120, to: Date())!
+        let end = Calendar.current.date(byAdding: .year, value: -1, to: Date())!
             
-        case 04, 06, 09, 11:
-            if (Int(day)! < 1 || Int(day)! > 30) {
-                self.error = "Fecha incorrecta"
-                return false
-            }
-            return true
-            
-        default:
-            self.error = "Fecha incorrecta"
-            return false
-        }
-    }
-    
-    private func esBisiesto() -> Bool {
-        let y = Int(year)!
-        if y % 4 == 0 {
-            if y % 100 == 0{
-                if y % 400 == 0 {
-                    return true
-                }
-                return false
-            }
-            return true
-        }
-        return false
-    }
-    
-    private func checkAge() -> Int {
-        let actualY = Calendar.current.component(.year, from: Date())
-        let actualM = Calendar.current.component(.month, from: Date())
-        let actualD = Calendar.current.component(.day, from: Date())
-        
-        if actualY > Int(year)! {
-            if actualM < Int(month)! {
-                return actualY - Int(year)! - 1
-            } else if actualM > Int(month)! {
-                return actualY - Int(year)! - 1
-            } else {
-                if actualD > Int(day)! {
-                    return actualY - Int(year)!
-                } else {
-                    return actualY - Int(year)! - 1
-                }
-            }
-        }
-        
-        return 0
-        
+        return start...end
     }
     
     func signUp() {
@@ -119,10 +45,12 @@ struct SignUpView: View {
             return
         }
         
-        if !checkDate(){ return }
-        
-        self.birthDate = self.day + "/" +  self.month + "/" + self.year
-        let age: Int = checkAge()
+        let format = DateFormatter()
+        format.dateFormat = "d/MM/y"
+        self.birthDate = format.string(from: self.fechaNacimiento)
+        let calendar = Calendar.current
+        let ageComponents = calendar.dateComponents([.year], from: self.fechaNacimiento, to: Date())
+        let age: Int = ageComponents.year!
         
         var sex: String = ""
         
@@ -163,7 +91,7 @@ struct SignUpView: View {
     }
     
     var body: some View {
-        VStack {
+        /*VStack {
             ScrollView{
                 VStack(spacing: 8) {
                     Picker(selection: $generoSeleccionado, label: Text("Género")) {
@@ -271,10 +199,85 @@ struct SignUpView: View {
                     .font(.system(size: 18, weight: .bold))
                 }.padding(.vertical, 16)
             }
-        }
-        .padding(.horizontal, 8)
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-        .navigationBarTitle(Text("Crea una cuenta"))
+        }*/
+        Form {
+            Section(header: Text("Género")) {
+                Picker(selection: $generoSeleccionado, label: Text("Género")) {
+                    ForEach(0 ..< generos.count) {
+                        //Text(self.generos[$0])
+                        self.generos[$0]
+                    }
+                }.pickerStyle(SegmentedPickerStyle())
+            }
+            
+            Section(header: Text("Datos personales")) {
+                TextField("Nombre completo", text: $name)
+                    .font(.system(size: 14))
+                    .padding(8)
+                
+                NavigationLink(destination: (
+                    DatePicker(selection: self.$fechaNacimiento, in: self.closedRange, displayedComponents: .date) {
+                        Text("Fecha:")
+                    }.padding(10)
+                )) {
+                    Text("Fecha de nacimiento")
+                        .font(.system(size: 16, weight: .semibold))
+                }
+                
+                
+                TextField("Email", text: $email)
+                    .font(.system(size: 14))
+                    .padding(8)
+                    .keyboardType(.emailAddress).autocapitalization(.none)
+            }
+            
+            Section(header: Text("Contraseña")) {
+                HStack {
+                    if secure {
+                        SecureField("Contraseña", text: $password)
+                            .font(.system(size: 14))
+                            .autocapitalization(.none)
+                            .padding(8)
+                    } else {
+                        TextField("Contraseña", text: $password)
+                            .font(.system(size: 14))
+                            .autocapitalization(.none)
+                            .padding(8)
+                    }
+                    Button(action: {
+                        self.secure.toggle()
+                    }) {
+                        if secure {
+                            Image(systemName: "eye.slash")
+                        } else {
+                            Image(systemName: "eye")
+                        }
+                    }.foregroundColor(colorScheme == .dark ? Color.white : Color.blue)
+                }
+            }
+            
+            Section(header: Text("Condiciones de uso")) {
+                Toggle(isOn: $condiciones){
+                    Text("Aceptar condiciones")
+                        .font(.system(size: 16))
+                }.padding()
+            }
+            
+            if (error != ""){
+                Text(error)
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.red)
+                    .padding()
+            }
+            
+            Button(action: signUp){
+                Text("Registrarse")
+                .frame(minWidth: 0, maxWidth: .infinity)
+                .padding()
+                .foregroundColor(Color("naranja"))
+                .font(.system(size: 18, weight: .bold))
+            }
+        }.navigationBarTitle(Text("Crea una cuenta"))
     }
 }
 

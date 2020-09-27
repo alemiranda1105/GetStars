@@ -778,7 +778,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "0.6.1-PreAlpha";
+				MARKETING_VERSION = "0.6.7-PreAlpha";
 				PRODUCT_BUNDLE_IDENTIFIER = com.marquelodev.GetStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -801,7 +801,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "0.6.1-PreAlpha";
+				MARKETING_VERSION = "0.6.7-PreAlpha";
 				PRODUCT_BUNDLE_IDENTIFIER = com.marquelodev.GetStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

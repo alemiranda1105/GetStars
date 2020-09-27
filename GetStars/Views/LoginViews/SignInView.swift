@@ -58,11 +58,12 @@ struct SignInView: View {
                         .bold()
                     
                     SecureField("Contraseña", text: $password)
-                    .font(.system(size: 14))
-                    .padding(10)
-                    .background(
-                        RoundedRectangle(cornerRadius: 5)
-                          .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
+                        .font(.system(size: 14))
+                        .padding(10)
+                        .autocapitalization(.none)
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
                     
                     Button(action: {
                         self.restorePassword()
@@ -92,7 +93,6 @@ struct SignInView: View {
                 .cornerRadius(50)
                 .font(.system(size: 18, weight: .bold))
             }.padding(.bottom, 16)
-
         }
         .padding(.horizontal, 8)
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
