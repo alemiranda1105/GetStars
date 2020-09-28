@@ -159,14 +159,14 @@ private struct ModifyDataView: View {
             case 1:
                 sex = "mujer"
             case 2:
-                sex = "null"
+                sex = "otro"
             default:
-                sex = "null"
+                sex = "otro"
         }
         data["sexo"] = sex
-        /*self.session.db.updateData(data: data, email: self.session.session?.email ?? "")
+        self.session.db.updateData(data: data, email: self.session.session?.email ?? "")
         self.session.db.readDataUser(session: self.session, dg: DispatchGroup())
-        self.presentationMode.wrappedValue.dismiss()*/
+        self.presentationMode.wrappedValue.dismiss()
     }
     
     var body: some View {
@@ -178,14 +178,17 @@ private struct ModifyDataView: View {
                     TextField("Nombre", text: self.$nombre)
                 }
                 HStack {
-                    NavigationLink(destination: (
+                    DatePicker(selection: self.$fechaNacimiento, in: self.closedRange, displayedComponents: .date) {
+                        Text("Fecha:")
+                    }.padding(10)
+                    /*NavigationLink(destination: (
                         DatePicker(selection: self.$fechaNacimiento, in: self.closedRange, displayedComponents: .date) {
                             Text("Fecha:")
                         }.padding(10)
                     )) {
                         Text("Fecha de nacimiento")
                             .font(.system(size: 16, weight: .semibold))
-                    }
+                    }*/
                 }
                 VStack {
                     Text("Género")
