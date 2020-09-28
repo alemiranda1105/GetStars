@@ -37,7 +37,12 @@ struct newTabBarView: View {
                     Image(systemName: "bag")
                 }.tag(4)
             
-            if (self.session.data?.getIsStar()) ?? false {
+            ProfileView().environmentObject(self.session)
+                .tabItem {
+                    Image(systemName: "person")
+                }.tag(5)
+            
+            /*if (self.session.data?.getIsStar()) ?? false {
                 StarProfileView().environmentObject(self.session)
                     .tabItem {
                         Image(systemName: "person")
@@ -46,15 +51,15 @@ struct newTabBarView: View {
                 ProfileView().environmentObject(self.session)
                     .tabItem {
                         Image(systemName: "person")
-                    }.tag(6)
-            }
+                    }.tag(5)
+            }*/
             
         }
         .accentColor(Color("tabbarColor"))
     }
 }
 
-struct TabBarView: View {
+/*struct TabBarView: View {
     @EnvironmentObject var session: SessionStore
     
     @State var index = 0
@@ -171,10 +176,12 @@ struct BarraNavegacionView: View {
 //        .padding(.horizontal, 16)
 //        .background(colorScheme == .dark ? Color.black: Color.white)
     }
-}
+}*/
 
+#if DEBUG
 struct TabBar_Previews: PreviewProvider {
     static var previews: some View {
-        TabBarView().environmentObject(SessionStore())
+        newTabBarView().environmentObject(SessionStore())
     }
 }
+#endif

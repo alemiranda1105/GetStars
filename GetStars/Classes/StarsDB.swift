@@ -21,6 +21,7 @@ class StarsDB: DataBase {
     private var destacados = [String]()
     private var novedades = [String]()
     private var populares = [String]()
+    private var resultadoBusqueda = [String]()
     
     // Categories keys
     private var catID = [String]()
@@ -372,6 +373,25 @@ class StarsDB: DataBase {
         let documentRef = db.collection("usuarios").document(email)
         
         documentRef.updateData(["compras.live": FieldValue.arrayUnion([key])])
+    }
+    
+    func buscarUsuario(nombre: String, dg: DispatchGroup) {
+        dg.enter()
+        db.collection("famosos").whereField("Nombre", isEqualTo: nombre).getDocuments() { result, error in
+            if error != nil {
+                print("Error buscando el usuario")
+                print(error?.localizedDescription ?? "")
+            } else {
+                for doc in result!.documents {
+                    self.resultadoBusqueda.append(doc.documentID)
+                }
+            }
+            dg.leave()
+        }
+    }
+    
+    func getResultadoBusqueda() -> [String] {
+        return self.resultadoBusqueda
     }
     
     func getPrice() -> Double {

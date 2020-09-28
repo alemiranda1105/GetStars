@@ -142,7 +142,14 @@ private struct ModifyDataView: View {
         let format = DateFormatter()
         format.dateFormat = "d/MM/y"
         let fecha = format.string(from: self.fechaNacimiento)
+        let calendar = Calendar.current
+        let ageComponents = calendar.dateComponents([.year], from: self.fechaNacimiento, to: Date())
+        let age: Int = ageComponents.year!
+        print("fecha: " + fecha)
+        print("edad: \(age)")
+        
         data["fechaNacimiento"] = fecha
+        data["edad"] = age
         
         var sex: String = ""
         switch self.generoSeleccionado {
@@ -157,8 +164,9 @@ private struct ModifyDataView: View {
                 sex = "null"
         }
         data["sexo"] = sex
-        self.session.db.updateData(data: data, email: self.session.session?.email ?? "")
-        self.presentationMode.wrappedValue.dismiss()
+        /*self.session.db.updateData(data: data, email: self.session.session?.email ?? "")
+        self.session.db.readDataUser(session: self.session, dg: DispatchGroup())
+        self.presentationMode.wrappedValue.dismiss()*/
     }
     
     var body: some View {
@@ -194,7 +202,7 @@ private struct ModifyDataView: View {
             }) {
                 HStack {
                     Spacer()
-                    Image(systemName: "trash")
+                    Image(systemName: "square.and.arrow.down")
                     Text("Guardar cambios").fontWeight(.bold)
                     Spacer()
                 }

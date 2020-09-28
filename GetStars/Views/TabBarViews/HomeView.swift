@@ -45,8 +45,9 @@ struct HomeView: View {
                 if !p.isContained(array: self.data) {
                     self.data.append(p)
                 }
-                self.loading = false
+                
             }
+            self.loading = false
         }
     }
     

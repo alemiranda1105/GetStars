@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-class Person: Identifiable {
+class Person: Identifiable, Hashable {
     var id = UUID()
     var name: String
     var description: String
@@ -48,6 +48,21 @@ class Person: Identifiable {
             }
         }
         return false
+    }
+    
+    // Hashable
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name.count+description.count)
+    }
+    
+    static func == (p1: Person, p2: Person) -> Bool {
+        return (
+                    p1.getKey() == p2.getKey() &&
+                    p1.name == p2.name &&
+                    p1.description == p2.description &&
+                    p1.image == p2.image &&
+                    p1.id == p2.id
+                )
     }
 
 }

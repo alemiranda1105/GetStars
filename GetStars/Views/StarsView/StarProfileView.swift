@@ -352,7 +352,7 @@ struct StarProfileView: View {
                                             .cornerRadius(50)
                                     }.padding(8)
                                     
-                                    Button(action: {
+                                    /*Button(action: {
                                         // Cambiar precio
                                         self.readPrice()
                                         self.priceUpdateMenu = true
@@ -405,7 +405,7 @@ struct StarProfileView: View {
                                                 
                                             }
                                         }
-                                    }
+                                    }*/
                                     
                                 }.frame(width: g.size.width, height: g.size.height, alignment: .center)
                             }
