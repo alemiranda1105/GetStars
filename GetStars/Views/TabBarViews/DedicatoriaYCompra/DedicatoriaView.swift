@@ -21,6 +21,7 @@ struct DedicatoriaView: View {
     
     // Opciones de texto
     @State var mensaje = ""
+    @State var mensajePred: String
     
     @State var color: Color = Color(hex: "FCA310")
     @State var uiColor = Color(hex: "FCA310").uiColor()
@@ -49,21 +50,22 @@ struct DedicatoriaView: View {
         self.error = ""
         
         // Mensaje vacío
-        if self.mensaje.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+        /*if self.mensaje.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             self.error = "Escriba un mensaje, por favor"
             self.showError = true
             return false
-        }
+        }*/
         
         //Longitud del mensaje
-        if self.mensaje.count >= 80 {
+        /*if self.mensaje.count >= 80 {
             self.error = "El mensaje supera los 80 caracteres"
             self.showError = true
             return false
-        }
+        }*/
         
         // Filtro de palabras ofensivas
-        let array = self.mensaje.split(separator: " ")
+        //let array = self.mensaje.split(separator: " ")
+        let array = self.mensajePred.split(separator: " ")
         for m in array {
             for p in self.filtro {
                 if m.lowercased() == p.lowercased() {
@@ -75,7 +77,8 @@ struct DedicatoriaView: View {
         }
         
         // Añade el producto al carrito de compra
-        self.product.setMessage(newMessage: self.mensaje)
+        //self.product.setMessage(newMessage: self.mensaje)
+        self.product.setMessage(newMessage: self.mensajePred)
         var n = 0
         for i in self.session.cart {
             if i.equals(product: self.product) {
@@ -119,7 +122,8 @@ struct DedicatoriaView: View {
                                     .opacity(0.35)
                             }.frame(width: g.size.width/2, height: g.size.height/2, alignment: .center)
                             
-                            Text(self.mensaje)
+                            //Text(self.mensaje)
+                            Text(self.mensajePred)
                                 .font(.system(size: self.size))
                                 .foregroundColor(self.color)
                                 .offset(x: self.posX, y: self.posY)
@@ -240,12 +244,12 @@ struct DedicatoriaView: View {
                         }.padding().frame(width: g.size.width)
                         
                         HStack {
-                            TextField("Pulsa para editar la dedicatoria", text: self.$mensaje)
+                            /*TextField("Pulsa para editar la dedicatoria", text: self.$mensaje)
                             .font(.system(size: 14))
                             .padding(10)
                             .background(
                                 RoundedRectangle(cornerRadius: 5)
-                                    .strokeBorder(Color("naranja"), lineWidth: 1))
+                                    .strokeBorder(Color("naranja"), lineWidth: 1))*/
                             
                             Button(action: {
                                 withAnimation(.easeIn(duration: 0.25)) {
@@ -325,20 +329,8 @@ struct DedicatoriaView: View {
                             }.padding()
                         }
                     }
-                }
+                }.navigationBarTitle(Text("Edita la dedicatoria"))
             }
         }
     }
 }
-
-#if DEBUG
-struct DedicatoriaView_Previews: PreviewProvider {
-    var session = SessionStore()
-    static var previews: some View {
-        Group {
-            DedicatoriaView(product: (Product(price: 2.99, name: "Preview", description: "Descripción de preview", image: "", owner: Person(name: "", description: "", image: "", key: ""), isDedicated: true))).previewDevice("iPhone 8")
-            DedicatoriaView(product: (Product(price: 2.99, name: "Preview", description: "Descripción de preview", image: "", owner: Person(name: "", description: "", image: "", key: ""), isDedicated: true))).previewDevice("iPhone 11")
-        }
-    }
-}
-#endif

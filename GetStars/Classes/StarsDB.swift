@@ -29,6 +29,9 @@ class StarsDB: DataBase {
     // Price
     private var price: Double = 0.0
     
+    // Dedicatories
+    private var defMessage: String = ""
+    
     // Sorteos
     private var sorteos = [String]()
     private var datosSorteo = [String: Any]()
@@ -281,6 +284,24 @@ class StarsDB: DataBase {
             }
             dg.leave()
         }
+    }
+    
+    func readDefaultMessage(key: String, type: String, dg: DispatchGroup) {
+        dg.enter()
+        db.collection(self.dbCollection).document(key).getDocument { document, error in
+            if error != nil {
+                print("Error obteniendo el mensaje por defecto")
+                print(error?.localizedDescription ?? "")
+            } else {
+                let mes = document!.data()!["mensajePredeterminado"] as! [String: String]
+                self.defMessage = mes[type]!
+            }
+            dg.leave()
+        }
+    }
+    
+    func getDefaultMessage() -> String {
+        return self.defMessage
     }
     
     func readListaLive(key: String, dg: DispatchGroup) {

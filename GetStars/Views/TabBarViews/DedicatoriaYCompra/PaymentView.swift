@@ -159,7 +159,16 @@ struct PaymentView: View {
                     Text("Productos en la cesta:")
                         .font(.system(size: 24, weight: .semibold))
                     
-                    CartView(editing: self.$editing).environmentObject(self.session)
+                    if self.session.cart.count > 0 {
+                        CartView(editing: self.$editing).environmentObject(self.session)
+                    } else {
+                        Spacer()
+                        Text("La cesta está vacía")
+                            .font(.system(size: 24, weight: .thin))
+                            .padding()
+                            .multilineTextAlignment(.center)
+                        Spacer()
+                    }
                     
                     HStack {
                         Button(action: {
@@ -174,45 +183,48 @@ struct PaymentView: View {
                                 .font(.system(size: 18, weight: .bold))
                         }
                         
-                        Button(action: {
-                            self.editing.toggle()
-                            self.readCart()
-                        }) {
-                            if self.editing {
-                                Text("Hecho")
+                        if self.session.cart.count > 0 {
+                            Button(action: {
+                                self.editing.toggle()
+                                self.readCart()
+                            }) {
+                                if self.editing {
+                                    Text("Hecho")
+                                        .frame(minWidth: 0, maxWidth: .infinity)
+                                        .padding(8)
+                                        .background(Color("gris"))
+                                        .foregroundColor(self.colorScheme == .dark ? .white: .black)
+                                        .cornerRadius(50)
+                                        .font(.system(size: 18, weight: .bold))
+                                } else {
+                                    Text("Editar")
+                                        .frame(minWidth: 0, maxWidth: .infinity)
+                                        .padding(8)
+                                        .background(Color("gris"))
+                                        .foregroundColor(self.colorScheme == .dark ? .white: .black)
+                                        .cornerRadius(50)
+                                        .font(.system(size: 18, weight: .bold))
+                                }
+                            }
+                            
+                            NavigationLink(destination: SelectPaymentMethodView().environmentObject(self.session)) {
+                                Text("Pagar")
                                     .frame(minWidth: 0, maxWidth: .infinity)
                                     .padding(8)
-                                    .background(Color("gris"))
-                                    .foregroundColor(self.colorScheme == .dark ? .white: .black)
-                                    .cornerRadius(50)
-                                    .font(.system(size: 18, weight: .bold))
-                            } else {
-                                Text("Editar")
-                                    .frame(minWidth: 0, maxWidth: .infinity)
-                                    .padding(8)
-                                    .background(Color("gris"))
-                                    .foregroundColor(self.colorScheme == .dark ? .white: .black)
+                                    .background(Color("naranja"))
+                                    .foregroundColor(.white)
                                     .cornerRadius(50)
                                     .font(.system(size: 18, weight: .bold))
                             }
+                            
                         }
                         
-                        Button(action: {
-                            self.payment()
-                        }) {
-                            Text("Pagar")
-                                .frame(minWidth: 0, maxWidth: .infinity)
-                                .padding(8)
-                                .background(Color("naranja"))
-                                .foregroundColor(.white)
-                                .cornerRadius(50)
-                                .font(.system(size: 18, weight: .bold))
-                        }
                     }.padding()
                     
                 }.padding()
             }
-        }.onAppear(perform: self.readCart)
+        }.navigationBarTitle(Text("Cesta"), displayMode: .inline)
+        .onAppear(perform: self.readCart)
     }
 }
 

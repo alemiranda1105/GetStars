@@ -19,6 +19,8 @@ target 'GetStars' do
   pod 'Firebase/Storage'
   pod 'SDWebImageSwiftUI'
 
+  pod 'Stripe'
+
   pod 'CameraManager', '~> 5.1'
 
   # Elimina todos los targets
