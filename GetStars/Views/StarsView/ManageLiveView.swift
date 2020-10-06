@@ -48,25 +48,19 @@ struct ManageLiveView: View {
                 ActivityIndicator(isAnimating: .constant(true), style: .large).frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
                     .onAppear(perform: self.readParticipantes)
             } else {
-                HStack {
-                    Button(action: {
-                        // Cambiar precio
-                        
-                    }) {
-                        Text("Cambiar precio")
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .padding(14)
-                            .background(Color("naranja"))
-                            .foregroundColor(.white)
-                            .cornerRadius(50)
-                    }
-                }.padding()
                 
-                List(self.listaParticipantes) { participante in
-                    NavigationLink(destination: LiveUserView(participante: .constant(participante.email), mensaje: .constant(participante.mensaje))
-                                    .navigationViewStyle(StackNavigationViewStyle())
-                    ) {
-                        Text(participante.email)
+                if self.listaParticipantes.count <= 0 {
+                    Text("Por ahora no hay ningún participante pendiente")
+                        .font(.system(size: 22, weight: .thin))
+                        .padding()
+                        .multilineTextAlignment(.center)
+                } else {
+                    List(self.listaParticipantes) { participante in
+                        NavigationLink(destination: LiveUserView(participante: .constant(participante.email), mensaje: .constant(participante.mensaje))
+                                        .navigationViewStyle(StackNavigationViewStyle())
+                        ) {
+                            Text(participante.email)
+                        }
                     }
                 }
             }

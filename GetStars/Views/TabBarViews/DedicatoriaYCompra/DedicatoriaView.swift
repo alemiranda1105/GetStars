@@ -12,7 +12,7 @@ import SDWebImageSwiftUI
 import ColorPickerRing
 import Firebase
 
-struct DedicatoriaView: View {
+/*struct DedicatoriaView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @EnvironmentObject var session: SessionStore
@@ -333,4 +333,4 @@ struct DedicatoriaView: View {
             }
         }
     }
-}
+}*/

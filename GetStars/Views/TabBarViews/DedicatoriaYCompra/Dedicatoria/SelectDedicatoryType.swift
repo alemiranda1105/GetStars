@@ -20,6 +20,8 @@ struct SelectDedicatoryType: View {
     
     @State var message = ""
     
+    @State var showPayment = false
+    
     private func loadMessage(type: String) {
         // Leer mensaje predeterminado para ese tipo en la base de datos
         let db = StarsDB()
@@ -33,30 +35,57 @@ struct SelectDedicatoryType: View {
         }
     }
     
+    private func addCart() {
+        self.product.setMessage(newMessage: self.message)
+        var n = 0
+        for i in self.session.cart {
+            if i.equals(product: self.product) {
+                self.session.cart.remove(at: n)
+                self.session.cart.insert(self.product, at: n)
+            }
+            n += 1
+        }
+        self.session.cart.append(self.product)
+    }
+    
     var body: some View {
-        VStack {
-            Spacer()
-            
-            ForEach(0 ..< self.typesText.count, id: \.self) { index in
-                Button(action: {
-                    self.selectedType = self.types[index]
-                    self.loadMessage(type: self.selectedType)
-                }) {
-                    if self.selectedType == self.types[index] {
-                        Image(systemName: "checkmark.circle")
+        Group {
+            if self.showPayment {
+                PaymentView(product: Product()).environmentObject(self.session)
+            } else {
+                VStack {
+                    Spacer()
+                    
+                    ForEach(0 ..< self.typesText.count, id: \.self) { index in
+                        Button(action: {
+                            self.selectedType = self.types[index]
+                            self.loadMessage(type: self.selectedType)
+                        }) {
+                            if self.selectedType == self.types[index] {
+                                Image(systemName: "checkmark.circle")
+                            }
+                            Text(self.typesText[index])
+                                .font(.system(size: 20, weight: .thin))
+                        }
+                    }.padding()
+                    
+                    Spacer()
+                    
+                    if self.selectedType != "" && self.message != "" {
+    //                    NavigationLink(destination: DedicatoriaView(product: self.product, mensajePred: self.message).environmentObject(self.session)) {
+    //                        Text("Continuar")
+    //                            .font(.system(size: 20, weight: .semibold))
+    //                    }.padding()
+                        
+                        Button(action: {
+                            self.addCart()
+                            self.showPayment = true
+                        }) {
+                            Text("Añadir al carrito")
+                                .font(.system(size: 20, weight: .semibold))
+                        }.padding()
                     }
-                    Text(self.typesText[index])
-                        .font(.system(size: 20, weight: .thin))
                 }
-            }.padding()
-            
-            Spacer()
-            
-            if self.selectedType != "" && self.message != "" {
-                NavigationLink(destination: DedicatoriaView(product: self.product, mensajePred: self.message).environmentObject(self.session)) {
-                    Text("Continuar")
-                        .font(.system(size: 20, weight: .semibold))
-                }.padding()
             }
         }
     }
