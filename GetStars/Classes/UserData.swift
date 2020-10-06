@@ -15,28 +15,29 @@ struct UserData {
     private let fechaNacimiento: String
     private let data: [String: Any]
     
+    // Monedas
+    private var coins: StarsCoins
+    
     // Pro
     private let isPro: Bool
     
     // Articulos
     var autMan: Int
     var compras: [String: [String]]
-//    var aut: Int
-//    var autFot: Int
-//    var fotDed: Int
-//    var fot: Int
-//    var live: Int
     
     // Famoso
     private let isStar: Bool
     private let key: String
     var ventas = [String: Int]()
     
-    init(nombre: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int, isPro: Bool) {
+    init(nombre: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int, isPro: Bool, coinsAmount: Int) {
         self.nombre = nombre
         self.sexo = sexo
         self.edad = edad
         self.fechaNacimiento = fechaNacimiento
+        
+        // Monedas
+        self.coins = StarsCoins(amount: coinsAmount)
         
         // Articulos
         self.autMan = autMan
@@ -61,33 +62,15 @@ struct UserData {
             "isPro": isPro]
     }
     
-//    init(data: [String: Any]) {
-//        self.nombre = data["nombre"] as! String
-//        self.sexo = data["sexo"] as! String
-//        self.edad = Int(data["edad"] as! String)!
-//        self.fechaNacimiento = data["fechaNacimiento"] as! String
-//        self.autMan = Int(data["AutMan"] as! String)!
-//
-//        // Famoso
-//        self.isStar = false
-//        self.key = ""
-//
-//        self.data = [
-//            "nombre" : nombre,
-//            "edad" : edad,
-//            "sexo": sexo,
-//            "fechaNacimiento": fechaNacimiento,
-//            "AutMan": autMan,
-//            "isStar": false,
-//            "key": self.key]
-//    }
-    
     // Usuarios famosos
-    init(nombre: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int, compras: [String: [String]], isStar: Bool, key: String, isPro: Bool) {
+    init(nombre: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int, compras: [String: [String]], isStar: Bool, key: String, isPro: Bool, coinsAmount: Int) {
         self.nombre = nombre
         self.sexo = sexo
         self.edad = edad
         self.fechaNacimiento = fechaNacimiento
+        
+        // Monedas
+        self.coins = StarsCoins(amount: coinsAmount)
         
         // Artículos
         self.autMan = autMan
@@ -124,11 +107,25 @@ struct UserData {
     }
     
     func getIsPro() -> Bool {
-        return self.isPro
+        // return self.isPro
+        return true
     }
     
     func getUserKey() -> String {
         return self.key
+    }
+    
+    // Monedas
+    func addCoins(amount: Int) {
+        self.coins.add(amount: amount)
+    }
+    
+    func removeCoins(amount: Int) {
+        self.coins.remove(amount: amount)
+    }
+    
+    func getCoinsAmount() -> Int {
+        return self.coins.getAmount()
     }
     
 }

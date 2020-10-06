@@ -24,8 +24,6 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
     public let db: DataBase = DataBase()
     public let st: CloudStorage = CloudStorage()
     
-    // Numero de articulos que tiene
-    // @Published var articles: [String: Int] = ["AutMan": 0, "AutDed": 0, "AutFot": 0, "Foto": 0, "FotoDed":0, "Live": 0]
     @Published var url = [UrlLoader]()
     
     // Carrito de articulos

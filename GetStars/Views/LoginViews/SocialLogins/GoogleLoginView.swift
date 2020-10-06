@@ -53,7 +53,7 @@ struct GoogleLoginView: UIViewRepresentable {
                 def.set(true, forKey: "sign")
                 def.synchronize()
                 let db = DataBase()
-                let data = UserData(nombre: name, sexo: "Google", edad: 100, fechaNacimiento: "Google", autMan: 0, isPro: false)
+                let data = UserData(nombre: name, sexo: "Google", edad: 100, fechaNacimiento: "Google", autMan: 0, isPro: false, coinsAmount: 0)
                 
                 db.createUserDB(dbData: data.getData(), email: email)
             }
