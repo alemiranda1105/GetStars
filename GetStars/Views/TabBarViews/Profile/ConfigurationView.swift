@@ -27,9 +27,6 @@ struct ConfigurationView: View {
                 NavigationLink(destination: ModifyDataView().environmentObject(self.session)) {
                     Text("Editar datos personales")
                 }
-                NavigationLink(destination: Text("Cambiar suscripción")) {
-                    Text("Cambiar suscripción")
-                }
             }
             Section(header: Text("Información")) {
                 HStack {

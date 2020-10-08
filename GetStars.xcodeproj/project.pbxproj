@@ -67,7 +67,6 @@
 		BEA81BB42524F7F100122D92 /* SelectPaymentMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA81BB32524F7F100122D92 /* SelectPaymentMethodView.swift */; };
 		BEA81BB82524FA3400122D92 /* CardPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA81BB72524FA3400122D92 /* CardPaymentView.swift */; };
 		BEA81BBB2525019E00122D92 /* PaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA81BBA2525019E00122D92 /* PaymentController.swift */; };
-		BEA8B884252CBCDC00F323DC /* StarsCoins.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA8B883252CBCDC00F323DC /* StarsCoins.swift */; };
 		BEB32DDA24D81235007BA071 /* DestacadosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB32DD924D81235007BA071 /* DestacadosView.swift */; };
 		BEB32DDC24D81266007BA071 /* TrendingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB32DDB24D81266007BA071 /* TrendingView.swift */; };
 		BEB32DDE24D81282007BA071 /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB32DDD24D81282007BA071 /* NewsView.swift */; };
@@ -150,7 +149,6 @@
 		BEA81BB32524F7F100122D92 /* SelectPaymentMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPaymentMethodView.swift; sourceTree = "<group>"; };
 		BEA81BB72524FA3400122D92 /* CardPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPaymentView.swift; sourceTree = "<group>"; };
 		BEA81BBA2525019E00122D92 /* PaymentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentController.swift; sourceTree = "<group>"; };
-		BEA8B883252CBCDC00F323DC /* StarsCoins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsCoins.swift; sourceTree = "<group>"; };
 		BEB32DD924D81235007BA071 /* DestacadosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestacadosView.swift; sourceTree = "<group>"; };
 		BEB32DDB24D81266007BA071 /* TrendingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingView.swift; sourceTree = "<group>"; };
 		BEB32DDD24D81282007BA071 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
@@ -261,7 +259,6 @@
 				BE67C0FC24EAB13F007AA0E6 /* Product.swift */,
 				BE962A0524F01B51009C8AA7 /* StarsDB.swift */,
 				BEC6F2CD25136BCB00DFAC19 /* StarsST.swift */,
-				BEA8B883252CBCDC00F323DC /* StarsCoins.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -629,7 +626,6 @@
 				BE4DDDE925080BE9002DF5A2 /* LiveCard.swift in Sources */,
 				BE962A0624F01B51009C8AA7 /* StarsDB.swift in Sources */,
 				BED5FEA42525E7C30053AE15 /* AutView.swift in Sources */,
-				BEA8B884252CBCDC00F323DC /* StarsCoins.swift in Sources */,
 				BE37E3BD250E7B980016B8A1 /* ArticleProfileView.swift in Sources */,
 				BE67C10524EAB526007AA0E6 /* SubastaCardView.swift in Sources */,
 				BE2D821324AA631A0080A75F /* ContentView.swift in Sources */,

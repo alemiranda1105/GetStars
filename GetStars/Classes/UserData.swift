@@ -15,9 +15,6 @@ struct UserData {
     private let fechaNacimiento: String
     private let data: [String: Any]
     
-    // Monedas
-    private var coins: StarsCoins
-    
     // Pro
     private let isPro: Bool
     
@@ -30,14 +27,11 @@ struct UserData {
     private let key: String
     var ventas = [String: Int]()
     
-    init(nombre: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int, isPro: Bool, coinsAmount: Int) {
+    init(nombre: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int, isPro: Bool) {
         self.nombre = nombre
         self.sexo = sexo
         self.edad = edad
         self.fechaNacimiento = fechaNacimiento
-        
-        // Monedas
-        self.coins = StarsCoins(amount: coinsAmount)
         
         // Articulos
         self.autMan = autMan
@@ -63,14 +57,11 @@ struct UserData {
     }
     
     // Usuarios famosos
-    init(nombre: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int, compras: [String: [String]], isStar: Bool, key: String, isPro: Bool, coinsAmount: Int) {
+    init(nombre: String, sexo: String, edad: Int, fechaNacimiento: String, autMan: Int, compras: [String: [String]], isStar: Bool, key: String, isPro: Bool) {
         self.nombre = nombre
         self.sexo = sexo
         self.edad = edad
         self.fechaNacimiento = fechaNacimiento
-        
-        // Monedas
-        self.coins = StarsCoins(amount: coinsAmount)
         
         // Artículos
         self.autMan = autMan
@@ -113,19 +104,6 @@ struct UserData {
     
     func getUserKey() -> String {
         return self.key
-    }
-    
-    // Monedas
-    func addCoins(amount: Int) {
-        self.coins.add(amount: amount)
-    }
-    
-    func removeCoins(amount: Int) {
-        self.coins.remove(amount: amount)
-    }
-    
-    func getCoinsAmount() -> Int {
-        return self.coins.getAmount()
     }
     
 }

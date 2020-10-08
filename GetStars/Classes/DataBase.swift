@@ -67,8 +67,7 @@ class DataBase: ObservableObject {
                                         compras: document.data()!["compras"] as! [String : [String]],
                                         isStar: document.data()!["isStar"] as! Bool,
                                         key: document.data()!["key"] as! String,
-                                        isPro: document.data()!["isPro"] as! Bool,
-                                        coinsAmount: 0)
+                                        isPro: document.data()!["isPro"] as! Bool)
                 
                 let defaults = UserDefaults.standard
                 defaults.set(document.data()!["nombre"] as! String, forKey: "name")
