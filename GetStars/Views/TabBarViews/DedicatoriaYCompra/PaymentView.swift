@@ -24,15 +24,10 @@ struct PaymentView: View {
     
     private func readCart() {
         self.session.cart = session.getCart()
-        var dis: Double = 0.0
-        if self.session.cart.count >= 2 {
-            dis = 0.1 * Double(self.session.cart.count-1)
-            print("El descuento es \(dis.dollarString)€")
-        }
         self.addProduct()
         self.total = 0.0
         for item in self.session.cart {
-            self.total += item.price - dis
+            self.total += item.price
         }
     }
     

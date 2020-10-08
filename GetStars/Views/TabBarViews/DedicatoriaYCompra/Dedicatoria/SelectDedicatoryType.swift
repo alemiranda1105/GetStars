@@ -14,8 +14,8 @@ struct SelectDedicatoryType: View {
     @EnvironmentObject var session: SessionStore
     @State var product: Product
     
-    private let types: [String] = ["cumpleaños", "enfermedad", "fan"]
-    private let typesText: [String] = ["Dedicatoria para un cumpleaños", "Dedicatoria para alguien enfermo", "Dedicatoria para un fan"]
+    private let types: [String] = ["def", "cumpleaños", "enfermedad", "fan"]
+    private let typesText: [String] = ["Mensaje dedicado", "Dedicatoria para un cumpleaños", "Dedicatoria para alguien enfermo", "Dedicatoria para un fan"]
     @State var selectedType = ""
     
     @State var message = ""
@@ -37,6 +37,11 @@ struct SelectDedicatoryType: View {
     
     private func addCart() {
         self.product.setMessage(newMessage: self.message)
+        
+        if self.selectedType == "def" {
+            self.product.setPrice(newPrice: self.product.price - 2.0)
+        }
+        
         var n = 0
         for i in self.session.cart {
             if i.equals(product: self.product) {
@@ -54,9 +59,30 @@ struct SelectDedicatoryType: View {
                 PaymentView(product: Product()).environmentObject(self.session)
             } else {
                 VStack {
+                    
+                    Text("Puedes elegir una foto dedicada:")
+                        .font(.system(size: 22, weight: .bold))
+                        .multilineTextAlignment(.center)
+                        .padding()
+                    
+                    Button(action: {
+                        self.selectedType = self.types[0]
+                        self.loadMessage(type: self.selectedType)
+                    }) {
+                        if self.selectedType == self.types[0] {
+                            Image(systemName: "checkmark.circle")
+                        }
+                        Text(self.typesText[0])
+                            .font(.system(size: 20, weight: .thin))
+                    }
+                    
                     Spacer()
                     
-                    ForEach(0 ..< self.typesText.count, id: \.self) { index in
+                    Text("O que la estrella te dedique un mensaje especial:")
+                        .font(.system(size: 22, weight: .bold))
+                        .multilineTextAlignment(.center)
+                        .padding()
+                    ForEach(1 ..< self.typesText.count, id: \.self) { index in
                         Button(action: {
                             self.selectedType = self.types[index]
                             self.loadMessage(type: self.selectedType)

@@ -56,7 +56,7 @@ struct SubastaProductView: View {
                     self.error = ("Ya has participado en esta puja y no puedes volver a pujar hasta que otra persona puje")
                     return
                 }
-        
+                self.price = Double(round(self.price*100)/100)
                 let newPrice = self.price - self.product.price
                 let email = self.session.session?.email!
                 let documentRef = db.collection("subastas").document(self.product.productID)
@@ -155,13 +155,13 @@ struct SubastaProductView: View {
                     
                     if expanded {
                         Stepper("Pujar: ", onIncrement: {
-                            self.price += 1.0
+                            self.price += 0.10
                             self.error = ""
                         }, onDecrement: {
                             if self.price <= self.product.price {
                                 self.error =  (self.langStr == "en" ? "You cannot set a price under the actual one": "No se puede pujar por debajo")
                             } else {
-                                self.price -= 1.0
+                                self.price -= 0.10
                             }
                             
                         }).onAppear(perform: self.readPrice)
