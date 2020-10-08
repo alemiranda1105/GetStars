@@ -60,28 +60,33 @@ struct SelectDedicatoryType: View {
             } else {
                 VStack {
                     
-                    Text("Puedes elegir una foto dedicada:")
-                        .font(.system(size: 22, weight: .bold))
-                        .multilineTextAlignment(.center)
-                        .padding()
-                    
-                    Button(action: {
-                        self.selectedType = self.types[0]
-                        self.loadMessage(type: self.selectedType)
-                    }) {
-                        if self.selectedType == self.types[0] {
-                            Image(systemName: "checkmark.circle")
+                    if self.product.productType != .autografoDedicado {
+                        Text("Puedes elegir una foto dedicada:")
+                            .font(.system(size: 22, weight: .bold))
+                            .multilineTextAlignment(.center)
+                            .padding()
+                        
+                        Button(action: {
+                            self.selectedType = self.types[0]
+                            self.loadMessage(type: self.selectedType)
+                        }) {
+                            if self.selectedType == self.types[0] {
+                                Image(systemName: "checkmark.circle")
+                            }
+                            Text(self.typesText[0])
+                                .font(.system(size: 20, weight: .thin))
                         }
-                        Text(self.typesText[0])
-                            .font(.system(size: 20, weight: .thin))
+                        
+                        Spacer()
+                        
+                        Text("O que la estrella te dedique un mensaje especial:")
+                            .font(.system(size: 22, weight: .bold))
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    } else {
+                        Spacer()
                     }
                     
-                    Spacer()
-                    
-                    Text("O que la estrella te dedique un mensaje especial:")
-                        .font(.system(size: 22, weight: .bold))
-                        .multilineTextAlignment(.center)
-                        .padding()
                     ForEach(1 ..< self.typesText.count, id: \.self) { index in
                         Button(action: {
                             self.selectedType = self.types[index]
