@@ -166,6 +166,13 @@ struct SearchView: View {
                                 .cornerRadius(16)
                                 .font(.system(size: 18, weight: .bold))
                         }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
+                        
+                        Spacer(minLength: 10)
+                        
+                        Banner()
+                            .frame(width: 320, height: 50, alignment: .center)
+                            .padding()
+                        
                     } else {
                         ScrollView {
                             if self.loading {

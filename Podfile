@@ -19,6 +19,8 @@ target 'GetStars' do
   pod 'Firebase/Storage'
   pod 'SDWebImageSwiftUI'
 
+  pod 'Firebase/AdMob'
+
   pod 'Stripe'
 
   pod 'CameraManager', '~> 5.1'

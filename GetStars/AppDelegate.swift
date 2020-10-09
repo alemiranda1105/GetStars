@@ -7,8 +7,14 @@
 //
 
 import UIKit
+
 import FirebaseCore
 import FirebaseAuth
+
+import GoogleMobileAds
+import AdSupport
+import AppTrackingTransparency
+
 import GoogleSignIn
 
 @UIApplicationMain
@@ -20,6 +26,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Config Firebase
         FirebaseApp.configure()
+        
+        // Google Ads
+        if #available(iOS 14.0, *) {
+            ATTrackingManager.requestTrackingAuthorization(completionHandler: { _ in
+                GADMobileAds.sharedInstance().start(completionHandler: nil)
+            })
+        } else {
+            // Fallback on earlier versions
+            GADMobileAds.sharedInstance().start(completionHandler: nil)
+        }
         
         //Google Login
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID

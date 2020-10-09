@@ -2757,6 +2757,10 @@ Copyright 2020 Google
    limitations under the License.
 
 
+## Google-Mobile-Ads-SDK
+
+Copyright 2020 Google
+
 ## GoogleAppMeasurement
 
 Copyright 2020 Google
@@ -3176,6 +3180,10 @@ Copyright 2020 Google
 ## GoogleSignIn
 
 Copyright 2019 Google
+
+## GoogleUserMessagingPlatform
+
+Copyright 2020 Google
 
 ## GoogleUtilities
 

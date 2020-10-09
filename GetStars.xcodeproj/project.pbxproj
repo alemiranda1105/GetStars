@@ -44,6 +44,8 @@
 		BE67C10324EAB4E3007AA0E6 /* SubastaProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE67C10224EAB4E3007AA0E6 /* SubastaProductView.swift */; };
 		BE67C10524EAB526007AA0E6 /* SubastaCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE67C10424EAB526007AA0E6 /* SubastaCardView.swift */; };
 		BE6C36572510C16500D277B9 /* ColorPickerRing in Frameworks */ = {isa = PBXBuildFile; productRef = BE6C36562510C16500D277B9 /* ColorPickerRing */; };
+		BE6F7B952530A92300AC824A /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6F7B942530A92300AC824A /* BannerView.swift */; };
+		BE6F7B992530B0FD00AC824A /* BannerCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6F7B982530B0FD00AC824A /* BannerCardView.swift */; };
 		BE7017BE24F40E810039A272 /* FamousItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7017BD24F40E810039A272 /* FamousItems.swift */; };
 		BE71A53C24FD401600D4150D /* StarProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE71A53B24FD401600D4150D /* StarProfileView.swift */; };
 		BE7303D8252775D9004B310E /* SelectDedicatoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7303D7252775D9004B310E /* SelectDedicatoryType.swift */; };
@@ -125,6 +127,8 @@
 		BE67C0FF24EAB1D7007AA0E6 /* SubastaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubastaView.swift; sourceTree = "<group>"; };
 		BE67C10224EAB4E3007AA0E6 /* SubastaProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubastaProductView.swift; sourceTree = "<group>"; };
 		BE67C10424EAB526007AA0E6 /* SubastaCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubastaCardView.swift; sourceTree = "<group>"; };
+		BE6F7B942530A92300AC824A /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		BE6F7B982530B0FD00AC824A /* BannerCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCardView.swift; sourceTree = "<group>"; };
 		BE7017BD24F40E810039A272 /* FamousItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamousItems.swift; sourceTree = "<group>"; };
 		BE71A53B24FD401600D4150D /* StarProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarProfileView.swift; sourceTree = "<group>"; };
 		BE7303D7252775D9004B310E /* SelectDedicatoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDedicatoryType.swift; sourceTree = "<group>"; };
@@ -236,6 +240,7 @@
 		BE3C46FC24ACCFA700D39F1E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BE6F7B932530A90D00AC824A /* Ads */,
 				BE2D821224AA631A0080A75F /* ContentView.swift */,
 				BE41AA6624CF57CA00511527 /* LoginViews */,
 				BE8C307D24C87E8500135AD9 /* TabBarView.swift */,
@@ -335,6 +340,15 @@
 				BE67C10424EAB526007AA0E6 /* SubastaCardView.swift */,
 			);
 			path = Subasta;
+			sourceTree = "<group>";
+		};
+		BE6F7B932530A90D00AC824A /* Ads */ = {
+			isa = PBXGroup;
+			children = (
+				BE6F7B942530A92300AC824A /* BannerView.swift */,
+				BE6F7B982530B0FD00AC824A /* BannerCardView.swift */,
+			);
+			path = Ads;
 			sourceTree = "<group>";
 		};
 		BE71A53A24FD3FE100D4150D /* StarsView */ = {
@@ -600,6 +614,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE6F7B952530A92300AC824A /* BannerView.swift in Sources */,
 				BEA81BB82524FA3400122D92 /* CardPaymentView.swift in Sources */,
 				BEBC381925150DF8005E817C /* CustomLivePlayerView.swift in Sources */,
 				BE2D820F24AA631A0080A75F /* AppDelegate.swift in Sources */,
@@ -664,6 +679,7 @@
 				BE19C87224EC2DF500A2B975 /* SorteoCardView.swift in Sources */,
 				BEB32DDE24D81282007BA071 /* NewsView.swift in Sources */,
 				BE873F7A24B24CE60041247C /* UserData.swift in Sources */,
+				BE6F7B992530B0FD00AC824A /* BannerCardView.swift in Sources */,
 				BEC6F2CE25136BCB00DFAC19 /* StarsST.swift in Sources */,
 				BEA81BBB2525019E00122D92 /* PaymentController.swift in Sources */,
 				BEFBA10424E2D6B500E0C883 /* Utilities.swift in Sources */,
@@ -826,7 +842,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "0.6.8-PreAlpha";
+				MARKETING_VERSION = "0.7-Alpha";
 				PRODUCT_BUNDLE_IDENTIFIER = com.marquelodev.GetStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -849,7 +865,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "0.6.8-PreAlpha";
+				MARKETING_VERSION = "0.7-Alpha";
 				PRODUCT_BUNDLE_IDENTIFIER = com.marquelodev.GetStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
