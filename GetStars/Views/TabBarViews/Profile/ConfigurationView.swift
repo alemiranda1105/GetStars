@@ -72,6 +72,9 @@ struct ConfigurationView: View {
                                 self.eliminarDatos = true
                             }, secondaryButton: .cancel(Text("Cancelar")))
                     }
+                    .sheet(isPresented: self.$eliminarDatos) {
+                        DeleteUser(eliminarDatos: self.$eliminarDatos).environmentObject(self.session)
+                    }
                     
                     Spacer()
                 }
@@ -170,7 +173,7 @@ private struct ModifyDataView: View {
         Form {
             Section(header: Text("Datos")) {
                 HStack {
-                    Text("Nombre")
+                    Text("Nombre:")
                     Spacer()
                     TextField("Nombre", text: self.$nombre)
                 }
@@ -208,6 +211,78 @@ private struct ModifyDataView: View {
                 }
             }
         }.onAppear(perform: self.loadData)
+    }
+}
+
+private struct DeleteUser: View {
+    @EnvironmentObject var session: SessionStore
+    @Binding var eliminarDatos: Bool
+    @State private var password: String = ""
+    @State private var show: Bool = false
+    var body: some View {
+        VStack {
+            Text("¡Estás a punto de eliminar tu cuenta!")
+                .font(.system(size: 22, weight: .bold))
+                .multilineTextAlignment(.center)
+                .padding()
+            
+            Text("Eso significa que perderás de manera inmediata todas tus compras a no ser que las hayas descargado y almacenado de manera correcta")
+                .font(.system(size: 18, weight: .thin))
+                .multilineTextAlignment(.center)
+                .padding()
+            
+            Text("Contraseña")
+                .font(.system(size: 14, weight: .bold))
+                .multilineTextAlignment(.leading)
+                .padding()
+            
+            HStack {
+                if self.show {
+                    TextField(LocalizedStringKey("Contraseña"), text: self.$password)
+                        .font(.system(size: 14))
+                        .autocapitalization(.none)
+                        .padding(8)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+                        .padding(8)
+                    
+                    Button(action: {
+                        self.show.toggle()
+                    }) {
+                        Image(systemName: "eye.slash")
+                    }
+                } else {
+                    SecureField(LocalizedStringKey("Contraseña"), text: self.$password)
+                        .font(.system(size: 14))
+                        .autocapitalization(.none)
+                        .padding(8)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+                        .padding(8)
+                    
+                    Button(action: {
+                        self.show.toggle()
+                    }) {
+                        Image(systemName: "eye")
+                        
+                    }
+                }
+            }
+            
+            Spacer()
+            
+            Button(action: {
+                self.session.deleteAccount(password: self.password)
+                self.password = ""
+                self.eliminarDatos = false
+            }) {
+                Text("Eliminar cuenta")
+                    .font(.system(size: 16, weight: .bold))
+                    .multilineTextAlignment(.center)
+                    .padding()
+            }
+            
+        }.padding().accentColor(Color("tabbarColor"))
     }
 }
 

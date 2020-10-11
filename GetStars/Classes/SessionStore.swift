@@ -78,32 +78,41 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
         }
     }
     
-    func reAuth(email: String, pass: String, dg: DispatchGroup) {
+    func updatePassword(password: String) {
         let user = Auth.auth().currentUser
-        let credential = EmailAuthProvider.credential(withEmail: email, password: pass)
-        
-        user?.reauthenticate(with: credential, completion: { (res, error) -> Void in
-            dg.enter()
-            if let error = error {
-                print(error.localizedDescription)
+        let credential = EmailAuthProvider.credential(withEmail: self.session?.email ?? "", password: password)
+        user?.reauthenticate(with: credential) { result ,error  in
+            if error != nil {
+                print("Error")
+                print(error?.localizedDescription ?? "")
             } else {
-                print("Reaunteticado")
+                user?.updatePassword(to: password) { error in
+                    if error != nil {
+                        print(error?.localizedDescription ?? "")
+                    }
+                }
             }
-            dg.leave()
-        })
-        
+        }
     }
     
-    func deleteAccount() {
+    func deleteAccount(password: String) {
         let user = Auth.auth().currentUser
         self.db.deleteDB(session: self)
         self.st.deleteSt(session: self)
-        user?.delete { error in
-            if let error = error {
-                print(error.localizedDescription)
-                print("error eliminando la cuenta")
+        let credential = EmailAuthProvider.credential(withEmail: self.session?.email ?? "", password: password)
+        user?.reauthenticate(with: credential) { result ,error  in
+            if error != nil {
+                print("Error")
+                print(error?.localizedDescription ?? "")
             } else {
-                print("Cuenta eliminada")
+                user?.delete { error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                        print("error eliminando la cuenta")
+                    } else {
+                        print("Cuenta eliminada")
+                    }
+                }
             }
         }
     }
