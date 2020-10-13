@@ -21,21 +21,21 @@ struct SupportView: View {
         Form {
             Section(header: Text("Soporte")) {
                 Button(action: {
-                    self.sendEmail(email: "amiranda110500@gmail.com")
+                    self.sendEmail(email: "soportegetstars@gmail.com")
                 }) {
                     Text("Contacta con soporte")
                 }
             }
             Section(header: Text("Sugerencias")) {
                 Button(action: {
-                    self.sendEmail(email: "amiranda110500@gmail.com")
+                    self.sendEmail(email: "marquelodev@gmail.com")
                 }) {
                     Text("Envía cualquier sugerencia")
                 }
             }
             Section(header: Text("Marquelo Solutions")) {
                 Button(action: {
-                    self.sendEmail(email: "amiranda110500@gmail.com")
+                    self.sendEmail(email: "marquelodev@gmail.com")
                 }) {
                     Text("Contacta directamente con nosotros")
                 }

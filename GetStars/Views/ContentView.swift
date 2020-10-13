@@ -25,13 +25,13 @@ struct ContentView: View {
     var body: some View{
         Group {
             if self.session.session == nil && !self.loading {
-                WelcomeView().environmentObject(self.session)
+                WelcomeView().accentColor(Color("tabbarColor")).environmentObject(self.session)
             } else if self.loading {
                 ActivityIndicator(isAnimating: .constant(true), style: .large)
             } else if ((self.session.signing || def.bool(forKey: "sign")) && !self.loading) {
-                LoadIndicatorView().environmentObject(self.session)
+                LoadIndicatorView().accentColor(Color("tabbarColor")).environmentObject(self.session)
             } else if !self.loading {
-                newTabBarView().environmentObject(self.session)
+                newTabBarView().accentColor(Color("tabbarColor")).environmentObject(self.session)
             }
         }.onAppear {
             self.getUser()

@@ -95,6 +95,40 @@ class SessionStore:NSObject, ObservableObject, GIDSignInDelegate {
         }
     }
     
+    func updateEmail(email: String, password: String) {
+        let user = Auth.auth().currentUser
+        let credential = EmailAuthProvider.credential(withEmail: self.session?.email ?? "", password: password)
+        user?.reauthenticate(with: credential) { result, error in
+            if error != nil {
+                print("Error")
+                print(error?.localizedDescription ?? "")
+            } else {
+                user?.updateEmail(to: email) { error in
+                    if error != nil {
+                        print("Error")
+                        print(error?.localizedDescription ?? "")
+                    }
+                }
+            }
+        }
+    }
+    
+    func getAuthProvider() -> String {
+        if let providerData = Auth.auth().currentUser?.providerData {
+            for userInfo in providerData {
+                switch userInfo.providerID {
+                    case "facebook.com":
+                        return "facebook"
+                    case "google.com":
+                        return "google"
+                    default:
+                        return userInfo.providerID
+                }
+            }
+        }
+        return ""
+    }
+    
     func deleteAccount(password: String) {
         let user = Auth.auth().currentUser
         self.db.deleteDB(session: self)

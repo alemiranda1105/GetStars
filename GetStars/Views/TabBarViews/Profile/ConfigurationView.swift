@@ -21,11 +21,22 @@ struct ConfigurationView: View {
     @State var email = ""
     @State var password = ""
     
+    @State var showModify: Bool = true
+    
+    func getProvider() {
+        self.showModify = !(self.session.getAuthProvider() == "google" || self.self.session.getAuthProvider() == "facebook")
+    }
+    
     var body: some View {
         Form {
             Section(header: Text("Datos personales")) {
                 NavigationLink(destination: ModifyDataView().environmentObject(self.session)) {
                     Text("Editar datos personales")
+                }
+                if self.showModify {
+                    NavigationLink(destination: ModifyAuthDataView().environmentObject(self.session)) {
+                        Text("Editar email y contraseña")
+                    }
                 }
             }
             Section(header: Text("Información")) {
@@ -79,7 +90,9 @@ struct ConfigurationView: View {
                     Spacer()
                 }
             }
-        }.navigationBarTitle("Ajustes")
+        }
+        .onAppear(perform: self.getProvider)
+        .navigationBarTitle("Ajustes")
     }
 }
 
@@ -214,6 +227,117 @@ private struct ModifyDataView: View {
     }
 }
 
+private struct ModifyAuthDataView: View {
+    @EnvironmentObject var session: SessionStore
+    @Environment(\.presentationMode) var presentationMode
+    
+    @State private var email: String = ""
+    @State private var oldPassword: String = ""
+    @State private var password: String = ""
+    @State private var show: Bool = false
+    
+    @State private var error: String = ""
+    
+    private func loadData() {
+        self.email = (self.session.session?.email)!
+    }
+    
+    var body: some View {
+        Form {
+            Section {
+                VStack {
+                    Text("Para actualizar sus datos necesitamos la contraseña actual")
+                        .font(.system(size: 16, weight: .semibold))
+                        .multilineTextAlignment(.center)
+                        .lineLimit(nil)
+                    Text("NOTA: En caso de no recordar la contraseña, deberá ponerse en contacto con el soporte de la app")
+                        .font(.system(size: 14, weight: .thin))
+                        .multilineTextAlignment(.center)
+                        .lineLimit(nil)
+                }
+                SecureField(LocalizedStringKey("Contraseña anterior"), text: self.$password)
+                    .font(.system(size: 14))
+                    .autocapitalization(.none)
+                    .padding(8)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(8)
+                    .padding(8)
+            }
+            
+            if self.error != "" {
+                Text(LocalizedStringKey(self.error))
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.red)
+                    .padding()
+            }
+            
+            Section(header: Text("Email")) {
+                TextField("email", text: self.$email)
+                Button(action: {
+                    if self.email == (self.session.session?.email)! {
+                        return
+                    } else if !validateEmail(enteredEmail: self.email) {
+                        self.error = "Introduzca un email válido"
+                    } else {
+                        self.session.updateEmail(email: self.email, password: self.oldPassword)
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                }) {
+                    Text("Actualizar email")
+                }
+            }
+            Section(header: Text("Contraseña")) {
+                Text("La longitud de la contraseña debe se mayor a 6 caracteres")
+                    .font(.system(size: 16, weight: .semibold))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(nil)
+                HStack {
+                    if self.show {
+                        TextField(LocalizedStringKey("Contraseña nueva"), text: self.$password)
+                            .font(.system(size: 14))
+                            .autocapitalization(.none)
+                            .padding(8)
+                            .background(Color(.systemGray6))
+                            .cornerRadius(8)
+                            .padding(8)
+                        
+                        Button(action: {
+                            self.show.toggle()
+                        }) {
+                            Image(systemName: "eye.slash")
+                        }
+                    } else {
+                        SecureField(LocalizedStringKey("Contraseña nueva"), text: self.$password)
+                            .font(.system(size: 14))
+                            .autocapitalization(.none)
+                            .padding(8)
+                            .background(Color(.systemGray6))
+                            .cornerRadius(8)
+                            .padding(8)
+                        
+                        Button(action: {
+                            self.show.toggle()
+                        }) {
+                            Image(systemName: "eye")
+                            
+                        }
+                    }
+                }
+                Button(action: {
+                    if self.password.count < 6 {
+                        self.error = "La contraseña debe tener una longitud mayor a 6 caracteres"
+                    } else {
+                        self.session.updatePassword(password: self.password)
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                }) {
+                    Text("Actualizar contraseña")
+                }
+            }
+        }.onAppear(perform: self.loadData)
+    }
+}
+
 private struct DeleteUser: View {
     @EnvironmentObject var session: SessionStore
     @Binding var eliminarDatos: Bool
@@ -286,9 +410,11 @@ private struct DeleteUser: View {
     }
 }
 
+#if DEBUG
 struct ConfigurationView_Previews: PreviewProvider {
     static var previews: some View {
         // ConfigurationView().environmentObject(SessionStore())
         ModifyDataView().environmentObject(SessionStore())
     }
 }
+#endif
