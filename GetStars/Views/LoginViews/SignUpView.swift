@@ -22,7 +22,7 @@ struct SignUpView: View {
     @State var error: String = ""
     @State private var condiciones: Bool = false
     
-    private var generos = [Text("🙎‍♂️Hombre"), Text("🙎‍♀️Mujer"), Text("No decirlo")]
+    private var generos = [Text("🙎‍♂️Man"), Text("🙎‍♀️Women"), Text("Not say it")]
     @State private var generoSeleccionado = 0
     
     @State private var birthDate: String = ""
@@ -91,155 +91,45 @@ struct SignUpView: View {
     }
     
     var body: some View {
-        /*VStack {
-            ScrollView{
-                VStack(spacing: 8) {
-                    Picker(selection: $generoSeleccionado, label: Text("Género")) {
-                        ForEach(0 ..< generos.count) {
-                            //Text(self.generos[$0])
-                            self.generos[$0]
-                        }
-                    }.pickerStyle(SegmentedPickerStyle())
-                    
-                    TextField("Nombre completo", text: $name)
-                        .font(.system(size: 14))
-                        .padding(8)
-                        .background(
-                            RoundedRectangle(cornerRadius: 5)
-                                .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
-                    
-                    TextField("Email", text: $email)
-                        .font(.system(size: 14))
-                        .padding(8)
-                        .background(
-                            RoundedRectangle(cornerRadius: 5)
-                                .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
-                        .keyboardType(.emailAddress).autocapitalization(.none)
-                    
-                    Text("Fecha de nacimiento").font(.system(size: 12, weight: .light))
-                    
-                    HStack {
-                        TextField("DD", text: $day)
-                            .font(.system(size: 14))
-                            .padding(6)
-                            .background(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
-                            .keyboardType(.decimalPad)
-                        
-                        TextField("MM", text: $month)
-                            .font(.system(size: 14))
-                            .padding(6)
-                            .background(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
-                            .keyboardType(.decimalPad)
-                        
-                        TextField("AAAA", text: $year)
-                            .font(.system(size: 14))
-                            .padding(6)
-                            .background(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
-                            .keyboardType(.decimalPad)
-                    }
-                    
-                    HStack {
-                        if secure {
-                            SecureField("Contraseña", text: $password)
-                                .font(.system(size: 14))
-                                .padding(8)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 5)
-                                        .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
-                        } else {
-                            TextField("Contraseña", text: $password)
-                                .font(.system(size: 14))
-                                .padding(8)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 5)
-                                        .strokeBorder(colorScheme == .dark ? Color("naranja"): Color("navyBlue"), lineWidth: 1))
-                        }
-                        Button(action: {
-                            self.secure.toggle()
-                        }) {
-                            if secure {
-                                Image(systemName: "eye.slash")
-                            } else {
-                                Image(systemName: "eye")
-                            }
-                        }.foregroundColor(colorScheme == .dark ? Color.white : Color.blue)
-                    }
-                    
-                    Toggle(isOn: $condiciones){
-                        Text("Aceptar condiciones")
-                            .font(.system(size: 16))
-                    }.padding()
-                    
-                }.padding(.vertical, 8)
-            
-                if (error != ""){
-                    Text(error)
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(.red)
-                        .padding()
-                }
-                
-                Button(action: signUp){
-                    Text("Registrarse")
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 50)
-                        .stroke(Color("naranja"), lineWidth: 4))
-                    .background(colorScheme == .dark ? Color("navyBlue").opacity(0.8) : Color.white)
-                    .foregroundColor(Color("naranja"))
-                    .border(Color("naranja"))
-                    .cornerRadius(50)
-                    .font(.system(size: 18, weight: .bold))
-                }.padding(.vertical, 16)
-            }
-        }*/
         Form {
             Section(header: Text("Género")) {
                 Picker(selection: $generoSeleccionado, label: Text("Género")) {
                     ForEach(0 ..< generos.count) {
-                        //Text(self.generos[$0])
                         self.generos[$0]
                     }
                 }.pickerStyle(SegmentedPickerStyle())
             }
             
-            Section(header: Text("Datos personales")) {
-                TextField("Nombre completo", text: $name)
+            Section(header: Text("Personal Information")) {
+                TextField("Full name", text: $name)
                     .font(.system(size: 14))
                     .padding(8)
                 
                 NavigationLink(destination: (
                     DatePicker(selection: self.$fechaNacimiento, in: self.closedRange, displayedComponents: .date) {
-                        Text("Fecha:")
+                        Text("Date:")
                     }.padding(10)
                 )) {
-                    Text("Fecha de nacimiento")
+                    Text("Birthday")
                         .font(.system(size: 16, weight: .semibold))
                 }
                 
                 
-                TextField("Email", text: $email)
+                TextField(LocalizedStringKey("Email"), text: $email)
                     .font(.system(size: 14))
                     .padding(8)
                     .keyboardType(.emailAddress).autocapitalization(.none)
             }
             
-            Section(header: Text("Contraseña")) {
+            Section(header: Text("Password")) {
                 HStack {
                     if secure {
-                        SecureField("Contraseña", text: $password)
+                        SecureField(LocalizedStringKey("Password"), text: $password)
                             .font(.system(size: 14))
                             .autocapitalization(.none)
                             .padding(8)
                     } else {
-                        TextField("Contraseña", text: $password)
+                        TextField(LocalizedStringKey("Password"), text: $password)
                             .font(.system(size: 14))
                             .autocapitalization(.none)
                             .padding(8)
@@ -256,9 +146,9 @@ struct SignUpView: View {
                 }
             }
             
-            Section(header: Text("Condiciones de uso")) {
+            Section(header: Text("Terms of use")) {
                 Toggle(isOn: $condiciones){
-                    Text("Aceptar condiciones")
+                    Text("Accept terms")
                         .font(.system(size: 16))
                 }.padding()
             }
@@ -271,13 +161,13 @@ struct SignUpView: View {
             }
             
             Button(action: signUp){
-                Text("Registrarse")
+                Text("Sign up")
                 .frame(minWidth: 0, maxWidth: .infinity)
                 .padding()
                 .foregroundColor(Color("naranja"))
                 .font(.system(size: 18, weight: .bold))
             }
-        }.navigationBarTitle(Text("Crea una cuenta"))
+        }.navigationBarTitle(Text("Create an account"))
     }
 }
 

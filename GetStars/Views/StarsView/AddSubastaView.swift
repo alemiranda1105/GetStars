@@ -35,25 +35,25 @@ struct AddSubastaView: View {
         format.dateFormat = "d/MM/y"
         
         if self.name == "" {
-            self.error = "Por favor, introduzca un nombre"
+            self.error = "Write a name, please"
             self.showError = true
             return
         }
         if self.desc == "" {
-            self.error = "Por favor, introduzca una descripción"
+            self.error = "Set a description, please"
             self.showError = true
             return
         }
         let today = format.string(from: Date())
         if today == format.string(from: self.date) {
-            self.error = "La fecha debe ser a partir de mañana"
+            self.error = "The date cannot be the same as today"
             self.showError = true
             return
         }
         
         let imgData = self.image.jpegData(compressionQuality: 0.5)
         if imgData == nil {
-            self.error = "Debe subir una imagen"
+            self.error = "An image must be upload"
             self.showError = true
             return
         }
@@ -87,12 +87,12 @@ struct AddSubastaView: View {
         Group {
             if self.subido {
                 VStack {
-                    Text("La subasta ha sido subida correctamente")
+                    Text("The bid have been uploaded correctly")
                         .font(.system(size: 22, weight: .bold))
                     Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
-                        Text("Volver")
+                        Text("Go back")
                             .frame(minWidth: 0, maxWidth: .infinity)
                             .padding()
                             .background(Color("naranja"))
@@ -103,7 +103,7 @@ struct AddSubastaView: View {
                 }
             } else {
                 Form {
-                    Section (header: Text("Imagen")){
+                    Section (header: Text("Image")){
                         Button(action: {
                             self.showImagePicker.toggle()
                         }) {
@@ -112,26 +112,26 @@ struct AddSubastaView: View {
                                     .resizable()
                                     .scaledToFit()
                                 
-                                Text("Seleccionar imagen")
+                                Text("Choose a image")
                                     .font(.system(size: 16, weight: .regular))
                             }.frame(alignment: .center)
                         }
                         .padding()
                     }
                     
-                    Section(header: Text("Datos de la subasta:")) {
+                    Section(header: Text("Raffle's information::")) {
                         TextField("Nombre de la subasta", text: self.$name)
                         
                         if #available(iOS 14.0, *) {
                             NavigationLink(destination: (
                                 VStack {
-                                    Text("Escriba la descripción")
+                                    Text("Description")
                                     TextEditor(text: self.$desc)
                                         .border(Color.black)
                                 }.frame(height: 200, alignment: .center)
                                 .padding(10)
                             )) {
-                                Text("Descripción")
+                                Text("Description")
                                     .font(.system(size: 16, weight: .semibold))
                             }
                             
@@ -139,13 +139,13 @@ struct AddSubastaView: View {
                             // Fallback on earlier versions
                             NavigationLink(destination: (
                                 VStack {
-                                    Text("Escriba la descripción")
+                                    Text("Description")
                                     TextView(text: self.$desc)
                                         .border(Color.black)
                                 }.frame(height: 200, alignment: .center)
                                 .padding(10)
                             )) {
-                                Text("Descripción")
+                                Text("Description")
                                     .font(.system(size: 16, weight: .semibold))
                             }
                             
@@ -153,7 +153,7 @@ struct AddSubastaView: View {
                         
                     }
                     
-                    Section(header: Text("Precio inicial")) {
+                    Section(header: Text("Starting price")) {
                         Stepper("\(self.price.dollarString)€", onIncrement: {
                             self.price += 0.1
                         }, onDecrement: {
@@ -163,7 +163,7 @@ struct AddSubastaView: View {
                         })
                     }
                     
-                    Section(header: Text("Fecha de finalización")) {
+                    Section(header: Text("Finish date")) {
                         NavigationLink(destination: (
                             DatePicker(selection: self.$date, displayedComponents: .date) {
                                 Text("Fecha:")
@@ -178,7 +178,7 @@ struct AddSubastaView: View {
                     Button(action: {
                         self.uploadSubasta()
                     }) {
-                        Text("Subir subasta")
+                        Text("Upload sale")
                     }
                     .padding()
                     .alert(isPresented: self.$showError) {
@@ -186,7 +186,7 @@ struct AddSubastaView: View {
                     }
                     
                 }
-                .navigationBarTitle(Text("Nueva subasta"))
+                .navigationBarTitle(Text("New sale"))
                 .sheet(isPresented: self.$showImagePicker) {
                     ImagePickerView(sourceType: .photoLibrary) { image in
                         self.image = image

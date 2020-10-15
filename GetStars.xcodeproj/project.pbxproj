@@ -24,6 +24,9 @@
 		BE2D821824AA631C0080A75F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE2D821724AA631C0080A75F /* Preview Assets.xcassets */; };
 		BE2D821B24AA631C0080A75F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE2D821924AA631C0080A75F /* LaunchScreen.storyboard */; };
 		BE2D822524AA656C0080A75F /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2D822424AA656C0080A75F /* SessionStore.swift */; };
+		BE32B73B2537458700210B48 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE32B73A2537458700210B48 /* IAPManager.swift */; };
+		BE32B73E253746D500210B48 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE32B73D253746D500210B48 /* StoreKit.framework */; };
+		BE32B74125374B5B00210B48 /* IAP_ProductIDs.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE32B74025374B5B00210B48 /* IAP_ProductIDs.plist */; };
 		BE37E3BD250E7B980016B8A1 /* ArticleProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE37E3BC250E7B980016B8A1 /* ArticleProfileView.swift */; };
 		BE41AA6824CF584C00511527 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE41AA6724CF584C00511527 /* HomeView.swift */; };
 		BE41AA6A24CF590500511527 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE41AA6924CF590500511527 /* SearchView.swift */; };
@@ -108,6 +111,9 @@
 		BE2D821A24AA631C0080A75F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BE2D821C24AA631C0080A75F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE2D822424AA656C0080A75F /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
+		BE32B73A2537458700210B48 /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
+		BE32B73D253746D500210B48 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		BE32B74025374B5B00210B48 /* IAP_ProductIDs.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = IAP_ProductIDs.plist; sourceTree = "<group>"; };
 		BE37E3BC250E7B980016B8A1 /* ArticleProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleProfileView.swift; sourceTree = "<group>"; };
 		BE41AA6724CF584C00511527 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		BE41AA6924CF590500511527 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -177,6 +183,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE32B73E253746D500210B48 /* StoreKit.framework in Frameworks */,
 				4DD5D08A7A5B511358615028 /* Pods_GetStars.framework in Frameworks */,
 				BE6C36572510C16500D277B9 /* ColorPickerRing in Frameworks */,
 			);
@@ -223,6 +230,7 @@
 				BE2D821924AA631C0080A75F /* LaunchScreen.storyboard */,
 				BE2D821C24AA631C0080A75F /* Info.plist */,
 				BECB5B3424AF381800C65096 /* GoogleService-Info.plist */,
+				BE32B74025374B5B00210B48 /* IAP_ProductIDs.plist */,
 				BE2D821624AA631C0080A75F /* Preview Content */,
 				BE962A0324EFD538009C8AA7 /* Localizable.strings */,
 			);
@@ -235,6 +243,14 @@
 				BE2D821724AA631C0080A75F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BE32B7392537456D00210B48 /* InAppPurchases */ = {
+			isa = PBXGroup;
+			children = (
+				BE32B73A2537458700210B48 /* IAPManager.swift */,
+			);
+			path = InAppPurchases;
 			sourceTree = "<group>";
 		};
 		BE3C46FC24ACCFA700D39F1E /* Views */ = {
@@ -253,6 +269,7 @@
 		BE3C46FD24ACCFAF00D39F1E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				BE32B7392537456D00210B48 /* InAppPurchases */,
 				BE2D822424AA656C0080A75F /* SessionStore.swift */,
 				BE873F7724B249C40041247C /* DataBase.swift */,
 				BE873F7924B24CE60041247C /* UserData.swift */,
@@ -467,6 +484,7 @@
 		FFD25E7F8F6F9314C6468864 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE32B73D253746D500210B48 /* StoreKit.framework */,
 				E67F7E4CBD35CF25BD3E2D4F /* Pods_GetStars.framework */,
 			);
 			name = Frameworks;
@@ -540,6 +558,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE32B74125374B5B00210B48 /* IAP_ProductIDs.plist in Resources */,
 				BE962A0124EFD538009C8AA7 /* Localizable.strings in Resources */,
 				BE2D821B24AA631C0080A75F /* LaunchScreen.storyboard in Resources */,
 				BECB5B3524AF381800C65096 /* GoogleService-Info.plist in Resources */,
@@ -614,6 +633,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE32B73B2537458700210B48 /* IAPManager.swift in Sources */,
 				BE6F7B952530A92300AC824A /* BannerView.swift in Sources */,
 				BEA81BB82524FA3400122D92 /* CardPaymentView.swift in Sources */,
 				BEBC381925150DF8005E817C /* CustomLivePlayerView.swift in Sources */,
@@ -834,7 +854,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"GetStars/Preview Content\"";
-				DEVELOPMENT_TEAM = TY2A2B43TK;
+				DEVELOPMENT_TEAM = AY5R6TB9UX;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = GetStars/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -842,8 +862,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "0.7-Alpha";
-				PRODUCT_BUNDLE_IDENTIFIER = com.marquelodev.GetStars;
+				MARKETING_VERSION = "0.7.5-Alpha";
+				PRODUCT_BUNDLE_IDENTIFIER = com.marquelo.GetStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -857,7 +877,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"GetStars/Preview Content\"";
-				DEVELOPMENT_TEAM = TY2A2B43TK;
+				DEVELOPMENT_TEAM = AY5R6TB9UX;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = GetStars/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -865,8 +885,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "0.7-Alpha";
-				PRODUCT_BUNDLE_IDENTIFIER = com.marquelodev.GetStars;
+				MARKETING_VERSION = "0.7.5-Alpha";
+				PRODUCT_BUNDLE_IDENTIFIER = com.marquelo.GetStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

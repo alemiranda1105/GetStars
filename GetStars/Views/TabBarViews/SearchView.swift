@@ -62,7 +62,7 @@ struct SearchView: View {
             ScrollView {
                 VStack {
                     HStack {
-                        TextField("Buscar", text: $search)
+                        TextField(LocalizedStringKey("Search"), text: $search)
                             .padding(7)
                             .padding(.horizontal, 25)
                             .background(Color(.systemGray6))
@@ -121,7 +121,7 @@ struct SearchView: View {
                     
                     if !self.searching {
                         NavigationLink(destination: DestacadosView().environmentObject(self.session)){
-                            Text("Destacados")
+                            Text("Highlights")
                                 .fontWeight(.heavy)
                                 .frame(minWidth: 0, maxWidth: .infinity)
                                 .padding(50)
@@ -134,7 +134,7 @@ struct SearchView: View {
                         Spacer(minLength: 10)
                         
                         NavigationLink(destination: TrendingView().environmentObject(self.session)){
-                            Text("Populares")
+                            Text("Trending")
                                 .frame(minWidth: 0, maxWidth: .infinity)
                                 .padding(50)
                                 .background(Color.init(hex: "00b0ff"))
@@ -146,7 +146,7 @@ struct SearchView: View {
                         Spacer(minLength: 10)
                         
                         NavigationLink(destination: NewsView().environmentObject(self.session)){
-                            Text("Novedades")
+                            Text("New")
                                 .frame(minWidth: 0, maxWidth: .infinity)
                                 .padding(50)
                                 .background(Color.init(hex: "5e35b1"))
@@ -158,7 +158,7 @@ struct SearchView: View {
                         Spacer(minLength: 10)
                         
                         NavigationLink(destination: CategoryView().environmentObject(self.session)){
-                            Text("Categorías")
+                            Text("Categories")
                                 .frame(minWidth: 0, maxWidth: .infinity)
                                 .padding(15)
                                 .background(Color.init(hex: "4db6ac"))
@@ -179,7 +179,7 @@ struct SearchView: View {
                                 ActivityIndicator(isAnimating: .constant(true), style: .large)
                             } else {
                                 if self.resultadoBusqueda.count <= 0 {
-                                    Text("Vaya parece que el usuario que buscas no existe")
+                                    Text("Oh! The user you were searching may not exists")
                                         .font(.system(size: 22, weight: .thin))
                                         .multilineTextAlignment(.center)
                                 } else {
@@ -193,7 +193,7 @@ struct SearchView: View {
                     }
                     
                 }.padding(.horizontal, 8)
-            }.navigationBarTitle(Text("Buscar"))
+            }.navigationBarTitle(Text("Search"))
             .navigationBarItems(trailing:
                 NavigationLink(destination: PaymentView(product: Product()).environmentObject(self.session)) {
                     Image(systemName: "cart").resizable().frame(width: 28.0, height: 28.0)

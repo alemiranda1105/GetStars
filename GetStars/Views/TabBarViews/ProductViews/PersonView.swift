@@ -57,21 +57,21 @@ struct PersonView: View {
                     .frame(width: UIScreen.main.bounds.width, height: 180)
                     .multilineTextAlignment(.leading)
                 
-                Text("Productos")
+                Text("Products")
                     .cornerRadius(16)
                     .font(.system(size: 32, weight: .bold))
                     .padding(.top, -100)
                 
                 VStack(spacing: 8) {
                     NavigationLink(destination: FamousItems(item: .constant("aut"), person: self.$person)
-                                    .navigationBarTitle("Autógrafo")
+                                    .navigationBarTitle(Text("Autograph"))
                                     .navigationBarHidden(false)
                                     .environmentObject(self.session)
                     ){
                         HStack {
                             Image(systemName: "pencil.and.outline")
                             
-                            Text("Autógrafo")
+                            Text("Autograph")
                                 .font(.system(size: 18, weight: .bold))
                         }
                         
@@ -83,14 +83,14 @@ struct PersonView: View {
                     
                     
                     NavigationLink(destination: FamousItems(item: .constant("foto"), person: self.$person)
-                                    .navigationBarTitle("Foto")
+                                    .navigationBarTitle(Text("Photo"))
                                     .navigationBarHidden(false)
                                     .environmentObject(self.session)
                     ){
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "camera": "camera.fill")
                             
-                            Text("Fotos")
+                            Text("Photo")
                                 .font(.system(size: 18, weight: .bold))
                         }
                         

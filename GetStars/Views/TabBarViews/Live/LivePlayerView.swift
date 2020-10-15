@@ -62,10 +62,10 @@ struct LivePlayerView: View {
         Group {
             if self.subido {
                 VStack {
-                    Text("Live subido")
+                    Text("Live uploaded")
                         .padding()
                         .font(.system(size: 32, weight: .bold))
-                    Text("El live realizado ya ha sido subido y el usuario podrá verlo en su cuenta, muchas gracias.")
+                    Text("The live has been uploaded and the user may watch it in its personal space, thank you.")
                         .padding()
                         .font(.system(size: 24, weight: .thin))
                         .multilineTextAlignment(.center)
@@ -74,7 +74,7 @@ struct LivePlayerView: View {
                         self.recorded = false
                         self.subido = false
                     }) {
-                        Text("Grabar otro live")
+                        Text("Record other live")
                         .frame(minWidth: 0, maxWidth: .infinity)
                         .padding()
                         .background(Color("navyBlue"))

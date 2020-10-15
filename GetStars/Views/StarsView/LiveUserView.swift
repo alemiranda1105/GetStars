@@ -37,7 +37,7 @@ struct LiveUserView: View {
                             
                         }) {
                             HStack(spacing: 5) {
-                                Text("Reportar")
+                                Text("Report")
                                 Image(systemName: "exclamationmark.triangle")
                             }
                             .padding(14)
@@ -52,7 +52,7 @@ struct LiveUserView: View {
                             // Muestra el menú de camara
                             self.showCamera.toggle()
                         }) {
-                            Text("Crear")
+                            Text("Create")
                                 .frame(minWidth: 0, maxWidth: .infinity)
                                 .padding(14)
                                 .background(Color("navyBlue"))

@@ -46,7 +46,7 @@ struct ChangeProductImageView: View {
                         self.goBack = false
                 
                     }) {
-                        Text("Cancelar")
+                        Text("Cancel")
                     }
                 }.padding()
                 
@@ -65,7 +65,7 @@ struct ChangeProductImageView: View {
                     self.showImagePicker.toggle()
                     
                 }) {
-                    Text("Reelegir imagen")
+                    Text("Choose another image")
                         .frame(minWidth: 0, maxWidth: .infinity)
                         .padding(14)
                         .background(Color("navyBlue"))
@@ -78,7 +78,7 @@ struct ChangeProductImageView: View {
                     self.uploadImage()
                     
                 }) {
-                    Text("Subir imagen")
+                    Text("Upload image")
                         .frame(minWidth: 0, maxWidth: .infinity)
                         .padding(14)
                         .background(Color("naranja"))

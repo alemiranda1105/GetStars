@@ -58,7 +58,7 @@ struct DetailedArticleView: View {
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "square.and.arrow.down": "square.and.arrow.down.fill")
                             
-                            Text("Descargar autógrafo")
+                            Text("Download autograph")
                                 .font(.system(size: 18, weight: .bold))
                         }.padding(15)
                         

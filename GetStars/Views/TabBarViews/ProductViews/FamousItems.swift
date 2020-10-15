@@ -8,20 +8,50 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
+import StoreKit
 
 struct FamousItems: View {
     @EnvironmentObject var session: SessionStore
+    @Environment(\.presentationMode) var presentationMode
     
     @Binding var item: String
     @Binding var person: Person
     
     @State var product = [Product]()
+    @State var sk = [SKProduct]()
     @State var url = URL(string: "https://google.com/")!
     
     @State var loading = true
     
+    private func getSkProducts() {
+        DispatchQueue.main.async {
+            IAPManager.shared.getProducts { result in
+                DispatchQueue.main.sync {
+                    switch result {
+                    case.success(let products):
+                        self.sk.append(contentsOf: products)
+                    case.failure(let error):
+                        print(error.localizedDescription)
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                }
+            }
+        }
+    }
+    
+    private func searchSk(name: String) -> SKProduct {
+        for i in self.sk {
+            let n = i.productIdentifier
+            if n == name {
+                return i
+            }
+        }
+        self.presentationMode.wrappedValue.dismiss()
+        return SKProduct()
+    }
+    
     private func getAutografo() {
+        self.getSkProducts()
         self.product = [Product]()
         let st = StarsST()
         let db = StarsDB()
@@ -33,13 +63,17 @@ struct FamousItems: View {
             
             db.getProductPrice(product: "aut", key: self.person.getKey(), dg: dg)
             dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                var autPrice = db.getPrice()
-                //self.product.append(Product(price: autPrice, name: "Autógrafo", description: "Autógrafo de prueba", image: self.url, owner: self.person, isDedicated: false, productType: .autografo))
+                // var autPrice = db.getPrice()
+                // self.product.append(Product(price: autPrice, name: "Autógrafo", description: "Autógrafo de prueba", image: self.url, owner: self.person, isDedicated: false, productType: .autografo))
                 
                 db.getProductPrice(product: "autDed", key: self.person.getKey(), dg: dg)
                 dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                    autPrice = db.getPrice()
-                    self.product.append(Product(price: autPrice, name: "Autógrafo dedicado", description: "Autógrafo dedicado de prueba", image: self.url, owner: self.person, isDedicated: true, productType: .autografoDedicado))
+                    // autPrice = db.getPrice()
+                    let product = searchSk(name: "dedAut")
+                    let p = Product(price: Double(truncating: product.price), name: product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: true, productType: .autografoDedicado)
+                    p.setSkProduct(sk: product)
+                    
+                    self.product.append(p)
                     
                     self.loading = false
                     
@@ -49,6 +83,7 @@ struct FamousItems: View {
     }
     
     private func getFoto() {
+        self.getSkProducts()
         self.product = [Product]()
         let st = StarsST()
         let db = StarsDB()
@@ -60,13 +95,32 @@ struct FamousItems: View {
             
             db.getProductPrice(product: "fot", key: self.person.getKey(), dg: dg)
             dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                var autPrice = db.getPrice()
-                self.product.append(Product(price: autPrice, name: "Foto con autógrafo", description: "Foto de prueba", image: self.url, owner: self.person, isDedicated: false, productType: .fotoConAutografo))
+                //var autPrice = db.getPrice()
+                
+                var product = searchSk(name: "autPho")
+                var p = Product(price: Double(truncating: product.price), name: product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: false, productType: .fotoConAutografo)
+                p.setSkProduct(sk: product)
+                self.product.append(p)
                 
                 db.getProductPrice(product: "fotDed", key: self.person.getKey(), dg: dg)
                 dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                    autPrice = db.getPrice()
-                    self.product.append(Product(price: autPrice, name: "Foto dedicada", description: "Foto dedicado de prueba", image: self.url, owner: self.person, isDedicated: true, productType: .fotoDedicada))
+                    //autPrice = db.getPrice()
+                    
+                    product = searchSk(name: "dedPho")
+                    p = Product(price: Double(truncating: product.price), name: product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: true, productType: .fotoDedicada)
+                    p.setSkProduct(sk: product)
+                    
+                    self.product.append(p)
+                    
+                    product = SKProduct()
+                    p = Product()
+                    
+                    // foto con mensaje custom
+                    product = searchSk(name: "dedPhoCus")
+                    p = Product(price: Double(truncating: product.price), name: product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: true, productType: .fotoDedicadaCustom)
+                    p.setSkProduct(sk: product)
+                    
+                    self.product.append(p)
                     
                     self.loading = false
                     
@@ -79,18 +133,18 @@ struct FamousItems: View {
         Group {
             if self.item == "aut" {
                 AutView(url: self.$url, product: self.$product, loading: self.$loading).environmentObject(self.session).onAppear(perform: self.getAutografo)
-                    .navigationBarTitle(Text("Autógrafo"), displayMode: .inline)
+                    .navigationBarTitle(Text("Autograph"), displayMode: .inline)
                     .navigationBarHidden(false)
             } else if self.item == "foto" {
                 PhotoView(url: self.$url, product: self.$product, loading: self.$loading).environmentObject(self.session).onAppear(perform: self.getFoto)
-                    .navigationBarTitle(Text("Fotos"), displayMode: .inline)
+                    .navigationBarTitle(Text("Photos"), displayMode: .inline)
                     .navigationBarHidden(false)
             } else {
                 VStack {
-                    Text("Próximamente")
+                    Text("Soon")
                         .padding()
                         .font(.system(size: 32, weight: .bold))
-                    Text("Estamos trabajando para que puedas conectar con las estrellas de una manera en la que nunca lo habías hecho")
+                    Text("We are working to you can be able to connect with the stars in a way you have never done before")
                         .padding()
                         .font(.system(size: 24, weight: .thin))
                         .multilineTextAlignment(.center)

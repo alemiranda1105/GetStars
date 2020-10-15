@@ -43,7 +43,7 @@ struct CameraLiveView: View {
     private func uploadRecord() {
         self.recording = false
         let dg = DispatchGroup()
-        self.cameraObject.stopRecording(key: "prueba", email: "amiranda110500@gmail.com", dg: dg)
+        self.cameraObject.stopRecording(key: (self.session.data?.getUserKey())!, email: self.email, dg: dg)
         dg.notify(queue: DispatchQueue.global(qos: .background)) {
             print("Subido live temporal - Cambio a LivePlayer")
             self.recorded = true

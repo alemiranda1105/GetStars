@@ -23,21 +23,21 @@ struct SupportView: View {
                 Button(action: {
                     self.sendEmail(email: "soportegetstars@gmail.com")
                 }) {
-                    Text("Contacta con soporte")
+                    Text("Contact support")
                 }
             }
-            Section(header: Text("Sugerencias")) {
+            Section(header: Text("Suggestions")) {
                 Button(action: {
                     self.sendEmail(email: "marquelodev@gmail.com")
                 }) {
-                    Text("Envía cualquier sugerencia")
+                    Text("Send us any suggestions")
                 }
             }
             Section(header: Text("Marquelo Solutions")) {
                 Button(action: {
                     self.sendEmail(email: "marquelodev@gmail.com")
                 }) {
-                    Text("Contacta directamente con nosotros")
+                    Text("Get in touch with us")
                 }
             }
         }.navigationBarTitle(Text("Soporte"))

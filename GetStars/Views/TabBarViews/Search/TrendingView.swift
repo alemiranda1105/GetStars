@@ -56,7 +56,7 @@ struct TrendingView: View {
                             PersonCard(person: self.$data[product]).environmentObject(self.session)
                                 .frame(width: g.size.width)
                         }
-                    }.navigationBarTitle("Populares")
+                    }.navigationBarTitle("Trending")
                     .navigationBarItems(trailing:
                         NavigationLink(destination: PaymentView(product: Product()).environmentObject(self.session)) {
                             Image(systemName: "cart").resizable().frame(width: 28.0, height: 28.0)

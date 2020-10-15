@@ -33,7 +33,7 @@ struct LiveView: View {
                 db.readFamous(key: i, dg: dg)
                 dg.wait()
                 
-                print("Famoso HOME leído")
+                print("Famoso LIVE leído")
                 let name = db.getName()
                 let desc = db.getDesc()
                 self.data.append(Person(name: name, description: desc, image: url!, key: i))

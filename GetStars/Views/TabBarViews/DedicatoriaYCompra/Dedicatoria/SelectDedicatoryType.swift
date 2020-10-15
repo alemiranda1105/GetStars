@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct SelectDedicatoryType: View {
     @Environment(\.presentationMode) var presentationMode
@@ -15,12 +16,14 @@ struct SelectDedicatoryType: View {
     @State var product: Product
     
     private let types: [String] = ["def", "cumpleaños", "enfermedad", "fan"]
-    private let typesText: [String] = ["Mensaje dedicado", "Dedicatoria para un cumpleaños", "Dedicatoria para alguien enfermo", "Dedicatoria para un fan"]
+    private let typesText: [String] = ["Dedicated message", "Dedication for a birthday", "Dedication for someone sick", "Dedication for a fan"]
     @State var selectedType = ""
     
     @State var message = ""
     
     @State var showPayment = false
+    
+    @State var error = ""
     
     private func loadMessage(type: String) {
         // Leer mensaje predeterminado para ese tipo en la base de datos
@@ -38,9 +41,9 @@ struct SelectDedicatoryType: View {
     private func addCart() {
         self.product.setMessage(newMessage: self.message)
         
-        if self.selectedType == "def" {
-            self.product.setPrice(newPrice: self.product.price - 2.0)
-        }
+//        if self.selectedType == "def" {
+//            self.product.setPrice(newPrice: self.product.price - 2.0)
+//        }
         
         var n = 0
         for i in self.session.cart {
@@ -53,6 +56,27 @@ struct SelectDedicatoryType: View {
         self.session.cart.append(self.product)
     }
     
+    private func purchase(product: SKProduct) -> Bool {
+        if !IAPManager.shared.canMakePayments() {
+            return false
+        } else {
+            IAPManager.shared.buy(product: product) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(_):
+                        print("Comprado")
+                        self.product.setMessage(newMessage: self.message)
+                        self.product.addProductToAccount(session: self.session)
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                        self.error = "The puchase has not been completed, please try again"
+                    }
+                }
+            }
+        }
+        return true
+    }
+    
     var body: some View {
         Group {
             if self.showPayment {
@@ -61,58 +85,80 @@ struct SelectDedicatoryType: View {
                 VStack {
                     
                     if self.product.productType != .autografoDedicado {
-                        Text("Puedes elegir una foto dedicada:")
+                        Text("You have choosen a dedicated picture")
                             .font(.system(size: 22, weight: .bold))
                             .multilineTextAlignment(.center)
                             .padding()
                         
-                        Button(action: {
-                            self.selectedType = self.types[0]
-                            self.loadMessage(type: self.selectedType)
-                        }) {
-                            if self.selectedType == self.types[0] {
-                                Image(systemName: "checkmark.circle")
+                        if self.product.productType != .fotoDedicadaCustom {
+                            Button(action: {
+                                self.selectedType = self.types[0]
+                                self.loadMessage(type: self.selectedType)
+                            }) {
+                                if self.selectedType == self.types[0] {
+                                    Image(systemName: "checkmark.circle")
+                                }
+                                Text(self.typesText[0])
+                                    .font(.system(size: 20, weight: .thin))
                             }
-                            Text(self.typesText[0])
-                                .font(.system(size: 20, weight: .thin))
                         }
                         
                         Spacer()
                         
-                        Text("O que la estrella te dedique un mensaje especial:")
-                            .font(.system(size: 22, weight: .bold))
-                            .multilineTextAlignment(.center)
-                            .padding()
+                        if self.product.productType != .fotoDedicada {
+                            Text("Custom message from the star:")
+                                .font(.system(size: 22, weight: .bold))
+                                .multilineTextAlignment(.center)
+                                .padding()
+                        }
+                        
                     } else {
                         Spacer()
                     }
                     
-                    ForEach(1 ..< self.typesText.count, id: \.self) { index in
-                        Button(action: {
-                            self.selectedType = self.types[index]
-                            self.loadMessage(type: self.selectedType)
-                        }) {
-                            if self.selectedType == self.types[index] {
-                                Image(systemName: "checkmark.circle")
-                            }
-                            Text(self.typesText[index])
-                                .font(.system(size: 20, weight: .thin))
+                    if self.product.productType != .fotoDedicada {
+                        
+                        if self.product.productType == .autografoDedicado {
+                            Text("Select a custom message from the star:")
+                                .font(.system(size: 22, weight: .bold))
+                                .multilineTextAlignment(.center)
+                                .padding()
                         }
-                    }.padding()
+                        
+                        ForEach(1 ..< self.typesText.count, id: \.self) { index in
+                            Button(action: {
+                                self.selectedType = self.types[index]
+                                self.loadMessage(type: self.selectedType)
+                            }) {
+                                if self.selectedType == self.types[index] {
+                                    Image(systemName: "checkmark.circle")
+                                }
+                                Text(LocalizedStringKey(self.typesText[index]))
+                                    .font(.system(size: 20, weight: .thin))
+                            }
+                        }.padding()
+                    }
                     
                     Spacer()
                     
+                    if self.error != "" {
+                        Text(LocalizedStringKey(self.error))
+                            .font(.system(size: 18, weight: .bold))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.red)
+                            .padding()
+                    }
+                    
                     if self.selectedType != "" && self.message != "" {
-    //                    NavigationLink(destination: DedicatoriaView(product: self.product, mensajePred: self.message).environmentObject(self.session)) {
-    //                        Text("Continuar")
-    //                            .font(.system(size: 20, weight: .semibold))
-    //                    }.padding()
                         
                         Button(action: {
-                            self.addCart()
-                            self.showPayment = true
+                            
+                            if self.purchase(product: self.product.skproduct) {
+                                print("Holiiiis")
+                            }
+                            
                         }) {
-                            Text("Añadir al carrito")
+                            Text("Buy")
                                 .font(.system(size: 20, weight: .semibold))
                         }.padding()
                     }

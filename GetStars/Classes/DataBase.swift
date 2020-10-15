@@ -132,10 +132,10 @@ class DataBase: ObservableObject {
         }
     }
     
-    func addCompraToUserDB(email: String, compra: String, owner: String, dg: DispatchGroup) {
+    func addCompraToUserDB(email: String, compra: String, url: String, dg: DispatchGroup) {
         dg.enter()
         db.collection(dbCollection).document(email).updateData([
-            "compras.\(compra)": FieldValue.arrayUnion([owner])
+            "compras.\(compra)": FieldValue.arrayUnion([url])
         ])
         dg.leave()
     }

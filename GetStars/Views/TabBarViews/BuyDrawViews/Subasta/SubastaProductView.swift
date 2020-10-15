@@ -53,7 +53,7 @@ struct SubastaProductView: View {
                 
                 let lastParticipante = document?.data()!["ultimoParticipante"] as! String
                 if lastParticipante == self.session.session?.email {
-                    self.error = ("Ya has participado en esta puja y no puedes volver a pujar hasta que otra persona puje")
+                    self.error = ("You have already participated in this bid and you cannot bid again until someone else bids")
                     return
                 }
                 self.price = Double(round(self.price*100)/100)
@@ -167,7 +167,7 @@ struct SubastaProductView: View {
                         }).onAppear(perform: self.readPrice)
                         
                         if error != "" {
-                            Text(error)
+                            Text(LocalizedStringKey(self.error))
                                 .font(.system(size: 14, weight: .semibold))
                                 .foregroundColor(.red)
                                 .padding()
@@ -223,7 +223,7 @@ struct SubastaProductView: View {
 #if DEBUG
 struct SubastaProductView_Previews: PreviewProvider {
     static var previews: some View {
-        SubastaProductView(product: .constant(Product(price: 99, name: "Test", description: "Casco usado por un piloto de carreras en una carrera en la que corrieron muchos corredores", image: "pr2", owner: Person(name: "Piloto 1", description: "Piloto de carreras", image: "p1", key: ""), isDedicated: false)))
+        SubastaProductView(product: .constant(Product(price: 99, name: "Test", description: "Casco usado por un corredor de carreras en una carrera en la que corrieron muchos corredores", image: "pr2", owner: Person(name: "Piloto 1", description: "Piloto de carreras", image: "p1", key: ""), isDedicated: false)))
     }
 }
 #endif

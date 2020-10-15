@@ -48,7 +48,7 @@ struct UserLiveList: View {
     private func getLives() {
         let liveList = self.session.data?.compras["live"] ?? [String]()
         if liveList.count <= 0 {
-            self.error = "No se ha adquirido ningún live, acuda a nuestra tienda para descubrir una nueva experiencia"
+            self.error = "No live has been purchased, visit our store to discover a new experience"
             self.loading = false
             return
         }
@@ -122,7 +122,7 @@ struct UserLivePreview: View {
                 ActivityIndicator(isAnimating: .constant(true), style: .large)
             } else {
                 if self.urls.count <= 0 {
-                    Text("No tiene ningún live de este famoso o ha ocurrido un error, reinténtelo de nuevo")
+                    Text("You do not have any live of this famous or an error has occurred, try again")
                         .multilineTextAlignment(.center)
                         .font(.system(size: 22, weight: .thin))
                         .padding()

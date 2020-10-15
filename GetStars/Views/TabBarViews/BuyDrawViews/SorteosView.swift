@@ -86,7 +86,7 @@ struct SorteosView: View {
                                 .frame(width: g.size.width)
                         }
                     }
-                }.navigationBarTitle("Sorteos")
+                }.navigationBarTitle(Text("Raffle"))
                 .onAppear(perform: self.readSorteos)
             }
         }

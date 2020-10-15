@@ -101,7 +101,7 @@ struct SorteoProductView: View {
                     .font(.system(size: 32, weight: .medium))
                 
                 if self.participando {
-                    Text("Ya estás participando en este sorteo")
+                    Text("You have already joined")
                         .font(.system(size: 14, weight: .semibold))
                         .padding()
                 }
@@ -116,7 +116,7 @@ struct SorteoProductView: View {
                             HStack {
                                 Image(systemName: self.colorScheme == .dark ? "x.circle": "x.circle.fill")
                                 
-                                Text("Salir del sorteo")
+                                Text("Leave the raffle")
                                     .font(.system(size: 18, weight: .bold))
                             }
                             
@@ -134,7 +134,7 @@ struct SorteoProductView: View {
                             HStack {
                                 Image(systemName: self.colorScheme == .dark ? "plus.app": "plus.app.fill")
                                 
-                                Text("Participar")
+                                Text("Join")
                                     .font(.system(size: 18, weight: .bold))
                             }
                             
@@ -148,7 +148,7 @@ struct SorteoProductView: View {
                     NavigationLink(destination: PersonView(person: self.$product.owner)){
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "person.crop.circle": "person.crop.circle.fill")
-                            Text("Ver perfil de \(self.product.owner.name)")
+                            Text("\(self.product.owner.name)")
                                 .font(.system(size: 18, weight: .bold))
                         }
                         

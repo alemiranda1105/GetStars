@@ -42,7 +42,7 @@ struct BuyDrawView: View {
                     Spacer(minLength: 35)
                        
                     NavigationLink(destination: SubastaView().environmentObject(self.session)){
-                       Text("Subastas")
+                       Text("Sale")
                            .fontWeight(.heavy)
                            .frame(minWidth: 0, maxWidth: .infinity)
                            .padding(50)
@@ -55,7 +55,7 @@ struct BuyDrawView: View {
                     Spacer(minLength: 20)
                    
                     NavigationLink(destination: SorteosView().environmentObject(self.session)){
-                        Text("Sorteos")
+                        Text("Raffle")
                                .frame(minWidth: 0, maxWidth: .infinity)
                                .padding(50)
                                .background(Color.init(hex: "00b0ff"))
@@ -76,7 +76,7 @@ struct BuyDrawView: View {
                                .font(.system(size: 18, weight: .bold))
                         }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
                    }.padding(.horizontal, 8)
-               }.navigationBarTitle("Subastas y sorteos")
+               }.navigationBarTitle(Text("Shop"))
             }
        }.navigationViewStyle(StackNavigationViewStyle())
     }

@@ -32,7 +32,7 @@ struct UserLivePlayerView: View {
                 HStack {
                     Image(systemName: self.colorScheme == .dark ? "square.and.arrow.down": "square.and.arrow.down.fill")
                     
-                    Text("Descargar autógrafo")
+                    Text("Download live")
                         .font(.system(size: 18, weight: .bold))
                 }.padding(15)
                 

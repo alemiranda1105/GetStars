@@ -35,25 +35,25 @@ struct AddSorteoView: View {
         format.dateFormat = "d/MM/y"
         
         if self.name == "" {
-            self.error = "Por favor, introduzca un nombre"
+            self.error = "Write a name, please"
             self.showError = true
             return
         }
         if self.desc == "" {
-            self.error = "Por favor, introduzca una descripción"
+            self.error = "Set a description, please"
             self.showError = true
             return
         }
         let today = format.string(from: Date())
         if today == format.string(from: self.date) {
-            self.error = "La fecha debe ser a partir de mañana"
+            self.error = "The date cannot be the same as today"
             self.showError = true
             return
         }
         
         let imgData = self.image.jpegData(compressionQuality: 0.5)
         if imgData == nil {
-            self.error = "Debe subir una imagen"
+            self.error = "An image must be upload"
             self.showError = true
             return
         }
@@ -83,12 +83,12 @@ struct AddSorteoView: View {
         Group {
             if self.subido {
                 VStack {
-                    Text("El sorteo ha sido subido correctamente")
+                    Text("The raffle have been uploaded correctly")
                         .font(.system(size: 22, weight: .bold))
                     Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
-                        Text("Volver")
+                        Text("Go back")
                             .frame(minWidth: 0, maxWidth: .infinity)
                             .padding()
                             .background(Color("naranja"))
@@ -99,7 +99,7 @@ struct AddSorteoView: View {
                 }
             } else {
                 Form {
-                    Section (header: Text("Imagen")){
+                    Section (header: Text("Image")){
                         Button(action: {
                             self.showImagePicker.toggle()
                         }) {
@@ -108,26 +108,26 @@ struct AddSorteoView: View {
                                     .resizable()
                                     .scaledToFit()
                                 
-                                Text("Seleccionar imagen")
+                                Text("Choose a image")
                                     .font(.system(size: 16, weight: .regular))
                             }.frame(alignment: .center)
                         }
                         .padding()
                     }
                     
-                    Section(header: Text("Datos del sorteo:")) {
-                        TextField("Nombre del sorteo", text: self.$name)
+                    Section(header: Text("Raffle's information:")) {
+                        TextField("Name", text: self.$name)
                         
                         if #available(iOS 14.0, *) {
                             NavigationLink(destination: (
                                 VStack {
-                                    Text("Escriba la descripción")
+                                    Text("Description")
                                     TextEditor(text: self.$desc)
                                         .border(Color.black)
                                 }.frame(height: 200, alignment: .center)
                                 .padding(10)
                             )) {
-                                Text("Descripción")
+                                Text("Description")
                                     .font(.system(size: 16, weight: .semibold))
                             }
                             
@@ -135,26 +135,26 @@ struct AddSorteoView: View {
                             // Fallback on earlier versions
                             NavigationLink(destination: (
                                 VStack {
-                                    Text("Escriba la descripción")
+                                    Text("Description")
                                     TextView(text: self.$desc)
                                         .border(Color.black)
                                 }.frame(height: 200, alignment: .center)
                                 .padding(10)
                             )) {
-                                Text("Descripción")
+                                Text("Description")
                                     .font(.system(size: 16, weight: .semibold))
                             }
                             
                         }
                     }
                     
-                    Section(header: Text("Fecha de finalización")) {
+                    Section(header: Text("Finish date")) {
                         NavigationLink(destination: (
                             DatePicker(selection: self.$date, displayedComponents: .date) {
-                                Text("Fecha:")
+                                Text("Date:")
                             }.padding(10)
                         )) {
-                            Text("Fecha")
+                            Text("Date")
                                 .font(.system(size: 16, weight: .semibold))
                         }
                     }
@@ -163,7 +163,7 @@ struct AddSorteoView: View {
                     Button(action: {
                         self.uploadSorteo()
                     }) {
-                        Text("Subir sorteo")
+                        Text("Upload raffle")
                     }
                     .padding()
                     .alert(isPresented: self.$showError) {
@@ -171,7 +171,7 @@ struct AddSorteoView: View {
                     }
                     
                 }
-                .navigationBarTitle(Text("Nuevo sorteo"))
+                .navigationBarTitle(Text("New raffle"))
                 .sheet(isPresented: self.$showImagePicker) {
                     ImagePickerView(sourceType: .photoLibrary) { image in
                         self.image = image

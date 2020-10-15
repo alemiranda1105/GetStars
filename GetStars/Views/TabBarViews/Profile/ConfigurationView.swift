@@ -184,15 +184,15 @@ private struct ModifyDataView: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Datos")) {
+            Section(header: Text("Information")) {
                 HStack {
-                    Text("Nombre:")
+                    Text("Name:")
                     Spacer()
-                    TextField("Nombre", text: self.$nombre)
+                    TextField("Name", text: self.$nombre)
                 }
                 HStack {
                     DatePicker(selection: self.$fechaNacimiento, in: self.closedRange, displayedComponents: .date) {
-                        Text("Fecha:")
+                        Text("Date:")
                     }.padding(10)
                     /*NavigationLink(destination: (
                         DatePicker(selection: self.$fechaNacimiento, in: self.closedRange, displayedComponents: .date) {
@@ -205,7 +205,7 @@ private struct ModifyDataView: View {
                 }
                 VStack {
                     Text("Género")
-                    Picker(selection: $generoSeleccionado, label: Text("Género")) {
+                    Picker(selection: $generoSeleccionado, label: Text("Genre")) {
                         ForEach(0 ..< generos.count) {
                             //Text(self.generos[$0])
                             self.generos[$0]
@@ -219,7 +219,7 @@ private struct ModifyDataView: View {
                 HStack {
                     Spacer()
                     Image(systemName: "square.and.arrow.down")
-                    Text("Guardar cambios").fontWeight(.bold)
+                    Text("Save changes").fontWeight(.bold)
                     Spacer()
                 }
             }
@@ -246,16 +246,16 @@ private struct ModifyAuthDataView: View {
         Form {
             Section {
                 VStack {
-                    Text("Para actualizar sus datos necesitamos la contraseña actual")
+                    Text("In order to update your data we need the current password")
                         .font(.system(size: 16, weight: .semibold))
                         .multilineTextAlignment(.center)
                         .lineLimit(nil)
-                    Text("NOTA: En caso de no recordar la contraseña, deberá ponerse en contacto con el soporte de la app")
+                    Text("NOTE: In case of not remembering the password, you should contact the app support")
                         .font(.system(size: 14, weight: .thin))
                         .multilineTextAlignment(.center)
                         .lineLimit(nil)
                 }
-                SecureField(LocalizedStringKey("Contraseña anterior"), text: self.$password)
+                SecureField(LocalizedStringKey("Old password"), text: self.$password)
                     .font(.system(size: 14))
                     .autocapitalization(.none)
                     .padding(8)
@@ -277,23 +277,23 @@ private struct ModifyAuthDataView: View {
                     if self.email == (self.session.session?.email)! {
                         return
                     } else if !validateEmail(enteredEmail: self.email) {
-                        self.error = "Introduzca un email válido"
+                        self.error = "Write a valid email"
                     } else {
                         self.session.updateEmail(email: self.email, password: self.oldPassword)
                         self.presentationMode.wrappedValue.dismiss()
                     }
                 }) {
-                    Text("Actualizar email")
+                    Text("Update email")
                 }
             }
-            Section(header: Text("Contraseña")) {
-                Text("La longitud de la contraseña debe se mayor a 6 caracteres")
+            Section(header: Text("Password")) {
+                Text("Password's length must be grater than 6 characters")
                     .font(.system(size: 16, weight: .semibold))
                     .multilineTextAlignment(.leading)
                     .lineLimit(nil)
                 HStack {
                     if self.show {
-                        TextField(LocalizedStringKey("Contraseña nueva"), text: self.$password)
+                        TextField(LocalizedStringKey("New password"), text: self.$password)
                             .font(.system(size: 14))
                             .autocapitalization(.none)
                             .padding(8)
@@ -307,7 +307,7 @@ private struct ModifyAuthDataView: View {
                             Image(systemName: "eye.slash")
                         }
                     } else {
-                        SecureField(LocalizedStringKey("Contraseña nueva"), text: self.$password)
+                        SecureField(LocalizedStringKey("New password"), text: self.$password)
                             .font(.system(size: 14))
                             .autocapitalization(.none)
                             .padding(8)
@@ -325,13 +325,13 @@ private struct ModifyAuthDataView: View {
                 }
                 Button(action: {
                     if self.password.count < 6 {
-                        self.error = "La contraseña debe tener una longitud mayor a 6 caracteres"
+                        self.error = "Password's length must be grater than 6 characters"
                     } else {
                         self.session.updatePassword(password: self.password)
                         self.presentationMode.wrappedValue.dismiss()
                     }
                 }) {
-                    Text("Actualizar contraseña")
+                    Text("Update password")
                 }
             }
         }.onAppear(perform: self.loadData)
@@ -345,24 +345,24 @@ private struct DeleteUser: View {
     @State private var show: Bool = false
     var body: some View {
         VStack {
-            Text("¡Estás a punto de eliminar tu cuenta!")
+            Text("You are about to delete your account!")
                 .font(.system(size: 22, weight: .bold))
                 .multilineTextAlignment(.center)
                 .padding()
             
-            Text("Eso significa que perderás de manera inmediata todas tus compras a no ser que las hayas descargado y almacenado de manera correcta")
+            Text("That means you will immediately lose all your purchases unless you have downloaded and stored them correctly")
                 .font(.system(size: 18, weight: .thin))
                 .multilineTextAlignment(.center)
                 .padding()
             
-            Text("Contraseña")
+            Text("Password")
                 .font(.system(size: 14, weight: .bold))
                 .multilineTextAlignment(.leading)
                 .padding()
             
             HStack {
                 if self.show {
-                    TextField(LocalizedStringKey("Contraseña"), text: self.$password)
+                    TextField(LocalizedStringKey("Password"), text: self.$password)
                         .font(.system(size: 14))
                         .autocapitalization(.none)
                         .padding(8)
@@ -376,7 +376,7 @@ private struct DeleteUser: View {
                         Image(systemName: "eye.slash")
                     }
                 } else {
-                    SecureField(LocalizedStringKey("Contraseña"), text: self.$password)
+                    SecureField(LocalizedStringKey("Password"), text: self.$password)
                         .font(.system(size: 14))
                         .autocapitalization(.none)
                         .padding(8)

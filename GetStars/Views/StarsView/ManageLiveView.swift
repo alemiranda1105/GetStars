@@ -50,7 +50,7 @@ struct ManageLiveView: View {
             } else {
                 
                 if self.listaParticipantes.count <= 0 {
-                    Text("Por ahora no hay ningún participante pendiente")
+                    Text("It looks that there's no one left")
                         .font(.system(size: 22, weight: .thin))
                         .padding()
                         .multilineTextAlignment(.center)

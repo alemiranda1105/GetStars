@@ -61,10 +61,10 @@ struct HomeView: View {
                 } else {
                     ScrollView {
                         Group {
-                            if !(self.session.data?.getIsPro() ?? false) {
+                            if !(self.session.data?.getIsPro() ?? true) {
                                 NavigationLink(destination: BuyProView()){
                                     ZStack {
-                                        Text("¡PÁSATE AL PRO!")
+                                        Text("BECOME A PRO!")
                                             .font(.system(size: 25, weight: .bold))
                                             .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                                             .scaledToFill()
@@ -92,7 +92,7 @@ struct HomeView: View {
                             
                         }
                     }.frame(width: g.size.width)
-                    .navigationBarTitle(Text("Inicio"))
+                    .navigationBarTitle(Text("Home"))
                     .navigationBarItems(trailing:
                         NavigationLink(destination: PaymentView(product: Product()).environmentObject(self.session)) {
                             Image(systemName: "cart").resizable().frame(width: 28.0, height: 28.0)

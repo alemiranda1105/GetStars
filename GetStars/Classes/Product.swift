@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import StoreKit
 
 class Product: Identifiable {
     var id = UUID()
@@ -33,6 +34,7 @@ class Product: Identifiable {
         case autografo
         case autografoDedicado
         case fotoDedicada
+        case fotoDedicadaCustom
         case fotoConAutografo
         case live
         case subasta
@@ -44,6 +46,9 @@ class Product: Identifiable {
     var color: Color = Color("naranja")
     var uiColor: UIColor = UIColor.orange
     var size: CGFloat = 12
+    
+    // Tipo de producto
+    var skproduct: SKProduct = SKProduct()
     
     init() {
         self.price = 0.0
@@ -121,6 +126,43 @@ class Product: Identifiable {
         self.size = size
     }
     
+    func setSkProduct(sk: SKProduct) {
+        self.skproduct = sk
+    }
+    
+    func addProductToAccount(session: SessionStore) {
+        if self.isDedicated && self.productType != .live {
+            print("Producto dedicado ----- Subiendo a la nube para revisión")
+            let dg = DispatchGroup()
+            let documentID = generateDocumentId(length: 21)
+            session.db.uploadDedicatoria(documentID: documentID, key: self.owner.getKey(), email: session.session?.email ?? "", mensaje: self.message, color: self.uiColor, size: self.size, posicion: self.posicion, tipo: self.getCatString(), dg: dg)
+            dg.notify(queue: DispatchQueue.global(qos: .background)) {
+                print("Dedicatoria subida a la nube correctamente")
+                
+                session.db.addDedicatoriaToUser(email: session.session?.email ?? "", dedicatoria: documentID, dg: dg)
+                dg.wait()
+                
+                print("Dedicatoria en revision")
+            }
+        } else if self.productType == .live {
+            print("Live ------ Subiendo a la cola de lives")
+            let db = StarsDB()
+            let dg = DispatchGroup()
+            db.añadirAlLive(key: self.owner.getKey(), email: (session.session?.email)!, mensaje: self.message, dg: dg)
+            dg.notify(queue: DispatchQueue.global(qos: .background)) {
+                print("Añadido a la cola de lives de \(self.owner.getKey())")
+            }
+        } else {
+            print("Producto no dedicado ------ Añadiendo compra al usuario")
+            let dg = DispatchGroup()
+            session.db.addCompraToUserDB(email: session.session?.email ?? "", compra: self.getCatString(), url: self.image, dg: dg)
+            dg.notify(queue: DispatchQueue.global(qos: .background)) {
+                print("Compra de \(self.getCatString()) añadida")
+            }
+        }
+        StarsDB().addVenta(product: self.getCatString(), key: self.owner.getKey())
+    }
+    
     func equals(product: Product) -> Bool {
         if self.name == product.name {
             if self.price == product.price {
@@ -134,5 +176,36 @@ class Product: Identifiable {
             }
         }
         return false
+    }
+    
+    private func getCatString() -> String {
+        var cat = ""
+        switch self.productType {
+            case .autografoManual:
+                break
+            case .autografo:
+                cat = "aut"
+                break
+            case .autografoDedicado:
+                cat = "autDed"
+                break
+            case .fotoDedicada:
+                cat = "fotDed"
+                break
+            case .fotoConAutografo:
+                cat = "autFot"
+                break
+            case .live:
+                cat = "live"
+                break
+            case .subasta:
+                break
+            case .sorteo:
+                break
+            case .fotoDedicadaCustom:
+                cat = "fotDed"
+                break
+        }
+        return cat
     }
 }

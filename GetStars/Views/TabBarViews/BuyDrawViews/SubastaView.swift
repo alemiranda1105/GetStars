@@ -82,7 +82,7 @@ struct SubastaView: View {
                                 .frame(width: g.size.width)
                         }
                     }
-                }.navigationBarTitle("Subastas")
+                }.navigationBarTitle(Text("Sale"))
                 .onAppear(perform: self.readSubastas)
             }
         }

@@ -8,6 +8,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import StoreKit
 
 struct PhotoView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -18,11 +19,33 @@ struct PhotoView: View {
     @Binding var url: URL
     @Binding var product: [Product]
     
+    @State var item = Product()
+    @State var error = ""
+    
     @Binding var loading: Bool
     
     @State var showDedicatoryView = false
     @State var dedicatoryItem = Product()
     @State var showCart = false
+    
+    private func purchase(product: SKProduct) {
+        if !IAPManager.shared.canMakePayments() {
+            return
+        } else {
+            IAPManager.shared.buy(product: product) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(_):
+                        print("Comprado")
+                        self.item.addProductToAccount(session: self.session)
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                        self.error = "The puchase has not been completed, please try again"
+                    }
+                }
+            }
+        }
+    }
     
     var body: some View {
         GeometryReader { g in
@@ -64,7 +87,7 @@ struct PhotoView: View {
                         if self.loading {
                             ActivityIndicator(isAnimating: .constant(true), style: .medium).frame(width: g.size.width, height: g.size.height, alignment: .center)
                         } else {
-                            ForEach(self.product, id: \.name) { item in
+                            ForEach(self.product, id: \.skproduct.productIdentifier) { item in
                                 Button(action: {
                                     if item.isDedicated {
                                         withAnimation(.default) {
@@ -72,10 +95,12 @@ struct PhotoView: View {
                                             self.showDedicatoryView = true
                                         }
                                     } else {
-                                        withAnimation(.easeIn(duration: 0.25)) {
-                                            self.session.cart.append(item)
-                                            self.showCart = true
-                                        }
+//                                        withAnimation(.easeIn(duration: 0.25)) {
+//                                            self.session.cart.append(item)
+//                                            self.showCart = true
+//                                        }
+                                        self.item = item
+                                        self.purchase(product: self.item.skproduct)
                                     }
                                 }) {
                                     HStack {

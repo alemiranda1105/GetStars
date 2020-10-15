@@ -82,18 +82,18 @@ struct CreateAutograph: View {
                         self.drawings.removeAll()
                         self.error = ""
                     }) {
-                        Text("Borrar")
-                        .frame(minWidth: 0, maxWidth: 70)
-                        .padding(10)
-                        .background(Color("naranja"))
-                        .foregroundColor(.white)
-                        .cornerRadius(50)
+                        Text("Delete")
+                            .frame(minWidth: 0, maxWidth: 70)
+                            .padding(10)
+                            .background(Color("naranja"))
+                            .foregroundColor(.white)
+                            .cornerRadius(50)
                     }.padding()
                     
                     Spacer()
                     
                     if error != "" {
-                        Text((error))
+                        Text(LocalizedStringKey(self.error))
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.red)
                             .padding()
@@ -135,19 +135,19 @@ struct CreateAutograph: View {
                             self.error = ""
                             self.drawings.removeAll()
                         } else {
-                            self.error = self.langStr == "en" ? "Draw something before save": "Haga un autógrafo antes de guardar"
+                            self.error = "Draw something before save"
                         }
                     }){
-                        Text("Guardar")
-                        .frame(minWidth: 0, maxWidth: 70)
-                        .padding(10)
-                        .background(Color("navyBlue"))
-                        .foregroundColor(.white)
-                        .cornerRadius(50)
+                        Text("Save")
+                            .frame(minWidth: 0, maxWidth: 70)
+                            .padding(10)
+                            .background(Color("navyBlue"))
+                            .foregroundColor(.white)
+                            .cornerRadius(50)
                     }.padding()
                 }.sheet(isPresented: self.$showColorMenu) {
                     VStack {
-                        Text("Seleccione un color:").font(.system(size: 32, weight: .bold)).padding()
+                        Text("Select a color:").font(.system(size: 32, weight: .bold)).padding()
                         
                         Spacer()
                         
@@ -160,7 +160,7 @@ struct CreateAutograph: View {
                                 self.color = Color(self.uiColor)
                                 self.showColorMenu.toggle()
                             }) {
-                                Text("Negro")
+                                Text("Black")
                                     .font(.system(size: 14, weight: .semibold))
                                     .frame(minWidth: 0, maxWidth: 50)
                                     .padding(10)
@@ -174,7 +174,7 @@ struct CreateAutograph: View {
                                 self.color = Color(self.uiColor)
                                 self.showColorMenu.toggle()
                             }) {
-                                Text("Blanco")
+                                Text("White")
                                     .font(.system(size: 14, weight: .semibold))
                                     .frame(minWidth: 0, maxWidth: 50)
                                     .padding(10)
@@ -195,7 +195,7 @@ struct CreateAutograph: View {
                             self.color = Color(self.uiColor)
                             self.showColorMenu.toggle()
                         }) {
-                            Text("Elegir color")
+                            Text("Choose a color")
                                 .font(.system(size: 18, weight: .semibold))
                                 .frame(minWidth: 0, maxWidth: .infinity)
                                 .padding(10)
@@ -209,7 +209,7 @@ struct CreateAutograph: View {
                 }
             } else {
                 VStack {
-                    Text("El autógrafo ha sido guardado con éxito")
+                    Text("The autograph have been correctly saved")
                         .font(.system(size: 24, weight: .heavy))
                         .multilineTextAlignment(.center)
                         .padding()
@@ -219,7 +219,7 @@ struct CreateAutograph: View {
                     Button(action: {
                         self.saved = false
                     }) {
-                        Text("Realizar otro autógrafo")
+                        Text("Make another one")
                         .frame(minWidth: 0, maxWidth: .infinity)
                         .padding()
                         .background(Color("navyBlue"))

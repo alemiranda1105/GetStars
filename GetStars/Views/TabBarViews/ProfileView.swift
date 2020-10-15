@@ -14,7 +14,7 @@ struct ProfileView: View {
     
     @EnvironmentObject var session: SessionStore
     
-    private var cats = ["Compras", "Dedicatorias", "Autógrafos"]
+    private var cats = ["Purchases", "Dedicated", "Autographs"]
     @State var catSeleccionada = 0
     
     @State var visible: Bool = false
@@ -88,7 +88,7 @@ struct ProfileView: View {
                                     
                                     Picker(selection: self.$catSeleccionada, label: Text("")) {
                                         ForEach(0 ..< self.cats.count) {
-                                            Text(self.cats[$0])
+                                            Text(LocalizedStringKey(self.cats[$0]))
                                         }
                                     }.padding().pickerStyle(SegmentedPickerStyle())
                                         
@@ -140,11 +140,11 @@ struct ProfileView: View {
                                                     }.buttonStyle(PlainButtonStyle())
                                                 }
                                                 
-                                                NavigationLink(destination: ArticleProfileView(type: .constant("autFot"), title: .constant("Fotos"))) {
+                                                NavigationLink(destination: ArticleProfileView(type: .constant("autFot"), title: .constant("Photos"))) {
                                                     VStack {
                                                         HStack {
                                                             VStack {
-                                                                Text("Foto")
+                                                                Text("Photos")
                                                                     .font(.system(size: 22, weight: .bold))
                                                                 Spacer()
                                                                 Image(systemName: "camera")
@@ -165,11 +165,11 @@ struct ProfileView: View {
                                                     }
                                                 }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                                                 
-                                                NavigationLink(destination: ArticleProfileView(type: .constant("aut"), title: .constant("Autógrafos"))) {
+                                                NavigationLink(destination: ArticleProfileView(type: .constant("aut"), title: .constant("Autograph"))) {
                                                     VStack {
                                                         HStack {
                                                             VStack {
-                                                                Text("Autógrafo")
+                                                                Text("Autograph")
                                                                     .font(.system(size: 22, weight: .bold))
                                                                 Spacer()
                                                                 Image(systemName: "hand.draw")
@@ -181,7 +181,7 @@ struct ProfileView: View {
                                                             Spacer()
                                                             
                                                             VStack {
-                                                                Text("Autógrafo: \((self.session.data?.compras["aut"]?.count) ?? 0)")
+                                                                Text("Autograph: \((self.session.data?.compras["aut"]?.count) ?? 0)")
                                                             }.multilineTextAlignment(.center)
                                                             
                                                         }.padding()
@@ -206,7 +206,7 @@ struct ProfileView: View {
                                                             Spacer()
                                                             
                                                             VStack {
-                                                                Text("Ver Lives recibidos")
+                                                                Text("Received lives")
                                                             }.multilineTextAlignment(.center)
                                                             
                                                         }.padding()
@@ -237,17 +237,17 @@ struct ProfileView: View {
                                                 }
                                                 
                                                 VStack {
-                                                    Text("Artículos con dedicatoria pendientes de revisión:")
+                                                    Text("Articles with dedication pending review:")
                                                     Text("\(self.session.revisonesPendientes.count)")
                                                 }.font(.system(size: 18, weight: .regular))
                                                     .foregroundColor(.primary)
                                                     .padding()
                                                 
-                                                NavigationLink(destination: ArticleProfileView(type: .constant("fotDed"), title: .constant("Fotos dedicadas"))) {
+                                                NavigationLink(destination: ArticleProfileView(type: .constant("fotDed"), title: .constant("Dedicated photos"))) {
                                                     VStack {
                                                         HStack {
                                                             VStack {
-                                                                Text("Foto")
+                                                                Text("Photos")
                                                                     .font(.system(size: 22, weight: .bold))
                                                                 Spacer()
                                                                 Image(systemName: "camera")
@@ -259,7 +259,7 @@ struct ProfileView: View {
                                                             Spacer()
                                                             
                                                             VStack {
-                                                                Text("Foto dedicada: \((self.session.data?.compras["fotDed"]?.count) ?? 0)")
+                                                                Text("Dedicated photos: \((self.session.data?.compras["fotDed"]?.count) ?? 0)")
                                                             }
                                                             
                                                         }.padding()
@@ -272,7 +272,7 @@ struct ProfileView: View {
                                                     VStack {
                                                         HStack {
                                                             VStack {
-                                                                Text("Autógrafo")
+                                                                Text("Autograph")
                                                                     .font(.system(size: 22, weight: .bold))
                                                                 Spacer()
                                                                 Image(systemName: "hand.draw")

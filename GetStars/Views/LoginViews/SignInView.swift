@@ -43,7 +43,7 @@ struct SignInView: View {
                         .font(.callout)
                         .bold()
                     
-                    TextField("Email", text: $email)
+                    TextField(LocalizedStringKey("Email"), text: $email)
                     .font(.system(size: 14))
                     .padding(10)
                     .background(
@@ -53,11 +53,11 @@ struct SignInView: View {
                 }
                 
                 VStack(alignment: .leading) {
-                    Text("Contraseña")
+                    Text("Password")
                         .font(.callout)
                         .bold()
                     
-                    SecureField("Contraseña", text: $password)
+                    SecureField(LocalizedStringKey("Password"), text: $password)
                         .font(.system(size: 14))
                         .padding(10)
                         .autocapitalization(.none)
@@ -68,7 +68,7 @@ struct SignInView: View {
                     Button(action: {
                         self.restorePassword()
                     }) {
-                        Text("Recuperar contraseña")
+                        Text("Restore password")
                             .foregroundColor(colorScheme == .dark ? Color("naranja"): Color("navyBlue"))
                     }
                 }
@@ -76,7 +76,7 @@ struct SignInView: View {
             }.padding(.vertical, 64)
             
             if (error != ""){
-                Text(error)
+                Text(LocalizedStringKey(error))
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(.red)
                     .padding()
@@ -85,7 +85,7 @@ struct SignInView: View {
             Spacer()
             
             Button(action: signIn){
-                Text("Iniciar Sesión")
+                Text("Sign In")
                 .frame(minWidth: 0, maxWidth: .infinity)
                 .padding()
                 .background(Color("navyBlue"))
@@ -96,7 +96,7 @@ struct SignInView: View {
         }
         .padding(.horizontal, 8)
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-        .navigationBarTitle(Text("Bienvenido de nuevo"))
+        .navigationBarTitle(Text("Welcome back!"))
         .onAppear(perform: { self.session.signing = true })
     }
 }

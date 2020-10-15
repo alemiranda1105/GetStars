@@ -14,16 +14,14 @@ struct CategoryView: View {
     @Environment(\.colorScheme) var colorScheme
     private let langStr = Locale.current.languageCode
     
-    let cats: [Category] = [Category(name: "Deportes"), Category(name: "Musica"), Category(name: "Televisión"), Category(name: "Cine")]
-    
-    let enCats: [Category] = [Category(name: "Sports"), Category(name: "Music"), Category(name: "Tv"), Category(name: "Movies")]
+    let cats: [Category] = [Category(name: "Sports"), Category(name: "Music"), Category(name: "Tv"), Category(name: "Movies")]
     
     var body: some View {
-        List(self.langStr == "en" ? enCats: cats) { c in
+        List(self.cats) { c in
             NavigationLink(destination: SubcategoryView(cat: c.name).environmentObject(self.session)) {
-                Text("\(c.name)")
+                Text(LocalizedStringKey(c.name))
             }
-        }.navigationBarTitle(Text("Categorías"))
+        }.navigationBarTitle(Text("Categories"))
         .navigationBarItems(trailing:
             NavigationLink(destination: PaymentView(product: Product()).environmentObject(self.session)) {
                 Image(systemName: "cart").resizable().frame(width: 28.0, height: 28.0)

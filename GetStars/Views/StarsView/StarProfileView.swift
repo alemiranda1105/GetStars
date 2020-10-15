@@ -14,7 +14,7 @@ struct StarProfileView: View {
     
     @EnvironmentObject var session: SessionStore
     
-    private var cats = ["Productos", "Sorteos", "Subastas"]
+    private var cats = ["Products", "Raffles", "Sales"]
     @State var catSeleccionada = 0
     
     @State var loading = true
@@ -69,7 +69,6 @@ struct StarProfileView: View {
     }
     
     private func changePrice() {
-        print("Hola")
         let db = StarsDB()
         db.updatePrice(price: self.newPrice, article: self.product, key: self.session.data?.getUserKey() ?? "")
         self.newPrice = 0.0
@@ -103,7 +102,7 @@ struct StarProfileView: View {
                             
                             if self.catSeleccionada == 0 {
                                 HStack {
-                                    Text("Productos")
+                                    Text("Products")
                                         .font(.system(size: 18, weight: .bold))
                                         .padding()
                                     
@@ -130,7 +129,7 @@ struct StarProfileView: View {
                                             self.showProductDetail = true
                                         }) {
                                             VStack {
-                                                Text("Foto")
+                                                Text("Photo")
                                                     .font(.system(size: 22, weight: .bold))
                                                 Spacer()
                                                 Image(systemName: "camera")
@@ -151,7 +150,7 @@ struct StarProfileView: View {
                                             self.showProductDetail = true
                                         }) {
                                             VStack {
-                                                Text("Autógrafo")
+                                                Text("Autograph")
                                                     .font(.system(size: 22, weight: .bold))
                                                 Spacer()
                                                 Image(systemName: "hand.draw")
@@ -159,7 +158,7 @@ struct StarProfileView: View {
                                                     .frame(width: 45, height: 45, alignment: .center)
                                                     .scaledToFit()
                                                 Spacer()
-                                                Text("Autógrafo: \(self.session.data?.ventas["aut"] ?? 0)")
+                                                Text("Autograph: \(self.session.data?.ventas["aut"] ?? 0)")
                                             }
                                         }.frame(width: 125, height: 125)
                                         .padding()
@@ -170,7 +169,7 @@ struct StarProfileView: View {
                                 }
                                 
                                 HStack {
-                                    Text("Productos dedicados")
+                                    Text("Dedicated product")
                                     .font(.system(size: 18, weight: .bold))
                                     .padding()
                                     Spacer()
@@ -184,7 +183,7 @@ struct StarProfileView: View {
                                             self.showProductDetail = true
                                         }) {
                                             VStack {
-                                                Text("Foto dedicada")
+                                                Text("Dedicated photos")
                                                     .font(.system(size: 22, weight: .bold))
                                                 Spacer()
                                                 Image(systemName: "camera")
@@ -192,7 +191,7 @@ struct StarProfileView: View {
                                                     .frame(width: 45, height: 45, alignment: .center)
                                                     .scaledToFit()
                                                 Spacer()
-                                                Text("Foto: \(self.session.data?.ventas["fotDed"] ?? 0)")
+                                                Text("Photo: \(self.session.data?.ventas["fotDed"] ?? 0)")
                                             }
                                         }.frame(width: 125, height: 125)
                                         .padding()
@@ -246,7 +245,7 @@ struct StarProfileView: View {
                                             Spacer()
                                             
                                             VStack {
-                                                Text("Videos dedicados: \(self.session.data?.ventas["live"] ?? 0)")
+                                                Text("\(self.session.data?.ventas["live"] ?? 0)")
                                             }.multilineTextAlignment(.center)
                                             
                                         }.padding()
@@ -257,7 +256,7 @@ struct StarProfileView: View {
                                 
                             } else if self.catSeleccionada == 1 {
                                 NavigationLink(destination: AddSorteoView().environmentObject(self.session)) {
-                                    Text("Crear un nuevo sorteo")
+                                    Text("Create a new raffle")
                                         .frame(minWidth: 0, maxWidth: .infinity)
                                         .padding()
                                         .background(Color.init(hex: "00b0ff"))
@@ -267,7 +266,7 @@ struct StarProfileView: View {
                                 }.padding()
                                 
                                 NavigationLink(destination: SorteosView().environmentObject(self.session)){
-                                    Text("Ver todos los sorteos")
+                                    Text("Take a look of all raffles")
                                         .frame(minWidth: 0, maxWidth: .infinity)
                                         .padding(50)
                                         .background(Color("gris"))
@@ -278,7 +277,7 @@ struct StarProfileView: View {
                                 
                             } else {
                                 NavigationLink(destination: AddSubastaView().environmentObject(self.session)) {
-                                    Text("Crear una nueva subasta")
+                                    Text("Create a new sale")
                                         .frame(minWidth: 0, maxWidth: .infinity)
                                         .padding()
                                         .background(Color("naranja"))
@@ -288,7 +287,7 @@ struct StarProfileView: View {
                                 }.padding()
                                 
                                 NavigationLink(destination: SubastaView().environmentObject(self.session)){
-                                    Text("Ver todas las subastas")
+                                    Text("Take a look of all sales")
                                         .frame(minWidth: 0, maxWidth: .infinity)
                                         .padding(50)
                                         .background(Color("gris"))
@@ -319,7 +318,7 @@ struct StarProfileView: View {
                                         Button(action: {
                                             self.showProductDetail = false
                                         }) {
-                                            Text("Cancelar")
+                                            Text("Cancel")
                                         }
                                     }.padding()
                                     
@@ -344,68 +343,13 @@ struct StarProfileView: View {
                                         self.showImagePicker.toggle()
                                         
                                     }) {
-                                        Text("Editar imagen")
+                                        Text("Edit image")
                                             .frame(minWidth: 0, maxWidth: .infinity)
                                             .padding(14)
                                             .background(Color("navyBlue"))
                                             .foregroundColor(.white)
                                             .cornerRadius(50)
                                     }.padding(8)
-                                    
-                                    /*Button(action: {
-                                        // Cambiar precio
-                                        self.readPrice()
-                                        self.priceUpdateMenu = true
-                                        
-                                    }) {
-                                        Text("Cambiar precio")
-                                            .frame(minWidth: 0, maxWidth: .infinity)
-                                            .padding(14)
-                                            .background(Color("naranja"))
-                                            .foregroundColor(.white)
-                                            .cornerRadius(50)
-                                    }.padding(8)
-                                    .sheet(isPresented: self.$priceUpdateMenu) {
-                                        Group {
-                                            HStack {
-                                                Spacer()
-                                                
-                                                Button(action: {
-                                                    self.newPrice = (self.priceString as NSString).doubleValue
-                                                    if self.price != self.newPrice && self.newPrice > 0.0 {
-                                                        self.changePrice()
-                                                    }
-                                                    self.priceUpdateMenu = false
-                                                }) {
-                                                    
-                                                    Text("Actualizar")
-                                                    
-                                                }.padding()
-                                            }
-                                            
-                                            VStack(spacing: 60) {
-                                                Text("Precio actual: \(self.price.dollarString)€")
-                                                    .font(.system(size: 22, weight: .bold))
-                                                    .padding()
-                                                
-                                                VStack {
-                                                    Text("Introduzca el nuevo precio")
-                                                        .font(.system(size: 16, weight: .regular))
-                                                    
-                                                    TextField("Nuevo precio", text: self.$priceString)
-                                                        .padding(6)
-                                                        .background(
-                                                            RoundedRectangle(cornerRadius: 5)
-                                                                .strokeBorder(Color("naranja"), lineWidth: 1))
-                                                        .keyboardType(.decimalPad)
-                                                        .frame(minWidth: 0, maxWidth: .infinity)
-                                                }.padding()
-                                                
-                                                Spacer()
-                                                
-                                            }
-                                        }
-                                    }*/
                                     
                                 }.frame(width: g.size.width, height: g.size.height, alignment: .center)
                             }

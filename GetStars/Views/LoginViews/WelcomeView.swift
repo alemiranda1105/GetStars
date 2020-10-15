@@ -20,15 +20,15 @@ struct WelcomeView: View {
         NavigationView {
             VStack {
                 VStack {
-                    Text("Bienvenido a GetStars").font(.system(size: 32, weight: .heavy))
+                    Text("Welcome to GetStars").font(.system(size: 32, weight: .heavy))
                     
-                    Text("El lugar donde se juntan las estrellas").font(.system(size: 18, weight: .medium)).foregroundColor(.gray)
+                    Text("The place where stars join").font(.system(size: 18, weight: .medium)).foregroundColor(.gray)
                     
                     Spacer(minLength: 150)
                 
                     VStack(spacing: 18){
                         NavigationLink(destination: SignInView().environmentObject(self.session)){
-                            Text("Inicia sesión")
+                            Text("Sign In")
                                 .frame(minWidth: 0, maxWidth: .infinity)
                                 .padding()
                                 .background(Color("navyBlue"))
@@ -38,7 +38,7 @@ struct WelcomeView: View {
                         }
                         
                         NavigationLink(destination: SignUpView().environmentObject(self.session)){
-                            Text("Registro")
+                            Text("Sign Up")
                                 .frame(minWidth: 0, maxWidth: .infinity)
                                 .padding()
                                 .overlay(
@@ -55,7 +55,7 @@ struct WelcomeView: View {
                         
                         HStack(spacing: 16){
                             NavigationLink(destination: LoginMethodsView().environmentObject(self.session)){
-                                Text("Otros métodos...")
+                                Text("Other ways...")
                                     .frame(minWidth: 0, maxWidth: .infinity)
                                     .padding()
                                     .background(Color.init("naranja").opacity(colorScheme == .dark ? 1 : 0.8))
@@ -78,7 +78,7 @@ struct LoginMethodsView: View {
     @EnvironmentObject var session: SessionStore
     var body: some View {
         VStack {
-            Text("Si es la primera vez que entras en la app, recomendamos registrarse de manera manual para una mejor experiencia")
+            Text("If this is the first time using the app, we recommend to sign up using email/password for a better experience")
                 .font(.system(size: 18, weight: .medium))
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.center)

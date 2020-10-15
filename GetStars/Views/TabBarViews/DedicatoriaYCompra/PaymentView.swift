@@ -55,7 +55,7 @@ struct PaymentView: View {
             case .autografoDedicado:
                 cat = "autDed"
                 break
-            case .fotoDedicada:
+            case .fotoDedicada, .fotoDedicadaCustom:
                 cat = "fotDed"
                 break
             case .fotoConAutografo:
@@ -110,7 +110,7 @@ struct PaymentView: View {
                 let dg = DispatchGroup()
                 
                 // owner = imagen del articulo
-                self.session.db.addCompraToUserDB(email: self.session.session?.email ?? "", compra: cat, owner: i.image, dg: dg)
+                self.session.db.addCompraToUserDB(email: self.session.session?.email ?? "", compra: cat, url: i.image, dg: dg)
                 dg.notify(queue: DispatchQueue.global(qos: .background)) {
                     print("Compra de \(cat) añadida")
                 }

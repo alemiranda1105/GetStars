@@ -82,7 +82,7 @@ struct LoadIndicatorView: View {
                         self.fillPoint = 1.0
                     }
             }
-            Text("Cargando").padding()
+            Text("Loading...").padding()
 
         }.onAppear {
             self.loadData()
