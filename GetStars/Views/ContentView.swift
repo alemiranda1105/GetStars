@@ -74,19 +74,21 @@ struct LoadIndicatorView: View {
     }
 
     var body: some View {
-        VStack{
-            Ring(fillPoint: fillPoint).stroke(Color("naranja"), lineWidth: 10)
-                .frame(width: 100, height: 100)
-                .onAppear() {
-                    withAnimation(self.animation) {
-                        self.fillPoint = 1.0
-                    }
-            }
-            Text("Loading...").padding()
-
-        }.onAppear {
-            self.loadData()
-        }
+        ActivityIndicator(isAnimating: .constant(true), style: .large)
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+//        VStack{
+//            Ring(fillPoint: fillPoint).stroke(Color("naranja"), lineWidth: 10)
+//                .frame(width: 100, height: 100)
+//                .onAppear() {
+//                    withAnimation(self.animation) {
+//                        self.fillPoint = 1.0
+//                    }
+//            }
+//            Text("Loading...").padding()
+//
+//        }.onAppear {
+//            self.loadData()
+//        }
     }
 }
 

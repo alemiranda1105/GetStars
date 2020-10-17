@@ -18,37 +18,43 @@ struct HomeView: View {
     @State var loading = true
     
     private func getFamous() {
-        self.data = [Person]()
-        
-        let st = StarsST()
-        let db = StarsDB()
-        var url = URL(string: "")
         let dg = DispatchGroup()
-        db.readKeys(dg: dg)
-        dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-            let keys = db.getKeys()
-            self.session.db.readDataUser(session: self.session, dg: dg)
-            dg.wait()
-            print("DATOS USUARIOS LEIDOS HOME")
-            for i in keys {
-                st.getProfileImage(key: i, dg: dg)
-                dg.wait()
-                
-                url = st.getProfileImgUrl()
-                db.readFamous(key: i, dg: dg)
-                dg.wait()
-                
-                print("Famoso HOME leído")
-                let name = db.getName()
-                let desc = db.getDesc()
-                let p = Person(name: name, description: desc, image: url!, key: i)
-                if !p.isContained(array: self.data) {
-                    self.data.append(p)
-                }
-                
-            }
+        let hd = HomeData(session: self.session, group: dg)
+        dg.notify(queue: DispatchQueue.global(qos: .background)) {
+            self.data = hd.data
             self.loading = false
         }
+//        self.data = [Person]()
+//
+//        let st = StarsST()
+//        let db = StarsDB()
+//        var url = URL(string: "")
+//        let dg = DispatchGroup()
+//        db.readKeys(dg: dg)
+//        dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+//            let keys = db.getKeys()
+//            self.session.db.readDataUser(session: self.session, dg: dg)
+//            dg.wait()
+//            print("DATOS USUARIOS LEIDOS HOME")
+//            for i in keys {
+//                st.getProfileImage(key: i, dg: dg)
+//                dg.wait()
+//
+//                url = st.getProfileImgUrl()
+//                db.readFamous(key: i, dg: dg)
+//                dg.wait()
+//
+//                print("Famoso HOME leído")
+//                let name = db.getName()
+//                let desc = db.getDesc()
+//                let p = Person(name: name, description: desc, image: url!, key: i)
+//                if !p.isContained(array: self.data) {
+//                    self.data.append(p)
+//                }
+//
+//            }
+//            self.loading = false
+//        }
     }
     
     var body: some View {
@@ -84,9 +90,11 @@ struct HomeView: View {
                                     PersonCard(person: self.$data[item]).environmentObject(self.session)
                                         .frame(width: g.size.width)
                                     
-                                    BannerCardView()
-                                        .frame(width: g.size.width, alignment: .center)
-                                        .padding()
+                                    if (item + 1) % 3 == 0 {
+                                        BannerCardView()
+                                            .frame(width: g.size.width, alignment: .center)
+                                            .padding()
+                                    }
                                 }
                             }
                             
@@ -100,6 +108,45 @@ struct HomeView: View {
                     )
                 }
             }
+        }
+    }
+}
+
+fileprivate class HomeData: ObservableObject {
+    var data: [Person]
+    var loading: Bool = true
+    
+    init(session: SessionStore, group: DispatchGroup) {
+        group.enter()
+        self.data = [Person]()
+        let dg = DispatchGroup()
+        let st = StarsST()
+        let db = StarsDB()
+        var url = URL(string: "")
+        db.readKeys(dg: dg)
+        dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+            let keys = db.getKeys()
+            session.db.readDataUser(session: session, dg: dg)
+            dg.wait()
+            print("DATOS USUARIOS LEIDOS HOME")
+            for i in keys {
+                st.getProfileImage(key: i, dg: dg)
+                dg.wait()
+                
+                url = st.getProfileImgUrl()
+                db.readFamous(key: i, dg: dg)
+                dg.wait()
+                
+                print("Famoso HOME leído")
+                let name = db.getName()
+                let desc = db.getDesc()
+                let p = Person(name: name, description: desc, image: url!, key: i)
+                if !p.isContained(array: self.data) {
+                    self.data.append(p)
+                }
+                
+            }
+            group.leave()
         }
     }
 }
