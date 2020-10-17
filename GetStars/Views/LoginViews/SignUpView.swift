@@ -108,10 +108,11 @@ struct SignUpView: View {
                 NavigationLink(destination: (
                     DatePicker(selection: self.$fechaNacimiento, in: self.closedRange, displayedComponents: .date) {
                         Text("Date:")
-                    }.padding(10)
+                    }.frame(width: UIScreen.main.bounds.width, alignment: .center)
+                    .padding(10)
                 )) {
                     Text("Birthday")
-                        .font(.system(size: 16, weight: .semibold))
+                        .font(.system(size: 16, weight: .regular))
                 }
                 
                 
@@ -147,6 +148,9 @@ struct SignUpView: View {
             }
             
             Section(header: Text("Terms of use")) {
+                NavigationLink(destination: TermsView()) {
+                    Text("Read terms")
+                }
                 Toggle(isOn: $condiciones){
                     Text("Accept terms")
                         .font(.system(size: 16))

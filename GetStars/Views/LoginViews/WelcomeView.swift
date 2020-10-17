@@ -84,6 +84,15 @@ struct LoginMethodsView: View {
                 .multilineTextAlignment(.center)
                 .lineLimit(nil)
             
+            NavigationLink(destination: TermsView()) {
+                Text("Press here to read the terms and our privacy policy, please")
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(.gray)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(nil)
+            }.buttonStyle(PlainButtonStyle())
+            .padding()
+            
             Spacer()
             
             GoogleLoginView().environmentObject(self.session)

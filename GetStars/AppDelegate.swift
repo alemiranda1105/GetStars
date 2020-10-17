@@ -27,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IAPManager.shared.startObserving()
         
         // Config Firebase
-        FirebaseApp.configure()
+        let firebaseApp = FirebaseApp.self
+        firebaseApp.configure()
         
         // Google Ads
         if #available(iOS 14.0, *) {
