@@ -36,12 +36,12 @@ struct SignUpView: View {
     
     func signUp() {
         if (name == "") {
-            error = "Introduzca correctamente los datos"
+            error = "Introduce valid information"
             return
         }
         
         if !condiciones {
-            error = "Acepte las condiciones antes de continuar"
+            error = "Accept conditions before continue"
             return
         }
         
@@ -92,8 +92,8 @@ struct SignUpView: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Género")) {
-                Picker(selection: $generoSeleccionado, label: Text("Género")) {
+            Section(header: Text("Genre")) {
+                Picker(selection: $generoSeleccionado, label: Text("Genre")) {
                     ForEach(0 ..< generos.count) {
                         self.generos[$0]
                     }

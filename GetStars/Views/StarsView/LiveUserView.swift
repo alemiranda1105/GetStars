@@ -32,21 +32,21 @@ struct LiveUserView: View {
                     Spacer()
                     
                     HStack {
-                        Button(action: {
-                            // Reportar mensaje ofensivo
-                            
-                        }) {
-                            HStack(spacing: 5) {
-                                Text("Report")
-                                Image(systemName: "exclamationmark.triangle")
-                            }
-                            .padding(14)
-                            .foregroundColor(.white)
-                            .background(Color.red)
-                            .cornerRadius(60)
-                        }
-                        
-                        Spacer()
+//                        Button(action: {
+//                            // Reportar mensaje ofensivo
+//                            
+//                        }) {
+//                            HStack(spacing: 5) {
+//                                Text("Report")
+//                                Image(systemName: "exclamationmark.triangle")
+//                            }
+//                            .padding(14)
+//                            .foregroundColor(.white)
+//                            .background(Color.red)
+//                            .cornerRadius(60)
+//                        }
+//                        
+//                        Spacer()
                         
                         Button(action: {
                             // Muestra el menú de camara

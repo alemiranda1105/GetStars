@@ -108,7 +108,7 @@ struct AddSorteoView: View {
                                     .resizable()
                                     .scaledToFit()
                                 
-                                Text("Choose a image")
+                                Text("Choose an image")
                                     .font(.system(size: 16, weight: .regular))
                             }.frame(alignment: .center)
                         }
@@ -116,7 +116,7 @@ struct AddSorteoView: View {
                     }
                     
                     Section(header: Text("Raffle's information:")) {
-                        TextField("Name", text: self.$name)
+                        TextField(LocalizedStringKey("Name"), text: self.$name)
                         
                         if #available(iOS 14.0, *) {
                             NavigationLink(destination: (

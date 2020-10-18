@@ -1,10 +1,218 @@
-/* 
+/*
   Localizable.strings
   GetStars
 
   Created by Alejandro Miranda on 21/08/2020.
   Copyright © 2020 Marquelo S.L. All rights reserved.
 */
+
+// WelcomeView
 "Loading..." = "Cargando...";
 "Welcome to GetStars" = "Bienvenido a GetStars";
-"El lugar donde se juntan las estrelas" = "The place where stars join";
+"The place where stars join" = "El lugar donde se juntan las estrellas";
+"Sign up" = "Registro";
+"Sign in" = "Iniciar sesión";
+"Other ways..." = "Otras maneras...";
+
+// LoginMethodsView
+"If this is the first time using the app, we recommend to sign up using email/password for a better experience" = "Si es su primera vez usando la app, le recomendamos que inicie sesión con el correo y la contraseña para una mejor experiencia";
+"Press here to read the terms and our privacy policy, please" = "Pulse aquí para leer nuestros términos de uso y nuestra política de privacidad, por favor";
+
+// SignInView
+"Error al recuperar su contraseña" = "Error al recuperar su contraseña";
+"Password" = "Contraseña";
+"Restore password" = "Recuperar contraseña";
+"Welcome back!" = "¡Bienvenido de nuevo!";
+
+// SignUpView
+"🙎‍♂️Man" = "🙎‍♂️Hombre";
+"🙎‍♀️Women" = "🙎‍♀️Mujer";
+"Not say it" = "No decirlo";
+"Introduce valid information" = "Introduce correctamente los datos";
+"Accept conditions before continue" = "Acepte las condiciones antes de continuar";
+"Genre" = "Género";
+"Personal Information" = "Datos personales";
+"Full name" = "Nombre completo";
+"Date:" = "Fecha:";
+"Birthday" = "Cumpleaños";
+"Terms of use" = "Términos de uso";
+"Read terms" = "Leer los términos";
+"Accept terms" = "Aceptar los términos";
+"Create an account" = "Crear una cuenta";
+
+// SelectDedicatoryType
+"Dedicated message" = "Mensaje dedicado";
+"Dedication for a birthday" = "Felicitación de cumpleaños";
+"Dedication for someone sick" = "Dedicación para un fan enfermo";
+"Dedication for a fan" = "Dedicatoria para un fan";
+"The puchase has not been completed, please try again" = "La compra no ha sido completada, por favor, inténtelo de nuevo";
+"You have choosen a dedicated picture" = "Has elegido una foto dedicada";
+"Custom message from the star:" = "Mensaje personalizado de la estrella:";
+"Select a custom message from the star:" = "Selecciona un mensaje personalizado:";
+"Buy" = "Comprar";
+
+// PersonView
+"Products" = "Productos";
+"Autograph" = "Autógrafo";
+"Photo" = "Foto";
+
+// FamousItems
+"Photos" = "Fotos";
+
+// HomeView
+"Home" = "Inicio";
+
+// SearchView
+"Search" = "Buscar";
+"Highlights" = "Destacados";
+"Trending" = "Populares";
+"New" = "Novedades";
+"Categories" = "Categorías";
+"Oh! The user you were searching may not exists" = "¡Vaya! parece que el usuario que estabas buscando no existe";
+
+// CategoryView
+"Sports" = "Deportes";
+"Music" = "Música";
+"Movies" = "Cine";
+
+// CreateAutograph
+"Delete" = "Borrar";
+"Draw something before save" = "Dibuja algo antes de guardar";
+"Save" = "Guardar";
+"Select a color:" = "Elige un color:";
+"Black" = "Negro";
+"White" = "Blanco";
+"Choose a color" = "Elige un color";
+"The autograph have been correctly saved" = "El autógrafo se ha subido correctamente";
+"Make another one" = "Hacer otro";
+
+// BuyDrawView
+"Sale" = "Subasta";
+"Raffle" = "Sorteo";
+"Shop" = "Tienda";
+
+// SubastaProductView
+"You have already participated in this bid and you cannot bid again until someone else bids" = "Ya has participado en esta subasta, tienes que esperar a que otro puje para volver a hacerlo";
+"Actual price: " = "Precio actual: ";
+"Bid" = "Pujar";
+"Bid: " = "Pujar: ";
+
+// SorteoProductView
+"Join" = "Participar";
+"You have already joined" = "Ya estás participando";
+"Leave the raffle" = "Salir del sorteo";
+
+// CreateLiveView
+"Write a message, please" = "Escriba un mensaje, por favor";
+"The message exceeds 80 characters" = "El mensaje tiene más de 80 caracteres";
+"Do not enter offensive words" = "No introduzca palabras ofensivas";
+"Congratulations, you live have been correctly added" = "Enhorabuena, tu live ha sido añadido correctamente";
+"Go back" = "Volver atrás";
+
+// LivePlayerView
+"Live uploaded" = "Live subido";
+"The live has been uploaded and the user may watch it in its personal space, thank you." = "El live se ha subido y el usuario ya podrá disfrutar de él en su espacio personal, gracias";
+"Record other live" = "Grabar otro live";
+
+// ProfileView
+"Purchases" = "Compras";
+"Dedicated" = "Dedicados";
+"Autographs" = "Autógrafos";
+"Received lives" = "Lives recibidos";
+"Articles with dedication pending review:" = "Artículos pendientes de revisión";
+"Profile" = "Perfil";
+
+// UserLivePlayerView
+"Download live" = "Descargar live";
+
+// UserLiveList
+"No live has been purchased, visit our store to discover a new experience" = "No has adquirido ningún live, visita nuestra tienda para descubrir una nueva experiencia";
+"You do not have any live of this famous or an error has occurred, try again" = "No tienes ningún live de esta estrella o ha acurrido un error, inténtelo de nuevo";
+
+// ConfigurationVIew
+"Personal information" = "Datos personales";
+"Edit personal information" = "Editar datos personales";
+"Change password" = "Cambiar contraseña";
+"About" = "Información";
+"Version" = "Versión";
+"Contact" = "Contacto";
+"Log out" = "Cerrar sesión";
+"Do you really want to log out?" = "¿Estás seguro de que quieres cerrar sesión?";
+"Cancel" = "Cancelar";
+"Delete account" = "Borrar cuenta";
+"Attetion" = "Atención";
+"You are about to delete your account, are you sure?" = "Estás a punto de borrar tu cuenta, ¿estás seguro?";
+"Settings" = "Ajustes";
+"Information" = "Información";
+"Name:" = "Nombre";
+"Name" = "Nombre";
+"Save changes" = "Guardar cambios";
+"Actual password" = "Contraseña actual";
+"NOTE: In case of not remembering the password, you should contact the app support" = "NOTA: En caso de no recordar tu contraseña, ponte en contacto con el soporte de GetStars";
+"Password's length must be grater than 6 characters" = "La longitud debe ser mayor a 6 caracteres";
+"New password" = "Nueva contraseña";
+"Update password" = "Actualizar contraseña";
+"You are about to delete your account!" = "¡Estás a punto de borrar tu cuenta!";
+"That means you will immediately lose all your purchases unless you have downloaded and stored them correctly" = "Esto significa que se perderán todas tus compras a no ser que las hayas descargado y guardado correctamente";
+
+// AutographProfileView
+"Download autograph" = "Descargar autógrafo";
+"Delete autograph" = "Borrar autógrafo";
+
+// DetailedArticleView
+"Download image" = "Descargar imagen";
+
+// TermsView
+"Terms" = "Términos de uso";
+"Privacy policy" = "Política de privacidad";
+"Something has gone wrong, please try again" = "Algo ha ido mal, inténtelo de nuevo";
+"Terms and privacy" = "Términos y privacidad";
+
+// SupportView
+"Support" = "Soporte";
+"Contact support" = "Contactar con soporte";
+"Suggestions" = "Sugerencias";
+"Send us any suggestions" = "Envíanos cualquier sugerencia que tengas";
+"Get in touch with us" = "Ponte en contacto con nosotros";
+
+// StarProfileView
+"Dedicated products" = "Productos dedicados";
+"Dedicated photos" = "Fotos dedicadas";
+"Dedicated aut." = "Aut. dedicados";
+"Create a new raffle" = "Crear un nuevo sorteo";
+"Take a look of all raffles" = "Ver todos los sorteos";
+"Create a new sale" = "Crear una nueva subasta";
+"Take a look of all sales" = "Ver todas las subastas";
+"Edit image" = "Editar imagen";
+
+// ChangeProductImageView
+"Choose another image" = "Escoger otra imagen";
+"Upload image" = "Subir imagen";
+
+// ManageLiveView
+"It looks that there's no one left" = "Parece que no queda nadie";
+
+// LiveUserView
+"Create" = "Crear";
+
+// AddSorteoView
+"Write a name, please" = "Escriba un nombre, por favor";
+"Set a description, please" = "Escriba una descripción, por favor";
+"The date cannot be the same as today" = "La fecha no puede ser igual a hoy";
+"An image must be upload" = "Debe subir una imagen";
+"The raffle have been uploaded correctly" = "El sorteo se ha subido correctamente";
+"Image" = "Imagen";
+"Choose an image" = "Selecciona una imagen";
+"Raffle's information:" = "Info. del sorteo:";
+"Description" = "Descripción";
+"Finish date" = "Fecha de finalización";
+"Date" = "Fecha";
+"Upload raffle" = "Subir sorteo";
+"New raffle" = "Nuevo sorteo";
+
+// AddSubastaView
+"The bid have been uploaded correctly" = "La subasta se ha subido correctamente";
+"Bid's information:" = "Info. de la subasta";
+"Starting price" = "Precion inicial";
+"Upload sale" = "Subir puja";
+"New sale" = "Nueva puja";

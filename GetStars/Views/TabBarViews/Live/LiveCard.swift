@@ -10,6 +10,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct LiveCard: View {
+    private let langStr = Locale.current.languageCode
     @EnvironmentObject var session: SessionStore
     
     @Binding var person: Person
@@ -53,9 +54,15 @@ struct LiveCard: View {
                                 .font(.system(size: 32, weight: .bold))
                                 .lineLimit(1)
                                 .frame(width: 350)
-                            Text("Participantes: \(self.nParticipantes) de 1000")
-                                .foregroundColor(.white)
-                                .font(.system(size: 24, weight: .bold))
+                            if self.langStr == "es" {
+                                Text("Participantes: \(self.nParticipantes) de 1000")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 24, weight: .bold))
+                            } else {
+                                Text("Participants: \(self.nParticipantes) of 1000")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 24, weight: .bold))
+                            }
                         }.shadow(color: Color.black.opacity(0.9), radius: 5, x: 2, y: 0)
                             .padding(.top, 280)
                     }

@@ -21,8 +21,6 @@ target 'GetStars' do
 
   pod 'Firebase/AdMob'
 
-  pod 'Stripe'
-
   pod 'CameraManager', '~> 5.1'
 
   # Elimina todos los targets

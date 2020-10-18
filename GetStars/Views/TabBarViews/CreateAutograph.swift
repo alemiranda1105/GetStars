@@ -246,8 +246,10 @@ struct Drawing {
     var points: [CGPoint] = [CGPoint]()
 }
 
+#if DEBUG
 struct CreateAutograph_Previews: PreviewProvider {
     static var previews: some View {
         CreateAutograph()
     }
 }
+#endif

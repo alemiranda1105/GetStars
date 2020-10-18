@@ -13,7 +13,7 @@ struct SelectPaymentMethodView: View {
     
     var body: some View {
         Group {
-            NavigationLink(destination: CardPaymentView()) {
+            NavigationLink(destination: Text("No deberías estar aquí")) {
                 Text("Pagar con tarjeta")
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .padding(8)

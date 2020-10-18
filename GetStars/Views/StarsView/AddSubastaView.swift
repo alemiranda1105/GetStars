@@ -77,7 +77,7 @@ struct AddSubastaView: View {
             let subastaName = db.getSorteoName()
             st.uploadFotoSubasta(image: self.image, key: key, name: subastaName, dg: dg)
             dg.wait()
-            print("Imagen del sorteo subida")
+            print("Imagen de la subasta subida")
             self.subido = true
         }
         
@@ -112,15 +112,15 @@ struct AddSubastaView: View {
                                     .resizable()
                                     .scaledToFit()
                                 
-                                Text("Choose a image")
+                                Text("Choose an image")
                                     .font(.system(size: 16, weight: .regular))
                             }.frame(alignment: .center)
                         }
                         .padding()
                     }
                     
-                    Section(header: Text("Raffle's information::")) {
-                        TextField("Nombre de la subasta", text: self.$name)
+                    Section(header: Text("Bid's information:")) {
+                        TextField(LocalizedStringKey("Name"), text: self.$name)
                         
                         if #available(iOS 14.0, *) {
                             NavigationLink(destination: (
@@ -166,10 +166,10 @@ struct AddSubastaView: View {
                     Section(header: Text("Finish date")) {
                         NavigationLink(destination: (
                             DatePicker(selection: self.$date, displayedComponents: .date) {
-                                Text("Fecha:")
+                                Text("Date:")
                             }.padding(10)
                         )) {
-                            Text("Fecha")
+                            Text("Date")
                                 .font(.system(size: 16, weight: .semibold))
                         }
                     }

@@ -31,11 +31,13 @@ struct CategoryView: View {
     }
 }
 
+#if DEBUG
 struct CategoryView_Previews: PreviewProvider {
     static var previews: some View {
         CategoryView()
     }
 }
+#endif
 
 struct Category: Identifiable {
     var id = UUID()

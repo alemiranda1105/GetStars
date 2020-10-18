@@ -10,6 +10,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct StarProfileView: View {
+    private let langStr = Locale.current.languageCode
     @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var session: SessionStore
@@ -137,7 +138,11 @@ struct StarProfileView: View {
                                                     .frame(width: 45, height: 45, alignment: .center)
                                                     .scaledToFit()
                                                 Spacer()
-                                                Text("Foto: \(self.session.data?.ventas["autFot"] ?? 0)")
+                                                if self.langStr == "es" {
+                                                    Text("Fotos: \(self.session.data?.ventas["autFot"] ?? 0)")
+                                                } else {
+                                                    Text("Photos: \(self.session.data?.ventas["autFot"] ?? 0)")
+                                                }
                                             }
                                         }.frame(width: 125, height: 125)
                                         .padding()
@@ -158,7 +163,11 @@ struct StarProfileView: View {
                                                     .frame(width: 45, height: 45, alignment: .center)
                                                     .scaledToFit()
                                                 Spacer()
-                                                Text("Autograph: \(self.session.data?.ventas["aut"] ?? 0)")
+                                                if self.langStr == "es" {
+                                                    Text("Autógrafos: \(self.session.data?.ventas["aut"] ?? 0)")
+                                                } else {
+                                                    Text("Autograph: \(self.session.data?.ventas["aut"] ?? 0)")
+                                                }
                                             }
                                         }.frame(width: 125, height: 125)
                                         .padding()
@@ -169,7 +178,7 @@ struct StarProfileView: View {
                                 }
                                 
                                 HStack {
-                                    Text("Dedicated product")
+                                    Text("Dedicated products")
                                     .font(.system(size: 18, weight: .bold))
                                     .padding()
                                     Spacer()
@@ -204,7 +213,7 @@ struct StarProfileView: View {
                                             self.showProductDetail = true
                                         }) {
                                             VStack {
-                                                Text("Aut. dedicado")
+                                                Text("Dedicated aut.")
                                                     .font(.system(size: 22, weight: .bold))
                                                 Spacer()
                                                 Image(systemName: "hand.draw")
@@ -212,7 +221,11 @@ struct StarProfileView: View {
                                                     .frame(width: 45, height: 45, alignment: .center)
                                                     .scaledToFit()
                                                 Spacer()
-                                                Text("Autógrafo: \(self.session.data?.ventas["autDed"] ?? 0)")
+                                                if self.langStr == "es" {
+                                                    Text("Autógrafos: \(self.session.data?.ventas["autDed"] ?? 0)")
+                                                } else {
+                                                    Text("Autographs: \(self.session.data?.ventas["autDed"] ?? 0)")
+                                                }
                                             }
                                         }.frame(width: 125, height: 125)
                                         .padding()
@@ -245,7 +258,7 @@ struct StarProfileView: View {
                                             Spacer()
                                             
                                             VStack {
-                                                Text("\(self.session.data?.ventas["live"] ?? 0)")
+                                                Text("Lives: \(self.session.data?.ventas["live"] ?? 0)")
                                             }.multilineTextAlignment(.center)
                                             
                                         }.padding()

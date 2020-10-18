@@ -98,6 +98,7 @@ struct UserLiveList: View {
 }
 
 struct UserLivePreview: View {
+    private let langStr = Locale.current.languageCode
     @EnvironmentObject var session: SessionStore
     
     @Binding var famous: String
@@ -129,7 +130,11 @@ struct UserLivePreview: View {
                 } else {
                     List(self.urls) { video in
                         NavigationLink(destination: UserLivePlayerView(video: .constant(video.url))){
-                            Text("Live de \(self.famous) \(video.id)")
+                            if self.langStr == "es" {
+                                Text("Live de \(self.famous) \(video.id)")
+                            } else {
+                                Text("Live of \(self.famous) \(video.id)")
+                            }
                         }
                     }
                 }

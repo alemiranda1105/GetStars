@@ -29,24 +29,24 @@ struct ConfigurationView: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Datos personales")) {
+            Section(header: Text("Personal information")) {
                 NavigationLink(destination: ModifyDataView().environmentObject(self.session)) {
-                    Text("Editar datos personales")
+                    Text("Edit personal information")
                 }
                 if self.showModify {
                     NavigationLink(destination: ModifyAuthDataView().environmentObject(self.session)) {
-                        Text("Editar email y contraseña")
+                        Text("Change password")
                     }
                 }
             }
-            Section(header: Text("Información")) {
+            Section(header: Text("About")) {
                 HStack {
                     Text("Version")
                     Spacer()
-                    Text(self.appVersion ?? "1.0")
+                    Text(self.appVersion ?? "X.xX")
                 }
                 NavigationLink(destination: SupportView()) {
-                    Text("Soporte")
+                    Text("Contact")
                 }
             }
             Section {
@@ -56,11 +56,11 @@ struct ConfigurationView: View {
                     Button(action: {
                         self.showAlert = true
                     }) {
-                        Text("Cerrar sesión").foregroundColor(Color("naranja"))
+                        Text("Log out").foregroundColor(Color("naranja"))
                     }.alert(isPresented: $showAlert) {
-                        Alert(title: Text("Aviso"), message: Text("¿Seguro que desea cerrar sesión?"), primaryButton: .destructive(Text("Cerrar sesión")){
+                        Alert(title: Text("Aviso"), message: Text("Do you really want to log out?"), primaryButton: .destructive(Text("Log out")){
                                 self.session.signOut()
-                            }, secondaryButton: .cancel(Text("Cancelar")))
+                            }, secondaryButton: .cancel(Text("Cancel")))
                     }
                     
                     Spacer()
@@ -76,12 +76,12 @@ struct ConfigurationView: View {
                     }) {
                         HStack {
                             Image(systemName: "trash").foregroundColor(.red)
-                            Text("Eliminar cuenta").foregroundColor(.red).fontWeight(.bold)
+                            Text("Delete account").foregroundColor(.red).fontWeight(.bold)
                         }
                     }.alert(isPresented: $showAlert2) {
-                        Alert(title: Text("Aviso"), message: Text("Está a punto de eliminar su cuenta, ¿Desea continuar?"), primaryButton: .destructive(Text("Eliminar")){
+                        Alert(title: Text("Attetion"), message: Text("You are about to delete your account, are you sure?"), primaryButton: .destructive(Text("Delete")){
                                 self.eliminarDatos = true
-                            }, secondaryButton: .cancel(Text("Cancelar")))
+                            }, secondaryButton: .cancel(Text("Cancel")))
                     }
                     .sheet(isPresented: self.$eliminarDatos) {
                         DeleteUser(eliminarDatos: self.$eliminarDatos).environmentObject(self.session)
@@ -92,7 +92,7 @@ struct ConfigurationView: View {
             }
         }
         .onAppear(perform: self.getProvider)
-        .navigationBarTitle("Ajustes")
+        .navigationBarTitle("Settings")
     }
 }
 
@@ -191,20 +191,26 @@ private struct ModifyDataView: View {
                     TextField("Name", text: self.$nombre)
                 }
                 HStack {
-                    DatePicker(selection: self.$fechaNacimiento, in: self.closedRange, displayedComponents: .date) {
-                        Text("Date:")
-                    }.padding(10)
-                    /*NavigationLink(destination: (
+                    if #available(iOS 14.0, *) {
                         DatePicker(selection: self.$fechaNacimiento, in: self.closedRange, displayedComponents: .date) {
-                            Text("Fecha:")
+                            Text("Date:")
                         }.padding(10)
-                    )) {
-                        Text("Fecha de nacimiento")
-                            .font(.system(size: 16, weight: .semibold))
-                    }*/
+                    } else {
+                        // Fallback on earlier versions
+                        NavigationLink(destination: (
+                            DatePicker(selection: self.$fechaNacimiento, in: self.closedRange, displayedComponents: .date) {
+                                Text("Date:")
+                            }.frame(width: UIScreen.main.bounds.width, alignment: .center)
+                            .padding()
+                            .navigationBarTitle(Text("Birthday"), displayMode: .inline)
+                        )) {
+                            Text("Birthday")
+                                .font(.system(size: 16, weight: .semibold))
+                        }
+                    }
                 }
                 VStack {
-                    Text("Género")
+                    Text("Genre")
                     Picker(selection: $generoSeleccionado, label: Text("Genre")) {
                         ForEach(0 ..< generos.count) {
                             //Text(self.generos[$0])
@@ -246,16 +252,17 @@ private struct ModifyAuthDataView: View {
         Form {
             Section {
                 VStack {
-                    Text("In order to update your data we need the current password")
+                    Text("Actual password")
                         .font(.system(size: 16, weight: .semibold))
                         .multilineTextAlignment(.center)
                         .lineLimit(nil)
+                    
                     Text("NOTE: In case of not remembering the password, you should contact the app support")
                         .font(.system(size: 14, weight: .thin))
                         .multilineTextAlignment(.center)
                         .lineLimit(nil)
                 }
-                SecureField(LocalizedStringKey("Old password"), text: self.$password)
+                SecureField(LocalizedStringKey("Actual password"), text: self.$password)
                     .font(.system(size: 14))
                     .autocapitalization(.none)
                     .padding(8)
@@ -271,21 +278,21 @@ private struct ModifyAuthDataView: View {
                     .padding()
             }
             
-            Section(header: Text("Email")) {
-                TextField("email", text: self.$email)
-                Button(action: {
-                    if self.email == (self.session.session?.email)! {
-                        return
-                    } else if !validateEmail(enteredEmail: self.email) {
-                        self.error = "Write a valid email"
-                    } else {
-                        self.session.updateEmail(email: self.email, password: self.oldPassword)
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
-                }) {
-                    Text("Update email")
-                }
-            }
+//            Section(header: Text("Email")) {
+//                TextField("email", text: self.$email)
+//                Button(action: {
+//                    if self.email == (self.session.session?.email)! {
+//                        return
+//                    } else if !validateEmail(enteredEmail: self.email) {
+//                        self.error = "Write a valid email"
+//                    } else {
+//                        self.session.updateEmail(email: self.email, password: self.oldPassword)
+//                        self.presentationMode.wrappedValue.dismiss()
+//                    }
+//                }) {
+//                    Text("Update email")
+//                }
+//            }
             Section(header: Text("Password")) {
                 Text("Password's length must be grater than 6 characters")
                     .font(.system(size: 16, weight: .semibold))
@@ -400,7 +407,7 @@ private struct DeleteUser: View {
                 self.password = ""
                 self.eliminarDatos = false
             }) {
-                Text("Eliminar cuenta")
+                Text("Delete account")
                     .font(.system(size: 16, weight: .bold))
                     .multilineTextAlignment(.center)
                     .padding()

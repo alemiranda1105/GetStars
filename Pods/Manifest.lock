@@ -384,7 +384,6 @@ PODS:
   - SDWebImage/Core (5.8.4)
   - SDWebImageSwiftUI (1.5.0):
     - SDWebImage (~> 5.7)
-  - Stripe (20.0.0)
 
 DEPENDENCIES:
   - CameraManager (~> 5.1)
@@ -397,7 +396,6 @@ DEPENDENCIES:
   - Firebase/Storage
   - GoogleSignIn
   - SDWebImageSwiftUI
-  - Stripe
 
 SPEC REPOS:
   trunk:
@@ -432,7 +430,6 @@ SPEC REPOS:
     - Protobuf
     - SDWebImage
     - SDWebImageSwiftUI
-    - Stripe
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -466,8 +463,7 @@ SPEC CHECKSUMS:
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   SDWebImageSwiftUI: 43687ffe232ddd33fe0659498b7ca9884fdd6b35
-  Stripe: 339e8c50d3a27dcbe9a4f35b98c260fb9715d962
 
-PODFILE CHECKSUM: 61934a2d29d28e342e820291852ebcf173cd8c74
+PODFILE CHECKSUM: e27ef83c03ab740c589d7c0298df0500b034af36
 
 COCOAPODS: 1.10.0.rc.1

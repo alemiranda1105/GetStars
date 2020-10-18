@@ -121,7 +121,7 @@ struct SubastaProductView: View {
                     .multilineTextAlignment(.leading)
                 
                 HStack {
-                    Text("Precio actual: ")
+                    Text("Actual price: ")
                         .cornerRadius(15)
                         .font(.system(size: 32, weight: .medium))
                     Text("\(self.product.price.dollarString)€")
@@ -143,7 +143,7 @@ struct SubastaProductView: View {
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "plus.app": "plus.app.fill")
                             
-                            Text("Pujar")
+                            Text("Bid")
                                 .font(.system(size: 18, weight: .bold))
                         }
                         
@@ -154,7 +154,7 @@ struct SubastaProductView: View {
                     .cornerRadius(8)
                     
                     if expanded {
-                        Stepper("Pujar: ", onIncrement: {
+                        Stepper(LocalizedStringKey("Bid: "), onIncrement: {
                             self.price += 0.10
                             self.error = ""
                         }, onDecrement: {
@@ -185,7 +185,7 @@ struct SubastaProductView: View {
                             HStack {
                                 Image(systemName: self.colorScheme == .dark ? "cart": "cart.fill")
                                 
-                                Text("Añadir Puja (\(self.price.dollarString)€)")
+                                Text(self.langStr == "es" ? "Añadir Puja (\(self.price.dollarString)€)": "Add bid (\(self.price.dollarString)€)")
                                     .font(.system(size: 18, weight: .bold))
                             }
                             

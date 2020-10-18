@@ -10,6 +10,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ProfileView: View {
+    private let langStr = Locale.current.languageCode
     @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var session: SessionStore
@@ -107,7 +108,7 @@ struct ProfileView: View {
                                     
                                     Picker(selection: self.$catSeleccionada, label: Text("")) {
                                         ForEach(0 ..< self.cats.count) {
-                                            Text(self.cats[$0])
+                                            Text(LocalizedStringKey(self.cats[$0]))
                                         }
                                     }.padding().pickerStyle(SegmentedPickerStyle())
                                     
@@ -156,7 +157,11 @@ struct ProfileView: View {
                                                             Spacer()
                                                             
                                                             VStack {
-                                                                Text("Foto con autógrafo: \((self.session.data?.compras["autFot"]?.count) ?? 0)")
+                                                                if self.langStr == "es" {
+                                                                    Text("Foto con autógrafo: \((self.session.data?.compras["autFot"]?.count) ?? 0)")
+                                                                } else {
+                                                                    Text("Photos with autograph: \((self.session.data?.compras["autFot"]?.count) ?? 0)")
+                                                                }
                                                             }
                                                             
                                                         }.padding()
@@ -181,7 +186,11 @@ struct ProfileView: View {
                                                             Spacer()
                                                             
                                                             VStack {
-                                                                Text("Autograph: \((self.session.data?.compras["aut"]?.count) ?? 0)")
+                                                                if self.langStr == "es" {
+                                                                    Text("Autógrafos: \((self.session.data?.compras["aut"]?.count) ?? 0)")
+                                                                } else {
+                                                                    Text("Autograph: \((self.session.data?.compras["aut"]?.count) ?? 0)")
+                                                                }
                                                             }.multilineTextAlignment(.center)
                                                             
                                                         }.padding()
@@ -259,7 +268,11 @@ struct ProfileView: View {
                                                             Spacer()
                                                             
                                                             VStack {
-                                                                Text("Dedicated photos: \((self.session.data?.compras["fotDed"]?.count) ?? 0)")
+                                                                if self.langStr == "es" {
+                                                                    Text("Fotos dedicadas: \((self.session.data?.compras["fotDed"]?.count) ?? 0)")
+                                                                } else {
+                                                                    Text("Dedicated photos: \((self.session.data?.compras["fotDed"]?.count) ?? 0)")
+                                                                }
                                                             }
                                                             
                                                         }.padding()
@@ -284,7 +297,11 @@ struct ProfileView: View {
                                                             Spacer()
                                                             
                                                             VStack {
-                                                                Text("Autógrafo dedicado: \((self.session.data?.compras["autDed"]?.count) ?? 0)")
+                                                                if self.langStr == "es" {
+                                                                    Text("Autógrafo dedicado: \((self.session.data?.compras["autDed"]?.count) ?? 0)")
+                                                                } else {
+                                                                    Text("Dedicated autograph: \((self.session.data?.compras["autDed"]?.count) ?? 0)")
+                                                                }
                                                             }.multilineTextAlignment(.center)
                                                             
                                                         }.padding()
@@ -319,7 +336,7 @@ struct ProfileView: View {
                                 
             //                    Spacer()
                                 
-                            }.navigationBarTitle(Text("Perfil"), displayMode: self.visible ? .automatic: .inline)
+                            }.navigationBarTitle(Text("Profile"), displayMode: self.visible ? .automatic: .inline)
                             .navigationBarItems(trailing:
                                 NavigationLink(destination: ConfigurationView().environmentObject(self.session)) {
                                     Image(systemName: "gear").resizable().frame(width: 28.0, height: 28.0)

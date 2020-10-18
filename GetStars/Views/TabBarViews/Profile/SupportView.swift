@@ -19,7 +19,7 @@ struct SupportView: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Soporte")) {
+            Section(header: Text("Support")) {
                 Button(action: {
                     self.sendEmail(email: "soportegetstars@gmail.com")
                 }) {
@@ -40,7 +40,7 @@ struct SupportView: View {
                     Text("Get in touch with us")
                 }
             }
-        }.navigationBarTitle(Text("Soporte"))
+        }.navigationBarTitle(Text("Support"))
     }
 }
 
