@@ -14,6 +14,22 @@ extension PHPhotoLibrary {
     
     // MARK: - Public
     
+    func saveVideo(video: URL, albumName: String, completion: ((PHAsset?)->())? = nil) {
+        func save() {
+            if PHPhotoLibrary.shared().findAlbum(albumName: albumName) != nil {
+                PHPhotoLibrary.shared().saveVideo(video: video, albumName: albumName)
+            } else {
+                PHPhotoLibrary.shared().createAlbum(albumName: albumName, completion: { (collection) in
+                    if collection != nil {
+                        PHPhotoLibrary.shared().saveVideo(video: video, albumName: albumName, completion: completion)
+                    } else {
+                        completion?(nil)
+                    }
+                })
+            }
+        }
+    }
+    
     func savePhoto(image:UIImage, albumName:String, completion:((PHAsset?)->())? = nil) {
         func save() {
             if let album = PHPhotoLibrary.shared().findAlbum(albumName: albumName) {

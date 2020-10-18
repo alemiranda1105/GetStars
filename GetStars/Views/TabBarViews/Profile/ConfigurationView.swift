@@ -79,7 +79,7 @@ struct ConfigurationView: View {
                             Text("Delete account").foregroundColor(.red).fontWeight(.bold)
                         }
                     }.alert(isPresented: $showAlert2) {
-                        Alert(title: Text("Attetion"), message: Text("You are about to delete your account, are you sure?"), primaryButton: .destructive(Text("Delete")){
+                        Alert(title: Text("Attention"), message: Text("You are about to delete your account, are you sure?"), primaryButton: .destructive(Text("Delete")){
                                 self.eliminarDatos = true
                             }, secondaryButton: .cancel(Text("Cancel")))
                     }

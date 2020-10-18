@@ -18,6 +18,8 @@ struct DetailedArticleView: View {
     
     @State var url: String
     
+    @State var showAlert = false
+    
     
     var body: some View {
         GeometryReader { g in
@@ -53,7 +55,7 @@ struct DetailedArticleView: View {
                     
                     Button(action: {
                         // Añadir código para descargar la imagen
-                    
+                        self.showAlert = true
                     }){
                         HStack {
                             Image(systemName: self.colorScheme == .dark ? "square.and.arrow.down": "square.and.arrow.down.fill")
@@ -67,6 +69,9 @@ struct DetailedArticleView: View {
                         .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                         .cornerRadius(8)
                         .padding(15)
+                    .alert(isPresented: self.$showAlert) {
+                        Alert(title: Text("Attention"), message: Text("For security reasons, downloads have been disabled"), dismissButton: .default(Text("OK")))
+                    }
                 }
             }
         }

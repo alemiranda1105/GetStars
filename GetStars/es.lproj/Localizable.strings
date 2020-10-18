@@ -140,7 +140,7 @@
 "Do you really want to log out?" = "¿Estás seguro de que quieres cerrar sesión?";
 "Cancel" = "Cancelar";
 "Delete account" = "Borrar cuenta";
-"Attetion" = "Atención";
+"Attention" = "Atención";
 "You are about to delete your account, are you sure?" = "Estás a punto de borrar tu cuenta, ¿estás seguro?";
 "Settings" = "Ajustes";
 "Information" = "Información";
@@ -161,6 +161,7 @@
 
 // DetailedArticleView
 "Download image" = "Descargar imagen";
+"For security reasons, downloads have been disabled" = "Por motivos de seguridad, las descargas han sido deshabilitadas";
 
 // TermsView
 "Terms" = "Términos de uso";

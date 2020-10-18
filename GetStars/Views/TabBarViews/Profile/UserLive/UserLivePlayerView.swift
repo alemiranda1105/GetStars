@@ -8,6 +8,7 @@
 
 import SwiftUI
 import AVKit
+import Photos
 
 struct UserLivePlayerView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -16,6 +17,7 @@ struct UserLivePlayerView: View {
     @EnvironmentObject var session: SessionStore
     
     @Binding var video: URL
+    @State var show = false
     
     var body: some View {
         VStack {
@@ -25,9 +27,10 @@ struct UserLivePlayerView: View {
             
             Spacer()
             
-            Button(action: {
+            /*Button(action: {
                 // Añadir código para descargar el live
-            
+                let library: PHPhotoLibrary = PHPhotoLibrary.shared()
+                library.saveVideo(video: self.video, albumName: "GetStars")
             }){
                 HStack {
                     Image(systemName: self.colorScheme == .dark ? "square.and.arrow.down": "square.and.arrow.down.fill")
@@ -40,7 +43,7 @@ struct UserLivePlayerView: View {
                 .background(Color("gris"))
                 .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                 .cornerRadius(8)
-                .padding(15)
+                .padding(15)*/
         }
     }
 }

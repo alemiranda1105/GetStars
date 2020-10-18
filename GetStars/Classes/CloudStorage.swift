@@ -145,6 +145,31 @@ class CloudStorage: ObservableObject {
         }
     }
     
+    func downloadLives(email: String, key: String, dg: DispatchGroup) {
+        dg.enter()
+        let path = "usuarios/\(email)/live/\(key)/"
+        let storageRef = storage.reference()
+        let liveRef = storageRef.child(path)
+        liveRef.listAll { list, error in
+            if error != nil {
+                
+            } else {
+                for file in list.items {
+                    dg.enter()
+                    file.getData(maxSize: 1*8192*8192) { data, error in
+                        if error != nil {
+                            
+                        } else {
+                            
+                        }
+                        dg.leave()
+                    }
+                }
+            }
+            dg.leave()
+        }
+    }
+    
     func getItemsUrl() -> [UrlLoader] {
         return self.itemsUrl
     }
