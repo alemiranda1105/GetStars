@@ -31,7 +31,7 @@ struct ContentView: View {
             } else if ((self.session.signing || def.bool(forKey: "sign")) && !self.loading) {
                 LoadIndicatorView().accentColor(Color("tabbarColor")).environmentObject(self.session)
             } else if !self.loading {
-                newTabBarView().accentColor(Color("tabbarColor")).environmentObject(self.session)
+                newTabBarView().accentColor(Color("tabbarColor")).environmentObject(self.session).navigationViewStyle(StackNavigationViewStyle())
             }
         }.onAppear {
             self.getUser()

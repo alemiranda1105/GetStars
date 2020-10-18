@@ -8,6 +8,7 @@
 
 import Combine
 import Firebase
+import FirebaseFirestore
 
 class StarsDB: DataBase {
     private let dbCollection = "famosos"
@@ -184,7 +185,7 @@ class StarsDB: DataBase {
         dg.enter()
         let documentRef = db.collection("sorteos").document(datos["nombre"]!)
         var dat: [String: Any] = datos as [String: Any]
-        dat["participantes"] = [String]()
+        dat["participantes"] = [""]
         
         documentRef.getDocument { (document, error) in
             if let document = document, document.exists {
