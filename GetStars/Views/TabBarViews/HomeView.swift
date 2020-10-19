@@ -150,6 +150,12 @@ fileprivate class HomeData: ObservableObject {
                 if !p.isContained(array: self.data) && i != "prueba" {
                     self.data.append(p)
                 }
+                // For test products (ONLY TEST)
+                #if DEBUG
+                if !p.isContained(array: self.data) {
+                    self.data.append(p)
+                }
+                #endif
                 
             }
             group.leave()

@@ -89,12 +89,12 @@ struct FamousItems: View {
         let db = StarsDB()
         let dg = DispatchGroup()
         st.getAutPhoto(key: self.person.getKey(), dg: dg)
-        dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+        dg.notify(queue: DispatchQueue.global(qos: .background)) {
             let url = st.getPhoUrl()
             self.url = url
             
             db.getProductPrice(product: "fot", key: self.person.getKey(), dg: dg)
-            dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
+            dg.notify(queue: DispatchQueue.global(qos: .background)) {
                 //var autPrice = db.getPrice()
                 
                 var product = searchSk(name: "autPho")
@@ -123,6 +123,7 @@ struct FamousItems: View {
                     self.product.append(p)
                     
                     self.loading = false
+                    print("HOla")
                     
                 }
             }
@@ -131,23 +132,25 @@ struct FamousItems: View {
     
     var body: some View {
         Group {
-            if self.item == "aut" {
-                AutView(url: self.$url, product: self.$product, loading: self.$loading).environmentObject(self.session).onAppear(perform: self.getAutografo)
-                    .navigationBarTitle(Text("Autograph"), displayMode: .inline)
-                    .navigationBarHidden(false)
-            } else if self.item == "foto" {
-                PhotoView(url: self.$url, product: self.$product, loading: self.$loading).environmentObject(self.session).onAppear(perform: self.getFoto)
-                    .navigationBarTitle(Text("Photos"), displayMode: .inline)
-                    .navigationBarHidden(false)
+            if self.loading {
+                ActivityIndicator(isAnimating: .constant(true), style: .large)
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+                    .onAppear(perform: {
+                        if self.item == "aut" {
+                            self.getAutografo()
+                        } else {
+                            self.getFoto()
+                        }
+                    })
             } else {
-                VStack {
-                    Text("Soon")
-                        .padding()
-                        .font(.system(size: 32, weight: .bold))
-                    Text("We are working to you can be able to connect with the stars in a way you have never done before")
-                        .padding()
-                        .font(.system(size: 24, weight: .thin))
-                        .multilineTextAlignment(.center)
+                if self.item == "aut" {
+                    AutView(url: self.$url, product: self.$product, loading: self.$loading).environmentObject(self.session)
+                        .navigationBarTitle(Text("Autograph"), displayMode: .inline)
+                        .navigationBarHidden(false)
+                } else if self.item == "foto" {
+                    PhotoView(url: self.$url, product: self.$product, loading: self.$loading).environmentObject(self.session)
+                        .navigationBarTitle(Text("Photos"), displayMode: .inline)
+                        .navigationBarHidden(false)
                 }
             }
         }.navigationBarHidden(false)
