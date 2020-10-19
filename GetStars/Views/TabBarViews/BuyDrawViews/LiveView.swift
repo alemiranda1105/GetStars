@@ -36,9 +36,12 @@ struct LiveView: View {
                 print("Famoso LIVE leído")
                 let name = db.getName()
                 let desc = db.getDesc()
-                self.data.append(Person(name: name, description: desc, image: url!, key: i))
-                self.loading = false
+                let p = Person(name: name, description: desc, image: url!, key: i)
+                if !p.isContained(array: self.data) {
+                    self.data.append(Person(name: name, description: desc, image: url!, key: i))
+                }
             }
+            self.loading = false
         }
     }
     

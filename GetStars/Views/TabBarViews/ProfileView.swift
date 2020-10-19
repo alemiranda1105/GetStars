@@ -85,6 +85,17 @@ struct ProfileView: View {
                                         }) {
                                             Image(systemName: "arrow.up").resizable().frame(width: 22.0, height: 22.0)
                                         }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black).padding()
+                                        
+                                        Spacer()
+                                        
+                                        Button(action: {
+                                            let impactMed = UIImpactFeedbackGenerator(style: .light)
+                                            impactMed.impactOccurred()
+                                            self.loading = true
+                                            self.loadProfileData()
+                                        }) {
+                                            Image(systemName: "arrow.counterclockwise").resizable().frame(width: 22.0, height: 22.0)
+                                        }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black).padding()
                                     }
                                     
                                     Picker(selection: self.$catSeleccionada, label: Text("")) {
@@ -103,6 +114,17 @@ struct ProfileView: View {
                                             self.visible = true
                                         }) {
                                             Image(systemName: "arrow.down").resizable().frame(width: 22.0, height: 22.0)
+                                        }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black).padding()
+                                        
+                                        Spacer()
+                                        
+                                        Button(action: {
+                                            let impactMed = UIImpactFeedbackGenerator(style: .light)
+                                            impactMed.impactOccurred()
+                                            self.loading = true
+                                            self.loadProfileData()
+                                        }) {
+                                            Image(systemName: "arrow.counterclockwise").resizable().frame(width: 22.0, height: 22.0)
                                         }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black).padding()
                                     }
                                     
@@ -170,34 +192,34 @@ struct ProfileView: View {
                                                     }
                                                 }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                                                 
-                                                NavigationLink(destination: ArticleProfileView(type: .constant("aut"), title: .constant("Autograph"))) {
-                                                    VStack {
-                                                        HStack {
-                                                            VStack {
-                                                                Text("Autograph")
-                                                                    .font(.system(size: 22, weight: .bold))
-                                                                Spacer()
-                                                                Image(systemName: "hand.draw")
-                                                                    .resizable()
-                                                                    .frame(width: 60, height: 60, alignment: .center)
-                                                                    .scaledToFit()
-                                                                Spacer()
-                                                            }
-                                                            Spacer()
-                                                            
-                                                            VStack {
-                                                                if self.langStr == "es" {
-                                                                    Text("Autógrafos: \((self.session.data?.compras["aut"]?.count) ?? 0)")
-                                                                } else {
-                                                                    Text("Autograph: \((self.session.data?.compras["aut"]?.count) ?? 0)")
-                                                                }
-                                                            }.multilineTextAlignment(.center)
-                                                            
-                                                        }.padding()
-                                                        .background(RoundedRectangle(cornerRadius: 16).fill(Color("gris")))
-                                                        .padding()
-                                                    }
-                                                }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+//                                                NavigationLink(destination: ArticleProfileView(type: .constant("aut"), title: .constant("Autograph"))) {
+//                                                    VStack {
+//                                                        HStack {
+//                                                            VStack {
+//                                                                Text("Autograph")
+//                                                                    .font(.system(size: 22, weight: .bold))
+//                                                                Spacer()
+//                                                                Image(systemName: "hand.draw")
+//                                                                    .resizable()
+//                                                                    .frame(width: 60, height: 60, alignment: .center)
+//                                                                    .scaledToFit()
+//                                                                Spacer()
+//                                                            }
+//                                                            Spacer()
+//                                                            
+//                                                            VStack {
+//                                                                if self.langStr == "es" {
+//                                                                    Text("Autógrafos: \((self.session.data?.compras["aut"]?.count) ?? 0)")
+//                                                                } else {
+//                                                                    Text("Autograph: \((self.session.data?.compras["aut"]?.count) ?? 0)")
+//                                                                }
+//                                                            }.multilineTextAlignment(.center)
+//                                                            
+//                                                        }.padding()
+//                                                        .background(RoundedRectangle(cornerRadius: 16).fill(Color("gris")))
+//                                                        .padding()
+//                                                    }
+//                                                }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                                                 
                                                 NavigationLink(destination: UserLiveList().environmentObject(self.session)) {
                                                     VStack {
