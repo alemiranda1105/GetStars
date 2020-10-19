@@ -194,7 +194,7 @@ class StarsDB: DataBase {
             } else {
                 print("El sorteo no existe, creando...")
                 self.sorteoName = dat["nombre"] as! String
-                documentRef.setData(datos)
+                documentRef.setData(dat)
             }
             dg.leave()
         }

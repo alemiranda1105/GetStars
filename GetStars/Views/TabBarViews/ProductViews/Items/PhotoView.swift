@@ -54,7 +54,7 @@ struct PhotoView: View {
                     //DedicatoriaView(product: self.dedicatoryItem).environmentObject(self.session)
                     SelectDedicatoryType(product: self.dedicatoryItem).environmentObject(self.session)
                 } else if self.showCart {
-                    PaymentView(product: Product()).environmentObject(self.session).navigationBarTitle("")
+                    // PaymentView(product: Product()).environmentObject(self.session).navigationBarTitle("")
                 } else {
                     ScrollView {
                         Spacer(minLength: 12)

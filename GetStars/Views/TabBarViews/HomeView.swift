@@ -21,7 +21,16 @@ struct HomeView: View {
         let dg = DispatchGroup()
         let hd = HomeData(session: self.session, group: dg)
         dg.notify(queue: DispatchQueue.global(qos: .background)) {
-            self.data = hd.data
+            if self.data.count <= 0 {
+                self.data.append(contentsOf: hd.data)
+            } else {
+                for i in hd.data {
+                    if !i.isContained(array: self.data) {
+                        print("Famoso home no contenido")
+                        self.data.append(i)
+                    }
+                }
+            }
             self.loading = false
         }
 //        self.data = [Person]()
@@ -89,7 +98,11 @@ struct HomeView: View {
                                 VStack {
                                     PersonCard(person: self.$data[item]).environmentObject(self.session)
                                         .frame(width: g.size.width)
-                                    
+                                    #if DEBUG
+                                    BannerCardView()
+                                        .frame(width: g.size.width, alignment: .center)
+                                        .padding()
+                                    #endif
                                     if (item + 1) % 3 == 0 {
                                         BannerCardView()
                                             .frame(width: g.size.width, alignment: .center)
@@ -101,11 +114,11 @@ struct HomeView: View {
                         }
                     }.frame(width: g.size.width)
                     .navigationBarTitle(Text("Home"))
-                    .navigationBarItems(trailing:
-                        NavigationLink(destination: PaymentView(product: Product()).environmentObject(self.session)) {
-                            Image(systemName: "cart").resizable().frame(width: 28.0, height: 28.0)
-                        }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
-                    )
+//                    .navigationBarItems(trailing:
+//                        NavigationLink(destination: PaymentView(product: Product()).environmentObject(self.session)) {
+//                            Image(systemName: "cart").resizable().frame(width: 28.0, height: 28.0)
+//                        }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+//                    )
                 }
             }
         }

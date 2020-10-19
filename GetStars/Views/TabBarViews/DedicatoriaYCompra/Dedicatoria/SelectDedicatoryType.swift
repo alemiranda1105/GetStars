@@ -80,7 +80,7 @@ struct SelectDedicatoryType: View {
     var body: some View {
         Group {
             if self.showPayment {
-                PaymentView(product: Product()).environmentObject(self.session)
+                // PaymentView(product: Product()).environmentObject(self.session)
             } else {
                 VStack {
                     

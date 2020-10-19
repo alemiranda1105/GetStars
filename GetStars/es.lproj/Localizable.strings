@@ -10,8 +10,8 @@
 "Loading..." = "Cargando...";
 "Welcome to GetStars" = "Bienvenido a GetStars";
 "The place where stars join" = "El lugar donde se juntan las estrellas";
-"Sign up" = "Registro";
-"Sign in" = "Iniciar sesión";
+"Sign Up" = "Registro";
+"Sign In" = "Iniciar sesión";
 "Other ways..." = "Otras maneras...";
 
 // LoginMethodsView

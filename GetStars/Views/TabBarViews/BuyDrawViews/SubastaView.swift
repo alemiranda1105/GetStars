@@ -77,7 +77,7 @@ struct SubastaView: View {
                         ActivityIndicator(isAnimating: .constant(true), style: .medium)
                             .frame(width: g.size.width, height: g.size.height, alignment: .center)
                     } else {
-                        ForEach(0..<self.subastas.count) { p in
+                        ForEach(0..<self.subastas.count, id: \.self) { p in
                             SubastaCardView(product: self.$subastas[p]).environmentObject(self.session)
                                 .frame(width: g.size.width)
                         }

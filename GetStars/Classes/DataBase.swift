@@ -52,7 +52,11 @@ class DataBase: ObservableObject {
     
     func readDataUser(session: SessionStore, dg: DispatchGroup) {
         dg.enter()
-        let email = (session.session?.email)!
+        let email = (session.session?.email) ?? ""
+        if email == "" {
+            print("Error obteniendo el email del usuario ---- readDataUser() -> DB")
+            return
+        }
         let documentRef = db.collection(dbCollection).document(email)
         
         documentRef.getDocument { (document, error) in

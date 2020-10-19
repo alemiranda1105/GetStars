@@ -58,7 +58,7 @@ struct ConfigurationView: View {
                     }) {
                         Text("Log out").foregroundColor(Color("naranja"))
                     }.alert(isPresented: $showAlert) {
-                        Alert(title: Text("Aviso"), message: Text("Do you really want to log out?"), primaryButton: .destructive(Text("Log out")){
+                        Alert(title: Text("Attention"), message: Text("Do you really want to log out?"), primaryButton: .destructive(Text("Log out")){
                                 self.session.signOut()
                             }, secondaryButton: .cancel(Text("Cancel")))
                     }
