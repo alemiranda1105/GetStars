@@ -24,6 +24,10 @@ struct HomeView: View {
             if self.data.count <= 0 {
                 self.data.append(contentsOf: hd.data)
             } else {
+                if hd.data.count <= 0 {
+                    self.loading = false
+                    return
+                }
                 for i in hd.data {
                     if !i.isContained(array: self.data) {
                         print("Famoso home no contenido")
@@ -76,37 +80,26 @@ struct HomeView: View {
                 } else {
                     ScrollView {
                         Group {
-                            if !(self.session.data?.getIsPro() ?? true) {
-                                NavigationLink(destination: BuyProView()){
-                                    ZStack {
-                                        Text("BECOME A PRO!")
-                                            .font(.system(size: 25, weight: .bold))
-                                            .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
-                                            .scaledToFill()
-                                            .frame(minWidth: 0, maxWidth: .infinity)
-                                            .frame(width: 350, height: 120)
-                                            .background(Color("gris"))
-                                            .cornerRadius(16)
-                                            .overlay(RoundedRectangle(cornerRadius: 15)
-                                                .stroke(Color.clear, lineWidth: 1))
-                                    }
-                                    
-                                }.buttonStyle(PlainButtonStyle())
-                            }
-                            
-                            ForEach(0..<self.data.count, id: \.self) { item in
-                                VStack {
-                                    PersonCard(person: self.$data[item]).environmentObject(self.session)
-                                        .frame(width: g.size.width)
-                                    #if DEBUG
-                                    BannerCardView()
-                                        .frame(width: g.size.width, alignment: .center)
-                                        .padding()
-                                    #endif
-                                    if (item + 1) % 3 == 0 {
+                            if self.data.count <= 0 {
+                                Text("For the moment, this is empty but we are working to bring here the best stars")
+                                    .font(.system(size: 28, weight: .thin))
+                                    .multilineTextAlignment(.center)
+                                    .padding()
+                            } else {
+                                ForEach(0..<self.data.count, id: \.self) { item in
+                                    VStack {
+                                        PersonCard(person: self.$data[item]).environmentObject(self.session)
+                                            .frame(width: g.size.width)
+                                        #if DEBUG
                                         BannerCardView()
                                             .frame(width: g.size.width, alignment: .center)
                                             .padding()
+                                        #endif
+                                        if (item + 1) % 3 == 0 {
+                                            BannerCardView()
+                                                .frame(width: g.size.width, alignment: .center)
+                                                .padding()
+                                        }
                                     }
                                 }
                             }
@@ -154,7 +147,7 @@ fileprivate class HomeData: ObservableObject {
                 let name = db.getName()
                 let desc = db.getDesc()
                 let p = Person(name: name, description: desc, image: url!, key: i)
-                if !p.isContained(array: self.data) {
+                if !p.isContained(array: self.data) && i != "prueba" {
                     self.data.append(p)
                 }
                 

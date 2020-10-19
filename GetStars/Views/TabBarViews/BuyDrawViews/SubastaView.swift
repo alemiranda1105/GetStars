@@ -23,6 +23,10 @@ struct SubastaView: View {
         db.readSubastas(dg: dg)
         dg.notify(queue: DispatchQueue.global(qos: .background)) {
             let subastas = db.getSubastas()
+            if subastas.count <= 0 {
+                self.loading = false
+                return
+            }
             for i in subastas {
                 db.readDatosSubastas(name: i, dg: dg)
                 dg.wait()
@@ -46,14 +50,16 @@ struct SubastaView: View {
                 p.setFecha(fecha: datos["fechaFinal"] as! String)
                 p.setProductID(id: i)
                 
-                if self.isContained(p: p) {
-                    for j in 0..<self.subastas.count {
-                        if self.subastas[j].equals(product: p) {
-                            self.subastas[j] = p
+                if owner.getKey() != "prueba" {
+                    if self.isContained(p: p) {
+                        for j in 0..<self.subastas.count {
+                            if self.subastas[j].equals(product: p) {
+                                self.subastas[j] = p
+                            }
                         }
+                    } else {
+                       self.subastas.append(p)
                     }
-                } else {
-                   self.subastas.append(p)
                 }
             }
             self.loading = false
@@ -72,19 +78,26 @@ struct SubastaView: View {
     var body: some View {
         GeometryReader { g in
             Group {
-                ScrollView {
-                    if self.loading {
-                        ActivityIndicator(isAnimating: .constant(true), style: .medium)
-                            .frame(width: g.size.width, height: g.size.height, alignment: .center)
-                    } else {
-                        ForEach(0..<self.subastas.count, id: \.self) { p in
-                            SubastaCardView(product: self.$subastas[p]).environmentObject(self.session)
-                                .frame(width: g.size.width)
+                if self.subastas.count <= 0 {
+                    Text("For the moment, this is empty but we are working to bring here the best stars")
+                        .font(.system(size: 28, weight: .thin))
+                        .multilineTextAlignment(.center)
+                        .padding()
+                } else {
+                    ScrollView {
+                        if self.loading {
+                            ActivityIndicator(isAnimating: .constant(true), style: .medium)
+                                .frame(width: g.size.width, height: g.size.height, alignment: .center)
+                        } else {
+                            ForEach(0..<self.subastas.count, id: \.self) { p in
+                                SubastaCardView(product: self.$subastas[p]).environmentObject(self.session)
+                                    .frame(width: g.size.width)
+                            }
                         }
                     }
-                }.navigationBarTitle(Text("Sale"))
-                .onAppear(perform: self.readSubastas)
-            }
+                }
+            }.navigationBarTitle(Text("Sale"))
+            .onAppear(perform: self.readSubastas)
         }
     }
 }

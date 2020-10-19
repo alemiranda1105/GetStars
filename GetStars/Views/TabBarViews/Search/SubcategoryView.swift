@@ -51,6 +51,10 @@ struct SubcategoryView: View {
             dg.wait()
             
             let keys = db.getCatId()
+            if keys.count <= 0 {
+                self.loading = false
+                return
+            }
             for i in keys {
                 st.getProfileImage(key: i, dg: dg)
                 dg.wait()
@@ -63,9 +67,12 @@ struct SubcategoryView: View {
                 print("Famoso \(self.cat) leído")
                 let name = db.getName()
                 let desc = db.getDesc()
-                self.data.append(Person(name: name, description: desc, image: url!, key: i))
-                self.loading = false
+                let p = Person(name: name, description: desc, image: url!, key: i)
+                if !p.isContained(array: self.data) && i != "prueba" {
+                    self.data.append(p)
+                }
             }
+            self.loading = false
         }
     }
     
@@ -77,18 +84,25 @@ struct SubcategoryView: View {
                     .frame(width: g.size.width, height: g.size.height, alignment: .center)
                     .onAppear(perform: self.getFamous)
                 } else {
-                    ScrollView {
-                        ForEach(0..<self.data.count, id: \.self) { product in
-                            PersonCard(person: self.$data[product]).environmentObject(self.session)
-                                .frame(width: g.size.width)
-                        }
-                    }.navigationBarTitle(LocalizedStringKey(self.cat))
-//                    .navigationBarItems(trailing:
-//                        NavigationLink(destination: PaymentView(product: Product()).environmentObject(self.session)) {
-//                            Image(systemName: "cart").resizable().frame(width: 28.0, height: 28.0)
-//                        }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
-//                    )
-                    .navigationViewStyle(StackNavigationViewStyle())
+                    if self.data.count <= 0 {
+                        Text("For the moment, this is empty but we are working to bring here the best stars")
+                            .font(.system(size: 28, weight: .thin))
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    } else {
+                        ScrollView {
+                            ForEach(0..<self.data.count, id: \.self) { product in
+                                PersonCard(person: self.$data[product]).environmentObject(self.session)
+                                    .frame(width: g.size.width)
+                            }
+                        }.navigationBarTitle(LocalizedStringKey(self.cat))
+    //                    .navigationBarItems(trailing:
+    //                        NavigationLink(destination: PaymentView(product: Product()).environmentObject(self.session)) {
+    //                            Image(systemName: "cart").resizable().frame(width: 28.0, height: 28.0)
+    //                        }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+    //                    )
+                        .navigationViewStyle(StackNavigationViewStyle())
+                    }
                 }
             }
         }

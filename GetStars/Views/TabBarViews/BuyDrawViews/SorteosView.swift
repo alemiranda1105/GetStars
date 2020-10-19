@@ -25,6 +25,10 @@ struct SorteosView: View {
         db.readSorteos(dg: dg)
         dg.notify(queue: DispatchQueue.global(qos: .background)) {
             let lista = db.getSorteos()
+            if lista.count <= 0 {
+                self.loading = false
+                return
+            }
             for i in lista {
                 db.readDatosSorteos(name: i, dg: dg)
                 dg.wait()
@@ -49,16 +53,17 @@ struct SorteosView: View {
                 p.setParticipantes(lista: datos["participantes"] as! [String])
                 p.setProductID(id: i)
                 
-                if self.isContained(p: p) {
-                    for j in 0..<self.sorteos.count {
-                        if self.sorteos[j].equals(product: p) {
-                            self.sorteos[j] = p
+                if owner.getKey() != "prueba" {
+                    if self.isContained(p: p) {
+                        for j in 0..<self.sorteos.count {
+                            if self.sorteos[j].equals(product: p) {
+                                self.sorteos[j] = p
+                            }
                         }
+                    } else {
+                       self.sorteos.append(p)
                     }
-                } else {
-                   self.sorteos.append(p)
                 }
-                
                 self.loading = false
             }
         }
@@ -76,19 +81,26 @@ struct SorteosView: View {
     var body: some View {
         GeometryReader { g in
             Group {
-                ScrollView {
-                    if self.loading {
-                        ActivityIndicator(isAnimating: .constant(true), style: .medium)
-                            .frame(width: g.size.width, height: g.size.height, alignment: .center)
-                    } else {
-                        ForEach(0..<self.sorteos.count, id: \.self) { p in
-                            SorteoCardView(product: self.$sorteos[p]).environmentObject(self.session)
-                                .frame(width: g.size.width)
+                if self.sorteos.count <= 0 {
+                    Text("For the moment, this is empty but we are working to bring here the best stars")
+                        .font(.system(size: 28, weight: .thin))
+                        .multilineTextAlignment(.center)
+                        .padding()
+                } else {
+                    ScrollView {
+                        if self.loading {
+                            ActivityIndicator(isAnimating: .constant(true), style: .medium)
+                                .frame(width: g.size.width, height: g.size.height, alignment: .center)
+                        } else {
+                            ForEach(0..<self.sorteos.count, id: \.self) { p in
+                                SorteoCardView(product: self.$sorteos[p]).environmentObject(self.session)
+                                    .frame(width: g.size.width)
+                            }
                         }
                     }
-                }.navigationBarTitle(Text("Raffle"))
-                .onAppear(perform: self.readSorteos)
-            }
+                }
+            }.navigationBarTitle(Text("Raffle"))
+            .onAppear(perform: self.readSorteos)
         }
     }
 }
