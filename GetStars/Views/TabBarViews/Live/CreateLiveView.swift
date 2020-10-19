@@ -16,6 +16,8 @@ struct CreateLiveView: View {
     
     @EnvironmentObject var session: SessionStore
     
+    @State var loading = true
+    
     @Binding var person: Person
     @State var precio: Double = 0.0
     @State var skproduct = SKProduct()
@@ -51,7 +53,7 @@ struct CreateLiveView: View {
 //            print("Precio obtenido")
 //            self.precio = db.getPrice()
             self.precio = Double(truncating: self.skproduct.price)
-            
+            self.loading = false
         }
     }
     
@@ -155,89 +157,93 @@ struct CreateLiveView: View {
     
     var body: some View {
         VStack {
-            if !(self.session.data?.getIsPro() ?? true) {
-                BuyProView()
-                    .environmentObject(self.session)
-                    .navigationBarTitle(Text("¡PÁSATE AL PRO!"))
+            if self.loading {
+                ActivityIndicator(isAnimating: .constant(true), style: .large)
             } else {
-                if self.participando {
-                    Text("Congratulations, you live have been correctly added")
-                        .font(.system(size: 22, weight: .bold))
-                        .multilineTextAlignment(.center)
-                        .padding()
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Text("Go back")
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .padding()
-                            .background(Color("navyBlue"))
-                            .foregroundColor(.white)
-                            .cornerRadius(50)
-                            .font(.system(size: 18, weight: .bold))
-                    }.padding()
-                    
+                if !(self.session.data?.getIsPro() ?? true) {
+                    BuyProView()
+                        .environmentObject(self.session)
+                        .navigationBarTitle(Text("¡PÁSATE AL PRO!"))
                 } else {
-                    
-                    Text("\(self.skproduct.localizedDescription):\n \(self.precio.dollarString)€")
-                        .multilineTextAlignment(.center)
-                        .font(.system(size: 18, weight: .semibold))
-                        .frame(width: 150, height: 80, alignment: .center)
-                    
-                    Spacer()
-                    
-                    if self.langStr != "es" {
-                        Text("\(80 - self.mensaje.count) characters remaining")
-                            .font(.system(size: 17, weight: .regular))
-                    } else {
-                        Text("\(80 - self.mensaje.count) caracteres restantes")
-                            .font(.system(size: 17, weight: .regular))
-                    }
-                    
-                    if #available(iOS 14.0, *) {
-                        TextEditor(text: self.$mensaje)
-                            .border(colorScheme == .dark ? Color("naranja"): Color("navyBlue"))
+                    if self.participando {
+                        Text("Congratulations, you live have been correctly added")
+                            .font(.system(size: 22, weight: .bold))
+                            .multilineTextAlignment(.center)
                             .padding()
-                            .frame(width: UIScreen.main.bounds.width-10.0, height: 200, alignment: .center)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Text("Go back")
+                                .frame(minWidth: 0, maxWidth: .infinity)
+                                .padding()
+                                .background(Color("navyBlue"))
+                                .foregroundColor(.white)
+                                .cornerRadius(50)
+                                .font(.system(size: 18, weight: .bold))
+                        }.padding()
                         
                     } else {
-                        // Fallback on earlier versions
-                        TextView(text: self.$mensaje)
-                            .border(colorScheme == .dark ? Color("naranja"): Color("navyBlue"))
-                            .padding()
-                            .frame(width: UIScreen.main.bounds.width-10.0, height: 200, alignment: .center)
                         
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        self.purchase(product: self.skproduct)
-                    }) {
+                        Text("\(self.skproduct.localizedDescription):\n \(self.precio.dollarString)€")
+                            .multilineTextAlignment(.center)
+                            .font(.system(size: 18, weight: .semibold))
+                            .frame(width: 150, height: 80, alignment: .center)
+                        
+                        Spacer()
+                        
                         if self.langStr != "es" {
-                            Text("Join: \(1000 - self.nParticipantes) participants left")
-                                .frame(minWidth: 0, maxWidth: .infinity)
-                                .padding()
-                                .background(Color("naranja"))
-                                .foregroundColor(.white)
-                                .cornerRadius(50)
-                                .font(.system(size: 18, weight: .bold))
+                            Text("\(80 - self.mensaje.count) characters remaining")
+                                .font(.system(size: 17, weight: .regular))
                         } else {
-                            Text("Añadirme: Quedan \(1000 - self.nParticipantes) puestos")
-                                .frame(minWidth: 0, maxWidth: .infinity)
-                                .padding()
-                                .background(Color("naranja"))
-                                .foregroundColor(.white)
-                                .cornerRadius(50)
-                                .font(.system(size: 18, weight: .bold))
+                            Text("\(80 - self.mensaje.count) caracteres restantes")
+                                .font(.system(size: 17, weight: .regular))
                         }
-                    }.padding()
-                    
-                    .alert(isPresented: self.$showError) {
-                        Alert(title: Text("Error"), message: Text(LocalizedStringKey(self.error)), dismissButton: .default(Text("OK")))
+                        
+                        if #available(iOS 14.0, *) {
+                            TextEditor(text: self.$mensaje)
+                                .border(colorScheme == .dark ? Color("naranja"): Color("navyBlue"))
+                                .padding()
+                                .frame(width: UIScreen.main.bounds.width-10.0, height: 200, alignment: .center)
+                            
+                        } else {
+                            // Fallback on earlier versions
+                            TextView(text: self.$mensaje)
+                                .border(colorScheme == .dark ? Color("naranja"): Color("navyBlue"))
+                                .padding()
+                                .frame(width: UIScreen.main.bounds.width-10.0, height: 200, alignment: .center)
+                            
+                        }
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            self.purchase(product: self.skproduct)
+                        }) {
+                            if self.langStr != "es" {
+                                Text("Join: \(1000 - self.nParticipantes) participants left")
+                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color("naranja"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(50)
+                                    .font(.system(size: 18, weight: .bold))
+                            } else {
+                                Text("Añadirme: Quedan \(1000 - self.nParticipantes) puestos")
+                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color("naranja"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(50)
+                                    .font(.system(size: 18, weight: .bold))
+                            }
+                        }.padding()
+                        
+                        .alert(isPresented: self.$showError) {
+                            Alert(title: Text("Error"), message: Text(LocalizedStringKey(self.error)), dismissButton: .default(Text("OK")))
+                        }
                     }
                 }
             }
