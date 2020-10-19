@@ -6,6 +6,9 @@
   Copyright © 2020 Marquelo S.L. All rights reserved.
 */
 
+// ALL
+"For the moment, this is empty but we are working to bring here the best stars" = "Por el momento esto está vacío, pero estamos trabajando en traer a las mejores estrellas";
+
 // WelcomeView
 "Loading..." = "Cargando...";
 "Welcome to GetStars" = "Bienvenido a GetStars";
@@ -34,6 +37,7 @@
 "Personal Information" = "Datos personales";
 "Full name" = "Nombre completo";
 "Date:" = "Fecha:";
+"Birthday (Optional)" = "Cumpleaños (Opcional)";
 "Birthday" = "Cumpleaños";
 "Terms of use" = "Términos de uso";
 "Read terms" = "Leer los términos";

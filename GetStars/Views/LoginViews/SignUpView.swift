@@ -111,7 +111,7 @@ struct SignUpView: View {
                     }.frame(width: UIScreen.main.bounds.width, alignment: .center)
                     .padding(10)
                 )) {
-                    Text("Birthday")
+                    Text("Birthday (Optional)")
                         .font(.system(size: 16, weight: .regular))
                 }
                 
