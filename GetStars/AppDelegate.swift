@@ -15,7 +15,7 @@ import GoogleMobileAds
 import AdSupport
 import AppTrackingTransparency
 
-import GoogleSignIn
+//import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -40,9 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         //Google Login
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        /*GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         let delegate = SessionStore()
-        GIDSignIn.sharedInstance().delegate = delegate
+        GIDSignIn.sharedInstance().delegate = delegate*/
         
         return true
     }

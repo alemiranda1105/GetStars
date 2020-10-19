@@ -53,7 +53,7 @@ struct WelcomeView: View {
                         
                         Spacer(minLength: 40)
                         
-                        HStack(spacing: 16){
+                        /*HStack(spacing: 16){
                             NavigationLink(destination: LoginMethodsView().environmentObject(self.session)){
                                 Text("Other ways...")
                                     .frame(minWidth: 0, maxWidth: .infinity)
@@ -64,7 +64,7 @@ struct WelcomeView: View {
                                     .font(.system(size: 18, weight: .bold))
                             }
                             
-                        }.padding(8)
+                        }.padding(8)*/
             
                     }.padding(.vertical, 8).padding(.horizontal, 8)
                     
