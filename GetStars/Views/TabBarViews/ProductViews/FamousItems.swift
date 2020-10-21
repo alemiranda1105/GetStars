@@ -69,7 +69,7 @@ struct FamousItems: View {
                 db.getProductPrice(product: "autDed", key: self.person.getKey(), dg: dg)
                 dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                     // autPrice = db.getPrice()
-                    let product = searchSk(name: "dedAut")
+                    let product = searchSk(name: "autDed")
                     let p = Product(price: Double(truncating: product.price), name: product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: true, productType: .autografoDedicado)
                     p.setSkProduct(sk: product)
                     
@@ -97,7 +97,7 @@ struct FamousItems: View {
             dg.notify(queue: DispatchQueue.global(qos: .background)) {
                 //var autPrice = db.getPrice()
                 
-                var product = searchSk(name: "autPho")
+                var product = searchSk(name: "fotAut")
                 var p = Product(price: Double(truncating: product.price), name: product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: false, productType: .fotoConAutografo)
                 p.setSkProduct(sk: product)
                 self.product.append(p)
@@ -106,7 +106,7 @@ struct FamousItems: View {
                 dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                     //autPrice = db.getPrice()
                     
-                    product = searchSk(name: "dedPho")
+                    product = searchSk(name: "fotDed")
                     p = Product(price: Double(truncating: product.price), name: product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: true, productType: .fotoDedicada)
                     p.setSkProduct(sk: product)
                     
@@ -116,7 +116,7 @@ struct FamousItems: View {
                     p = Product()
                     
                     // foto con mensaje custom
-                    product = searchSk(name: "dedPhoCus")
+                    product = searchSk(name: "dedPhoCustom")
                     p = Product(price: Double(truncating: product.price), name: product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: true, productType: .fotoDedicadaCustom)
                     p.setSkProduct(sk: product)
                     

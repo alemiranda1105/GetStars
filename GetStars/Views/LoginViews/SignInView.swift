@@ -24,6 +24,9 @@ struct SignInView: View {
             } else {
                 self.email = ""
                 self.password = ""
+                
+                // Tutorial
+                UserDefaults.standard.setValue(true, forKey: "tutorial")
             }
         }
     }

@@ -27,7 +27,7 @@ class IAPManager: NSObject {
     }
     
     fileprivate func getProductsIDs() -> [String]? {
-        return ["autPho", "dedAut", "dedPho", "dedPhoCus", "live"]
+        return ["fotAut", "autDed", "fotDed", "dedPhoCustom", "live.video"]
     }
     
     func getProducts(withHandler productsReceiveHandler: @escaping (_ result: Result<[SKProduct], IAPManagerError>) -> Void) {

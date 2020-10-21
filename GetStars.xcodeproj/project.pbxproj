@@ -86,6 +86,7 @@
 		BED5FEA42525E7C30053AE15 /* AutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED5FEA32525E7C30053AE15 /* AutView.swift */; };
 		BED5FEA72525E7D40053AE15 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED5FEA62525E7D40053AE15 /* PhotoView.swift */; };
 		BEEF585924E6A22C000CC9E9 /* PersonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEF585824E6A22C000CC9E9 /* PersonCard.swift */; };
+		BEF67DF22540311C0030EACF /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF67DF12540311C0030EACF /* TutorialView.swift */; };
 		BEFBA10424E2D6B500E0C883 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBA10324E2D6B500E0C883 /* Utilities.swift */; };
 		BEFBA10724E2D8CF00E0C883 /* GridStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBA10624E2D8CF00E0C883 /* GridStack.swift */; };
 		BEFBA10924E2E6D500E0C883 /* AutographProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBA10824E2E6D500E0C883 /* AutographProfileView.swift */; };
@@ -174,6 +175,7 @@
 		BED5FEA32525E7C30053AE15 /* AutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutView.swift; sourceTree = "<group>"; };
 		BED5FEA62525E7D40053AE15 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		BEEF585824E6A22C000CC9E9 /* PersonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCard.swift; sourceTree = "<group>"; };
+		BEF67DF12540311C0030EACF /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		BEFBA10324E2D6B500E0C883 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		BEFBA10624E2D8CF00E0C883 /* GridStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridStack.swift; sourceTree = "<group>"; };
 		BEFBA10824E2E6D500E0C883 /* AutographProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographProfileView.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 			children = (
 				BE5A37BE24F69E6C001EBF57 /* DedicatoriaYCompra */,
 				BEEF585524E69484000CC9E9 /* ProductViews */,
+				BEF67DF12540311C0030EACF /* TutorialView.swift */,
 				BE41AA6724CF584C00511527 /* HomeView.swift */,
 				BE41AA6924CF590500511527 /* SearchView.swift */,
 				BEB32DD624D811E9007BA071 /* Search */,
@@ -526,7 +529,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = "Marquelo S.L.";
 				TargetAttributes = {
 					BE2D820A24AA631A0080A75F = {
@@ -662,6 +665,7 @@
 				BE80F1D62512959B00D96074 /* DetailedArticleView.swift in Sources */,
 				BE08D89C251B59C2003426AB /* AddSorteoView.swift in Sources */,
 				BE4DDDE925080BE9002DF5A2 /* LiveCard.swift in Sources */,
+				BEF67DF22540311C0030EACF /* TutorialView.swift in Sources */,
 				BE962A0624F01B51009C8AA7 /* StarsDB.swift in Sources */,
 				BED5FEA42525E7C30053AE15 /* AutView.swift in Sources */,
 				BE37E3BD250E7B980016B8A1 /* ArticleProfileView.swift in Sources */,
@@ -857,6 +861,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GetStars/Preview Content\"";
 				DEVELOPMENT_TEAM = AY5R6TB9UX;
 				ENABLE_PREVIEWS = YES;
@@ -866,7 +871,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.marquelo.GetStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -880,6 +885,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GetStars/Preview Content\"";
 				DEVELOPMENT_TEAM = AY5R6TB9UX;
 				ENABLE_PREVIEWS = YES;
@@ -889,7 +895,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.marquelo.GetStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

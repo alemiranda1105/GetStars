@@ -16,6 +16,7 @@ struct HomeView: View {
     @State var data: [Person] = [Person]()
     
     @State var loading = true
+    @State var showTutorial: Bool = UserDefaults.standard.bool(forKey: "tutorial")
     
     private func getFamous() {
         let dg = DispatchGroup()
@@ -90,11 +91,7 @@ struct HomeView: View {
                                     VStack {
                                         PersonCard(person: self.$data[item]).environmentObject(self.session)
                                             .frame(width: g.size.width)
-                                        #if DEBUG
-                                        BannerCardView()
-                                            .frame(width: g.size.width, alignment: .center)
-                                            .padding()
-                                        #endif
+                                        
                                         if (item + 1) % 3 == 0 {
                                             BannerCardView()
                                                 .frame(width: g.size.width, alignment: .center)
@@ -103,8 +100,7 @@ struct HomeView: View {
                                     }
                                 }
                             }
-                            
-                        }
+                        }.sheet(isPresented: self.$showTutorial, content: {TutorialView(show: self.$showTutorial)})
                     }.frame(width: g.size.width)
                     .navigationBarTitle(Text("Home"))
 //                    .navigationBarItems(trailing:

@@ -141,7 +141,7 @@ struct CreateLiveView: View {
                     case.success(let products):
                         for i in products {
                             let name = i.productIdentifier
-                            if name == "live" {
+                            if name == "live.video" {
                                 self.skproduct = i
                                 return
                             }
@@ -190,7 +190,6 @@ struct CreateLiveView: View {
                         Text("\(self.skproduct.localizedDescription):\n \(self.precio.dollarString)€")
                             .multilineTextAlignment(.center)
                             .font(.system(size: 18, weight: .semibold))
-                            .frame(width: 150, height: 80, alignment: .center)
                         
                         Spacer()
                         

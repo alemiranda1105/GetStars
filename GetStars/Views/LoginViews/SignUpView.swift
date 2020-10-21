@@ -85,6 +85,9 @@ struct SignUpView: View {
                 
                 defaults.set(self.session.data?.autMan, forKey: "AutMan")
                 
+                // Tutorial
+                defaults.set(true, forKey: "tutorial")
+                
                 defaults.synchronize()
             }
         }
