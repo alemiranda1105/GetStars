@@ -92,9 +92,3 @@ struct ArticleProfileView: View {
         }.navigationBarTitle(Text(LocalizedStringKey(self.title)), displayMode: .large)
     }
 }
-
-struct ArticleProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        ArticleProfileView(type: .constant("Live"), title: .constant("LIVE"))
-    }
-}
