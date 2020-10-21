@@ -142,9 +142,9 @@ struct PersonView: View {
 struct ProductView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            PersonView(person: .constant(Person(name: "Antoñito Perez lopez", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "p1", key: ""))).environmentObject(SessionStore()).previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+            PersonView(person: .constant(Person(name: "Antoñito Perez lopez", description: "Soy antoñito el de la montaña", image: "p1", key: ""))).environmentObject(SessionStore()).previewDevice(PreviewDevice(rawValue: "iPhone 8"))
             
-            PersonView(person: .constant(Person(name: "Antoñito Perez lopez", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus elit in viverra vehicula. Integer mattis turpis vitae suscipit placerat. Etiam sit amet risus blandit lectus vehicula luctus. Aliquam at rutrum tortor. Vivamus dictum id lorem eget rutrum. Pellentesque ullamcorper nibh sit amet dui auctor sodales. Cras ante ipsum, mollis vel rutrum eu, suscipit efficitur lacus. Curabitur interdum mi augue, id congue dui viverra ut. Vivamus erat tellus, euismod at pretium id, feugiat ac neque. Aliquam mollis, velit a volutpat.", image: "p1", key: ""))).environmentObject(SessionStore()).previewDevice(PreviewDevice(rawValue: "iPhone 11"))
+            PersonView(person: .constant(Person(name: "Antoñito Perez lopez", description: "Soy antoñito el de la montaña", image: "p1", key: ""))).environmentObject(SessionStore()).previewDevice(PreviewDevice(rawValue: "iPhone 11"))
         }
     }
 }

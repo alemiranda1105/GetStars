@@ -68,8 +68,10 @@ struct SubastaCardView: View {
     }
 }
 
+#if DEBUG
 struct SubastaCardView_Previews: PreviewProvider {
     static var previews: some View {
-        SubastaCardView(product: .constant(Product(price: 99.99, name: "Test", description: "Esto es una descripción de prueba para la carta", image: "pr2", owner: Person(name: "Persona 1", description: "Esto es una descripción para el dueño del producto", image: "p1", key: ""), isDedicated: false)))
+        SubastaCardView(product: .constant(Product(price: 99.99, name: "Casco", description: "Esto es una descripción de prueba para la carta", image: "pr2", owner: Person(name: "Persona 1", description: "Esto es una descripción para el dueño del producto", image: "p1", key: ""), isDedicated: false)))
     }
 }
+#endif

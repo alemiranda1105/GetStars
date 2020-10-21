@@ -17,13 +17,8 @@ struct BuyDrawView: View {
     
     var body: some View {
         NavigationView {
-            if !(self.session.data?.getIsPro() ?? false) {
-                BuyProView()
-                    .environmentObject(self.session)
-                    .navigationBarTitle(Text("¡PÁSATE AL PRO!"))
-            } else {
-                ScrollView {
-                   VStack {
+            ScrollView {
+               VStack {
 //                       TextField("Buscar", text: $search)
 //                           .padding(7)
 //                           .padding(.horizontal, 25)
@@ -39,14 +34,26 @@ struct BuyDrawView: View {
 //                           )
 //                           .padding(.horizontal, 10)
 //
-                    Spacer(minLength: 35)
-                       
-                    NavigationLink(destination: SubastaView().environmentObject(self.session)){
-                       Text("Sale")
-                           .fontWeight(.heavy)
+                Spacer(minLength: 35)
+                   
+                NavigationLink(destination: SubastaView().environmentObject(self.session)){
+                   Text("Sale")
+                       .fontWeight(.heavy)
+                       .frame(minWidth: 0, maxWidth: .infinity)
+                       .padding(50)
+                       .background(Color.init("naranja"))
+                       .foregroundColor(.white)
+                       .cornerRadius(16)
+                       .font(.system(size: 18, weight: .bold))
+                }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
+               
+                Spacer(minLength: 20)
+               
+                NavigationLink(destination: SorteosView().environmentObject(self.session)){
+                    Text("Raffle")
                            .frame(minWidth: 0, maxWidth: .infinity)
                            .padding(50)
-                           .background(Color.init("naranja"))
+                           .background(Color.init(hex: "00b0ff"))
                            .foregroundColor(.white)
                            .cornerRadius(16)
                            .font(.system(size: 18, weight: .bold))
@@ -54,41 +61,30 @@ struct BuyDrawView: View {
                    
                     Spacer(minLength: 20)
                    
-                    NavigationLink(destination: SorteosView().environmentObject(self.session)){
-                        Text("Raffle")
-                               .frame(minWidth: 0, maxWidth: .infinity)
-                               .padding(50)
-                               .background(Color.init(hex: "00b0ff"))
-                               .foregroundColor(.white)
-                               .cornerRadius(16)
-                               .font(.system(size: 18, weight: .bold))
-                        }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-                       
-                        Spacer(minLength: 20)
-                       
-                        NavigationLink(destination: LiveView().environmentObject(self.session)){
-                            Text("Live")
-                               .frame(minWidth: 0, maxWidth: .infinity)
-                               .padding(50)
-                               .background(Color.init(hex: "5e35b1"))
-                               .foregroundColor(.white)
-                               .cornerRadius(16)
-                               .font(.system(size: 18, weight: .bold))
-                        }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-                    
-                        Banner()
-                            .frame(width: 320, height: 50, alignment: .center)
-                            .padding()
-                    
-                   }.padding(.horizontal, 8)
-               }.navigationBarTitle(Text("Shop"))
-            }
+                    NavigationLink(destination: LiveView().environmentObject(self.session)){
+                        Text("Live")
+                           .frame(minWidth: 0, maxWidth: .infinity)
+                           .padding(50)
+                           .background(Color.init(hex: "5e35b1"))
+                           .foregroundColor(.white)
+                           .cornerRadius(16)
+                           .font(.system(size: 18, weight: .bold))
+                    }.shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
+                
+                    Banner()
+                        .frame(width: 320, height: 50, alignment: .center)
+                        .padding()
+                
+               }.padding(.horizontal, 8)
+           }.navigationBarTitle(Text("Shop"))
        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
+#if DEBUG
 struct BuyDrawView_Previews: PreviewProvider {
     static var previews: some View {
         BuyDrawView()
     }
 }
+#endif

@@ -43,9 +43,3 @@ struct SupportView: View {
         }.navigationBarTitle(Text("Support"))
     }
 }
-
-struct SupportVire_Previews: PreviewProvider {
-    static var previews: some View {
-        SupportView()
-    }
-}

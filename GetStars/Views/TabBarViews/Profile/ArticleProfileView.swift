@@ -95,6 +95,6 @@ struct ArticleProfileView: View {
 
 struct ArticleProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ArticleProfileView(type: .constant("debug"), title: .constant("DEBUG"))
+        ArticleProfileView(type: .constant("Live"), title: .constant("LIVE"))
     }
 }

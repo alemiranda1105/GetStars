@@ -83,8 +83,10 @@ struct TrendingView: View {
     }
 }
 
+#if DEBUG
 struct TrendingView_Previews: PreviewProvider {
     static var previews: some View {
         TrendingView()
     }
 }
+#endif

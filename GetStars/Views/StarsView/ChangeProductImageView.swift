@@ -95,8 +95,3 @@ struct ChangeProductImageView: View {
     }
 }
 
-struct ChangeProductImageView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChangeProductImageView(goBack: .constant(false), product: .constant(""), image: .constant(UIImage()))
-    }
-}

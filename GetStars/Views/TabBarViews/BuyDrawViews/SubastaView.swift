@@ -101,9 +101,3 @@ struct SubastaView: View {
         }
     }
 }
-
-struct SubastaView_Previews: PreviewProvider {
-    static var previews: some View {
-        SubastaView()
-    }
-}

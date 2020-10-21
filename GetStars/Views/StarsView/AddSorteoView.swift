@@ -181,9 +181,3 @@ struct AddSorteoView: View {
         }
     }
 }
-
-struct AddSorteoView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddSorteoView()
-    }
-}

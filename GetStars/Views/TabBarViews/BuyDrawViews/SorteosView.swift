@@ -104,9 +104,3 @@ struct SorteosView: View {
         }
     }
 }
-
-struct SorteosView_Previews: PreviewProvider {
-    static var previews: some View {
-        SorteosView()
-    }
-}

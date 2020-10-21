@@ -68,8 +68,3 @@ struct ManageLiveView: View {
     }
 }
 
-struct ManageLiveView_Previews: PreviewProvider {
-    static var previews: some View {
-        ManageLiveView()
-    }
-}

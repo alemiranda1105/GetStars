@@ -161,7 +161,7 @@ struct FamousItems: View {
 #if DEBUG
 struct FamousItems_Previews: PreviewProvider {
     static var previews: some View {
-        FamousItems(item: .constant("aut"), person: .constant(Person(name: "DEbug", description: "Debug", image: "", key: "")))
+        FamousItems(item: .constant("aut"), person: .constant(Person(name: "Antoñito", description: "Antoñito", image: "", key: "")))
     }
 }
 #endif

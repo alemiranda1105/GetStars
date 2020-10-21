@@ -84,8 +84,10 @@ struct DestacadosView: View {
     }
 }
 
+#if DEBUG
 struct DestacadosView_Previews: PreviewProvider {
     static var previews: some View {
         DestacadosView()
     }
 }
+#endif

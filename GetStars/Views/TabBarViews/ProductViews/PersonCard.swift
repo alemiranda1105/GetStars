@@ -57,7 +57,7 @@ struct PersonCard: View {
 #if DEBUG
 struct ProductCard_Previews: PreviewProvider {
     static var previews: some View {
-        PersonCard(person: .constant(Person(name: "Antoñito Perez lopez", description: "prueba", image: "p1", key: "")))
+        PersonCard(person: .constant(Person(name: "Antoñito Perez lopez", description: "Hola soy antoñito", image: "p1", key: "")))
     }
 }
 #endif

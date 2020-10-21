@@ -76,8 +76,3 @@ struct LiveCard: View {
     }
 }
 
-struct LiveCard_Previews: PreviewProvider {
-    static var previews: some View {
-        LiveCard(person: .constant(Person(name: "DEbug", description: "Debug", image: "", key: "")))
-    }
-}
