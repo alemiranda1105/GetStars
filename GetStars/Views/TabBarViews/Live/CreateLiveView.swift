@@ -148,7 +148,7 @@ struct CreateLiveView: View {
                         }
                     case.failure(let error):
                         print(error.localizedDescription)
-                        self.presentationMode.wrappedValue.dismiss()
+                        // self.presentationMode.wrappedValue.dismiss()
                     }
                 }
             }
@@ -182,7 +182,7 @@ struct CreateLiveView: View {
                     
                 } else {
                     
-                    Text("\(self.skproduct.localizedDescription):\n \(self.precio.dollarString)€")
+                    Text("\(self.skproduct.localizedDescription == "" ? "A dedicated video from the famous to you": self.skproduct.localizedDescription):\n \(self.precio.dollarString == "0.00" ? "59.99": self.precio.dollarString)€")
                         .multilineTextAlignment(.center)
                         .font(.system(size: 18, weight: .semibold))
                     

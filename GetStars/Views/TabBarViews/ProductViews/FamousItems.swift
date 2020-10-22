@@ -32,7 +32,6 @@ struct FamousItems: View {
                         self.sk.append(contentsOf: products)
                     case.failure(let error):
                         print(error.localizedDescription)
-                        self.presentationMode.wrappedValue.dismiss()
                     }
                 }
             }
@@ -46,8 +45,24 @@ struct FamousItems: View {
                 return i
             }
         }
-        self.presentationMode.wrappedValue.dismiss()
-        return SKProduct()
+        // self.presentationMode.wrappedValue.dismiss()
+        return searchSk(name: name, t: 1)
+    }
+    
+    private func searchSk(name: String, t: Int) -> SKProduct {
+        print("intento \(t)")
+        if t >= 15 {
+            // self.presentationMode.wrappedValue.dismiss()
+            return SKProduct()
+        }
+        for i in self.sk {
+            let n = i.productIdentifier
+            if n == name {
+                return i
+            }
+        }
+        
+        return searchSk(name: name, t: t+1)
     }
     
     private func getAutografo() {
@@ -70,7 +85,7 @@ struct FamousItems: View {
                 dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
                     // autPrice = db.getPrice()
                     let product = searchSk(name: "autDed")
-                    let p = Product(price: Double(truncating: product.price), name: product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: true, productType: .autografoDedicado)
+                    let p = Product(price: Double(truncating: product.price), name: product.localizedTitle == "" ? "Dedicated autograph": product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: true, productType: .autografoDedicado)
                     p.setSkProduct(sk: product)
                     
                     self.product.append(p)
@@ -98,7 +113,7 @@ struct FamousItems: View {
                 //var autPrice = db.getPrice()
                 
                 var product = searchSk(name: "fotAut")
-                var p = Product(price: Double(truncating: product.price), name: product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: false, productType: .fotoConAutografo)
+                var p = Product(price: Double(truncating: product.price), name: product.localizedTitle == "" ? "Photo with autograph": product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: false, productType: .fotoConAutografo)
                 p.setSkProduct(sk: product)
                 self.product.append(p)
                 
@@ -107,7 +122,7 @@ struct FamousItems: View {
                     //autPrice = db.getPrice()
                     
                     product = searchSk(name: "fotDed")
-                    p = Product(price: Double(truncating: product.price), name: product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: true, productType: .fotoDedicada)
+                    p = Product(price: Double(truncating: product.price), name: product.localizedTitle == "" ? "Photo with dedication": product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: true, productType: .fotoDedicada)
                     p.setSkProduct(sk: product)
                     
                     self.product.append(p)
@@ -117,13 +132,13 @@ struct FamousItems: View {
                     
                     // foto con mensaje custom
                     product = searchSk(name: "dedPhoCustom")
-                    p = Product(price: Double(truncating: product.price), name: product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: true, productType: .fotoDedicadaCustom)
+                    p = Product(price: Double(truncating: product.price), name: product.localizedTitle == "" ? "Photo with dedication": product.localizedTitle, description: product.localizedDescription, image: self.url, owner: self.person, isDedicated: true, productType: .fotoDedicadaCustom)
                     p.setSkProduct(sk: product)
                     
                     self.product.append(p)
                     
                     self.loading = false
-                    print("HOla")
+                    print("Hola")
                     
                 }
             }
