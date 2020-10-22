@@ -106,7 +106,7 @@ struct PhotoView: View {
                                     HStack {
                                         Image(systemName: self.colorScheme == .dark ? "camera": "camera.fill")
 
-                                        Text("\(item.name): \(item.price)€")
+                                        Text("\(item.name): \(item.price.dollarString)€")
                                             .font(.system(size: 18, weight: .bold))
                                     }.padding(15)
                                 }.frame(width: g.size.width-15)
