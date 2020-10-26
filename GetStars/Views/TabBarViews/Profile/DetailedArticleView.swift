@@ -53,25 +53,25 @@ struct DetailedArticleView: View {
                     
                     Spacer(minLength: 32)
                     
-                    Button(action: {
-                        // Añadir código para descargar la imagen
-                        self.showAlert = true
-                    }){
-                        HStack {
-                            Image(systemName: self.colorScheme == .dark ? "square.and.arrow.down": "square.and.arrow.down.fill")
-                            
-                            Text("Download image")
-                                .font(.system(size: 18, weight: .bold))
-                        }.padding(15)
-                        
-                    }.frame(minWidth: 0, maxWidth: g.size.width)
-                        .background(Color("gris"))
-                        .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
-                        .cornerRadius(8)
-                        .padding(15)
-                    .alert(isPresented: self.$showAlert) {
-                        Alert(title: Text("Attention"), message: Text("For security reasons, downloads have been disabled"), dismissButton: .default(Text("OK")))
-                    }
+//                    Button(action: {
+//                        // Añadir código para descargar la imagen
+//                        self.showAlert = true
+//                    }){
+//                        HStack {
+//                            Image(systemName: self.colorScheme == .dark ? "square.and.arrow.down": "square.and.arrow.down.fill")
+//                            
+//                            Text("Download image")
+//                                .font(.system(size: 18, weight: .bold))
+//                        }.padding(15)
+//                        
+//                    }.frame(minWidth: 0, maxWidth: g.size.width)
+//                        .background(Color("gris"))
+//                        .foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
+//                        .cornerRadius(8)
+//                        .padding(15)
+//                    .alert(isPresented: self.$showAlert) {
+//                        Alert(title: Text("Attention"), message: Text("For security reasons, downloads have been disabled"), dismissButton: .default(Text("OK")))
+//                    }
                 }
             }
         }
