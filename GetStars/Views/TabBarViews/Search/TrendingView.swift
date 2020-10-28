@@ -68,6 +68,13 @@ struct TrendingView: View {
                             ForEach(0..<self.data.count, id: \.self) { product in
                                 PersonCard(person: self.$data[product]).environmentObject(self.session)
                                     .frame(width: g.size.width)
+                                
+                                if (product + 1) % 3 == 0 {
+                                    BannerCardView()
+                                        .frame(width: g.size.width, alignment: .center)
+                                        .padding()
+                                }
+                                
                             }
                         }.navigationBarTitle("Trending")
     //                    .navigationBarItems(trailing:

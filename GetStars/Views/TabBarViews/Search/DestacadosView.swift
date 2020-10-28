@@ -68,6 +68,13 @@ struct DestacadosView: View {
                             ForEach(0..<self.data.count, id: \.self) { item in
                                 PersonCard(person: self.$data[item]).environmentObject(self.session)
                                     .frame(width: g.size.width)
+                                
+                                if (item + 1) % 3 == 0 {
+                                    BannerCardView()
+                                        .frame(width: g.size.width, alignment: .center)
+                                        .padding()
+                                }
+                                
                             }
                         }.navigationBarTitle("Highlights")
     //                    .navigationBarItems(trailing:

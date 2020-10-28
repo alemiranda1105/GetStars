@@ -92,6 +92,12 @@ struct SubastaView: View {
                             ForEach(0..<self.subastas.count, id: \.self) { p in
                                 SubastaCardView(product: self.$subastas[p]).environmentObject(self.session)
                                     .frame(width: g.size.width)
+                                
+                                if (p + 1) % 3 == 0 {
+                                    BannerCardView()
+                                        .frame(width: g.size.width, alignment: .center)
+                                        .padding()
+                                }
                             }
                         }
                     }

@@ -66,6 +66,13 @@ struct LiveView: View {
                             ForEach(0 ..< self.data.count, id: \.self) { p in
                                 LiveCard(person: self.$data[p]).environmentObject(self.session)
                                     .frame(width: g.size.width)
+                                
+                                if (p + 1) % 3 == 0 {
+                                    BannerCardView()
+                                        .frame(width: g.size.width, alignment: .center)
+                                        .padding()
+                                }
+                                
                             }
                         }
                     }

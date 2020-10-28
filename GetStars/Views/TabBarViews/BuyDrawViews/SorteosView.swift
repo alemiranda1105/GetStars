@@ -95,6 +95,12 @@ struct SorteosView: View {
                             ForEach(0..<self.sorteos.count, id: \.self) { p in
                                 SorteoCardView(product: self.$sorteos[p]).environmentObject(self.session)
                                     .frame(width: g.size.width)
+                                
+                                if (p + 1) % 3 == 0 {
+                                    BannerCardView()
+                                        .frame(width: g.size.width, alignment: .center)
+                                        .padding()
+                                }
                             }
                         }
                     }
