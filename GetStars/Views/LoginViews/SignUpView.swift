@@ -8,10 +8,16 @@
 
 import SwiftUI
 
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseStorage
+
 struct SignUpView: View {
     @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var session: SessionStore
+    
+    @State var invitacion: String = ""
     
     @State var name: String = ""
     @State var email: String = ""
@@ -66,29 +72,52 @@ struct SignUpView: View {
                 self.error = "Reintentelo de nuevo"
         }
         
-        session.signUp(email: email, password: password) { (result, error) in
-            if let error = error {
-                self.error = error.localizedDescription
+        // Comprobación código de invitación
+        let db = Firestore.firestore()
+        let ref = db.collection("keyInvitaciones").document("key")
+        ref.getDocument { doc, err in
+            if err != nil {
+                self.error = "Error, please try again"
+                print(err?.localizedDescription ?? "")
+                print("ERROR CODIGO INVITACION")
+                return
             } else {
-                self.email = ""
-                self.password = ""
-                
-                // Datos del usuario
-                self.session.data = UserData(nombre: self.name, sexo: sex, edad: age, fechaNacimiento: self.birthDate, autMan: 0, isPro: false)
-                self.session.db.createUserDB(session: self.session)
-                
-                let defaults = UserDefaults.standard
-                defaults.set(self.name, forKey: "name")
-                defaults.set(age, forKey: "age")
-                defaults.set(sex, forKey: "sex")
-                defaults.set(self.birthDate, forKey: "fechaNacimiento")
-                
-                defaults.set(self.session.data?.autMan, forKey: "AutMan")
-                
-                // Tutorial
-                defaults.set(true, forKey: "tutorial")
-                
-                defaults.synchronize()
+                let keys: [String] = doc?.data()!["key"] as! [String]
+                for i in keys {
+                    print(i)
+                    if self.invitacion == i {
+                        session.signUp(email: email, password: password) { (result, error) in
+                            if let error = error {
+                                self.error = error.localizedDescription
+                            } else {
+                                db.collection("keyInvitaciones").document("key")
+                                    .updateData(["key": FieldValue.arrayRemove([i])])
+                                self.email = ""
+                                self.password = ""
+                                
+                                // Datos del usuario
+                                self.session.data = UserData(nombre: self.name, sexo: sex, edad: age, fechaNacimiento: self.birthDate, autMan: 0, isPro: false)
+                                self.session.db.createUserDB(session: self.session)
+                                
+                                let defaults = UserDefaults.standard
+                                defaults.set(self.name, forKey: "name")
+                                defaults.set(age, forKey: "age")
+                                defaults.set(sex, forKey: "sex")
+                                defaults.set(self.birthDate, forKey: "fechaNacimiento")
+                                
+                                defaults.set(self.session.data?.autMan, forKey: "AutMan")
+                                
+                                // Tutorial
+                                defaults.set(true, forKey: "tutorial")
+                                
+                                defaults.synchronize()
+                                return
+                            }
+                        }
+                    }
+                }
+                self.error = "The code is not valid, please try again"
+                return
             }
         }
     }
@@ -101,6 +130,14 @@ struct SignUpView: View {
                         self.generos[$0]
                     }
                 }.pickerStyle(SegmentedPickerStyle())
+            }
+            
+            Section(header: Text("Invitation")) {
+                Text("In order to sign up with us, you need an invitation code")
+                    .font(.system(size: 18, weight: .thin))
+                    .multilineTextAlignment(.center)
+                TextField( "Invitation code", text: self.$invitacion)
+                    .autocapitalization(.none)
             }
             
             Section(header: Text("Personal Information")) {
