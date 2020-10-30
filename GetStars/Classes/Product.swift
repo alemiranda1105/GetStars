@@ -203,7 +203,7 @@ class Product: Identifiable {
             case .sorteo:
                 break
             case .fotoDedicadaCustom:
-                cat = "fotDed"
+                cat = "fotCus"
                 break
         }
         return cat

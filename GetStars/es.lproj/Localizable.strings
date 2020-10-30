@@ -181,6 +181,9 @@
 "Get in touch with us" = "Ponte en contacto con nosotros";
 
 // StarProfileView
+"Products" = "Productos";
+"Raffles" = "Sorteos";
+"Sales" = "Subastas";
 "Dedicated products" = "Productos dedicados";
 "Dedicated photos" = "Fotos dedicadas";
 "Dedicated aut." = "Aut. dedicados";
@@ -221,3 +224,19 @@
 "Starting price" = "Precion inicial";
 "Upload sale" = "Subir puja";
 "New sale" = "Nueva puja";
+
+// Tutorial
+"Welcome to GetStars" = "Bienvenido a GetStars";
+"The app where you are going to be able to connect with the famous in any part of the world" = "La app con la que serás capaz de conectar con famosos en cualquier parte del mundo";
+"Press the \"next\" button to continue" = "Pulsa \"continuar\" para empezar";
+"In GetStars you can discover and buy the products from your idol, autographs, photos..." = "En GetStars puedes descubrir y comprar productos de tus ídolos como autógrafos, fotos...";
+"And if you want this products would be dedicated for you, everything from you home, staying safe, without be waiting in a big queue or waiting for a really long time" = "Y si quieres, estos productos estarán dedicados para ti, todo desde caso, manteniéndote seguro y sin tener que esperar mucho tiempo";
+"And also, you may win some exclusive items like a ball used by him/her or an entry to the next race, everything free with our raffles created by himself, this is the only way we can garantee that the products come from an original source and you are not getting a fake product" = "Y además, podrás algunos productos exclusivos como el balón usado en un partido o una entrada a la siguiente carrera, todo gracias a nuestros sorteos gratuitos creados por él o ella, de este manera, garantizamos que los productos son originales";
+"The are even bids where you can buy even more exclusive products" = "Incluso subastatamos productos aún más exclusivos";
+"Press next and discover our exclusive product..." = "Pulsa el botón para descubrir algo todavía más exclusivo...";
+"Could you imagine that this person who you are watching in the TV just send a video to you and wishing you the best luck for the test you have tomorrow? Impossible, true?" = "¿Podrías imaginar que esa persona a la que ves por la televisión te envíase un video deseándote suerte para el examen que tienes mañana?¿Imposible, verdad?";
+"Now, with GetStars that's possible, with our \"Live\" videos now the stars will be closer to us than never with these dedicated  videos in exclusive for you" = "Pues ahora, con GetStars eso es posible, gracias a nuestros \"Live\" las estrellas estarán más cerca que nunca con estos videos dedicados para ti";
+"Press START to discover more" = "Pulsa START para descubrir";
+"Back" = "Atrás";
+"Next" = "Siguiente";
+"Start" = "Empezar";

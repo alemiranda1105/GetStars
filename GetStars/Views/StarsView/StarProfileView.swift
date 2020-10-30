@@ -15,7 +15,7 @@ struct StarProfileView: View {
     
     @EnvironmentObject var session: SessionStore
     
-    private var cats = ["Products", "Raffles", "Sales"]
+    private var cats = [Text("Products"), Text("Raffles"), Text("Sales")]
     @State var catSeleccionada = 0
     
     @State var loading = true
@@ -97,7 +97,8 @@ struct StarProfileView: View {
                         ScrollView {
                             Picker(selection: self.$catSeleccionada, label: Text("")) {
                                 ForEach(0 ..< self.cats.count) {
-                                    Text(self.cats[$0])
+//                                    Text(self.cats[$0])
+                                    self.cats[$0]
                                 }
                             }.padding().pickerStyle(SegmentedPickerStyle())
                             
@@ -131,7 +132,7 @@ struct StarProfileView: View {
                                         }) {
                                             VStack {
                                                 Text("Photo")
-                                                    .font(.system(size: 22, weight: .bold))
+                                                    .font(.system(size: 12, weight: .bold))
                                                 Spacer()
                                                 Image(systemName: "camera")
                                                     .resizable()
@@ -149,30 +150,30 @@ struct StarProfileView: View {
                                         .background(RoundedRectangle(cornerRadius: 16).fill(Color("gris")))
                                         .padding()
                                         
-                                        Button(action: {
-                                            self.product = "aut"
-                                            self.loadProduct()
-                                            self.showProductDetail = true
-                                        }) {
-                                            VStack {
-                                                Text("Autograph")
-                                                    .font(.system(size: 22, weight: .bold))
-                                                Spacer()
-                                                Image(systemName: "hand.draw")
-                                                    .resizable()
-                                                    .frame(width: 45, height: 45, alignment: .center)
-                                                    .scaledToFit()
-                                                Spacer()
-                                                if self.langStr == "es" {
-                                                    Text("Autógrafos: \(self.session.data?.ventas["aut"] ?? 0)")
-                                                } else {
-                                                    Text("Autograph: \(self.session.data?.ventas["aut"] ?? 0)")
-                                                }
-                                            }
-                                        }.frame(width: 125, height: 125)
-                                        .padding()
-                                        .background(RoundedRectangle(cornerRadius: 16).fill(Color("gris")))
-                                        .padding()
+//                                        Button(action: {
+//                                            self.product = "aut"
+//                                            self.loadProduct()
+//                                            self.showProductDetail = true
+//                                        }) {
+//                                            VStack {
+//                                                Text("Autograph")
+//                                                    .font(.system(size: 22, weight: .bold))
+//                                                Spacer()
+//                                                Image(systemName: "hand.draw")
+//                                                    .resizable()
+//                                                    .frame(width: 45, height: 45, alignment: .center)
+//                                                    .scaledToFit()
+//                                                Spacer()
+//                                                if self.langStr == "es" {
+//                                                    Text("Autógrafos: \(self.session.data?.ventas["aut"] ?? 0)")
+//                                                } else {
+//                                                    Text("Autograph: \(self.session.data?.ventas["aut"] ?? 0)")
+//                                                }
+//                                            }
+//                                        }.frame(width: 125, height: 125)
+//                                        .padding()
+//                                        .background(RoundedRectangle(cornerRadius: 16).fill(Color("gris")))
+//                                        .padding()
                                         
                                     }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
                                 }
@@ -193,7 +194,7 @@ struct StarProfileView: View {
                                         }) {
                                             VStack {
                                                 Text("Dedicated photos")
-                                                    .font(.system(size: 22, weight: .bold))
+                                                    .font(.system(size: 12, weight: .bold))
                                                 Spacer()
                                                 Image(systemName: "camera")
                                                     .resizable()
@@ -208,13 +209,34 @@ struct StarProfileView: View {
                                         .padding()
                                         
                                         Button(action: {
+                                            self.product = "fotDed"
+                                            self.loadProduct()
+                                            self.showProductDetail = true
+                                        }) {
+                                            VStack {
+                                                Text("Dedicated photos")
+                                                    .font(.system(size: 12, weight: .bold))
+                                                Spacer()
+                                                Image(systemName: "camera")
+                                                    .resizable()
+                                                    .frame(width: 45, height: 45, alignment: .center)
+                                                    .scaledToFit()
+                                                Spacer()
+                                                Text("Photo: \(self.session.data?.ventas["fotCus"] ?? 0)")
+                                            }
+                                        }.frame(width: 125, height: 125)
+                                        .padding()
+                                        .background(RoundedRectangle(cornerRadius: 16).fill(Color("gris")))
+                                        .padding()
+                                        
+                                        Button(action: {
                                             self.product = "autDed"
                                             self.loadProduct()
                                             self.showProductDetail = true
                                         }) {
                                             VStack {
                                                 Text("Dedicated aut.")
-                                                    .font(.system(size: 22, weight: .bold))
+                                                    .font(.system(size: 12, weight: .bold))
                                                 Spacer()
                                                 Image(systemName: "hand.draw")
                                                     .resizable()
