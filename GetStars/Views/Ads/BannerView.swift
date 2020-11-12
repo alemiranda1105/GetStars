@@ -21,6 +21,7 @@ final private class BannerVC: UIViewRepresentable {
         #else
         banner.adUnitID = "ca-app-pub-2307684125945843/7616092995"
         #endif
+        banner.adUnitID = "ca-app-pub-2307684125945843/7616092995"
         banner.rootViewController = UIApplication.shared.windows.first?.rootViewController
         banner.load(GADRequest())
         

@@ -38,37 +38,6 @@ struct HomeView: View {
             }
             self.loading = false
         }
-//        self.data = [Person]()
-//
-//        let st = StarsST()
-//        let db = StarsDB()
-//        var url = URL(string: "")
-//        let dg = DispatchGroup()
-//        db.readKeys(dg: dg)
-//        dg.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-//            let keys = db.getKeys()
-//            self.session.db.readDataUser(session: self.session, dg: dg)
-//            dg.wait()
-//            print("DATOS USUARIOS LEIDOS HOME")
-//            for i in keys {
-//                st.getProfileImage(key: i, dg: dg)
-//                dg.wait()
-//
-//                url = st.getProfileImgUrl()
-//                db.readFamous(key: i, dg: dg)
-//                dg.wait()
-//
-//                print("Famoso HOME leído")
-//                let name = db.getName()
-//                let desc = db.getDesc()
-//                let p = Person(name: name, description: desc, image: url!, key: i)
-//                if !p.isContained(array: self.data) {
-//                    self.data.append(p)
-//                }
-//
-//            }
-//            self.loading = false
-//        }
     }
     
     var body: some View {
@@ -97,17 +66,18 @@ struct HomeView: View {
                                                 .frame(width: g.size.width, alignment: .center)
                                                 .padding()
                                         }
+                                        
+                                        #if DEBUG
+                                        BannerCardView()
+                                            .frame(width: g.size.width, alignment: .center)
+                                            .padding()
+                                        #endif
                                     }
                                 }
                             }
                         }.sheet(isPresented: self.$showTutorial, content: {TutorialView(show: self.$showTutorial)})
                     }.frame(width: g.size.width)
                     .navigationBarTitle(Text("Home"))
-//                    .navigationBarItems(trailing:
-//                        NavigationLink(destination: PaymentView(product: Product()).environmentObject(self.session)) {
-//                            Image(systemName: "cart").resizable().frame(width: 28.0, height: 28.0)
-//                        }.foregroundColor(self.colorScheme == .dark ? Color.white: Color.black)
-//                    )
                 }
             }
         }
