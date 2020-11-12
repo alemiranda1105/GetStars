@@ -156,6 +156,7 @@
 		BE962A0224EFD538009C8AA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE962A0424EFD55B009C8AA7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE962A0524F01B51009C8AA7 /* StarsDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsDB.swift; sourceTree = "<group>"; };
+		BE9D0D2E255DD1A300E9820F /* GetStars.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GetStars.entitlements; sourceTree = "<group>"; };
 		BE9F05F224DAF98000F47E68 /* ConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationView.swift; sourceTree = "<group>"; };
 		BE9F05F424DB039300F47E68 /* CloudStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStorage.swift; sourceTree = "<group>"; };
 		BEA7AA7A24CCA1FD003A4367 /* CreateAutograph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAutograph.swift; sourceTree = "<group>"; };
@@ -226,6 +227,7 @@
 		BE2D820D24AA631A0080A75F /* GetStars */ = {
 			isa = PBXGroup;
 			children = (
+				BE9D0D2E255DD1A300E9820F /* GetStars.entitlements */,
 				BE2D820E24AA631A0080A75F /* AppDelegate.swift */,
 				BE2D821024AA631A0080A75F /* SceneDelegate.swift */,
 				BE3C46FD24ACCFAF00D39F1E /* Classes */,
@@ -860,6 +862,7 @@
 			baseConfigurationReference = 9A5FBAB8B76B5B261D2A6D27 /* Pods-GetStars.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GetStars/GetStars.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"GetStars/Preview Content\"";
@@ -884,6 +887,7 @@
 			baseConfigurationReference = 67F8D13B24058BB55BF8DC87 /* Pods-GetStars.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GetStars/GetStars.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"GetStars/Preview Content\"";
